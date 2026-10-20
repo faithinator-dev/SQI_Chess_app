@@ -86,6 +86,13 @@ class _CommunityScreenState extends State<CommunityScreen> {
     return 'Could not load club updates: $error';
   }
 
+  String _commentError(Object error) {
+    if (error is PostgrestException) {
+      return 'Comment request failed (${error.code}): ${error.message}';
+    }
+    return 'Comment request failed: $error';
+  }
+
   Future<void> _publishPost() async {
     final content = _postController.text.trim();
     if (_submitting || content.isEmpty || !_isAdmin) return;
@@ -132,9 +139,8 @@ class _CommunityScreenState extends State<CommunityScreen> {
     String? commentError;
     try {
       comments = await _repository.getComments(post.id);
-    } catch (_) {
-      commentError =
-          'Comments could not be loaded. Check your connection and retry.';
+    } catch (error) {
+      commentError = _commentError(error);
     }
     loadingComments = false;
     if (!mounted) {
@@ -181,10 +187,9 @@ class _CommunityScreenState extends State<CommunityScreen> {
                                 post.id,
                               );
                               setSheetState(() => comments = refreshed);
-                            } catch (_) {
+                            } catch (error) {
                               setSheetState(
-                                () => commentError =
-                                    'Comments could not be loaded. Please try again.',
+                                () => commentError = _commentError(error),
                               );
                             } finally {
                               setSheetState(() => loadingComments = false);
@@ -259,13 +264,11 @@ class _CommunityScreenState extends State<CommunityScreen> {
                                 );
                                 setSheetState(() => comments = refreshed);
                                 await _load();
-                              } catch (_) {
+                              } catch (error) {
                                 if (context.mounted) {
                                   ScaffoldMessenger.of(context).showSnackBar(
-                                    const SnackBar(
-                                      content: Text(
-                                        'Comment was not sent. Please try again.',
-                                      ),
+                                    SnackBar(
+                                      content: Text(_commentError(error)),
                                     ),
                                   );
                                 }

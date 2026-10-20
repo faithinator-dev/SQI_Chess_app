@@ -205,14 +205,31 @@ class CommunityRepository {
     }
     final rows = await _client
         .from('community_comments')
-        .select('''
-          id, post_id, user_id, content, created_at,
-          profiles!community_comments_user_id_fkey(full_name, username, avatar_url)
-        ''')
+        .select('id, post_id, user_id, content, created_at')
         .eq('post_id', postId)
         .order('created_at')
         .limit(100);
-    return rows.map((row) => Map<String, dynamic>.from(row)).toList();
+    final comments = rows.map((row) => Map<String, dynamic>.from(row)).toList();
+    final userIds = comments.map((row) => row['user_id'] as String).toSet();
+    if (userIds.isEmpty) return comments;
+
+    final profiles = await _client
+        .from('profiles')
+        .select('id,full_name,username,avatar_url')
+        .inFilter('id', userIds.toList());
+    final profilesById = <String, Map<String, dynamic>>{
+      for (final profile in profiles)
+        profile['id'] as String: Map<String, dynamic>.from(profile),
+    };
+
+    return comments
+        .map(
+          (comment) => {
+            ...comment,
+            'profiles': profilesById[comment['user_id']],
+          },
+        )
+        .toList();
   }
 
   Future<void> createComment({
