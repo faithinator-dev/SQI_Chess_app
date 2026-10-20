@@ -1,0 +1,44 @@
+﻿C:\Users\HomePC\Desktop\FLUTTER\SQI FLutter class\projects\sqi_chess_club\lib\features\admin\admin_app_updates_screen.dart:199: child: Text(_saving ? 'Publishing…' : 'Publish'),
+C:\Users\HomePC\Desktop\FLUTTER\SQI FLutter class\projects\sqi_chess_club\lib\features\admin\admin_app_updates_screen.dart:339: '${release.versionName} • Build ${release.buildNumber} • ${release.platform.toUpperCase()}',
+C:\Users\HomePC\Desktop\FLUTTER\SQI FLutter class\projects\sqi_chess_club\lib\features\admin\admin_lessons_screen.dart:222: child: Text(dialogSaving ? 'Saving…' : 'Save lesson'),
+C:\Users\HomePC\Desktop\FLUTTER\SQI FLutter class\projects\sqi_chess_club\lib\features\admin\admin_matches_screen.dart:955: '${match['competition']} Ã¢â‚¬Â¢ ${match['round']}',
+C:\Users\HomePC\Desktop\FLUTTER\SQI FLutter class\projects\sqi_chess_club\lib\features\admin\admin_matches_screen.dart:1102: '$username Ã¢â‚¬Â¢ $rating',
+C:\Users\HomePC\Desktop\FLUTTER\SQI FLutter class\projects\sqi_chess_club\lib\features\admin\admin_matches_screen.dart:1628: '${match['competition']} Ã¢â‚¬Â¢ ${match['round']}',
+C:\Users\HomePC\Desktop\FLUTTER\SQI FLutter class\projects\sqi_chess_club\lib\features\admin\admin_pairings_screen.dart:589: '$_selectedCompetition Ã¢â‚¬Â¢ $_selectedRound Ã¢â‚¬â€ '
+C:\Users\HomePC\Desktop\FLUTTER\SQI FLutter class\projects\sqi_chess_club\lib\features\admin\admin_recordings_screen.dart:283: 'value': '—',
+C:\Users\HomePC\Desktop\FLUTTER\SQI FLutter class\projects\sqi_chess_club\lib\features\admin\admin_recordings_screen.dart:290: 'value': '—',
+C:\Users\HomePC\Desktop\FLUTTER\SQI FLutter class\projects\sqi_chess_club\lib\features\admin\admin_recordings_screen.dart:297: 'value': '—',
+C:\Users\HomePC\Desktop\FLUTTER\SQI FLutter class\projects\sqi_chess_club\lib\features\admin\admin_recordings_screen.dart:304: 'value': '—',
+C:\Users\HomePC\Desktop\FLUTTER\SQI FLutter class\projects\sqi_chess_club\lib\features\admin\admin_recordings_screen.dart:481: '—',
+C:\Users\HomePC\Desktop\FLUTTER\SQI FLutter class\projects\sqi_chess_club\lib\features\admin\admin_recordings_screen.dart:1130: '${recording['whiteRating']}  Ã¢â‚¬Â¢  White',
+C:\Users\HomePC\Desktop\FLUTTER\SQI FLutter class\projects\sqi_chess_club\lib\features\admin\admin_recordings_screen.dart:1163: '${recording['blackRating']}  Ã¢â‚¬Â¢  Black',
+C:\Users\HomePC\Desktop\FLUTTER\SQI FLutter class\projects\sqi_chess_club\lib\features\admin\admin_recordings_screen.dart:1508: '$rating Ã¢â‚¬Â¢ ${isWhite ? 'White' : 'Black'}',
+C:\Users\HomePC\Desktop\FLUTTER\SQI FLutter class\projects\sqi_chess_club\lib\features\archive\match_history_screen.dart:794: date: '${game['date']} • ${game['timePlayed']}',
+C:\Users\HomePC\Desktop\FLUTTER\SQI FLutter class\projects\sqi_chess_club\lib\features\competitions\competitions_screen.dart:164: 'capacity': competition.capacity?.toString() ?? '—',
+C:\Users\HomePC\Desktop\FLUTTER\SQI FLutter class\projects\sqi_chess_club\lib\features\competitions\competitions_screen.dart:168: 'rounds': '—',
+C:\Users\HomePC\Desktop\FLUTTER\SQI FLutter class\projects\sqi_chess_club\lib\features\competitions\competition_details_screen.dart:350: _infoRow('Start', '$date • $time'),
+C:\Users\HomePC\Desktop\FLUTTER\SQI FLutter class\projects\sqi_chess_club\lib\features\competitions\competition_lobby_screen.dart:417: '$date • $time',
+C:\Users\HomePC\Desktop\FLUTTER\SQI FLutter class\projects\sqi_chess_club\lib\features\competitions\competition_lobby_screen.dart:535: 'Intermediate • 1,284',
+C:\Users\HomePC\Desktop\FLUTTER\SQI FLutter class\projects\sqi_chess_club\lib\features\competitions\competition_lobby_screen.dart:677: 'Intermediate • 1,301',
+C:\Users\HomePC\Desktop\FLUTTER\SQI FLutter class\projects\sqi_chess_club\lib\features\guest\guest_entry_screen.dart:246: 'Guest mode • No profile required',
+C:\Users\HomePC\Desktop\FLUTTER\SQI FLutter class\projects\sqi_chess_club\lib\features\matches\matches_screen.dart:927: '${game.timeControl}  •  White',
+C:\Users\HomePC\Desktop\FLUTTER\SQI FLutter class\projects\sqi_chess_club\lib\features\matches\matches_screen.dart:1366: ClipboardData(text: '$address:$_port  •  Room $_roomCode'),
+C:\Users\HomePC\Desktop\FLUTTER\SQI FLutter class\projects\sqi_chess_club\lib\features\matches\matches_screen.dart:2235: : 'Room ${widget.roomCode}  •  You will play Black',
+C:\Users\HomePC\Desktop\FLUTTER\SQI FLutter class\projects\sqi_chess_club\lib\features\profile\app_update_screen.dart:301: 'Version ${release.versionName} • ${release.platform.toUpperCase()}',
+C:\Users\HomePC\Desktop\FLUTTER\SQI FLutter class\projects\sqi_chess_club\lib\features\profile\app_update_screen.dart:365: ? 'Opening download…'
+C:\Users\HomePC\Desktop\FLUTTER\SQI FLutter class\projects\sqi_chess_club\lib\features\spectator\chess_spectator_screen.dart:255: return (_game?['time_control'] ?? '—').toString();
+C:\Users\HomePC\Desktop\FLUTTER\SQI FLutter class\projects\sqi_chess_club\lib\features\spectator\chess_spectator_screen.dart:679: pair.black ?? '—',
+C:\Users\HomePC\Desktop\FLUTTER\SQI FLutter class\projects\sqi_chess_club\lib\features\spectator\spectator_replay_screen.dart:83: return '$moveNumber. $side — ${_moves[moveIndex]}';
+C:\Users\HomePC\Desktop\FLUTTER\SQI FLutter class\projects\sqi_chess_club\lib\features\spectator\spectator_replay_screen.dart:387: : '—';
+C:\Users\HomePC\Desktop\FLUTTER\SQI FLutter class\projects\sqi_chess_club\lib\practice\practice_game_screen.dart:261: _status = 'Checkmate — You win!';
+C:\Users\HomePC\Desktop\FLUTTER\SQI FLutter class\projects\sqi_chess_club\lib\practice\practice_game_screen.dart:263: _status = 'Checkmate — Computer wins!';
+C:\Users\HomePC\Desktop\FLUTTER\SQI FLutter class\projects\sqi_chess_club\lib\practice\practice_game_screen.dart:266: _status = 'Draw — Stalemate';
+C:\Users\HomePC\Desktop\FLUTTER\SQI FLutter class\projects\sqi_chess_club\lib\practice\practice_game_screen.dart:268: _status = 'Game over — Draw';
+C:\Users\HomePC\Desktop\FLUTTER\SQI FLutter class\projects\sqi_chess_club\lib\practice\practice_game_screen.dart:392: _status = 'You resigned — Computer wins';
+C:\Users\HomePC\Desktop\FLUTTER\SQI FLutter class\projects\sqi_chess_club\lib\practice\practice_game_screen.dart:549: subtitle: '${_difficulty.title} • ${_difficulty.elo}',
+C:\Users\HomePC\Desktop\FLUTTER\SQI FLutter class\projects\sqi_chess_club\lib\practice\practice_game_screen.dart:588: subtitle: 'You • White',
+C:\Users\HomePC\Desktop\FLUTTER\SQI FLutter class\projects\sqi_chess_club\lib\practice\practice_game_screen.dart:690: subtitle: '${_difficulty.title} • ${_difficulty.elo}',
+C:\Users\HomePC\Desktop\FLUTTER\SQI FLutter class\projects\sqi_chess_club\lib\practice\practice_game_screen.dart:700: subtitle: 'You • White',
+C:\Users\HomePC\Desktop\FLUTTER\SQI FLutter class\projects\sqi_chess_club\lib\practice\practice_screen.dart:32: 'rating': '600 â€“ 900',
+C:\Users\HomePC\Desktop\FLUTTER\SQI FLutter class\projects\sqi_chess_club\lib\practice\practice_screen.dart:48: 'rating': '900 â€“ 1300',
+C:\Users\HomePC\Desktop\FLUTTER\SQI FLutter class\projects\sqi_chess_club\lib\practice\practice_screen.dart:64: 'rating': '1300 â€“ 1700',
