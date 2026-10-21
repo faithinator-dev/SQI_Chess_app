@@ -1,4 +1,4 @@
-﻿import 'dart:async';
+import 'dart:async';
 
 import 'package:chessground/chessground.dart';
 import 'package:dartchess/dartchess.dart';
@@ -260,8 +260,8 @@ class _LocalPvpScreenState extends State<LocalPvpScreen> {
                     title,
                     textAlign: TextAlign.center,
                     style: const TextStyle(
+                      fontSize: 20,
                       color: textPrimary,
-                      fontSize: 24,
                       fontWeight: FontWeight.w900,
                     ),
                   ),
@@ -269,7 +269,7 @@ class _LocalPvpScreenState extends State<LocalPvpScreen> {
                   Text(
                     reason,
                     textAlign: TextAlign.center,
-                    style: const TextStyle(color: textMuted, fontSize: 14),
+                    style: const TextStyle(fontSize: 20, color: textMuted),
                   ),
                   const SizedBox(height: 22),
                   Row(
@@ -282,9 +282,12 @@ class _LocalPvpScreenState extends State<LocalPvpScreen> {
                               MaterialPageRoute(
                                 builder: (_) => GameReviewScreen(
                                   result: title,
-                                  timeControl: '${widget.config.initialTimeSeconds ~/ 60}+${widget.config.incrementSeconds}',
-                                  whitePlayerName: widget.config.whitePlayerName,
-                                  blackPlayerName: widget.config.blackPlayerName,
+                                  timeControl:
+                                      '${widget.config.initialTimeSeconds ~/ 60}+${widget.config.incrementSeconds}',
+                                  whitePlayerName:
+                                      widget.config.whitePlayerName,
+                                  blackPlayerName:
+                                      widget.config.blackPlayerName,
                                   winnerSide: winnerSide,
                                   moves: List<String>.of(_moves),
                                 ),
@@ -352,11 +355,11 @@ class _LocalPvpScreenState extends State<LocalPvpScreen> {
           backgroundColor: surface,
           title: const Text(
             'Resign game?',
-            style: TextStyle(color: textPrimary),
+            style: TextStyle(fontSize: 20, color: textPrimary),
           ),
           content: const Text(
             'Are you sure you want to resign this game?',
-            style: TextStyle(color: textSecondary),
+            style: TextStyle(fontSize: 20, color: textSecondary),
           ),
           actions: [
             TextButton(
@@ -365,7 +368,10 @@ class _LocalPvpScreenState extends State<LocalPvpScreen> {
             ),
             TextButton(
               onPressed: () => Navigator.of(context).pop(true),
-              child: const Text('RESIGN', style: TextStyle(color: danger)),
+              child: const Text(
+                'RESIGN',
+                style: TextStyle(fontSize: 20, color: danger),
+              ),
             ),
           ],
         );
@@ -426,8 +432,8 @@ class _LocalPvpScreenState extends State<LocalPvpScreen> {
           Text(
             name,
             style: const TextStyle(
+              fontSize: 20,
               color: textSecondary,
-              fontSize: 13,
               fontWeight: FontWeight.w700,
             ),
           ),
@@ -435,8 +441,8 @@ class _LocalPvpScreenState extends State<LocalPvpScreen> {
           Text(
             _formatTime(milliseconds),
             style: TextStyle(
-              color: critical ? danger : textPrimary,
               fontSize: 20,
+              color: critical ? danger : textPrimary,
               fontWeight: FontWeight.w900,
               fontFeatures: const [FontFeature.tabularFigures()],
             ),
@@ -489,7 +495,7 @@ class _LocalPvpScreenState extends State<LocalPvpScreen> {
         alignment: Alignment.centerLeft,
         child: Text(
           'No moves yet',
-          style: TextStyle(color: textMuted, fontSize: 12),
+          style: TextStyle(fontSize: 20, color: textMuted),
         ),
       );
     }
@@ -502,6 +508,7 @@ class _LocalPvpScreenState extends State<LocalPvpScreen> {
           TextSpan(
             text: '${(i ~/ 2) + 1}. ',
             style: const TextStyle(
+              fontSize: 20,
               color: textMuted,
               fontWeight: FontWeight.w700,
             ),
@@ -513,6 +520,7 @@ class _LocalPvpScreenState extends State<LocalPvpScreen> {
         TextSpan(
           text: '${_moves[i]} ',
           style: const TextStyle(
+            fontSize: 20,
             color: textSecondary,
             fontWeight: FontWeight.w700,
           ),
@@ -525,7 +533,7 @@ class _LocalPvpScreenState extends State<LocalPvpScreen> {
       physics: const BouncingScrollPhysics(),
       child: RichText(
         text: TextSpan(
-          style: const TextStyle(fontSize: 12, height: 1.4),
+          style: const TextStyle(fontSize: 20, height: 1.4),
           children: spans,
         ),
       ),
@@ -590,8 +598,8 @@ class _LocalPvpScreenState extends State<LocalPvpScreen> {
                     'PLAYER VS PLAYER',
                     textAlign: TextAlign.center,
                     style: TextStyle(
+                      fontSize: 20,
                       color: textPrimary,
-                      fontSize: 13,
                       fontWeight: FontWeight.w900,
                       letterSpacing: 1,
                     ),
@@ -677,8 +685,8 @@ class _LocalPvpScreenState extends State<LocalPvpScreen> {
                         child: Text(
                           'PLAYER VS PLAYER',
                           style: TextStyle(
+                            fontSize: 20,
                             color: textPrimary,
-                            fontSize: 12,
                             fontWeight: FontWeight.w900,
                             letterSpacing: 0.8,
                           ),

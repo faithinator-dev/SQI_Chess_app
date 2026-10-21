@@ -1,4 +1,4 @@
-﻿import 'dart:async';
+import 'dart:async';
 
 import 'package:flutter/material.dart';
 
@@ -199,15 +199,15 @@ class _CompetitionLobbyScreenState extends State<CompetitionLobbyScreen> {
               Text(
                 'Competition Lobby',
                 style: TextStyle(
+                  fontSize: 20,
                   color: Colors.white,
-                  fontSize: 19,
                   fontWeight: FontWeight.w800,
                 ),
               ),
               SizedBox(height: 3),
               Text(
                 'Prepare for battle',
-                style: TextStyle(color: muted, fontSize: 12),
+                style: TextStyle(fontSize: 20, color: muted),
               ),
             ],
           ),
@@ -257,8 +257,8 @@ class _CompetitionLobbyScreenState extends State<CompetitionLobbyScreen> {
                     const Text(
                       'SQI CHECKMATE ARENA',
                       style: TextStyle(
+                        fontSize: 20,
                         color: blue,
-                        fontSize: 12,
                         fontWeight: FontWeight.w900,
                         letterSpacing: 1.5,
                       ),
@@ -267,8 +267,8 @@ class _CompetitionLobbyScreenState extends State<CompetitionLobbyScreen> {
                     Text(
                       name,
                       style: const TextStyle(
+                        fontSize: 20,
                         color: Colors.white,
-                        fontSize: 24,
                         fontWeight: FontWeight.w800,
                       ),
                     ),
@@ -276,8 +276,8 @@ class _CompetitionLobbyScreenState extends State<CompetitionLobbyScreen> {
                     Text(
                       competitionId,
                       style: const TextStyle(
+                        fontSize: 20,
                         color: muted,
-                        fontSize: 12,
                         fontWeight: FontWeight.w600,
                       ),
                     ),
@@ -335,15 +335,15 @@ class _CompetitionLobbyScreenState extends State<CompetitionLobbyScreen> {
                     Text(
                       'Tournament Status',
                       style: TextStyle(
+                        fontSize: 20,
                         color: Colors.white,
-                        fontSize: 15,
                         fontWeight: FontWeight.w800,
                       ),
                     ),
                     SizedBox(height: 4),
                     Text(
                       'Stay in the lobby while the tournament prepares.',
-                      style: TextStyle(color: muted, fontSize: 12),
+                      style: TextStyle(fontSize: 20, color: muted),
                     ),
                   ],
                 ),
@@ -368,8 +368,8 @@ class _CompetitionLobbyScreenState extends State<CompetitionLobbyScreen> {
           const Text(
             'PAIRING READY',
             style: TextStyle(
+              fontSize: 20,
               color: green,
-              fontSize: 14,
               fontWeight: FontWeight.w900,
               letterSpacing: 1.5,
             ),
@@ -378,8 +378,8 @@ class _CompetitionLobbyScreenState extends State<CompetitionLobbyScreen> {
           const Text(
             'Your match is ready',
             style: TextStyle(
+              fontSize: 20,
               color: Colors.white,
-              fontSize: 25,
               fontWeight: FontWeight.w800,
             ),
           ),
@@ -396,8 +396,8 @@ class _CompetitionLobbyScreenState extends State<CompetitionLobbyScreen> {
         const Text(
           'COMPETITION STARTS IN',
           style: TextStyle(
+            fontSize: 20,
             color: muted,
-            fontSize: 12,
             fontWeight: FontWeight.w900,
             letterSpacing: 1.5,
           ),
@@ -406,8 +406,8 @@ class _CompetitionLobbyScreenState extends State<CompetitionLobbyScreen> {
         Text(
           '$minutes:$seconds',
           style: const TextStyle(
+            fontSize: 20,
             color: Colors.white,
-            fontSize: 42,
             fontWeight: FontWeight.w800,
             letterSpacing: 2,
           ),
@@ -415,7 +415,7 @@ class _CompetitionLobbyScreenState extends State<CompetitionLobbyScreen> {
         const SizedBox(height: 7),
         Text(
           '$date • $time',
-          style: const TextStyle(color: muted, fontSize: 12),
+          style: const TextStyle(fontSize: 20, color: muted),
         ),
       ],
     );
@@ -455,6 +455,7 @@ class _CompetitionLobbyScreenState extends State<CompetitionLobbyScreen> {
             Text(
               _ready ? 'You are ready' : 'Mark me as ready',
               style: TextStyle(
+                fontSize: 20,
                 color: _ready ? green : Colors.white,
                 fontWeight: FontWeight.w700,
               ),
@@ -486,7 +487,7 @@ class _CompetitionLobbyScreenState extends State<CompetitionLobbyScreen> {
             SizedBox(width: 9),
             Text(
               'Enter Your Match',
-              style: TextStyle(fontSize: 14, fontWeight: FontWeight.w800),
+              style: TextStyle(fontSize: 20, fontWeight: FontWeight.w800),
             ),
           ],
         ),
@@ -508,8 +509,8 @@ class _CompetitionLobbyScreenState extends State<CompetitionLobbyScreen> {
           const Text(
             'Your Player Card',
             style: TextStyle(
+              fontSize: 20,
               color: Colors.white,
-              fontSize: 15,
               fontWeight: FontWeight.w800,
             ),
           ),
@@ -525,15 +526,15 @@ class _CompetitionLobbyScreenState extends State<CompetitionLobbyScreen> {
                     Text(
                       'Faith Toluwanimi',
                       style: TextStyle(
+                        fontSize: 20,
                         color: Colors.white,
-                        fontSize: 14,
                         fontWeight: FontWeight.w800,
                       ),
                     ),
                     SizedBox(height: 4),
                     Text(
                       'Intermediate • 1,284',
-                      style: TextStyle(color: muted, fontSize: 12),
+                      style: TextStyle(fontSize: 20, color: muted),
                     ),
                   ],
                 ),
@@ -545,10 +546,10 @@ class _CompetitionLobbyScreenState extends State<CompetitionLobbyScreen> {
                   borderRadius: BorderRadius.circular(9),
                 ),
                 child: const Text(
-                  'â™Ÿ 1,284',
+                  'P 1,284',
                   style: TextStyle(
+                    fontSize: 20,
                     color: gold,
-                    fontSize: 14,
                     fontWeight: FontWeight.w800,
                   ),
                 ),
@@ -626,8 +627,8 @@ class _CompetitionLobbyScreenState extends State<CompetitionLobbyScreen> {
                 const Text(
                   'Automatic pairing',
                   style: TextStyle(
+                    fontSize: 20,
                     color: Colors.white,
-                    fontSize: 15,
                     fontWeight: FontWeight.w800,
                   ),
                 ),
@@ -635,7 +636,7 @@ class _CompetitionLobbyScreenState extends State<CompetitionLobbyScreen> {
                 const Text(
                   'Players will be paired according to skill level and tournament rules.',
                   textAlign: TextAlign.center,
-                  style: TextStyle(color: muted, fontSize: 12, height: 1.5),
+                  style: TextStyle(fontSize: 20, color: muted, height: 1.5),
                 ),
                 const SizedBox(height: 17),
                 _pairingRule('Skill level', skill),
@@ -667,15 +668,15 @@ class _CompetitionLobbyScreenState extends State<CompetitionLobbyScreen> {
                     Text(
                       'Daniel Ade',
                       style: TextStyle(
+                        fontSize: 20,
                         color: Colors.white,
-                        fontSize: 14,
                         fontWeight: FontWeight.w800,
                       ),
                     ),
                     SizedBox(height: 4),
                     Text(
                       'Intermediate • 1,301',
-                      style: TextStyle(color: muted, fontSize: 12),
+                      style: TextStyle(fontSize: 20, color: muted),
                     ),
                   ],
                 ),
@@ -750,14 +751,14 @@ class _CompetitionLobbyScreenState extends State<CompetitionLobbyScreen> {
           children: [
             const Text(
               'Tournament capacity',
-              style: TextStyle(color: muted, fontSize: 12),
+              style: TextStyle(fontSize: 20, color: muted),
             ),
             const Spacer(),
             Text(
               '$_players / 256',
               style: const TextStyle(
+                fontSize: 20,
                 color: Colors.white,
-                fontSize: 14,
                 fontWeight: FontWeight.w700,
               ),
             ),
@@ -789,13 +790,13 @@ class _CompetitionLobbyScreenState extends State<CompetitionLobbyScreen> {
         Text(
           value,
           style: const TextStyle(
+            fontSize: 20,
             color: Colors.white,
-            fontSize: 18,
             fontWeight: FontWeight.w800,
           ),
         ),
         const SizedBox(height: 3),
-        Text(label, style: const TextStyle(color: muted, fontSize: 12)),
+        Text(label, style: const TextStyle(fontSize: 20, color: muted)),
       ],
     );
   }
@@ -805,13 +806,13 @@ class _CompetitionLobbyScreenState extends State<CompetitionLobbyScreen> {
       padding: const EdgeInsets.only(bottom: 11),
       child: Row(
         children: [
-          Text(label, style: const TextStyle(color: muted, fontSize: 12)),
+          Text(label, style: const TextStyle(fontSize: 20, color: muted)),
           const Spacer(),
           Text(
             value,
             style: const TextStyle(
+              fontSize: 20,
               color: Colors.white,
-              fontSize: 14,
               fontWeight: FontWeight.w700,
             ),
           ),
@@ -835,8 +836,8 @@ class _CompetitionLobbyScreenState extends State<CompetitionLobbyScreen> {
                 Text(
                   title,
                   style: const TextStyle(
+                    fontSize: 20,
                     color: Colors.white,
-                    fontSize: 12,
                     fontWeight: FontWeight.w700,
                   ),
                 ),
@@ -844,8 +845,8 @@ class _CompetitionLobbyScreenState extends State<CompetitionLobbyScreen> {
                 Text(
                   subtitle,
                   style: const TextStyle(
+                    fontSize: 20,
                     color: muted,
-                    fontSize: 12,
                     height: 1.4,
                   ),
                 ),
@@ -865,7 +866,7 @@ class _CompetitionLobbyScreenState extends State<CompetitionLobbyScreen> {
           Expanded(
             child: Text(
               label,
-              style: const TextStyle(color: muted, fontSize: 12),
+              style: const TextStyle(fontSize: 20, color: muted),
             ),
           ),
           Flexible(
@@ -873,8 +874,8 @@ class _CompetitionLobbyScreenState extends State<CompetitionLobbyScreen> {
               value,
               textAlign: TextAlign.right,
               style: const TextStyle(
+                fontSize: 20,
                 color: Colors.white,
-                fontSize: 14,
                 fontWeight: FontWeight.w700,
               ),
             ),
@@ -915,8 +916,8 @@ class _CompetitionLobbyScreenState extends State<CompetitionLobbyScreen> {
               Text(
                 title,
                 style: const TextStyle(
+                  fontSize: 20,
                   color: Colors.white,
-                  fontSize: 15,
                   fontWeight: FontWeight.w800,
                 ),
               ),
@@ -936,8 +937,8 @@ class _CompetitionLobbyScreenState extends State<CompetitionLobbyScreen> {
           Text(
             value,
             style: const TextStyle(
+              fontSize: 20,
               color: Colors.white,
-              fontSize: 15,
               fontWeight: FontWeight.w800,
             ),
           ),
@@ -945,8 +946,8 @@ class _CompetitionLobbyScreenState extends State<CompetitionLobbyScreen> {
           Text(
             label,
             style: const TextStyle(
+              fontSize: 20,
               color: muted,
-              fontSize: 12,
               fontWeight: FontWeight.w700,
               letterSpacing: 0.6,
             ),
@@ -974,8 +975,8 @@ class _CompetitionLobbyScreenState extends State<CompetitionLobbyScreen> {
       child: Text(
         initials,
         style: TextStyle(
+          fontSize: 20,
           color: Colors.white,
-          fontSize: size * 0.27,
           fontWeight: FontWeight.w800,
         ),
       ),
@@ -1000,7 +1001,7 @@ class _CompetitionLobbyScreenState extends State<CompetitionLobbyScreen> {
         ],
       ),
       child: const Center(
-        child: Text('â™ž', style: TextStyle(color: Colors.white, fontSize: 31)),
+        child: Text('N', style: TextStyle(fontSize: 20, color: Colors.white)),
       ),
     );
   }
@@ -1025,8 +1026,8 @@ class _CompetitionLobbyScreenState extends State<CompetitionLobbyScreen> {
           Text(
             text,
             style: TextStyle(
+              fontSize: 20,
               color: color,
-              fontSize: 12,
               fontWeight: FontWeight.w900,
               letterSpacing: 0.6,
             ),

@@ -1,4 +1,4 @@
-﻿import 'package:flutter/material.dart';
+import 'package:flutter/material.dart';
 
 import '../../core/repositories/admin_repository.dart';
 
@@ -94,7 +94,7 @@ class _AdminUsersScreenState extends State<AdminUsersScreen> {
         elevation: 0,
         title: const Text(
           'Players',
-          style: TextStyle(fontWeight: FontWeight.w900),
+          style: TextStyle(fontSize: 20, fontWeight: FontWeight.w900),
         ),
         actions: [
           Padding(
@@ -157,15 +157,15 @@ class _AdminUsersScreenState extends State<AdminUsersScreen> {
               Text(
                 'Player Management',
                 style: TextStyle(
+                  fontSize: 20,
                   color: Colors.white,
-                  fontSize: 24,
                   fontWeight: FontWeight.w900,
                 ),
               ),
               SizedBox(height: 6),
               Text(
                 'View, search and manage registered arena players.',
-                style: TextStyle(color: muted, fontSize: 14),
+                style: TextStyle(fontSize: 20, color: muted),
               ),
             ],
           ),
@@ -264,16 +264,16 @@ class _AdminUsersScreenState extends State<AdminUsersScreen> {
                 Text(
                   value,
                   style: const TextStyle(
+                    fontSize: 20,
                     color: Colors.white,
                     fontWeight: FontWeight.w900,
-                    fontSize: 18,
                   ),
                 ),
                 const SizedBox(height: 3),
                 Text(
                   title,
                   overflow: TextOverflow.ellipsis,
-                  style: const TextStyle(color: muted, fontSize: 12),
+                  style: const TextStyle(fontSize: 20, color: muted),
                 ),
               ],
             ),
@@ -315,10 +315,10 @@ class _AdminUsersScreenState extends State<AdminUsersScreen> {
       onChanged: (_) {
         setState(() {});
       },
-      style: const TextStyle(color: Colors.white, fontSize: 16),
+      style: const TextStyle(fontSize: 20, color: Colors.white),
       decoration: InputDecoration(
         hintText: 'Search name, username or role...',
-        hintStyle: const TextStyle(color: muted, fontSize: 14),
+        hintStyle: const TextStyle(fontSize: 20, color: muted),
         prefixIcon: const Icon(Icons.search_rounded, color: muted, size: 19),
         suffixIcon: _searchController.text.isNotEmpty
             ? IconButton(
@@ -365,7 +365,7 @@ class _AdminUsersScreenState extends State<AdminUsersScreen> {
                 value: filter,
                 child: Text(
                   filter,
-                  style: const TextStyle(color: Colors.white, fontSize: 14),
+                  style: const TextStyle(fontSize: 20, color: Colors.white),
                 ),
               ),
             )
@@ -386,8 +386,8 @@ class _AdminUsersScreenState extends State<AdminUsersScreen> {
             Text(
               'Filter: $_filter',
               style: const TextStyle(
+                fontSize: 20,
                 color: Colors.white,
-                fontSize: 14,
                 fontWeight: FontWeight.w700,
               ),
             ),
@@ -435,8 +435,8 @@ class _AdminUsersScreenState extends State<AdminUsersScreen> {
             child: Text(
               'PLAYER',
               style: TextStyle(
+                fontSize: 20,
                 color: muted,
-                fontSize: 12,
                 fontWeight: FontWeight.w900,
                 letterSpacing: .8,
               ),
@@ -446,8 +446,8 @@ class _AdminUsersScreenState extends State<AdminUsersScreen> {
             child: Text(
               'RATING',
               style: TextStyle(
+                fontSize: 20,
                 color: muted,
-                fontSize: 12,
                 fontWeight: FontWeight.w900,
                 letterSpacing: .8,
               ),
@@ -457,8 +457,8 @@ class _AdminUsersScreenState extends State<AdminUsersScreen> {
             child: Text(
               'LEVEL',
               style: TextStyle(
+                fontSize: 20,
                 color: muted,
-                fontSize: 12,
                 fontWeight: FontWeight.w900,
                 letterSpacing: .8,
               ),
@@ -468,8 +468,8 @@ class _AdminUsersScreenState extends State<AdminUsersScreen> {
             child: Text(
               'GAMES',
               style: TextStyle(
+                fontSize: 20,
                 color: muted,
-                fontSize: 12,
                 fontWeight: FontWeight.w900,
                 letterSpacing: .8,
               ),
@@ -479,8 +479,8 @@ class _AdminUsersScreenState extends State<AdminUsersScreen> {
             child: Text(
               'STATUS',
               style: TextStyle(
+                fontSize: 20,
                 color: muted,
-                fontSize: 12,
                 fontWeight: FontWeight.w900,
                 letterSpacing: .8,
               ),
@@ -492,8 +492,8 @@ class _AdminUsersScreenState extends State<AdminUsersScreen> {
               'ACTION',
               textAlign: TextAlign.right,
               style: TextStyle(
+                fontSize: 20,
                 color: muted,
-                fontSize: 12,
                 fontWeight: FontWeight.w900,
                 letterSpacing: .8,
               ),
@@ -523,8 +523,8 @@ class _AdminUsersScreenState extends State<AdminUsersScreen> {
               child: Text(
                 '${user['rating']}',
                 style: const TextStyle(
+                  fontSize: 20,
                   color: gold,
-                  fontSize: 14,
                   fontWeight: FontWeight.w900,
                 ),
               ),
@@ -532,13 +532,13 @@ class _AdminUsersScreenState extends State<AdminUsersScreen> {
             Expanded(
               child: Text(
                 user['level'],
-                style: const TextStyle(color: Colors.white, fontSize: 12),
+                style: const TextStyle(fontSize: 20, color: Colors.white),
               ),
             ),
             Expanded(
               child: Text(
                 '${user['games']}',
-                style: const TextStyle(color: muted, fontSize: 12),
+                style: const TextStyle(fontSize: 20, color: muted),
               ),
             ),
             Expanded(
@@ -556,8 +556,8 @@ class _AdminUsersScreenState extends State<AdminUsersScreen> {
                   Text(
                     user['status'],
                     style: TextStyle(
+                      fontSize: 20,
                       color: statusColor,
-                      fontSize: 12,
                       fontWeight: FontWeight.w700,
                     ),
                   ),
@@ -595,9 +595,9 @@ class _AdminUsersScreenState extends State<AdminUsersScreen> {
           child: Text(
             name.substring(0, 1).toUpperCase(),
             style: const TextStyle(
+              fontSize: 20,
               color: blue,
               fontWeight: FontWeight.w900,
-              fontSize: 12,
             ),
           ),
         ),
@@ -610,16 +610,16 @@ class _AdminUsersScreenState extends State<AdminUsersScreen> {
                 name,
                 overflow: TextOverflow.ellipsis,
                 style: const TextStyle(
+                  fontSize: 20,
                   color: Colors.white,
-                  fontSize: 16,
                   fontWeight: FontWeight.w800,
                 ),
               ),
               const SizedBox(height: 3),
               Text(
-                '${user['username']} Â· ${user['role'] == 'admin' ? 'Admin' : 'Player'}',
+                '${user['username']} | ${user['role'] == 'admin' ? 'Admin' : 'Player'}',
                 overflow: TextOverflow.ellipsis,
-                style: const TextStyle(color: muted, fontSize: 12),
+                style: const TextStyle(fontSize: 20, color: muted),
               ),
             ],
           ),
@@ -679,8 +679,8 @@ class _AdminUsersScreenState extends State<AdminUsersScreen> {
                       const Text(
                         'STATUS',
                         style: TextStyle(
+                          fontSize: 20,
                           color: muted,
-                          fontSize: 12,
                           fontWeight: FontWeight.w900,
                         ),
                       ),
@@ -700,8 +700,8 @@ class _AdminUsersScreenState extends State<AdminUsersScreen> {
                           Text(
                             user['status'],
                             style: TextStyle(
+                              fontSize: 20,
                               color: statusColor,
-                              fontSize: 12,
                               fontWeight: FontWeight.w800,
                             ),
                           ),
@@ -726,8 +726,8 @@ class _AdminUsersScreenState extends State<AdminUsersScreen> {
           Text(
             title.toUpperCase(),
             style: const TextStyle(
+              fontSize: 20,
               color: muted,
-              fontSize: 12,
               fontWeight: FontWeight.w900,
             ),
           ),
@@ -736,8 +736,8 @@ class _AdminUsersScreenState extends State<AdminUsersScreen> {
             value,
             overflow: TextOverflow.ellipsis,
             style: TextStyle(
+              fontSize: 20,
               color: color,
-              fontSize: 12,
               fontWeight: FontWeight.w800,
             ),
           ),
@@ -760,12 +760,16 @@ class _AdminUsersScreenState extends State<AdminUsersScreen> {
           SizedBox(height: 12),
           Text(
             'No players found',
-            style: TextStyle(color: Colors.white, fontWeight: FontWeight.w800),
+            style: TextStyle(
+              fontSize: 20,
+              color: Colors.white,
+              fontWeight: FontWeight.w800,
+            ),
           ),
           SizedBox(height: 5),
           Text(
             'Try changing your search or filter.',
-            style: TextStyle(color: muted, fontSize: 14),
+            style: TextStyle(fontSize: 20, color: muted),
           ),
         ],
       ),
@@ -812,8 +816,8 @@ class _AdminUsersScreenState extends State<AdminUsersScreen> {
                 child: Text(
                   user['name'].toString().substring(0, 1).toUpperCase(),
                   style: const TextStyle(
+                    fontSize: 20,
                     color: blue,
-                    fontSize: 22,
                     fontWeight: FontWeight.w900,
                   ),
                 ),
@@ -822,15 +826,15 @@ class _AdminUsersScreenState extends State<AdminUsersScreen> {
               Text(
                 user['name'],
                 style: const TextStyle(
+                  fontSize: 20,
                   color: Colors.white,
-                  fontSize: 18,
                   fontWeight: FontWeight.w900,
                 ),
               ),
               const SizedBox(height: 4),
               Text(
                 user['username'],
-                style: const TextStyle(color: muted, fontSize: 14),
+                style: const TextStyle(fontSize: 20, color: muted),
               ),
               const SizedBox(height: 22),
               _detailRow('Rating', '${user['rating']}'),
@@ -883,13 +887,13 @@ class _AdminUsersScreenState extends State<AdminUsersScreen> {
       padding: const EdgeInsets.only(bottom: 13),
       child: Row(
         children: [
-          Text(label, style: const TextStyle(color: muted, fontSize: 14)),
+          Text(label, style: const TextStyle(fontSize: 20, color: muted)),
           const Spacer(),
           Text(
             value,
             style: const TextStyle(
+              fontSize: 20,
               color: Colors.white,
-              fontSize: 14,
               fontWeight: FontWeight.w800,
             ),
           ),
@@ -911,13 +915,17 @@ class _AdminUsersScreenState extends State<AdminUsersScreen> {
         const SizedBox(height: 10),
         const Text(
           'Could not load player profiles',
-          style: TextStyle(color: Colors.white, fontWeight: FontWeight.w800),
+          style: TextStyle(
+            fontSize: 20,
+            color: Colors.white,
+            fontWeight: FontWeight.w800,
+          ),
         ),
         const SizedBox(height: 6),
         Text(
           _error ?? 'Unknown error',
           textAlign: TextAlign.center,
-          style: const TextStyle(color: muted, fontSize: 14),
+          style: const TextStyle(fontSize: 20, color: muted),
         ),
         const SizedBox(height: 12),
         OutlinedButton.icon(
@@ -937,11 +945,11 @@ class _AdminUsersScreenState extends State<AdminUsersScreen> {
         backgroundColor: surface,
         title: Text(
           makingAdmin ? 'Make administrator?' : 'Remove administrator access?',
-          style: const TextStyle(color: Colors.white),
+          style: const TextStyle(fontSize: 20, color: Colors.white),
         ),
         content: Text(
           '${user['name']} will ${makingAdmin ? 'gain' : 'lose'} administrator permissions.',
-          style: const TextStyle(color: muted),
+          style: const TextStyle(fontSize: 20, color: muted),
         ),
         actions: [
           TextButton(

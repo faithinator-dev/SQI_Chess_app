@@ -1,4 +1,4 @@
-﻿import 'package:flutter/foundation.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:package_info_plus/package_info_plus.dart';
 import 'package:url_launcher/url_launcher.dart';
@@ -205,12 +205,13 @@ class _AppUpdateScreenState extends State<AppUpdateScreen> {
               children: [
                 const Text(
                   'Installed version',
-                  style: TextStyle(color: _muted, fontSize: 12),
+                  style: TextStyle(fontSize: 20, color: _muted),
                 ),
                 const SizedBox(height: 4),
                 Text(
                   _currentVersion,
                   style: const TextStyle(
+                    fontSize: 20,
                     color: Colors.white,
                     fontWeight: FontWeight.w800,
                   ),
@@ -221,8 +222,8 @@ class _AppUpdateScreenState extends State<AppUpdateScreen> {
           Text(
             _platform.toUpperCase(),
             style: const TextStyle(
+              fontSize: 20,
               color: _muted,
-              fontSize: 12,
               fontWeight: FontWeight.w800,
             ),
           ),
@@ -243,8 +244,8 @@ class _AppUpdateScreenState extends State<AppUpdateScreen> {
               Text(
                 'You are up to date',
                 style: TextStyle(
+                  fontSize: 20,
                   color: Colors.white,
-                  fontSize: 17,
                   fontWeight: FontWeight.w800,
                 ),
               ),
@@ -253,7 +254,7 @@ class _AppUpdateScreenState extends State<AppUpdateScreen> {
           SizedBox(height: 10),
           Text(
             'We checked for a newer release for this device. There is no update available right now.',
-            style: TextStyle(color: _muted, height: 1.5),
+            style: TextStyle(fontSize: 20, color: _muted, height: 1.5),
           ),
         ],
       ),
@@ -274,8 +275,8 @@ class _AppUpdateScreenState extends State<AppUpdateScreen> {
                 child: Text(
                   'UPDATE AVAILABLE',
                   style: TextStyle(
+                    fontSize: 20,
                     color: _green,
-                    fontSize: 14,
                     fontWeight: FontWeight.w900,
                     letterSpacing: .7,
                   ),
@@ -283,7 +284,7 @@ class _AppUpdateScreenState extends State<AppUpdateScreen> {
               ),
               Text(
                 'Build ${release.buildNumber}',
-                style: const TextStyle(color: _muted, fontSize: 12),
+                style: const TextStyle(fontSize: 20, color: _muted),
               ),
             ],
           ),
@@ -291,22 +292,26 @@ class _AppUpdateScreenState extends State<AppUpdateScreen> {
           Text(
             release.title,
             style: const TextStyle(
-              color: Colors.white,
               fontSize: 20,
+              color: Colors.white,
               fontWeight: FontWeight.w900,
             ),
           ),
           const SizedBox(height: 5),
           Text(
             'Version ${release.versionName} • ${release.platform.toUpperCase()}',
-            style: const TextStyle(color: _muted, fontSize: 12),
+            style: const TextStyle(fontSize: 20, color: _muted),
           ),
           const SizedBox(height: 18),
           _sectionLabel('PURPOSE'),
           const SizedBox(height: 6),
           Text(
             release.purpose,
-            style: const TextStyle(color: Colors.white, height: 1.5),
+            style: const TextStyle(
+              fontSize: 20,
+              color: Colors.white,
+              height: 1.5,
+            ),
           ),
           if (release.changes.isNotEmpty) ...[
             const SizedBox(height: 18),
@@ -326,7 +331,11 @@ class _AppUpdateScreenState extends State<AppUpdateScreen> {
                     Expanded(
                       child: Text(
                         change,
-                        style: const TextStyle(color: _muted, height: 1.45),
+                        style: const TextStyle(
+                          fontSize: 20,
+                          color: _muted,
+                          height: 1.45,
+                        ),
                       ),
                     ),
                   ],
@@ -339,13 +348,13 @@ class _AppUpdateScreenState extends State<AppUpdateScreen> {
           const SizedBox(height: 6),
           Text(
             release.instructions,
-            style: const TextStyle(color: _muted, height: 1.5),
+            style: const TextStyle(fontSize: 20, color: _muted, height: 1.5),
           ),
           if (uri != null && uri.host.isNotEmpty) ...[
             const SizedBox(height: 12),
             Text(
               'Download source: ${uri.host}',
-              style: const TextStyle(color: _muted, fontSize: 12),
+              style: const TextStyle(fontSize: 20, color: _muted),
             ),
           ],
           const SizedBox(height: 18),
@@ -375,13 +384,13 @@ class _AppUpdateScreenState extends State<AppUpdateScreen> {
           const Text(
             'The download opens outside the app. Review the version and source above before continuing.',
             textAlign: TextAlign.center,
-            style: TextStyle(color: _muted, fontSize: 12, height: 1.4),
+            style: TextStyle(fontSize: 20, color: _muted, height: 1.4),
           ),
           const SizedBox(height: 6),
           const Text(
             'This page explains the release; it does not scan the downloaded installer.',
             textAlign: TextAlign.center,
-            style: TextStyle(color: _muted, fontSize: 12, height: 1.4),
+            style: TextStyle(fontSize: 20, color: _muted, height: 1.4),
           ),
         ],
       ),
@@ -395,12 +404,16 @@ class _AppUpdateScreenState extends State<AppUpdateScreen> {
         children: [
           Text(
             'Why update?',
-            style: TextStyle(color: Colors.white, fontWeight: FontWeight.w800),
+            style: TextStyle(
+              fontSize: 20,
+              color: Colors.white,
+              fontWeight: FontWeight.w800,
+            ),
           ),
           SizedBox(height: 8),
           Text(
             'Updates can add features, fix problems, and improve security. This page checks the published release information for your device and shows its purpose and installation steps before you choose to download.',
-            style: TextStyle(color: _muted, height: 1.5),
+            style: TextStyle(fontSize: 20, color: _muted, height: 1.5),
           ),
         ],
       ),
@@ -410,8 +423,8 @@ class _AppUpdateScreenState extends State<AppUpdateScreen> {
   Widget _sectionLabel(String label) => Text(
     label,
     style: const TextStyle(
+      fontSize: 20,
       color: _blue,
-      fontSize: 12,
       fontWeight: FontWeight.w900,
       letterSpacing: .8,
     ),

@@ -1,4 +1,4 @@
-﻿import 'package:flutter/material.dart';
+import 'package:flutter/material.dart';
 
 class AdminRecordingsScreen extends StatefulWidget {
   const AdminRecordingsScreen({super.key});
@@ -153,8 +153,8 @@ class _AdminRecordingsScreenState extends State<AdminRecordingsScreen> {
           const Text(
             'Recordings',
             style: TextStyle(
+              fontSize: 20,
               color: white,
-              fontSize: 19,
               fontWeight: FontWeight.w700,
             ),
           ),
@@ -211,8 +211,8 @@ class _AdminRecordingsScreenState extends State<AdminRecordingsScreen> {
             Text(
               label,
               style: const TextStyle(
+                fontSize: 20,
                 color: white,
-                fontSize: 12,
                 fontWeight: FontWeight.w600,
               ),
             ),
@@ -237,8 +237,8 @@ class _AdminRecordingsScreenState extends State<AdminRecordingsScreen> {
               const Text(
                 'Game Recordings',
                 style: TextStyle(
+                  fontSize: 20,
                   color: white,
-                  fontSize: 28,
                   fontWeight: FontWeight.w800,
                   letterSpacing: -0.6,
                 ),
@@ -247,8 +247,8 @@ class _AdminRecordingsScreenState extends State<AdminRecordingsScreen> {
               Text(
                 'Review, manage and archive recorded chess games.',
                 style: TextStyle(
+                  fontSize: 20,
                   color: muted.withValues(alpha: 0.9),
-                  fontSize: 14,
                 ),
               ),
             ],
@@ -372,8 +372,8 @@ class _AdminRecordingsScreenState extends State<AdminRecordingsScreen> {
           Text(
             card['title'],
             style: const TextStyle(
+              fontSize: 20,
               color: muted,
-              fontSize: 12,
               fontWeight: FontWeight.w500,
             ),
           ),
@@ -381,8 +381,8 @@ class _AdminRecordingsScreenState extends State<AdminRecordingsScreen> {
           Text(
             card['value'],
             style: const TextStyle(
+              fontSize: 20,
               color: white,
-              fontSize: 24,
               fontWeight: FontWeight.w800,
             ),
           ),
@@ -390,8 +390,8 @@ class _AdminRecordingsScreenState extends State<AdminRecordingsScreen> {
           Text(
             card['subtitle'],
             style: TextStyle(
+              fontSize: 20,
               color: color.withValues(alpha: 0.9),
-              fontSize: 14,
               fontWeight: FontWeight.w600,
             ),
           ),
@@ -457,15 +457,15 @@ class _AdminRecordingsScreenState extends State<AdminRecordingsScreen> {
         const Text(
           'Recording Storage',
           style: TextStyle(
+            fontSize: 20,
             color: white,
-            fontSize: 14,
             fontWeight: FontWeight.w700,
           ),
         ),
         const SizedBox(height: 5),
         Text(
           'Your recorded games are securely stored and available for review.',
-          style: TextStyle(color: muted.withValues(alpha: 0.85), fontSize: 12),
+          style: TextStyle(fontSize: 20, color: muted.withValues(alpha: 0.85)),
         ),
       ],
     );
@@ -480,15 +480,15 @@ class _AdminRecordingsScreenState extends State<AdminRecordingsScreen> {
             const Text(
               '—',
               style: TextStyle(
+                fontSize: 20,
                 color: white,
-                fontSize: 13,
                 fontWeight: FontWeight.w700,
               ),
             ),
             const Spacer(),
             const Text(
               'Usage unavailable',
-              style: TextStyle(color: muted, fontSize: 14),
+              style: TextStyle(fontSize: 20, color: muted),
             ),
           ],
         ),
@@ -506,8 +506,8 @@ class _AdminRecordingsScreenState extends State<AdminRecordingsScreen> {
         const Text(
           '33.6% used',
           style: TextStyle(
+            fontSize: 20,
             color: purple,
-            fontSize: 12,
             fontWeight: FontWeight.w600,
           ),
         ),
@@ -561,12 +561,12 @@ class _AdminRecordingsScreenState extends State<AdminRecordingsScreen> {
             _searchQuery = value;
           });
         },
-        style: const TextStyle(color: white, fontSize: 13),
+        style: const TextStyle(fontSize: 20, color: white),
         decoration: InputDecoration(
           hintText: 'Search recordings, players or match ID...',
           hintStyle: TextStyle(
+            fontSize: 20,
             color: muted.withValues(alpha: 0.65),
-            fontSize: 12,
           ),
           prefixIcon: const Icon(Icons.search_rounded, color: muted, size: 20),
           suffixIcon: _searchQuery.isNotEmpty
@@ -604,8 +604,8 @@ class _AdminRecordingsScreenState extends State<AdminRecordingsScreen> {
           dropdownColor: surfaceLight,
           icon: const Icon(Icons.keyboard_arrow_down_rounded, color: muted),
           style: const TextStyle(
+            fontSize: 20,
             color: white,
-            fontSize: 12,
             fontWeight: FontWeight.w600,
           ),
           items: _competitions.map((competition) {
@@ -641,8 +641,8 @@ class _AdminRecordingsScreenState extends State<AdminRecordingsScreen> {
           dropdownColor: surfaceLight,
           icon: const Icon(Icons.filter_list_rounded, color: muted, size: 19),
           style: const TextStyle(
+            fontSize: 20,
             color: white,
-            fontSize: 12,
             fontWeight: FontWeight.w600,
           ),
           items: _filters.map((filter) {
@@ -699,8 +699,8 @@ class _AdminRecordingsScreenState extends State<AdminRecordingsScreen> {
             child: Text(
               'RECORDING',
               style: TextStyle(
+                fontSize: 20,
                 color: muted,
-                fontSize: 12,
                 fontWeight: FontWeight.w700,
                 letterSpacing: 0.8,
               ),
@@ -711,8 +711,8 @@ class _AdminRecordingsScreenState extends State<AdminRecordingsScreen> {
             child: Text(
               'PLAYERS',
               style: TextStyle(
+                fontSize: 20,
                 color: muted,
-                fontSize: 12,
                 fontWeight: FontWeight.w700,
                 letterSpacing: 0.8,
               ),
@@ -723,8 +723,8 @@ class _AdminRecordingsScreenState extends State<AdminRecordingsScreen> {
             child: Text(
               'COMPETITION',
               style: TextStyle(
+                fontSize: 20,
                 color: muted,
-                fontSize: 12,
                 fontWeight: FontWeight.w700,
                 letterSpacing: 0.8,
               ),
@@ -735,8 +735,8 @@ class _AdminRecordingsScreenState extends State<AdminRecordingsScreen> {
             child: Text(
               'STATUS',
               style: TextStyle(
+                fontSize: 20,
                 color: muted,
-                fontSize: 12,
                 fontWeight: FontWeight.w700,
                 letterSpacing: 0.8,
               ),
@@ -747,8 +747,8 @@ class _AdminRecordingsScreenState extends State<AdminRecordingsScreen> {
             child: Text(
               'MOVES',
               style: TextStyle(
+                fontSize: 20,
                 color: muted,
-                fontSize: 12,
                 fontWeight: FontWeight.w700,
                 letterSpacing: 0.8,
               ),
@@ -759,8 +759,8 @@ class _AdminRecordingsScreenState extends State<AdminRecordingsScreen> {
             child: Text(
               'SIZE',
               style: TextStyle(
+                fontSize: 20,
                 color: muted,
-                fontSize: 12,
                 fontWeight: FontWeight.w700,
                 letterSpacing: 0.8,
               ),
@@ -771,8 +771,8 @@ class _AdminRecordingsScreenState extends State<AdminRecordingsScreen> {
             child: Text(
               'ACTION',
               style: TextStyle(
+                fontSize: 20,
                 color: muted,
-                fontSize: 12,
                 fontWeight: FontWeight.w700,
                 letterSpacing: 0.8,
               ),
@@ -810,15 +810,15 @@ class _AdminRecordingsScreenState extends State<AdminRecordingsScreen> {
                         Text(
                           recording['id'],
                           style: const TextStyle(
+                            fontSize: 20,
                             color: white,
-                            fontSize: 12,
                             fontWeight: FontWeight.w700,
                           ),
                         ),
                         const SizedBox(height: 4),
                         Text(
                           recording['matchId'],
-                          style: const TextStyle(color: muted, fontSize: 12),
+                          style: const TextStyle(fontSize: 20, color: muted),
                         ),
                       ],
                     ),
@@ -832,8 +832,8 @@ class _AdminRecordingsScreenState extends State<AdminRecordingsScreen> {
               child: Text(
                 recording['competition'],
                 style: const TextStyle(
+                  fontSize: 20,
                   color: white,
-                  fontSize: 14,
                   fontWeight: FontWeight.w500,
                 ),
                 overflow: TextOverflow.ellipsis,
@@ -848,8 +848,8 @@ class _AdminRecordingsScreenState extends State<AdminRecordingsScreen> {
               child: Text(
                 '${recording['moves']}',
                 style: const TextStyle(
+                  fontSize: 20,
                   color: white,
-                  fontSize: 12,
                   fontWeight: FontWeight.w600,
                 ),
               ),
@@ -858,7 +858,7 @@ class _AdminRecordingsScreenState extends State<AdminRecordingsScreen> {
               flex: 1,
               child: Text(
                 recording['size'],
-                style: const TextStyle(color: muted, fontSize: 12),
+                style: const TextStyle(fontSize: 20, color: muted),
               ),
             ),
             SizedBox(
@@ -934,15 +934,15 @@ class _AdminRecordingsScreenState extends State<AdminRecordingsScreen> {
                       Text(
                         recording['id'],
                         style: const TextStyle(
+                          fontSize: 20,
                           color: white,
-                          fontSize: 13,
                           fontWeight: FontWeight.w700,
                         ),
                       ),
                       const SizedBox(height: 3),
                       Text(
                         recording['matchId'],
-                        style: const TextStyle(color: muted, fontSize: 12),
+                        style: const TextStyle(fontSize: 20, color: muted),
                       ),
                     ],
                   ),
@@ -971,7 +971,7 @@ class _AdminRecordingsScreenState extends State<AdminRecordingsScreen> {
                 const Spacer(),
                 Text(
                   recording['size'],
-                  style: const TextStyle(color: muted, fontSize: 12),
+                  style: const TextStyle(fontSize: 20, color: muted),
                 ),
               ],
             ),
@@ -1002,8 +1002,8 @@ class _AdminRecordingsScreenState extends State<AdminRecordingsScreen> {
           child: const Text(
             'VS',
             style: TextStyle(
+              fontSize: 20,
               color: muted,
-              fontSize: 12,
               fontWeight: FontWeight.w800,
             ),
           ),
@@ -1053,15 +1053,15 @@ class _AdminRecordingsScreenState extends State<AdminRecordingsScreen> {
                 maxLines: 1,
                 overflow: TextOverflow.ellipsis,
                 style: const TextStyle(
+                  fontSize: 20,
                   color: white,
-                  fontSize: 14,
                   fontWeight: FontWeight.w600,
                 ),
               ),
               const SizedBox(height: 2),
               Text(
                 '$rating',
-                style: const TextStyle(color: muted, fontSize: 12),
+                style: const TextStyle(fontSize: 20, color: muted),
               ),
             ],
           ),
@@ -1075,7 +1075,7 @@ class _AdminRecordingsScreenState extends State<AdminRecordingsScreen> {
       children: [
         Icon(icon, color: muted, size: 14),
         const SizedBox(width: 4),
-        Text(text, style: const TextStyle(color: muted, fontSize: 12)),
+        Text(text, style: const TextStyle(fontSize: 20, color: muted)),
       ],
     );
   }
@@ -1120,15 +1120,15 @@ class _AdminRecordingsScreenState extends State<AdminRecordingsScreen> {
                 maxLines: 1,
                 overflow: TextOverflow.ellipsis,
                 style: const TextStyle(
+                  fontSize: 20,
                   color: white,
-                  fontSize: 14,
                   fontWeight: FontWeight.w600,
                 ),
               ),
               const SizedBox(height: 2),
               Text(
-                '${recording['whiteRating']}  Ã¢â‚¬Â¢  White',
-                style: const TextStyle(color: muted, fontSize: 12),
+                '${recording['whiteRating']} | White',
+                style: const TextStyle(fontSize: 20, color: muted),
               ),
             ],
           ),
@@ -1138,8 +1138,8 @@ class _AdminRecordingsScreenState extends State<AdminRecordingsScreen> {
           child: Text(
             'vs',
             style: TextStyle(
+              fontSize: 20,
               color: muted,
-              fontSize: 12,
               fontWeight: FontWeight.w700,
             ),
           ),
@@ -1153,15 +1153,15 @@ class _AdminRecordingsScreenState extends State<AdminRecordingsScreen> {
                 maxLines: 1,
                 overflow: TextOverflow.ellipsis,
                 style: const TextStyle(
+                  fontSize: 20,
                   color: white,
-                  fontSize: 14,
                   fontWeight: FontWeight.w600,
                 ),
               ),
               const SizedBox(height: 2),
               Text(
-                '${recording['blackRating']}  Ã¢â‚¬Â¢  Black',
-                style: const TextStyle(color: muted, fontSize: 12),
+                '${recording['blackRating']} | Black',
+                style: const TextStyle(fontSize: 20, color: muted),
               ),
             ],
           ),
@@ -1182,8 +1182,8 @@ class _AdminRecordingsScreenState extends State<AdminRecordingsScreen> {
         child: Text(
           name.isNotEmpty ? name[0].toUpperCase() : '?',
           style: TextStyle(
+            fontSize: 20,
             color: isWhite ? background : white,
-            fontSize: 14,
             fontWeight: FontWeight.w800,
           ),
         ),
@@ -1212,8 +1212,8 @@ class _AdminRecordingsScreenState extends State<AdminRecordingsScreen> {
           Text(
             status,
             style: TextStyle(
+              fontSize: 20,
               color: color,
-              fontSize: 12,
               fontWeight: FontWeight.w700,
             ),
           ),
@@ -1262,15 +1262,15 @@ class _AdminRecordingsScreenState extends State<AdminRecordingsScreen> {
           const Text(
             'No recordings found',
             style: TextStyle(
+              fontSize: 20,
               color: white,
-              fontSize: 16,
               fontWeight: FontWeight.w700,
             ),
           ),
           const SizedBox(height: 7),
           const Text(
             'Try changing your search or filters.',
-            style: TextStyle(color: muted, fontSize: 12),
+            style: TextStyle(fontSize: 20, color: muted),
           ),
         ],
       ),
@@ -1288,7 +1288,7 @@ class _AdminRecordingsScreenState extends State<AdminRecordingsScreen> {
         children: [
           Icon(icon, color: muted, size: 17),
           const SizedBox(width: 10),
-          Text(label, style: const TextStyle(color: white, fontSize: 12)),
+          Text(label, style: const TextStyle(fontSize: 20, color: white)),
         ],
       ),
     );
@@ -1338,8 +1338,8 @@ class _AdminRecordingsScreenState extends State<AdminRecordingsScreen> {
                             Text(
                               recording['id'],
                               style: const TextStyle(
+                                fontSize: 20,
                                 color: white,
-                                fontSize: 17,
                                 fontWeight: FontWeight.w800,
                               ),
                             ),
@@ -1347,8 +1347,8 @@ class _AdminRecordingsScreenState extends State<AdminRecordingsScreen> {
                             Text(
                               recording['matchId'],
                               style: const TextStyle(
+                                fontSize: 20,
                                 color: muted,
-                                fontSize: 14,
                               ),
                             ),
                           ],
@@ -1456,8 +1456,8 @@ class _AdminRecordingsScreenState extends State<AdminRecordingsScreen> {
               child: Text(
                 'VS',
                 style: TextStyle(
+                  fontSize: 20,
                   color: muted,
-                  fontSize: 12,
                   fontWeight: FontWeight.w800,
                 ),
               ),
@@ -1498,15 +1498,15 @@ class _AdminRecordingsScreenState extends State<AdminRecordingsScreen> {
           overflow: TextOverflow.ellipsis,
           textAlign: TextAlign.center,
           style: const TextStyle(
+            fontSize: 20,
             color: white,
-            fontSize: 14,
             fontWeight: FontWeight.w700,
           ),
         ),
         const SizedBox(height: 3),
         Text(
-          '$rating Ã¢â‚¬Â¢ ${isWhite ? 'White' : 'Black'}',
-          style: const TextStyle(color: muted, fontSize: 12),
+          '$rating | ${isWhite ? 'White' : 'Black'}',
+          style: const TextStyle(fontSize: 20, color: muted),
         ),
       ],
     );
@@ -1542,7 +1542,7 @@ class _AdminRecordingsScreenState extends State<AdminRecordingsScreen> {
           children: [
             Text(
               details[index][0],
-              style: const TextStyle(color: muted, fontSize: 12),
+              style: const TextStyle(fontSize: 20, color: muted),
             ),
             const SizedBox(height: 4),
             Text(
@@ -1550,8 +1550,8 @@ class _AdminRecordingsScreenState extends State<AdminRecordingsScreen> {
               maxLines: 1,
               overflow: TextOverflow.ellipsis,
               style: const TextStyle(
+                fontSize: 20,
                 color: white,
-                fontSize: 14,
                 fontWeight: FontWeight.w600,
               ),
             ),
@@ -1585,8 +1585,8 @@ class _AdminRecordingsScreenState extends State<AdminRecordingsScreen> {
             Text(
               label,
               style: TextStyle(
+                fontSize: 20,
                 color: color,
-                fontSize: 14,
                 fontWeight: FontWeight.w700,
               ),
             ),
@@ -1657,8 +1657,8 @@ class _AdminRecordingsScreenState extends State<AdminRecordingsScreen> {
                 const Text(
                   'Recording Settings',
                   style: TextStyle(
+                    fontSize: 20,
                     color: white,
-                    fontSize: 18,
                     fontWeight: FontWeight.w800,
                   ),
                 ),
@@ -1716,8 +1716,8 @@ class _AdminRecordingsScreenState extends State<AdminRecordingsScreen> {
       title: Text(
         title,
         style: const TextStyle(
+          fontSize: 20,
           color: white,
-          fontSize: 12,
           fontWeight: FontWeight.w600,
         ),
       ),
@@ -1725,7 +1725,7 @@ class _AdminRecordingsScreenState extends State<AdminRecordingsScreen> {
         padding: const EdgeInsets.only(top: 3),
         child: Text(
           subtitle,
-          style: const TextStyle(color: muted, fontSize: 14),
+          style: const TextStyle(fontSize: 20, color: muted),
         ),
       ),
       trailing: Switch(
@@ -1747,8 +1747,8 @@ class _AdminRecordingsScreenState extends State<AdminRecordingsScreen> {
           content: Text(
             message,
             style: const TextStyle(
+              fontSize: 20,
               color: white,
-              fontSize: 12,
               fontWeight: FontWeight.w600,
             ),
           ),

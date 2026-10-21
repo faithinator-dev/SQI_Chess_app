@@ -62,7 +62,8 @@ class _MatchesScreenState extends State<MatchesScreen> {
       if (!mounted) return;
       setState(() {
         _loading = false;
-        _error = 'We could not load your game activity. Check your connection and retry.';
+        _error =
+            'We could not load your game activity. Check your connection and retry.';
       });
     }
   }
@@ -90,7 +91,12 @@ class _MatchesScreenState extends State<MatchesScreen> {
     final theme = Theme.of(context);
     final colors = theme.colorScheme;
     return Scaffold(
-      appBar: AppBar(title: const Text('The Arena', style: TextStyle(fontWeight: FontWeight.w700))),
+      appBar: AppBar(
+        title: const Text(
+          'The Arena',
+          style: TextStyle(fontSize: 20, fontWeight: FontWeight.w700),
+        ),
+      ),
       body: RefreshIndicator(
         onRefresh: _load,
         child: ListView(
@@ -103,9 +109,22 @@ class _MatchesScreenState extends State<MatchesScreen> {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Text('PLAY & CHALLENGE', style: theme.textTheme.labelSmall?.copyWith(color: colors.primary, fontWeight: FontWeight.w800, letterSpacing: 1.7)),
+                      Text(
+                        'PLAY & CHALLENGE',
+                        style: theme.textTheme.labelSmall?.copyWith(
+                          color: colors.primary,
+                          fontWeight: FontWeight.w800,
+                          letterSpacing: 1.7,
+                        ),
+                      ),
                       const SizedBox(height: 5),
-                      Text('Choose your game', style: theme.textTheme.headlineMedium?.copyWith(fontFamily: 'Georgia', fontWeight: FontWeight.w700)),
+                      Text(
+                        'Choose your game',
+                        style: theme.textTheme.headlineMedium?.copyWith(
+                          fontFamily: 'Georgia',
+                          fontWeight: FontWeight.w700,
+                        ),
+                      ),
                     ],
                   ),
                 ),
@@ -118,7 +137,10 @@ class _MatchesScreenState extends State<MatchesScreen> {
               ],
             ),
             const SizedBox(height: 8),
-            Text('Pick a format, find an opponent, or continue a game.', style: theme.textTheme.bodyMedium),
+            Text(
+              'Pick a format, find an opponent, or continue a game.',
+              style: theme.textTheme.bodyMedium,
+            ),
             const SizedBox(height: 18),
             SizedBox(
               height: 44,
@@ -130,12 +152,20 @@ class _MatchesScreenState extends State<MatchesScreen> {
                   final mode = _modes[index];
                   final selected = _selectedMode == mode.$1;
                   return ChoiceChip(
-                    avatar: Icon(mode.$2, size: 17, color: selected ? colors.onPrimary : colors.onSurface),
+                    avatar: Icon(
+                      mode.$2,
+                      size: 17,
+                      color: selected ? colors.onPrimary : colors.onSurface,
+                    ),
                     label: Text(mode.$1),
                     selected: selected,
                     onSelected: (_) => setState(() => _selectedMode = mode.$1),
                     selectedColor: colors.primary,
-                    labelStyle: TextStyle(color: selected ? colors.onPrimary : colors.onSurface, fontWeight: FontWeight.w600),
+                    labelStyle: TextStyle(
+                      fontSize: 20,
+                      color: selected ? colors.onPrimary : colors.onSurface,
+                      fontWeight: FontWeight.w600,
+                    ),
                   );
                 },
               ),
@@ -146,32 +176,63 @@ class _MatchesScreenState extends State<MatchesScreen> {
             _sectionHeader(context, 'Active matches', '${_activeGames.length}'),
             const SizedBox(height: 10),
             if (_loading && _activeGames.isEmpty)
-              const Padding(padding: EdgeInsets.all(20), child: Center(child: CircularProgressIndicator()))
+              const Padding(
+                padding: EdgeInsets.all(20),
+                child: Center(child: CircularProgressIndicator()),
+              )
             else if (_error != null)
               Card(
                 color: colors.errorContainer,
                 child: ListTile(
-                  leading: Icon(Icons.cloud_off_outlined, color: colors.onErrorContainer),
-                  title: Text(_error!, style: TextStyle(color: colors.onErrorContainer)),
-                  trailing: TextButton(onPressed: _load, child: const Text('Retry')),
+                  leading: Icon(
+                    Icons.cloud_off_outlined,
+                    color: colors.onErrorContainer,
+                  ),
+                  title: Text(
+                    _error!,
+                    style: TextStyle(
+                      fontSize: 20,
+                      color: colors.onErrorContainer,
+                    ),
+                  ),
+                  trailing: TextButton(
+                    onPressed: _load,
+                    child: const Text('Retry'),
+                  ),
                 ),
               )
             else if (_error == null && _activeGames.isEmpty)
-              _emptyPanel(context, Icons.sports_esports_outlined, 'No active matches', 'Your unfinished games will appear here.')
+              _emptyPanel(
+                context,
+                Icons.sports_esports_outlined,
+                'No active matches',
+                'Your unfinished games will appear here.',
+              )
             else
-              for (final active in _activeGames.take(5)) _activeGameCard(context, active),
+              for (final active in _activeGames.take(5))
+                _activeGameCard(context, active),
             const SizedBox(height: 24),
             _sectionHeader(context, 'Match archive', 'Last 10 duels'),
             const SizedBox(height: 10),
             if (!_loading && _error == null && _history.isEmpty)
-              _emptyPanel(context, Icons.history_rounded, 'No completed games yet', 'Your game results will appear here after your first match.')
+              _emptyPanel(
+                context,
+                Icons.history_rounded,
+                'No completed games yet',
+                'Your game results will appear here after your first match.',
+              )
             else
-              for (final entry in _history.take(10)) _historyCard(context, entry),
+              for (final entry in _history.take(10))
+                _historyCard(context, entry),
             if (_history.isNotEmpty)
               Align(
                 alignment: Alignment.centerRight,
                 child: TextButton(
-                  onPressed: () => Navigator.of(context).push(MaterialPageRoute(builder: (_) => const GameHistoryScreen())),
+                  onPressed: () => Navigator.of(context).push(
+                    MaterialPageRoute(
+                      builder: (_) => const GameHistoryScreen(),
+                    ),
+                  ),
                   child: const Text('View full archive'),
                 ),
               ),
@@ -181,7 +242,9 @@ class _MatchesScreenState extends State<MatchesScreen> {
               child: const ListTile(
                 leading: Icon(Icons.lightbulb_outline_rounded),
                 title: Text('Play your way'),
-                subtitle: Text('Quick Match is online. Play Computer, Local PvP and Wi-Fi games are also available.'),
+                subtitle: Text(
+                  'Quick Match is online. Play Computer, Local PvP and Wi-Fi games are also available.',
+                ),
               ),
             ),
           ],
@@ -206,32 +269,62 @@ class _MatchesScreenState extends State<MatchesScreen> {
                 Container(
                   width: 46,
                   height: 46,
-                  decoration: BoxDecoration(color: colors.primaryContainer, borderRadius: BorderRadius.circular(14)),
-                  child: Icon(_modes.firstWhere((mode) => mode.$1 == _selectedMode).$2, color: colors.primary),
+                  decoration: BoxDecoration(
+                    color: colors.primaryContainer,
+                    borderRadius: BorderRadius.circular(14),
+                  ),
+                  child: Icon(
+                    _modes.firstWhere((mode) => mode.$1 == _selectedMode).$2,
+                    color: colors.primary,
+                  ),
                 ),
                 const Spacer(),
-                Chip(label: Text(quick ? 'ONLINE MATCH' : _selectedMode.toUpperCase()), visualDensity: VisualDensity.compact),
+                Chip(
+                  label: Text(
+                    quick ? 'ONLINE MATCH' : _selectedMode.toUpperCase(),
+                  ),
+                  visualDensity: VisualDensity.compact,
+                ),
               ],
             ),
             const SizedBox(height: 14),
-            Text(quick ? 'Quick Match' : _selectedMode, style: theme.textTheme.titleLarge?.copyWith(fontFamily: 'Georgia', fontWeight: FontWeight.w700)),
-            const SizedBox(height: 4),
             Text(
-              switch (_selectedMode) {
-                'Play Computer' => 'Practice a game against the computer, whenever you want.',
-                'Local PvP' => 'Share one device and play from opposite sides of the board.',
-                'Wi-Fi' => 'Find and join a chess game on your local network.',
-                _ => 'Find an online opponent for a ten-minute game.',
-              },
-              style: theme.textTheme.bodyMedium,
+              quick ? 'Quick Match' : _selectedMode,
+              style: theme.textTheme.titleLarge?.copyWith(
+                fontFamily: 'Georgia',
+                fontWeight: FontWeight.w700,
+              ),
             ),
+            const SizedBox(height: 4),
+            Text(switch (_selectedMode) {
+              'Play Computer' =>
+                'Practice a game against the computer, whenever you want.',
+              'Local PvP' =>
+                'Share one device and play from opposite sides of the board.',
+              'Wi-Fi' => 'Find and join a chess game on your local network.',
+              _ => 'Find an online opponent for a ten-minute game.',
+            }, style: theme.textTheme.bodyMedium),
             const SizedBox(height: 17),
             if (quick)
               Row(
                 children: [
-                  Expanded(child: _fact(context, Icons.timer_outlined, '10 min', 'Time control')),
+                  Expanded(
+                    child: _fact(
+                      context,
+                      Icons.timer_outlined,
+                      '10 min',
+                      'Time control',
+                    ),
+                  ),
                   const SizedBox(width: 8),
-                  Expanded(child: _fact(context, Icons.bolt_outlined, '+0', 'Increment')),
+                  Expanded(
+                    child: _fact(
+                      context,
+                      Icons.bolt_outlined,
+                      '+0',
+                      'Increment',
+                    ),
+                  ),
                 ],
               ),
             if (quick) const SizedBox(height: 16),
@@ -240,8 +333,16 @@ class _MatchesScreenState extends State<MatchesScreen> {
               height: 52,
               child: FilledButton.icon(
                 onPressed: _startMode,
-                icon: Icon(quick ? Icons.play_arrow_rounded : Icons.arrow_forward_rounded),
-                label: Text(quick ? 'Find Match' : 'Start ${_selectedMode == 'Wi-Fi' ? 'Wi-Fi game' : _selectedMode}'),
+                icon: Icon(
+                  quick
+                      ? Icons.play_arrow_rounded
+                      : Icons.arrow_forward_rounded,
+                ),
+                label: Text(
+                  quick
+                      ? 'Find Match'
+                      : 'Start ${_selectedMode == 'Wi-Fi' ? 'Wi-Fi game' : _selectedMode}',
+                ),
               ),
             ),
           ],
@@ -250,25 +351,61 @@ class _MatchesScreenState extends State<MatchesScreen> {
     );
   }
 
-  Widget _fact(BuildContext context, IconData icon, String value, String label) => Container(
+  Widget _fact(
+    BuildContext context,
+    IconData icon,
+    String value,
+    String label,
+  ) => Container(
     padding: const EdgeInsets.all(12),
-    decoration: BoxDecoration(color: Theme.of(context).colorScheme.surfaceContainerHighest.withValues(alpha: .5), borderRadius: BorderRadius.circular(14)),
-    child: Row(children: [
-      Icon(icon, color: Theme.of(context).colorScheme.primary),
-      const SizedBox(width: 9),
-      Expanded(child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [Text(value, style: const TextStyle(fontWeight: FontWeight.w700)), Text(label, style: Theme.of(context).textTheme.bodySmall)])),
-    ]),
+    decoration: BoxDecoration(
+      color: Theme.of(
+        context,
+      ).colorScheme.surfaceContainerHighest.withValues(alpha: .5),
+      borderRadius: BorderRadius.circular(14),
+    ),
+    child: Row(
+      children: [
+        Icon(icon, color: Theme.of(context).colorScheme.primary),
+        const SizedBox(width: 9),
+        Expanded(
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Text(
+                value,
+                style: const TextStyle(
+                  fontSize: 20,
+                  fontWeight: FontWeight.w700,
+                ),
+              ),
+              Text(label, style: Theme.of(context).textTheme.bodySmall),
+            ],
+          ),
+        ),
+      ],
+    ),
   );
 
-  Widget _sectionHeader(BuildContext context, String title, String detail) => Row(
-    children: [
-      Expanded(child: Text(title, style: Theme.of(context).textTheme.titleLarge?.copyWith(fontFamily: 'Georgia', fontWeight: FontWeight.w700))),
-      Text(detail, style: Theme.of(context).textTheme.bodySmall),
-    ],
-  );
+  Widget _sectionHeader(BuildContext context, String title, String detail) =>
+      Row(
+        children: [
+          Expanded(
+            child: Text(
+              title,
+              style: Theme.of(context).textTheme.titleLarge?.copyWith(
+                fontFamily: 'Georgia',
+                fontWeight: FontWeight.w700,
+              ),
+            ),
+          ),
+          Text(detail, style: Theme.of(context).textTheme.bodySmall),
+        ],
+      );
 
   Widget _activeGameCard(BuildContext context, ActiveGameEntry entry) {
-    final isMyTurn = (entry.game.currentTurn == 'white' && entry.isWhite) ||
+    final isMyTurn =
+        (entry.game.currentTurn == 'white' && entry.isWhite) ||
         (entry.game.currentTurn == 'black' && !entry.isWhite);
     final opponent = entry.opponent?.fullName ?? 'Opponent';
     return Card(
@@ -277,24 +414,61 @@ class _MatchesScreenState extends State<MatchesScreen> {
         padding: const EdgeInsets.all(14),
         child: Column(
           children: [
-            Row(children: [
-              CircleAvatar(radius: 21, child: Text(opponent.isEmpty ? 'O' : opponent[0].toUpperCase())),
-              const SizedBox(width: 10),
-              Expanded(child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-                Text(opponent, maxLines: 1, overflow: TextOverflow.ellipsis, style: const TextStyle(fontWeight: FontWeight.w700)),
-                Text('${entry.opponent?.chessRating ?? 1000} ELO  ·  ${entry.isWhite ? 'White' : 'Black'}', style: Theme.of(context).textTheme.bodySmall),
-              ])),
-              Chip(label: Text(isMyTurn ? 'Your turn' : 'Opponent turn'), visualDensity: VisualDensity.compact),
-            ]),
+            Row(
+              children: [
+                CircleAvatar(
+                  radius: 21,
+                  child: Text(
+                    opponent.isEmpty ? 'O' : opponent[0].toUpperCase(),
+                  ),
+                ),
+                const SizedBox(width: 10),
+                Expanded(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        opponent,
+                        maxLines: 1,
+                        overflow: TextOverflow.ellipsis,
+                        style: const TextStyle(
+                          fontSize: 20,
+                          fontWeight: FontWeight.w700,
+                        ),
+                      ),
+                      Text(
+                        '${entry.opponent?.chessRating ?? 1000} ELO  ï¿½  ${entry.isWhite ? 'White' : 'Black'}',
+                        style: Theme.of(context).textTheme.bodySmall,
+                      ),
+                    ],
+                  ),
+                ),
+                Chip(
+                  label: Text(isMyTurn ? 'Your turn' : 'Opponent turn'),
+                  visualDensity: VisualDensity.compact,
+                ),
+              ],
+            ),
             const SizedBox(height: 10),
-            Row(children: [
-              Expanded(child: Text('${entry.game.timeControl}  ·  ${isMyTurn ? 'Make your move' : 'Waiting for opponent'}', style: Theme.of(context).textTheme.bodySmall)),
-              FilledButton.icon(
-                onPressed: () => Navigator.of(context).push(MaterialPageRoute(builder: (_) => ChessMatchScreen(gameId: entry.game.id))),
-                icon: const Icon(Icons.play_arrow_rounded),
-                label: const Text('Resume'),
-              ),
-            ]),
+            Row(
+              children: [
+                Expanded(
+                  child: Text(
+                    '${entry.game.timeControl}  ï¿½  ${isMyTurn ? 'Make your move' : 'Waiting for opponent'}',
+                    style: Theme.of(context).textTheme.bodySmall,
+                  ),
+                ),
+                FilledButton.icon(
+                  onPressed: () => Navigator.of(context).push(
+                    MaterialPageRoute(
+                      builder: (_) => ChessMatchScreen(gameId: entry.game.id),
+                    ),
+                  ),
+                  icon: const Icon(Icons.play_arrow_rounded),
+                  label: const Text('Resume'),
+                ),
+              ],
+            ),
           ],
         ),
       ),
@@ -303,26 +477,70 @@ class _MatchesScreenState extends State<MatchesScreen> {
 
   Widget _historyCard(BuildContext context, GameHistoryEntry entry) {
     final won = entry.result == 'Victory';
-    final color = entry.result == 'Draw' ? Colors.orange : won ? Colors.green : Theme.of(context).colorScheme.error;
+    final color = entry.result == 'Draw'
+        ? Colors.orange
+        : won
+        ? Colors.green
+        : Theme.of(context).colorScheme.error;
     return Card(
       margin: const EdgeInsets.only(bottom: 8),
       child: ListTile(
-        leading: Container(width: 5, height: 42, decoration: BoxDecoration(color: color, borderRadius: BorderRadius.circular(99))),
-        title: Text(entry.opponent?.fullName ?? 'Opponent', maxLines: 1, overflow: TextOverflow.ellipsis, style: const TextStyle(fontWeight: FontWeight.w700)),
-        subtitle: Text('${entry.result}  ·  ${entry.game.timeControl}'),
-        trailing: Text(entry.result, style: TextStyle(color: color, fontWeight: FontWeight.w700)),
+        leading: Container(
+          width: 5,
+          height: 42,
+          decoration: BoxDecoration(
+            color: color,
+            borderRadius: BorderRadius.circular(99),
+          ),
+        ),
+        title: Text(
+          entry.opponent?.fullName ?? 'Opponent',
+          maxLines: 1,
+          overflow: TextOverflow.ellipsis,
+          style: const TextStyle(fontSize: 20, fontWeight: FontWeight.w700),
+        ),
+        subtitle: Text('${entry.result}  ï¿½  ${entry.game.timeControl}'),
+        trailing: Text(
+          entry.result,
+          style: TextStyle(
+            fontSize: 20,
+            color: color,
+            fontWeight: FontWeight.w700,
+          ),
+        ),
       ),
     );
   }
 
-  Widget _emptyPanel(BuildContext context, IconData icon, String title, String subtitle) => Card(
+  Widget _emptyPanel(
+    BuildContext context,
+    IconData icon,
+    String title,
+    String subtitle,
+  ) => Card(
     child: Padding(
       padding: const EdgeInsets.symmetric(horizontal: 18, vertical: 22),
-      child: Row(children: [
-        Icon(icon, color: Theme.of(context).colorScheme.primary),
-        const SizedBox(width: 12),
-        Expanded(child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [Text(title, style: const TextStyle(fontWeight: FontWeight.w700)), Text(subtitle, style: Theme.of(context).textTheme.bodySmall)])),
-      ]),
+      child: Row(
+        children: [
+          Icon(icon, color: Theme.of(context).colorScheme.primary),
+          const SizedBox(width: 12),
+          Expanded(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  title,
+                  style: const TextStyle(
+                    fontSize: 20,
+                    fontWeight: FontWeight.w700,
+                  ),
+                ),
+                Text(subtitle, style: Theme.of(context).textTheme.bodySmall),
+              ],
+            ),
+          ),
+        ],
+      ),
     ),
   );
 }

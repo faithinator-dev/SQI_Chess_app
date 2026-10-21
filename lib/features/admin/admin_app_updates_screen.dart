@@ -1,4 +1,4 @@
-﻿import 'package:flutter/material.dart';
+import 'package:flutter/material.dart';
 
 import '../../core/models/app_release_model.dart';
 import '../../core/repositories/app_update_repository.dart';
@@ -138,7 +138,7 @@ class _AdminAppUpdatesScreenState extends State<AdminAppUpdatesScreen> {
                       const SizedBox(height: 10),
                       Text(
                         formError!,
-                        style: const TextStyle(color: Colors.redAccent),
+                        style: const TextStyle(color: Color(0xFFB56767)),
                       ),
                     ],
                   ],
@@ -337,7 +337,7 @@ class _AdminAppUpdatesScreenState extends State<AdminAppUpdatesScreen> {
                 const SizedBox(height: 4),
                 Text(
                   '${release.versionName} • Build ${release.buildNumber} • ${release.platform.toUpperCase()}',
-                  style: const TextStyle(color: _muted, fontSize: 14),
+                  style: const TextStyle(color: _muted),
                 ),
               ],
             ),

@@ -1,4 +1,4 @@
-﻿import 'package:flutter/material.dart';
+import 'package:flutter/material.dart';
 
 import 'competition_lobby_screen.dart';
 
@@ -161,8 +161,8 @@ class _CompetitionDetailsScreenState extends State<CompetitionDetailsScreen> {
           child: Text(
             'Competition Details',
             style: TextStyle(
+              fontSize: 20,
               color: Colors.white,
-              fontSize: 18,
               fontWeight: FontWeight.w700,
             ),
           ),
@@ -214,8 +214,8 @@ class _CompetitionDetailsScreenState extends State<CompetitionDetailsScreen> {
                         Text(
                           shortName.toUpperCase(),
                           style: TextStyle(
+                            fontSize: 20,
                             color: blue.withValues(alpha: 0.9),
-                            fontSize: 14,
                             fontWeight: FontWeight.w800,
                             letterSpacing: 1.5,
                           ),
@@ -224,8 +224,8 @@ class _CompetitionDetailsScreenState extends State<CompetitionDetailsScreen> {
                         Text(
                           name,
                           style: const TextStyle(
+                            fontSize: 20,
                             color: Colors.white,
-                            fontSize: 26,
                             fontWeight: FontWeight.w800,
                             height: 1.1,
                           ),
@@ -239,7 +239,7 @@ class _CompetitionDetailsScreenState extends State<CompetitionDetailsScreen> {
               const SizedBox(height: 28),
               Text(
                 description,
-                style: const TextStyle(color: muted, fontSize: 14, height: 1.7),
+                style: const TextStyle(fontSize: 20, color: muted, height: 1.7),
               ),
               const SizedBox(height: 24),
               Wrap(
@@ -271,7 +271,7 @@ class _CompetitionDetailsScreenState extends State<CompetitionDetailsScreen> {
           const SizedBox(height: 18),
           Text(
             'Welcome to $name. This competition is designed to give players a structured environment to compete, improve their decision-making, and experience tournament chess.',
-            style: const TextStyle(color: muted, fontSize: 14, height: 1.75),
+            style: const TextStyle(fontSize: 20, color: muted, height: 1.75),
           ),
           const SizedBox(height: 22),
           _featureRow(
@@ -377,15 +377,15 @@ class _CompetitionDetailsScreenState extends State<CompetitionDetailsScreen> {
           const Text(
             'Your Competition',
             style: TextStyle(
+              fontSize: 20,
               color: Colors.white,
-              fontSize: 17,
               fontWeight: FontWeight.w800,
             ),
           ),
           const SizedBox(height: 8),
           Text(
             _actionDescription(),
-            style: const TextStyle(color: muted, fontSize: 13, height: 1.5),
+            style: const TextStyle(fontSize: 20, color: muted, height: 1.5),
           ),
           const SizedBox(height: 20),
           _registrationProgress(),
@@ -436,7 +436,7 @@ class _CompetitionDetailsScreenState extends State<CompetitionDetailsScreen> {
                         ? 'Enter Lobby'
                         : 'Register Now',
                     style: const TextStyle(
-                      fontSize: 14,
+                      fontSize: 20,
                       fontWeight: FontWeight.w800,
                     ),
                   ),
@@ -462,8 +462,8 @@ class _CompetitionDetailsScreenState extends State<CompetitionDetailsScreen> {
                     child: Text(
                       'You are registered for this competition.',
                       style: TextStyle(
+                        fontSize: 20,
                         color: green,
-                        fontSize: 12,
                         fontWeight: FontWeight.w600,
                       ),
                     ),
@@ -491,8 +491,8 @@ class _CompetitionDetailsScreenState extends State<CompetitionDetailsScreen> {
             const Text(
               'Registration',
               style: TextStyle(
+                fontSize: 20,
                 color: Colors.white,
-                fontSize: 12,
                 fontWeight: FontWeight.w700,
               ),
             ),
@@ -500,8 +500,8 @@ class _CompetitionDetailsScreenState extends State<CompetitionDetailsScreen> {
             Text(
               '$players / $capacity',
               style: const TextStyle(
+                fontSize: 20,
                 color: muted,
-                fontSize: 12,
                 fontWeight: FontWeight.w600,
               ),
             ),
@@ -552,8 +552,8 @@ class _CompetitionDetailsScreenState extends State<CompetitionDetailsScreen> {
         Text(
           title,
           style: const TextStyle(
+            fontSize: 20,
             color: Colors.white,
-            fontSize: 16,
             fontWeight: FontWeight.w800,
           ),
         ),
@@ -576,8 +576,8 @@ class _CompetitionDetailsScreenState extends State<CompetitionDetailsScreen> {
                 Text(
                   title,
                   style: const TextStyle(
+                    fontSize: 20,
                     color: Colors.white,
-                    fontSize: 13,
                     fontWeight: FontWeight.w700,
                   ),
                 ),
@@ -585,8 +585,8 @@ class _CompetitionDetailsScreenState extends State<CompetitionDetailsScreen> {
                 Text(
                   subtitle,
                   style: const TextStyle(
+                    fontSize: 20,
                     color: muted,
-                    fontSize: 12,
                     height: 1.45,
                   ),
                 ),
@@ -615,8 +615,8 @@ class _CompetitionDetailsScreenState extends State<CompetitionDetailsScreen> {
             child: Text(
               number,
               style: const TextStyle(
+                fontSize: 20,
                 color: blue,
-                fontSize: 14,
                 fontWeight: FontWeight.w800,
               ),
             ),
@@ -629,8 +629,8 @@ class _CompetitionDetailsScreenState extends State<CompetitionDetailsScreen> {
                 Text(
                   title,
                   style: const TextStyle(
+                    fontSize: 20,
                     color: Colors.white,
-                    fontSize: 13,
                     fontWeight: FontWeight.w700,
                   ),
                 ),
@@ -638,8 +638,8 @@ class _CompetitionDetailsScreenState extends State<CompetitionDetailsScreen> {
                 Text(
                   description,
                   style: const TextStyle(
+                    fontSize: 20,
                     color: muted,
-                    fontSize: 12,
                     height: 1.5,
                   ),
                 ),
@@ -660,7 +660,7 @@ class _CompetitionDetailsScreenState extends State<CompetitionDetailsScreen> {
           Expanded(
             child: Text(
               label,
-              style: const TextStyle(color: muted, fontSize: 12),
+              style: const TextStyle(fontSize: 20, color: muted),
             ),
           ),
           const SizedBox(width: 15),
@@ -673,8 +673,8 @@ class _CompetitionDetailsScreenState extends State<CompetitionDetailsScreen> {
                     value,
                     textAlign: TextAlign.right,
                     style: const TextStyle(
+                      fontSize: 20,
                       color: Colors.white,
-                      fontSize: 12,
                       fontWeight: FontWeight.w700,
                     ),
                   ),
@@ -714,8 +714,8 @@ class _CompetitionDetailsScreenState extends State<CompetitionDetailsScreen> {
           Text(
             text,
             style: const TextStyle(
+              fontSize: 20,
               color: Colors.white,
-              fontSize: 14,
               fontWeight: FontWeight.w600,
             ),
           ),
@@ -746,8 +746,8 @@ class _CompetitionDetailsScreenState extends State<CompetitionDetailsScreen> {
           Text(
             value.toUpperCase(),
             style: TextStyle(
+              fontSize: 20,
               color: color,
-              fontSize: 12,
               fontWeight: FontWeight.w800,
               letterSpacing: 0.7,
             ),
@@ -777,7 +777,7 @@ class _CompetitionDetailsScreenState extends State<CompetitionDetailsScreen> {
         ],
       ),
       child: const Center(
-        child: Text('â™ž', style: TextStyle(color: Colors.white, fontSize: 29)),
+        child: Text('N', style: TextStyle(fontSize: 20, color: Colors.white)),
       ),
     );
   }

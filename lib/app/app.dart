@@ -1,3 +1,6 @@
+import 'dart:async';
+
+import 'package:app_links/app_links.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
@@ -20,11 +23,23 @@ class _CheckmateArenaAppState extends State<CheckmateArenaApp> {
   String _appearance = 'System';
   String? _startupError;
   int _attempt = 0;
+  StreamSubscription<Uri>? _authLinkSubscription;
+  final _appLinks = AppLinks();
 
   @override
   void initState() {
     super.initState();
-    if (widget.client == null) _initializeSupabase();
+    if (widget.client == null) {
+      _initializeSupabase();
+    } else {
+      _startAuthDeepLinks(widget.client!);
+    }
+  }
+
+  @override
+  void dispose() {
+    _authLinkSubscription?.cancel();
+    super.dispose();
   }
 
   Future<void> _initializeSupabase() async {
@@ -45,6 +60,7 @@ class _CheckmateArenaAppState extends State<CheckmateArenaApp> {
         url: SupabaseConfig.url,
         publishableKey: SupabaseConfig.publishableKey,
       );
+      await _startAuthDeepLinks(Supabase.instance.client);
       if (!mounted || attempt != _attempt) return;
       setState(() => _initializing = false);
     } catch (error) {
@@ -53,6 +69,31 @@ class _CheckmateArenaAppState extends State<CheckmateArenaApp> {
         _initializing = false;
         _startupError = _startupMessage(error);
       });
+    }
+  }
+
+  Future<void> _startAuthDeepLinks(SupabaseClient client) async {
+    final initialUri = await _appLinks.getInitialLink();
+    if (initialUri != null) {
+      await _handleAuthDeepLink(client, initialUri);
+    }
+    _authLinkSubscription = _appLinks.uriLinkStream.listen(
+      (uri) => _handleAuthDeepLink(client, uri),
+      onError: (Object error, StackTrace stackTrace) {
+        debugPrint('Auth deep-link error: $error');
+      },
+    );
+  }
+
+  Future<void> _handleAuthDeepLink(SupabaseClient client, Uri uri) async {
+    if (uri.scheme != 'sqi-chess-club' || uri.host != 'login-callback') {
+      return;
+    }
+
+    try {
+      await client.auth.getSessionFromUrl(uri);
+    } on AuthException catch (error) {
+      debugPrint('Google authentication callback failed: ${error.message}');
     }
   }
 
@@ -141,11 +182,10 @@ class _StartupScreen extends StatelessWidget {
                   ),
                   const SizedBox(height: 18),
                   const Text(
-                    'SQI CHECKMATE',
+                    'SQI CHESS APP',
                     textAlign: TextAlign.center,
                     style: TextStyle(
                       color: Colors.white,
-                      fontSize: 24,
                       fontWeight: FontWeight.w900,
                       letterSpacing: 1.2,
                     ),

@@ -39,6 +39,11 @@ service-role key in the app.
    and `resign_game`.
 5. Enable Realtime for `games` and `game_moves`.
 
+For Google sign-up/sign-in, follow
+[`docs/GOOGLE_AUTH_SETUP.md`](docs/GOOGLE_AUTH_SETUP.md). The guide covers
+Google Cloud credentials, Supabase provider configuration, Android deep links,
+and the Flutter callback flow.
+
 The community-pages migration also seeds three starter channels: **General**,
 **Announcements**, and **Study & Tactics**. Members can post in General and
 Study & Tactics; Announcements is admin-posted and visible to members.

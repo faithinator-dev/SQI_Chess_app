@@ -21,9 +21,7 @@ class NotificationModel {
 
   bool get isRead => readAt != null;
 
-  factory NotificationModel.fromMap(
-    Map<String, dynamic> map,
-  ) {
+  factory NotificationModel.fromMap(Map<String, dynamic> map) {
     return NotificationModel(
       id: map['id'] as String,
       userId: map['user_id'] as String,
@@ -33,14 +31,10 @@ class NotificationModel {
       data: map['data'] is Map
           ? Map<String, dynamic>.from(map['data'] as Map)
           : <String, dynamic>{},
-      createdAt: DateTime.parse(
-        map['created_at'] as String,
-      ).toLocal(),
+      createdAt: DateTime.parse(map['created_at'] as String).toLocal(),
       readAt: map['read_at'] == null
           ? null
-          : DateTime.parse(
-              map['read_at'] as String,
-            ).toLocal(),
+          : DateTime.parse(map['read_at'] as String).toLocal(),
     );
   }
 

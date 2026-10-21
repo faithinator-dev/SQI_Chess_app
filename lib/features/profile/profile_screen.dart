@@ -247,8 +247,8 @@ class _ProfileScreenState extends State<ProfileScreen> {
               Text(
                 'PROFILE',
                 style: TextStyle(
+                  fontSize: 20,
                   color: _ProfileColors.muted,
-                  fontSize: 12,
                   fontWeight: FontWeight.w900,
                   letterSpacing: 1.4,
                 ),
@@ -257,8 +257,8 @@ class _ProfileScreenState extends State<ProfileScreen> {
               Text(
                 'Your chess identity.',
                 style: TextStyle(
+                  fontSize: 20,
                   color: _ProfileColors.textPrimary,
-                  fontSize: 24,
                   fontWeight: FontWeight.w900,
                   letterSpacing: -0.5,
                 ),
@@ -292,8 +292,13 @@ class _ProfileScreenState extends State<ProfileScreen> {
           end: Alignment.bottomRight,
           colors: [
             _ProfileColors.blue.withValues(alpha: 0.15),
-            _ProfileColors.surface,
+            _ProfileColors.border.withValues(alpha: 0.05),
           ],
+        ),
+        image: const DecorationImage(
+          image: AssetImage('assets/images/profile_bg.png'),
+          fit: BoxFit.cover,
+          opacity: 0.3,
         ),
         borderRadius: BorderRadius.circular(26),
         border: Border.all(color: _ProfileColors.blue.withValues(alpha: 0.11)),
@@ -328,6 +333,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
   Widget _avatar(ProfileModel profile, double size) {
     if (profile.avatarUrl != null && profile.avatarUrl!.trim().isNotEmpty) {
       return ClipOval(
+        clipBehavior: Clip.hardEdge,
         child: Image.network(
           profile.avatarUrl!,
           width: size,
@@ -361,8 +367,8 @@ class _ProfileScreenState extends State<ProfileScreen> {
           child: Text(
             profile.initials,
             style: TextStyle(
+              fontSize: 20,
               color: _ProfileColors.blue,
-              fontSize: size * 0.27,
               fontWeight: FontWeight.w900,
             ),
           ),
@@ -396,8 +402,8 @@ class _ProfileScreenState extends State<ProfileScreen> {
                 maxLines: 1,
                 overflow: TextOverflow.ellipsis,
                 style: const TextStyle(
+                  fontSize: 20,
                   color: _ProfileColors.textPrimary,
-                  fontSize: 22,
                   fontWeight: FontWeight.w900,
                 ),
               ),
@@ -415,7 +421,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
         const SizedBox(height: 4),
         Text(
           '@${profile.username}',
-          style: const TextStyle(color: _ProfileColors.muted, fontSize: 14),
+          style: const TextStyle(fontSize: 20, color: _ProfileColors.muted),
         ),
         const SizedBox(height: 9),
         Wrap(
@@ -520,8 +526,8 @@ class _ProfileScreenState extends State<ProfileScreen> {
         const Text(
           'CURRENT RATING',
           style: TextStyle(
+            fontSize: 20,
             color: _ProfileColors.muted,
-            fontSize: 12,
             fontWeight: FontWeight.w900,
             letterSpacing: 1,
           ),
@@ -530,15 +536,15 @@ class _ProfileScreenState extends State<ProfileScreen> {
         Text(
           profile.formattedRating,
           style: const TextStyle(
+            fontSize: 20,
             color: _ProfileColors.textPrimary,
-            fontSize: 24,
             fontWeight: FontWeight.w900,
           ),
         ),
         const SizedBox(height: 3),
         Text(
           profile.preferredTimeControl ?? 'Rapid',
-          style: const TextStyle(color: _ProfileColors.muted, fontSize: 12),
+          style: const TextStyle(fontSize: 20, color: _ProfileColors.muted),
         ),
       ],
     );
@@ -564,14 +570,14 @@ class _ProfileScreenState extends State<ProfileScreen> {
             Expanded(
               child: Text(
                 'Next milestone',
-                style: TextStyle(color: _ProfileColors.muted, fontSize: 12),
+                style: TextStyle(fontSize: 20, color: _ProfileColors.muted),
               ),
             ),
             Text(
               '1,400',
               style: TextStyle(
+                fontSize: 20,
                 color: _ProfileColors.textSecondary,
-                fontSize: 14,
                 fontWeight: FontWeight.w800,
               ),
             ),
@@ -592,7 +598,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
         const SizedBox(height: 5),
         Text(
           remaining > 0 ? '$remaining points to go' : 'Milestone reached',
-          style: const TextStyle(color: _ProfileColors.muted, fontSize: 12),
+          style: const TextStyle(fontSize: 20, color: _ProfileColors.muted),
         ),
       ],
     );
@@ -609,7 +615,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
       ),
       child: const Text(
         'View statistics',
-        style: TextStyle(fontSize: 14, fontWeight: FontWeight.w800),
+        style: TextStyle(fontSize: 20, fontWeight: FontWeight.w800),
       ),
     );
   }
@@ -682,8 +688,8 @@ class _ProfileScreenState extends State<ProfileScreen> {
                           Text(
                             stat.$1,
                             style: const TextStyle(
+                              fontSize: 20,
                               color: _ProfileColors.muted,
-                              fontSize: 12,
                               fontWeight: FontWeight.w900,
                               letterSpacing: 0.8,
                             ),
@@ -692,8 +698,8 @@ class _ProfileScreenState extends State<ProfileScreen> {
                           Text(
                             stat.$2,
                             style: const TextStyle(
+                              fontSize: 20,
                               color: _ProfileColors.textPrimary,
-                              fontSize: 18,
                               fontWeight: FontWeight.w900,
                             ),
                           ),
@@ -716,8 +722,8 @@ class _ProfileScreenState extends State<ProfileScreen> {
           child: Text(
             title,
             style: const TextStyle(
+              fontSize: 20,
               color: _ProfileColors.textPrimary,
-              fontSize: 18,
               fontWeight: FontWeight.w900,
             ),
           ),
@@ -727,8 +733,8 @@ class _ProfileScreenState extends State<ProfileScreen> {
           child: Text(
             action,
             style: const TextStyle(
+              fontSize: 20,
               color: _ProfileColors.blue,
-              fontSize: 12,
               fontWeight: FontWeight.w800,
             ),
           ),
@@ -796,8 +802,8 @@ class _ProfileScreenState extends State<ProfileScreen> {
                 Text(
                   title,
                   style: const TextStyle(
+                    fontSize: 20,
                     color: _ProfileColors.textPrimary,
-                    fontSize: 16,
                     fontWeight: FontWeight.w800,
                   ),
                 ),
@@ -805,8 +811,8 @@ class _ProfileScreenState extends State<ProfileScreen> {
                 Text(
                   subtitle,
                   style: const TextStyle(
+                    fontSize: 20,
                     color: _ProfileColors.muted,
-                    fontSize: 14,
                     height: 1.4,
                   ),
                 ),
@@ -895,8 +901,8 @@ class _ProfileScreenState extends State<ProfileScreen> {
                   Text(
                     title,
                     style: const TextStyle(
+                      fontSize: 20,
                       color: _ProfileColors.textPrimary,
-                      fontSize: 16,
                       fontWeight: FontWeight.w800,
                     ),
                   ),
@@ -904,8 +910,8 @@ class _ProfileScreenState extends State<ProfileScreen> {
                   Text(
                     subtitle,
                     style: const TextStyle(
+                      fontSize: 20,
                       color: _ProfileColors.muted,
-                      fontSize: 14,
                     ),
                   ),
                 ],
@@ -964,8 +970,8 @@ class _ProfileScreenState extends State<ProfileScreen> {
                 Text(
                   'ADMIN PORTAL',
                   style: TextStyle(
+                    fontSize: 20,
                     color: _ProfileColors.purple,
-                    fontSize: 12,
                     fontWeight: FontWeight.w900,
                     letterSpacing: 1,
                   ),
@@ -974,8 +980,8 @@ class _ProfileScreenState extends State<ProfileScreen> {
                 Text(
                   'Manage SQI Checkmate Arena',
                   style: TextStyle(
+                    fontSize: 20,
                     color: _ProfileColors.textPrimary,
-                    fontSize: 16,
                     fontWeight: FontWeight.w800,
                   ),
                 ),
@@ -985,8 +991,8 @@ class _ProfileScreenState extends State<ProfileScreen> {
                   maxLines: 2,
                   overflow: TextOverflow.ellipsis,
                   style: TextStyle(
+                    fontSize: 20,
                     color: _ProfileColors.muted,
-                    fontSize: 14,
                     height: 1.35,
                   ),
                 ),
@@ -1009,7 +1015,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
             ),
             child: const Text(
               'Open Admin',
-              style: TextStyle(fontSize: 14, fontWeight: FontWeight.w800),
+              style: TextStyle(fontSize: 20, fontWeight: FontWeight.w800),
             ),
           ),
         ],
@@ -1049,8 +1055,8 @@ class _ProfileScreenState extends State<ProfileScreen> {
                         child: Text(
                           'Edit profile',
                           style: TextStyle(
-                            color: _ProfileColors.textPrimary,
                             fontSize: 20,
+                            color: _ProfileColors.textPrimary,
                             fontWeight: FontWeight.w900,
                           ),
                         ),
@@ -1098,7 +1104,10 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                 )
                               : const Text(
                                   'Save changes',
-                                  style: TextStyle(fontWeight: FontWeight.w800),
+                                  style: TextStyle(
+                                    fontSize: 20,
+                                    fontWeight: FontWeight.w800,
+                                  ),
                                 ),
                         ),
                       ),
@@ -1126,12 +1135,12 @@ class _ProfileScreenState extends State<ProfileScreen> {
     return TextField(
       controller: controller,
       maxLines: maxLines,
-      style: const TextStyle(color: _ProfileColors.textPrimary, fontSize: 16),
+      style: const TextStyle(fontSize: 20, color: _ProfileColors.textPrimary),
       decoration: InputDecoration(
         labelText: label,
-        labelStyle: const TextStyle(color: _ProfileColors.muted, fontSize: 14),
+        labelStyle: const TextStyle(fontSize: 20, color: _ProfileColors.muted),
         prefixText: prefix,
-        prefixStyle: const TextStyle(color: _ProfileColors.muted),
+        prefixStyle: const TextStyle(fontSize: 20, color: _ProfileColors.muted),
         filled: true,
         fillColor: _ProfileColors.surface2,
         border: OutlineInputBorder(
@@ -1204,8 +1213,8 @@ class _ProfileError extends StatelessWidget {
             const Text(
               'Profile unavailable',
               style: TextStyle(
-                color: _ProfileColors.textPrimary,
                 fontSize: 20,
+                color: _ProfileColors.textPrimary,
                 fontWeight: FontWeight.w900,
               ),
             ),
@@ -1214,8 +1223,8 @@ class _ProfileError extends StatelessWidget {
               message,
               textAlign: TextAlign.center,
               style: const TextStyle(
+                fontSize: 20,
                 color: _ProfileColors.muted,
-                fontSize: 14,
                 height: 1.4,
               ),
             ),
@@ -1252,8 +1261,8 @@ class _ProfilePill extends StatelessWidget {
       child: Text(
         text,
         style: TextStyle(
+          fontSize: 20,
           color: color,
-          fontSize: 12,
           fontWeight: FontWeight.w800,
         ),
       ),

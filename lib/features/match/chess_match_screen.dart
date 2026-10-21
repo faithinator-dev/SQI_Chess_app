@@ -1,4 +1,4 @@
-﻿import 'dart:async';
+import 'dart:async';
 import 'dart:math' as math;
 
 import 'package:chessground/chessground.dart';
@@ -528,11 +528,15 @@ class _ChessMatchScreenState extends State<ChessMatchScreen>
         backgroundColor: _surface,
         title: const Text(
           'Draw offered',
-          style: TextStyle(color: _primary, fontWeight: FontWeight.w800),
+          style: TextStyle(
+            fontSize: 20,
+            color: _primary,
+            fontWeight: FontWeight.w800,
+          ),
         ),
         content: const Text(
           'Your opponent offered a draw.',
-          style: TextStyle(color: _secondary),
+          style: TextStyle(fontSize: 20, color: _secondary),
         ),
         actions: [
           TextButton(
@@ -728,11 +732,15 @@ class _ChessMatchScreenState extends State<ChessMatchScreen>
           backgroundColor: _surface,
           title: const Text(
             'Resign game?',
-            style: TextStyle(color: _primary, fontWeight: FontWeight.w800),
+            style: TextStyle(
+              fontSize: 20,
+              color: _primary,
+              fontWeight: FontWeight.w800,
+            ),
           ),
           content: const Text(
             'Are you sure you want to resign this game?',
-            style: TextStyle(color: _secondary),
+            style: TextStyle(fontSize: 20, color: _secondary),
           ),
           actions: [
             TextButton(
@@ -847,11 +855,11 @@ class _ChessMatchScreenState extends State<ChessMatchScreen>
           backgroundColor: _surface,
           title: Text(
             _reviewResultLabel,
-            style: const TextStyle(color: _primary),
+            style: const TextStyle(fontSize: 20, color: _primary),
           ),
           content: const Text(
             'Game complete. Review your recorded moves or exit.',
-            style: TextStyle(color: _secondary),
+            style: TextStyle(fontSize: 20, color: _secondary),
           ),
           actions: [
             TextButton(
@@ -896,7 +904,10 @@ class _ChessMatchScreenState extends State<ChessMatchScreen>
     ScaffoldMessenger.of(context).showSnackBar(
       SnackBar(
         backgroundColor: _surface3,
-        content: Text(message, style: const TextStyle(color: _primary)),
+        content: Text(
+          message,
+          style: const TextStyle(fontSize: 20, color: _primary),
+        ),
       ),
     );
   }
@@ -927,7 +938,10 @@ class _ChessMatchScreenState extends State<ChessMatchScreen>
     ScaffoldMessenger.of(context).showSnackBar(
       SnackBar(
         backgroundColor: _surface3,
-        content: Text(message, style: const TextStyle(color: _secondary)),
+        content: Text(
+          message,
+          style: const TextStyle(fontSize: 20, color: _secondary),
+        ),
       ),
     );
   }
@@ -958,7 +972,7 @@ class _ChessMatchScreenState extends State<ChessMatchScreen>
         body: Center(
           child: Text(
             'Unable to initialize chess board.',
-            style: TextStyle(color: _primary),
+            style: TextStyle(fontSize: 20, color: _primary),
           ),
         ),
       );
@@ -1143,8 +1157,8 @@ class _ChessMatchScreenState extends State<ChessMatchScreen>
           const Text(
             'MOVES',
             style: TextStyle(
+              fontSize: 20,
               color: _muted,
-              fontSize: 12,
               fontWeight: FontWeight.w800,
               letterSpacing: 1.1,
             ),
@@ -1156,7 +1170,7 @@ class _ChessMatchScreenState extends State<ChessMatchScreen>
             child: _moves.isEmpty
                 ? const Text(
                     'No moves yet',
-                    style: TextStyle(color: _muted, fontSize: 12),
+                    style: TextStyle(fontSize: 20, color: _muted),
                   )
                 : SingleChildScrollView(
                     scrollDirection: Axis.horizontal,
@@ -1183,8 +1197,8 @@ class _ChessMatchScreenState extends State<ChessMatchScreen>
         Text(
           '${move.moveNumber}${move.color == 'white' ? '.' : '...'}',
           style: const TextStyle(
+            fontSize: 20,
             color: _muted,
-            fontSize: 12,
             fontWeight: FontWeight.w700,
           ),
         ),
@@ -1192,8 +1206,8 @@ class _ChessMatchScreenState extends State<ChessMatchScreen>
         Text(
           move.san,
           style: TextStyle(
+            fontSize: 20,
             color: move.color == 'white' ? _primary : _secondary,
-            fontSize: 13,
             fontWeight: FontWeight.w700,
           ),
         ),
@@ -1219,9 +1233,9 @@ class _ChessMatchScreenState extends State<ChessMatchScreen>
               maxLines: 1,
               overflow: TextOverflow.ellipsis,
               style: TextStyle(
+                fontSize: 20,
                 color: _primary,
                 fontFamily: 'Georgia',
-                fontSize: 21,
                 fontWeight: FontWeight.w700,
               ),
             ),
@@ -1241,8 +1255,8 @@ class _ChessMatchScreenState extends State<ChessMatchScreen>
                   Text(
                     'LIVE',
                     style: TextStyle(
+                      fontSize: 20,
                       color: _green,
-                      fontSize: 12,
                       fontWeight: FontWeight.w800,
                     ),
                   ),
@@ -1284,6 +1298,7 @@ class _ChessMatchScreenState extends State<ChessMatchScreen>
               maxLines: 1,
               overflow: TextOverflow.ellipsis,
               style: const TextStyle(
+                fontSize: 20,
                 color: _blue,
                 fontWeight: FontWeight.w800,
                 letterSpacing: .5,
@@ -1336,7 +1351,11 @@ class _ChessMatchScreenState extends State<ChessMatchScreen>
               name.trim().isEmpty
                   ? '?'
                   : name.trim().substring(0, 1).toUpperCase(),
-              style: const TextStyle(color: _blue, fontWeight: FontWeight.w800),
+              style: const TextStyle(
+                fontSize: 20,
+                color: _blue,
+                fontWeight: FontWeight.w800,
+              ),
             ),
           ),
 
@@ -1351,6 +1370,7 @@ class _ChessMatchScreenState extends State<ChessMatchScreen>
                   maxLines: 1,
                   overflow: TextOverflow.ellipsis,
                   style: const TextStyle(
+                    fontSize: 20,
                     color: _primary,
                     fontWeight: FontWeight.w700,
                   ),
@@ -1359,7 +1379,7 @@ class _ChessMatchScreenState extends State<ChessMatchScreen>
                 if (rating > 0)
                   Text(
                     '$rating rating',
-                    style: const TextStyle(color: _muted, fontSize: 12),
+                    style: const TextStyle(fontSize: 20, color: _muted),
                   ),
               ],
             ),
@@ -1374,8 +1394,8 @@ class _ChessMatchScreenState extends State<ChessMatchScreen>
             child: Text(
               clock,
               style: TextStyle(
+                fontSize: 20,
                 color: isActive ? Colors.white : _primary,
-                fontSize: 18,
                 fontWeight: FontWeight.w800,
                 fontFeatures: const [FontFeature.tabularFigures()],
               ),

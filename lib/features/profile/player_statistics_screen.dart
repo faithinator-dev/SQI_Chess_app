@@ -1,4 +1,4 @@
-﻿import 'package:flutter/material.dart';
+import 'package:flutter/material.dart';
 
 import '../../core/models/profile_model.dart';
 import '../../core/repositories/profile_repository.dart';
@@ -53,7 +53,7 @@ class _PlayerStatisticsScreenState extends State<PlayerStatisticsScreen> {
         foregroundColor: Colors.white,
         title: const Text(
           'Statistics',
-          style: TextStyle(fontWeight: FontWeight.w800),
+          style: TextStyle(fontSize: 20, fontWeight: FontWeight.w800),
         ),
       ),
       body: SafeArea(
@@ -87,8 +87,8 @@ class _PlayerStatisticsScreenState extends State<PlayerStatisticsScreen> {
                   child: Text(
                     'Current rating',
                     style: TextStyle(
+                      fontSize: 20,
                       color: Color(0xFF737A74),
-                      fontSize: 14,
                       fontWeight: FontWeight.w700,
                     ),
                   ),
@@ -96,8 +96,8 @@ class _PlayerStatisticsScreenState extends State<PlayerStatisticsScreen> {
                 Text(
                   '${profile.chessRating}',
                   style: const TextStyle(
+                    fontSize: 20,
                     color: Colors.white,
-                    fontSize: 30,
                     fontWeight: FontWeight.w800,
                   ),
                 ),
@@ -129,8 +129,8 @@ class _PlayerStatisticsScreenState extends State<PlayerStatisticsScreen> {
                 const Text(
                   'Rating history',
                   style: TextStyle(
+                    fontSize: 20,
                     color: Colors.white,
-                    fontSize: 15,
                     fontWeight: FontWeight.w800,
                   ),
                 ),
@@ -139,7 +139,11 @@ class _PlayerStatisticsScreenState extends State<PlayerStatisticsScreen> {
                   total == 0
                       ? 'Rating history will appear after your first rated game.'
                       : 'Historical rating points are not available in the current Supabase schema.',
-                  style: const TextStyle(color: Color(0xFF737A74), height: 1.5),
+                  style: const TextStyle(
+                    fontSize: 20,
+                    color: Color(0xFF737A74),
+                    height: 1.5,
+                  ),
                 ),
               ],
             ),
@@ -152,8 +156,8 @@ class _PlayerStatisticsScreenState extends State<PlayerStatisticsScreen> {
                 const Text(
                   'Results breakdown',
                   style: TextStyle(
+                    fontSize: 20,
                     color: Colors.white,
-                    fontSize: 15,
                     fontWeight: FontWeight.w800,
                   ),
                 ),
@@ -193,15 +197,15 @@ class _PlayerStatisticsScreenState extends State<PlayerStatisticsScreen> {
           Text(
             value,
             style: const TextStyle(
+              fontSize: 20,
               color: Colors.white,
-              fontSize: 21,
               fontWeight: FontWeight.w800,
             ),
           ),
           const SizedBox(height: 4),
           Text(
             label,
-            style: const TextStyle(color: Color(0xFF737A74), fontSize: 12),
+            style: const TextStyle(fontSize: 20, color: Color(0xFF737A74)),
           ),
         ],
       ),
@@ -218,14 +222,14 @@ class _PlayerStatisticsScreenState extends State<PlayerStatisticsScreen> {
             children: [
               Text(
                 label,
-                style: const TextStyle(color: Color(0xFF737A74), fontSize: 12),
+                style: const TextStyle(fontSize: 20, color: Color(0xFF737A74)),
               ),
               const Spacer(),
               Text(
                 '$value',
                 style: TextStyle(
+                  fontSize: 20,
                   color: color,
-                  fontSize: 12,
                   fontWeight: FontWeight.w800,
                 ),
               ),
@@ -269,7 +273,10 @@ class _StateMessage extends StatelessWidget {
       child: Column(
         mainAxisSize: MainAxisSize.min,
         children: [
-          Text(message, style: const TextStyle(color: Color(0xFF737A74))),
+          Text(
+            message,
+            style: const TextStyle(fontSize: 20, color: Color(0xFF737A74)),
+          ),
           const SizedBox(height: 12),
           OutlinedButton(onPressed: onRetry, child: const Text('Retry')),
         ],

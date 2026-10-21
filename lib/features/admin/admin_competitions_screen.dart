@@ -1,4 +1,4 @@
-﻿// lib/features/admin/admin_competitions_screen.dart
+// lib/features/admin/admin_competitions_screen.dart
 
 import 'package:flutter/material.dart';
 
@@ -120,8 +120,8 @@ class _AdminCompetitionsScreenState extends State<AdminCompetitionsScreen> {
               const Text(
                 'Competitions',
                 style: TextStyle(
+                  fontSize: 20,
                   color: white,
-                  fontSize: 30,
                   fontWeight: FontWeight.w800,
                   letterSpacing: -0.8,
                 ),
@@ -130,8 +130,8 @@ class _AdminCompetitionsScreenState extends State<AdminCompetitionsScreen> {
               Text(
                 'Published competition records will appear here when available.',
                 style: TextStyle(
+                  fontSize: 20,
                   color: muted.withValues(alpha: 0.9),
-                  fontSize: 16,
                 ),
               ),
             ],
@@ -229,8 +229,8 @@ class _AdminCompetitionsScreenState extends State<AdminCompetitionsScreen> {
                   maxLines: 1,
                   overflow: TextOverflow.ellipsis,
                   style: const TextStyle(
+                    fontSize: 20,
                     color: white,
-                    fontSize: 21,
                     fontWeight: FontWeight.w800,
                   ),
                 ),
@@ -240,8 +240,8 @@ class _AdminCompetitionsScreenState extends State<AdminCompetitionsScreen> {
                   maxLines: 1,
                   overflow: TextOverflow.ellipsis,
                   style: TextStyle(
+                    fontSize: 20,
                     color: muted.withValues(alpha: 0.85),
-                    fontSize: 16,
                     fontWeight: FontWeight.w500,
                   ),
                 ),
@@ -292,12 +292,12 @@ class _AdminCompetitionsScreenState extends State<AdminCompetitionsScreen> {
             _search = value;
           });
         },
-        style: const TextStyle(color: white, fontSize: 16),
+        style: const TextStyle(fontSize: 20, color: white),
         decoration: InputDecoration(
           hintText: 'Search competitions, IDs or skill levels...',
           hintStyle: TextStyle(
+            fontSize: 20,
             color: muted.withValues(alpha: 0.7),
-            fontSize: 14,
           ),
           prefixIcon: const Icon(Icons.search_rounded, color: muted, size: 20),
           filled: true,
@@ -351,8 +351,8 @@ class _AdminCompetitionsScreenState extends State<AdminCompetitionsScreen> {
               child: Text(
                 filter,
                 style: TextStyle(
+                  fontSize: 20,
                   color: selected ? blue : muted,
-                  fontSize: 12,
                   fontWeight: selected ? FontWeight.w700 : FontWeight.w500,
                 ),
               ),
@@ -427,8 +427,8 @@ class _AdminCompetitionsScreenState extends State<AdminCompetitionsScreen> {
                               competition['name'],
                               overflow: TextOverflow.ellipsis,
                               style: const TextStyle(
+                                fontSize: 20,
                                 color: white,
-                                fontSize: 16,
                                 fontWeight: FontWeight.w700,
                               ),
                             ),
@@ -447,8 +447,8 @@ class _AdminCompetitionsScreenState extends State<AdminCompetitionsScreen> {
                       Text(
                         competition['id'],
                         style: TextStyle(
+                          fontSize: 20,
                           color: muted.withValues(alpha: 0.7),
-                          fontSize: 12,
                         ),
                       ),
                     ],
@@ -466,8 +466,8 @@ class _AdminCompetitionsScreenState extends State<AdminCompetitionsScreen> {
                 Text(
                   competition['date'],
                   style: const TextStyle(
+                    fontSize: 20,
                     color: white,
-                    fontSize: 12,
                     fontWeight: FontWeight.w600,
                   ),
                 ),
@@ -475,8 +475,8 @@ class _AdminCompetitionsScreenState extends State<AdminCompetitionsScreen> {
                 Text(
                   competition['time'],
                   style: TextStyle(
+                    fontSize: 20,
                     color: muted.withValues(alpha: 0.8),
-                    fontSize: 12,
                   ),
                 ),
               ],
@@ -490,8 +490,8 @@ class _AdminCompetitionsScreenState extends State<AdminCompetitionsScreen> {
                 Text(
                   '${competition['players']} / ${competition['capacity']}',
                   style: const TextStyle(
+                    fontSize: 20,
                     color: white,
-                    fontSize: 12,
                     fontWeight: FontWeight.w600,
                   ),
                 ),
@@ -574,8 +574,8 @@ class _AdminCompetitionsScreenState extends State<AdminCompetitionsScreen> {
                       maxLines: 1,
                       overflow: TextOverflow.ellipsis,
                       style: const TextStyle(
+                        fontSize: 20,
                         color: white,
-                        fontSize: 16,
                         fontWeight: FontWeight.w700,
                       ),
                     ),
@@ -583,8 +583,8 @@ class _AdminCompetitionsScreenState extends State<AdminCompetitionsScreen> {
                     Text(
                       competition['id'],
                       style: TextStyle(
+                        fontSize: 20,
                         color: muted.withValues(alpha: 0.7),
-                        fontSize: 12,
                       ),
                     ),
                   ],
@@ -612,15 +612,15 @@ class _AdminCompetitionsScreenState extends State<AdminCompetitionsScreen> {
               Text(
                 'Registration',
                 style: TextStyle(
+                  fontSize: 20,
                   color: muted.withValues(alpha: 0.8),
-                  fontSize: 14,
                 ),
               ),
               Text(
                 '${competition['players']} / ${competition['capacity']} players',
                 style: const TextStyle(
+                  fontSize: 20,
                   color: white,
-                  fontSize: 14,
                   fontWeight: FontWeight.w700,
                 ),
               ),
@@ -657,7 +657,7 @@ class _AdminCompetitionsScreenState extends State<AdminCompetitionsScreen> {
                   icon: const Icon(Icons.visibility_outlined, size: 17),
                   label: const Text(
                     'Details',
-                    style: TextStyle(fontWeight: FontWeight.w700, fontSize: 16),
+                    style: TextStyle(fontSize: 20, fontWeight: FontWeight.w700),
                   ),
                 ),
               ),
@@ -698,8 +698,8 @@ class _AdminCompetitionsScreenState extends State<AdminCompetitionsScreen> {
         child: Text(
           competition['short'],
           style: TextStyle(
+            fontSize: 20,
             color: color,
-            fontSize: 14,
             fontWeight: FontWeight.w900,
             letterSpacing: 0.3,
           ),
@@ -741,8 +741,8 @@ class _AdminCompetitionsScreenState extends State<AdminCompetitionsScreen> {
           Text(
             status,
             style: TextStyle(
+              fontSize: 20,
               color: color,
-              fontSize: 12,
               fontWeight: FontWeight.w800,
             ),
           ),
@@ -766,8 +766,8 @@ class _AdminCompetitionsScreenState extends State<AdminCompetitionsScreen> {
           Text(
             text,
             style: const TextStyle(
+              fontSize: 20,
               color: white,
-              fontSize: 12,
               fontWeight: FontWeight.w600,
             ),
           ),
@@ -791,8 +791,8 @@ class _AdminCompetitionsScreenState extends State<AdminCompetitionsScreen> {
           Text(
             text,
             style: const TextStyle(
+              fontSize: 20,
               color: white,
-              fontSize: 12,
               fontWeight: FontWeight.w600,
             ),
           ),
@@ -844,7 +844,7 @@ class _AdminCompetitionsScreenState extends State<AdminCompetitionsScreen> {
         icon: Icon(icon, size: 16),
         label: Text(
           label,
-          style: const TextStyle(fontSize: 16, fontWeight: FontWeight.w800),
+          style: const TextStyle(fontSize: 20, fontWeight: FontWeight.w800),
         ),
       ),
     );
@@ -890,8 +890,8 @@ class _AdminCompetitionsScreenState extends State<AdminCompetitionsScreen> {
           const Text(
             'No competitions found',
             style: TextStyle(
+              fontSize: 20,
               color: white,
-              fontSize: 18,
               fontWeight: FontWeight.w800,
             ),
           ),
@@ -899,8 +899,8 @@ class _AdminCompetitionsScreenState extends State<AdminCompetitionsScreen> {
           Text(
             'Try changing your search or filter.',
             style: TextStyle(
+              fontSize: 20,
               color: muted.withValues(alpha: 0.85),
-              fontSize: 14,
             ),
           ),
         ],
@@ -1028,8 +1028,8 @@ class _CompetitionDetailsSheet extends StatelessWidget {
                         Text(
                           competition['name'],
                           style: const TextStyle(
+                            fontSize: 20,
                             color: white,
-                            fontSize: 18,
                             fontWeight: FontWeight.w800,
                           ),
                         ),
@@ -1037,8 +1037,8 @@ class _CompetitionDetailsSheet extends StatelessWidget {
                         Text(
                           competition['id'],
                           style: TextStyle(
+                            fontSize: 20,
                             color: muted.withValues(alpha: 0.75),
-                            fontSize: 14,
                           ),
                         ),
                       ],
@@ -1074,7 +1074,10 @@ class _CompetitionDetailsSheet extends StatelessWidget {
                       icon: const Icon(Icons.edit_outlined, size: 18),
                       label: const Text(
                         'Edit',
-                        style: TextStyle(fontWeight: FontWeight.w700),
+                        style: TextStyle(
+                          fontSize: 20,
+                          fontWeight: FontWeight.w700,
+                        ),
                       ),
                     ),
                   ),
@@ -1102,7 +1105,10 @@ class _CompetitionDetailsSheet extends StatelessWidget {
                       icon: const Icon(Icons.tune_rounded, size: 18),
                       label: const Text(
                         'Manage',
-                        style: TextStyle(fontWeight: FontWeight.w700),
+                        style: TextStyle(
+                          fontSize: 20,
+                          fontWeight: FontWeight.w700,
+                        ),
                       ),
                     ),
                   ),
@@ -1120,7 +1126,7 @@ class _CompetitionDetailsSheet extends StatelessWidget {
                   icon: const Icon(Icons.delete_outline_rounded, size: 18),
                   label: const Text(
                     'Delete Competition',
-                    style: TextStyle(fontWeight: FontWeight.w700),
+                    style: TextStyle(fontSize: 20, fontWeight: FontWeight.w700),
                   ),
                 ),
               ),
@@ -1172,8 +1178,8 @@ class _CompetitionDetailsSheet extends StatelessWidget {
                     Text(
                       item.$1,
                       style: TextStyle(
+                        fontSize: 20,
                         color: muted.withValues(alpha: 0.75),
-                        fontSize: 12,
                       ),
                     ),
                     const SizedBox(height: 3),
@@ -1182,8 +1188,8 @@ class _CompetitionDetailsSheet extends StatelessWidget {
                       maxLines: 1,
                       overflow: TextOverflow.ellipsis,
                       style: const TextStyle(
+                        fontSize: 20,
                         color: white,
-                        fontSize: 14,
                         fontWeight: FontWeight.w700,
                       ),
                     ),
@@ -1218,8 +1224,8 @@ class _CompetitionDetailsSheet extends StatelessWidget {
                 child: Text(
                   'Registered Players',
                   style: TextStyle(
+                    fontSize: 20,
                     color: white,
-                    fontSize: 12,
                     fontWeight: FontWeight.w600,
                   ),
                 ),
@@ -1227,8 +1233,8 @@ class _CompetitionDetailsSheet extends StatelessWidget {
               Text(
                 '$players / $capacity',
                 style: const TextStyle(
+                  fontSize: 20,
                   color: white,
-                  fontSize: 12,
                   fontWeight: FontWeight.w800,
                 ),
               ),
@@ -1255,8 +1261,8 @@ class _CompetitionDetailsSheet extends StatelessWidget {
     return Text(
       title,
       style: const TextStyle(
+        fontSize: 20,
         color: white,
-        fontSize: 14,
         fontWeight: FontWeight.w800,
       ),
     );
@@ -1294,8 +1300,8 @@ class _CompetitionDetailsSheet extends StatelessWidget {
           Text(
             status,
             style: TextStyle(
+              fontSize: 20,
               color: color,
-              fontSize: 12,
               fontWeight: FontWeight.w800,
             ),
           ),

@@ -21,7 +21,8 @@ class SettingsController extends ChangeNotifier {
     try {
       settings = await _repository.getCurrentSettings();
     } catch (_) {
-      error = 'We could not load your settings. Check your connection and try again.';
+      error =
+          'We could not load your settings. Check your connection and try again.';
     }
     loading = false;
     notifyListeners();
@@ -39,7 +40,8 @@ class SettingsController extends ChangeNotifier {
       settings = await _repository.saveSettings(next);
     } catch (_) {
       settings = previous;
-      error = 'We could not save that change. Your previous setting has been kept.';
+      error =
+          'We could not save that change. Your previous setting has been kept.';
       _retrySettings = next;
     }
     saving = false;

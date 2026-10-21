@@ -1,4 +1,4 @@
-﻿import 'package:flutter/material.dart';
+import 'package:flutter/material.dart';
 
 class GameResultScreen extends StatelessWidget {
   const GameResultScreen({
@@ -162,8 +162,8 @@ class GameResultScreen extends StatelessWidget {
         const Text(
           'GAME RESULT',
           style: TextStyle(
+            fontSize: 20,
             color: muted,
-            fontSize: 12,
             fontWeight: FontWeight.w900,
             letterSpacing: 1.8,
           ),
@@ -203,8 +203,8 @@ class GameResultScreen extends StatelessWidget {
             result.toUpperCase(),
             textAlign: TextAlign.center,
             style: TextStyle(
+              fontSize: 20,
               color: resultColor,
-              fontSize: 28,
               fontWeight: FontWeight.w900,
               letterSpacing: 1.5,
             ),
@@ -215,7 +215,7 @@ class GameResultScreen extends StatelessWidget {
           Text(
             resultDescription,
             textAlign: TextAlign.center,
-            style: const TextStyle(color: muted, height: 1.5, fontSize: 13),
+            style: const TextStyle(fontSize: 20, color: muted, height: 1.5),
           ),
         ],
       ),
@@ -238,8 +238,8 @@ class GameResultScreen extends StatelessWidget {
             child: Text(
               'FINAL RESULT',
               style: TextStyle(
+                fontSize: 20,
                 color: muted,
-                fontSize: 12,
                 fontWeight: FontWeight.w900,
                 letterSpacing: 1.5,
               ),
@@ -257,7 +257,7 @@ class GameResultScreen extends StatelessWidget {
                   score: isVictory
                       ? '1'
                       : isDraw
-                      ? 'Â½'
+                      ? '0.5'
                       : '0',
                   isYou: true,
                   highlighted: isVictory,
@@ -269,8 +269,8 @@ class GameResultScreen extends StatelessWidget {
                 child: Text(
                   'VS',
                   style: TextStyle(
+                    fontSize: 20,
                     color: muted,
-                    fontSize: 12,
                     fontWeight: FontWeight.w900,
                   ),
                 ),
@@ -283,7 +283,7 @@ class GameResultScreen extends StatelessWidget {
                   score: isVictory
                       ? '0'
                       : isDraw
-                      ? 'Â½'
+                      ? '0.5'
                       : '1',
                   highlighted: !isVictory && !isDraw,
                 ),
@@ -322,8 +322,8 @@ class GameResultScreen extends StatelessWidget {
           child: Text(
             name.isEmpty ? '?' : name.substring(0, 1).toUpperCase(),
             style: const TextStyle(
-              color: Colors.white,
               fontSize: 20,
+              color: Colors.white,
               fontWeight: FontWeight.w900,
             ),
           ),
@@ -339,9 +339,9 @@ class GameResultScreen extends StatelessWidget {
                 name,
                 overflow: TextOverflow.ellipsis,
                 style: const TextStyle(
+                  fontSize: 20,
                   color: Colors.white,
                   fontWeight: FontWeight.w800,
-                  fontSize: 13,
                 ),
               ),
             ),
@@ -351,8 +351,8 @@ class GameResultScreen extends StatelessWidget {
               const Text(
                 'YOU',
                 style: TextStyle(
+                  fontSize: 20,
                   color: blue,
-                  fontSize: 12,
                   fontWeight: FontWeight.w900,
                 ),
               ),
@@ -364,7 +364,7 @@ class GameResultScreen extends StatelessWidget {
 
         Text(
           'Rating $rating',
-          style: const TextStyle(color: muted, fontSize: 12),
+          style: const TextStyle(fontSize: 20, color: muted),
         ),
 
         const SizedBox(height: 10),
@@ -372,8 +372,8 @@ class GameResultScreen extends StatelessWidget {
         Text(
           score,
           style: TextStyle(
+            fontSize: 20,
             color: highlighted ? resultColor : Colors.white,
-            fontSize: 28,
             fontWeight: FontWeight.w900,
           ),
         ),
@@ -396,8 +396,8 @@ class GameResultScreen extends StatelessWidget {
           const Text(
             'GAME SUMMARY',
             style: TextStyle(
+              fontSize: 20,
               color: muted,
-              fontSize: 12,
               fontWeight: FontWeight.w900,
               letterSpacing: 1.5,
             ),
@@ -427,8 +427,8 @@ class GameResultScreen extends StatelessWidget {
         Text(
           value,
           style: const TextStyle(
+            fontSize: 20,
             color: Colors.white,
-            fontSize: 15,
             fontWeight: FontWeight.w900,
           ),
         ),
@@ -436,8 +436,8 @@ class GameResultScreen extends StatelessWidget {
         Text(
           label,
           style: const TextStyle(
+            fontSize: 20,
             color: muted,
-            fontSize: 12,
             fontWeight: FontWeight.w800,
             letterSpacing: 1,
           ),
@@ -462,8 +462,8 @@ class GameResultScreen extends StatelessWidget {
             child: Text(
               'MATCH DETAILS',
               style: TextStyle(
+                fontSize: 20,
                 color: muted,
-                fontSize: 12,
                 fontWeight: FontWeight.w900,
                 letterSpacing: 1.5,
               ),
@@ -487,7 +487,7 @@ class GameResultScreen extends StatelessWidget {
       padding: const EdgeInsets.only(bottom: 11),
       child: Row(
         children: [
-          Text(label, style: const TextStyle(color: muted, fontSize: 12)),
+          Text(label, style: const TextStyle(fontSize: 20, color: muted)),
           const Spacer(),
           Flexible(
             child: Text(
@@ -495,8 +495,8 @@ class GameResultScreen extends StatelessWidget {
               textAlign: TextAlign.right,
               overflow: TextOverflow.ellipsis,
               style: const TextStyle(
+                fontSize: 20,
                 color: Colors.white,
-                fontSize: 12,
                 fontWeight: FontWeight.w700,
               ),
             ),

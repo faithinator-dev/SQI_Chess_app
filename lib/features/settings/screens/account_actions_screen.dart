@@ -40,7 +40,10 @@ class AccountActionsScreen extends StatelessWidget {
           ),
         ),
         actions: [
-          TextButton(onPressed: () => Navigator.pop(context), child: const Text('Cancel')),
+          TextButton(
+            onPressed: () => Navigator.pop(context),
+            child: const Text('Cancel'),
+          ),
           FilledButton(
             onPressed: () {
               if (formKey.currentState!.validate()) {
@@ -56,10 +59,14 @@ class AccountActionsScreen extends StatelessWidget {
     if (email == null || email == user.email) return;
 
     try {
-      await Supabase.instance.client.auth.updateUser(UserAttributes(email: email));
+      await Supabase.instance.client.auth.updateUser(
+        UserAttributes(email: email),
+      );
       if (context.mounted) {
         ScaffoldMessenger.of(context).showSnackBar(
-          const SnackBar(content: Text('Check your email to confirm the address change.')),
+          const SnackBar(
+            content: Text('Check your email to confirm the address change.'),
+          ),
         );
       }
     } catch (_) {
@@ -67,7 +74,8 @@ class AccountActionsScreen extends StatelessWidget {
         await showSettingsErrorDialog(
           context,
           title: 'Could not update email',
-          message: 'Your email was not changed. Check your connection and try again.',
+          message:
+              'Your email was not changed. Check your connection and try again.',
         );
       }
     }
@@ -92,7 +100,10 @@ class AccountActionsScreen extends StatelessWidget {
           ),
         ),
         actions: [
-          TextButton(onPressed: () => Navigator.pop(context), child: const Text('Cancel')),
+          TextButton(
+            onPressed: () => Navigator.pop(context),
+            child: const Text('Cancel'),
+          ),
           FilledButton(
             onPressed: () {
               if (formKey.currentState!.validate()) {
@@ -108,7 +119,9 @@ class AccountActionsScreen extends StatelessWidget {
     if (password == null) return;
 
     try {
-      await Supabase.instance.client.auth.updateUser(UserAttributes(password: password));
+      await Supabase.instance.client.auth.updateUser(
+        UserAttributes(password: password),
+      );
       if (context.mounted) {
         ScaffoldMessenger.of(context).showSnackBar(
           const SnackBar(content: Text('Password updated successfully.')),
@@ -119,7 +132,8 @@ class AccountActionsScreen extends StatelessWidget {
         await showSettingsErrorDialog(
           context,
           title: 'Could not update password',
-          message: 'Your password was not changed. Check your connection and try again.',
+          message:
+              'Your password was not changed. Check your connection and try again.',
         );
       }
     }
@@ -130,10 +144,18 @@ class AccountActionsScreen extends StatelessWidget {
       context: context,
       builder: (context) => AlertDialog(
         title: const Text('Sign out?'),
-        content: const Text('You will need to sign in again to access your account.'),
+        content: const Text(
+          'You will need to sign in again to access your account.',
+        ),
         actions: [
-          TextButton(onPressed: () => Navigator.pop(context, false), child: const Text('Cancel')),
-          FilledButton(onPressed: () => Navigator.pop(context, true), child: const Text('Sign out')),
+          TextButton(
+            onPressed: () => Navigator.pop(context, false),
+            child: const Text('Cancel'),
+          ),
+          FilledButton(
+            onPressed: () => Navigator.pop(context, true),
+            child: const Text('Sign out'),
+          ),
         ],
       ),
     );
@@ -141,13 +163,15 @@ class AccountActionsScreen extends StatelessWidget {
 
     try {
       await Supabase.instance.client.auth.signOut();
-      if (context.mounted) Navigator.of(context).popUntil((route) => route.isFirst);
+      if (context.mounted)
+        Navigator.of(context).popUntil((route) => route.isFirst);
     } catch (_) {
       if (context.mounted) {
         await showSettingsErrorDialog(
           context,
           title: 'Could not sign out',
-          message: 'You are still signed in. Check your connection and try again.',
+          message:
+              'You are still signed in. Check your connection and try again.',
         );
       }
     }

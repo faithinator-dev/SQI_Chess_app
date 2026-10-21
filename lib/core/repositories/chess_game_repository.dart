@@ -19,7 +19,8 @@ class GameHistoryEntry {
     if (game.result == 'draw') return 'Draw';
     if (game.result == null) return 'Unknown';
 
-    final won = (isWhite && game.result == 'white') ||
+    final won =
+        (isWhite && game.result == 'white') ||
         (!isWhite && game.result == 'black');
     return won ? 'Victory' : 'Defeat';
   }
@@ -190,7 +191,9 @@ class ChessGameRepository {
     final rows = await _client
         .from('games')
         .select()
-        .or('white_player_id.eq.$currentUserId,black_player_id.eq.$currentUserId')
+        .or(
+          'white_player_id.eq.$currentUserId,black_player_id.eq.$currentUserId',
+        )
         .eq('status', 'active')
         .order('updated_at', ascending: false);
 
@@ -198,9 +201,11 @@ class ChessGameRepository {
         .map((row) => ChessGameModel.fromMap(Map<String, dynamic>.from(row)))
         .toList();
     final opponentIds = games
-        .map((game) => game.whitePlayerId == currentUserId
-            ? game.blackPlayerId
-            : game.whitePlayerId)
+        .map(
+          (game) => game.whitePlayerId == currentUserId
+              ? game.blackPlayerId
+              : game.whitePlayerId,
+        )
         .whereType<String>()
         .toSet()
         .toList();
@@ -245,10 +250,7 @@ class ChessGameRepository {
   }) async {
     final response = await _client.functions.invoke(
       'submit-move',
-      body: {
-        'game_id': gameId,
-        'uci': move.uci,
-      },
+      body: {'game_id': gameId, 'uci': move.uci},
     );
 
     final data = response.data;
@@ -284,10 +286,7 @@ class ChessGameRepository {
   }) async {
     final result = await _client.rpc(
       'respond_draw_offer',
-      params: {
-        'p_offer_id': offerId,
-        'p_accept': accept,
-      },
+      params: {'p_offer_id': offerId, 'p_accept': accept},
     );
 
     return ChessGameModel.fromMap(Map<String, dynamic>.from(result as Map));

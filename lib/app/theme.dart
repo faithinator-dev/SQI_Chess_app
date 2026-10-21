@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 
 class AppTypography {
-  // Micro Labels: 12 (Absolute Minimum) - Timestamps, copyright text, tiny badges
-  static const double micro = 12.0;
+  // Small labels: 14 (absolute minimum) - timestamps and compact badges
+  static const double micro = 14.0;
 
   // Captions / Secondary: 14 - Subtitles, form hints, secondary descriptive text
   static const double caption = 14.0;
@@ -24,23 +24,27 @@ class AppTypography {
 
 class AppTheme {
   // ── Sky / Steel-Blue Palette ──────────────────────────────────────────────
-  static const Color primary     = Color(0xFF1A6BB5); // steel-blue brand colour
+  static const Color primary = Color(0xFF1A6BB5); // steel-blue brand colour
   static const Color primaryDark = Color(0xFF0D4F8B); // deeper press state
-  static const Color background  = Color(0xFFF4F8FD); // very light blue-tinted canvas
-  static const Color card        = Color(0xFFFFFFFF);
-  static const Color accent      = Color(0xFFE3EEF9); // pale-blue surface tint
+  static const Color background = Color(
+    0xFFF4F8FD,
+  ); // very light blue-tinted canvas
+  static const Color card = Color(0xFFFFFFFF);
+  static const Color accent = Color(0xFFE3EEF9); // pale-blue surface tint
 
   static final ThemeData lightTheme = _createTheme(Brightness.light);
-  static final ThemeData darkTheme  = _createTheme(Brightness.dark);
+  static final ThemeData darkTheme = _createTheme(Brightness.dark);
 
   static ThemeData _createTheme(Brightness brightness) {
     final isLight = brightness == Brightness.light;
 
-    final canvas  = isLight ? background              : const Color(0xFF0D1520);
-    final surface = isLight ? card                    : const Color(0xFF152032);
-    final foreground = isLight ? const Color(0xFF0D1B2E) : const Color(0xFFE8F2FF);
-    final muted      = isLight ? const Color(0xFF5E7A99) : const Color(0xFF7FA3C8);
-    final border     = isLight ? const Color(0xFFCCDEF0) : const Color(0xFF1E3A57);
+    final canvas = isLight ? background : const Color(0xFF0D1520);
+    final surface = isLight ? card : const Color(0xFF152032);
+    final foreground = isLight
+        ? const Color(0xFF0D1B2E)
+        : const Color(0xFFE8F2FF);
+    final muted = isLight ? const Color(0xFF5E7A99) : const Color(0xFF7FA3C8);
+    final border = isLight ? const Color(0xFFCCDEF0) : const Color(0xFF1E3A57);
 
     final scheme = ColorScheme.fromSeed(
       seedColor: primary,
@@ -49,21 +53,21 @@ class AppTheme {
     ).copyWith(primary: primary, onPrimary: Colors.white);
 
     final textTheme = TextTheme(
-      displayLarge: TextStyle(fontSize: 40, fontWeight: FontWeight.w800, color: foreground),
-      displayMedium: TextStyle(fontSize: 34, fontWeight: FontWeight.w800, color: foreground),
-      displaySmall: TextStyle(fontSize: AppTypography.display, fontWeight: FontWeight.w800, color: foreground),
-      headlineLarge: TextStyle(fontSize: AppTypography.pageTitle, fontWeight: FontWeight.w800, color: foreground),
-      headlineMedium: TextStyle(fontSize: AppTypography.pageTitle, fontWeight: FontWeight.w700, color: foreground),
-      headlineSmall: TextStyle(fontSize: AppTypography.header, fontWeight: FontWeight.w700, color: foreground),
-      titleLarge: TextStyle(fontSize: AppTypography.header, fontWeight: FontWeight.w700, color: foreground),
-      titleMedium: TextStyle(fontSize: AppTypography.subheader, fontWeight: FontWeight.w600, color: foreground),
-      titleSmall: TextStyle(fontSize: AppTypography.button, fontWeight: FontWeight.w600, color: foreground),
-      bodyLarge: TextStyle(fontSize: AppTypography.body, fontWeight: FontWeight.w500, color: foreground),
-      bodyMedium: TextStyle(fontSize: AppTypography.body, fontWeight: FontWeight.w400, color: foreground),
-      bodySmall: TextStyle(fontSize: AppTypography.caption, fontWeight: FontWeight.w400, color: muted),
-      labelLarge: TextStyle(fontSize: AppTypography.button, fontWeight: FontWeight.w700, color: foreground),
-      labelMedium: TextStyle(fontSize: AppTypography.caption, fontWeight: FontWeight.w500, color: muted),
-      labelSmall: TextStyle(fontSize: AppTypography.micro, fontWeight: FontWeight.w600, color: muted),
+      displayLarge: TextStyle(fontWeight: FontWeight.w800, color: foreground),
+      displayMedium: TextStyle(fontWeight: FontWeight.w800, color: foreground),
+      displaySmall: TextStyle(fontWeight: FontWeight.w800, color: foreground),
+      headlineLarge: TextStyle(fontWeight: FontWeight.w800, color: foreground),
+      headlineMedium: TextStyle(fontWeight: FontWeight.w700, color: foreground),
+      headlineSmall: TextStyle(fontWeight: FontWeight.w700, color: foreground),
+      titleLarge: TextStyle(fontWeight: FontWeight.w700, color: foreground),
+      titleMedium: TextStyle(fontWeight: FontWeight.w600, color: foreground),
+      titleSmall: TextStyle(fontWeight: FontWeight.w600, color: foreground),
+      bodyLarge: TextStyle(fontWeight: FontWeight.w500, color: foreground),
+      bodyMedium: TextStyle(fontWeight: FontWeight.w400, color: foreground),
+      bodySmall: TextStyle(fontWeight: FontWeight.w400, color: muted),
+      labelLarge: TextStyle(fontWeight: FontWeight.w700, color: foreground),
+      labelMedium: TextStyle(fontWeight: FontWeight.w500, color: muted),
+      labelSmall: TextStyle(fontWeight: FontWeight.w600, color: muted),
     );
 
     return ThemeData(
@@ -80,7 +84,6 @@ class AppTheme {
         centerTitle: false,
         titleTextStyle: TextStyle(
           color: foreground,
-          fontSize: AppTypography.header,
           fontWeight: FontWeight.w700,
         ),
       ),
@@ -116,7 +119,9 @@ class AppTheme {
           backgroundColor: primary,
           foregroundColor: Colors.white,
           minimumSize: const Size(double.infinity, 54),
-          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(14)),
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(14),
+          ),
         ),
       ),
       navigationBarTheme: NavigationBarThemeData(

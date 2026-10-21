@@ -47,8 +47,8 @@ class MatchesScreen extends StatelessWidget {
               child: const Text(
                 'THE ARENA',
                 style: TextStyle(
+                  fontSize: 20,
                   color: _blue,
-                  fontSize: 12,
                   fontWeight: FontWeight.w900,
                   letterSpacing: 1.4,
                 ),
@@ -58,8 +58,8 @@ class MatchesScreen extends StatelessWidget {
             const Text(
               'Play & Challenge',
               style: TextStyle(
+                fontSize: 20,
                 color: _primary,
-                fontSize: 22,
                 fontWeight: FontWeight.w900,
               ),
             ),
@@ -67,8 +67,8 @@ class MatchesScreen extends StatelessWidget {
             const Text(
               'Select your battlefield or resume ongoing clashes.',
               style: TextStyle(
+                fontSize: 20,
                 color: _muted,
-                fontSize: 14,
                 fontWeight: FontWeight.w500,
               ),
             ),
@@ -203,15 +203,15 @@ class MatchesScreen extends StatelessWidget {
                         Text(
                           'SQI Checkmate Arena',
                           style: TextStyle(
+                            fontSize: 20,
                             color: _primary,
-                            fontSize: 18,
                             fontWeight: FontWeight.w800,
                           ),
                         ),
                         SizedBox(height: 4),
                         Text(
                           'Play. Improve. Checkmate.',
-                          style: TextStyle(color: _muted, fontSize: 14),
+                          style: TextStyle(fontSize: 20, color: _muted),
                         ),
                       ],
                     ),
@@ -278,8 +278,8 @@ class _HeroCard extends StatelessWidget {
                     Text(
                       'Quick Match',
                       style: TextStyle(
-                        color: _primary,
                         fontSize: 20,
+                        color: _primary,
                         fontWeight: FontWeight.w800,
                       ),
                     ),
@@ -287,8 +287,8 @@ class _HeroCard extends StatelessWidget {
                     Text(
                       'Jump straight into a competitive 10+0 game.',
                       style: TextStyle(
+                        fontSize: 20,
                         color: _secondary,
-                        fontSize: 14,
                         height: 1.35,
                       ),
                     ),
@@ -326,13 +326,13 @@ class _SectionTitle extends StatelessWidget {
         Text(
           title,
           style: const TextStyle(
+            fontSize: 20,
             color: _primary,
-            fontSize: 18,
             fontWeight: FontWeight.w800,
           ),
         ),
         const SizedBox(height: 3),
-        Text(subtitle, style: const TextStyle(color: _muted, fontSize: 14)),
+        Text(subtitle, style: const TextStyle(fontSize: 20, color: _muted)),
       ],
     );
   }
@@ -392,15 +392,15 @@ class _PlayModeCard extends StatelessWidget {
                     Text(
                       title,
                       style: const TextStyle(
+                        fontSize: 20,
                         color: _primary,
-                        fontSize: 16,
                         fontWeight: FontWeight.w700,
                       ),
                     ),
                     const SizedBox(height: 4),
                     Text(
                       subtitle,
-                      style: const TextStyle(color: _muted, fontSize: 14),
+                      style: const TextStyle(fontSize: 20, color: _muted),
                     ),
                   ],
                 ),
@@ -415,8 +415,8 @@ class _PlayModeCard extends StatelessWidget {
                 child: Text(
                   trailing,
                   style: TextStyle(
+                    fontSize: 20,
                     color: iconColor,
-                    fontSize: 12,
                     fontWeight: FontWeight.w800,
                     letterSpacing: .5,
                   ),
@@ -650,7 +650,11 @@ class _LanLobbyScreenState extends State<LanLobbyScreen> {
         elevation: 0,
         title: const Text(
           'LAN / Wi-Fi',
-          style: TextStyle(color: primary, fontWeight: FontWeight.w800),
+          style: TextStyle(
+            fontSize: 20,
+            color: primary,
+            fontWeight: FontWeight.w800,
+          ),
         ),
       ),
       body: SafeArea(
@@ -675,8 +679,8 @@ class _LanLobbyScreenState extends State<LanLobbyScreen> {
                         Text(
                           'Same network chess',
                           style: TextStyle(
-                            color: primary,
                             fontSize: 20,
+                            color: primary,
                             fontWeight: FontWeight.w800,
                           ),
                         ),
@@ -684,8 +688,8 @@ class _LanLobbyScreenState extends State<LanLobbyScreen> {
                         Text(
                           'Both devices must be connected to the same Wi-Fi network.',
                           style: TextStyle(
+                            fontSize: 20,
                             color: muted,
-                            fontSize: 14,
                             height: 1.4,
                           ),
                         ),
@@ -699,15 +703,15 @@ class _LanLobbyScreenState extends State<LanLobbyScreen> {
             const Text(
               'Nearby games',
               style: TextStyle(
+                fontSize: 20,
                 color: primary,
-                fontSize: 18,
                 fontWeight: FontWeight.w800,
               ),
             ),
             const SizedBox(height: 4),
             const Text(
               'Games appear automatically when another player is hosting.',
-              style: TextStyle(color: muted, fontSize: 14),
+              style: TextStyle(fontSize: 20, color: muted),
             ),
             const SizedBox(height: 12),
             if (_loading)
@@ -759,8 +763,8 @@ class _LanLobbyScreenState extends State<LanLobbyScreen> {
                   child: Text(
                     'OR',
                     style: TextStyle(
+                      fontSize: 20,
                       color: muted,
-                      fontSize: 14,
                       fontWeight: FontWeight.w700,
                     ),
                   ),
@@ -801,8 +805,8 @@ class _LanLobbyScreenState extends State<LanLobbyScreen> {
             const Text(
               'Manual IP connection',
               style: TextStyle(
+                fontSize: 20,
                 color: primary,
-                fontSize: 16,
                 fontWeight: FontWeight.w800,
               ),
             ),
@@ -813,10 +817,10 @@ class _LanLobbyScreenState extends State<LanLobbyScreen> {
                   child: TextField(
                     controller: _manualIpController,
                     keyboardType: TextInputType.number,
-                    style: const TextStyle(color: primary),
+                    style: const TextStyle(fontSize: 20, color: primary),
                     decoration: InputDecoration(
                       hintText: 'Example: 192.168.1.10',
-                      hintStyle: const TextStyle(color: muted),
+                      hintStyle: const TextStyle(fontSize: 20, color: muted),
                       filled: true,
                       fillColor: surface,
                       border: OutlineInputBorder(
@@ -845,7 +849,7 @@ class _LanLobbyScreenState extends State<LanLobbyScreen> {
             const SizedBox(height: 10),
             const Text(
               'Automatic discovery is preferred. Manual IP is a fallback.',
-              style: TextStyle(color: muted, fontSize: 14),
+              style: TextStyle(fontSize: 20, color: muted),
             ),
           ],
         ),
@@ -919,20 +923,20 @@ class _LanGameCard extends StatelessWidget {
                     Text(
                       game.name,
                       style: const TextStyle(
+                        fontSize: 20,
                         color: primary,
-                        fontSize: 16,
                         fontWeight: FontWeight.w800,
                       ),
                     ),
                     const SizedBox(height: 4),
                     Text(
                       '${game.timeControl}  •  White',
-                      style: const TextStyle(color: secondary, fontSize: 14),
+                      style: const TextStyle(fontSize: 20, color: secondary),
                     ),
                     const SizedBox(height: 3),
                     Text(
                       'Room ${game.roomCode}',
-                      style: const TextStyle(color: muted, fontSize: 12),
+                      style: const TextStyle(fontSize: 20, color: muted),
                     ),
                   ],
                 ),
@@ -949,8 +953,8 @@ class _LanGameCard extends StatelessWidget {
                 child: const Text(
                   'JOIN',
                   style: TextStyle(
+                    fontSize: 20,
                     color: gold,
-                    fontSize: 14,
                     fontWeight: FontWeight.w900,
                   ),
                 ),
@@ -992,13 +996,17 @@ class _EmptyLanCard extends StatelessWidget {
           const SizedBox(height: 10),
           Text(
             title,
-            style: const TextStyle(color: primary, fontWeight: FontWeight.w800),
+            style: const TextStyle(
+              fontSize: 20,
+              color: primary,
+              fontWeight: FontWeight.w800,
+            ),
           ),
           const SizedBox(height: 5),
           Text(
             subtitle,
             textAlign: TextAlign.center,
-            style: const TextStyle(color: muted, fontSize: 14, height: 1.4),
+            style: const TextStyle(fontSize: 20, color: muted, height: 1.4),
           ),
         ],
       ),
@@ -1026,7 +1034,10 @@ class _LanActionButton extends StatelessWidget {
       child: FilledButton.icon(
         onPressed: onTap,
         icon: Icon(icon),
-        label: Text(label, style: const TextStyle(fontWeight: FontWeight.w800)),
+        label: Text(
+          label,
+          style: const TextStyle(fontSize: 20, fontWeight: FontWeight.w800),
+        ),
         style: FilledButton.styleFrom(
           backgroundColor: color,
           foregroundColor: const Color(0xFFF9F8F6),
@@ -1221,7 +1232,8 @@ class _LanHostScreenState extends State<LanHostScreen> {
     // Convert the socket stream to a broadcast stream immediately.
     // The chess screen can safely listen to it after navigation.
     final lines = client
-        .map(utf8.decode)
+        .cast<List<int>>()
+        .transform(utf8.decoder)
         .transform(const LineSplitter())
         .asBroadcastStream();
 
@@ -1412,7 +1424,11 @@ class _LanHostScreenState extends State<LanHostScreen> {
         elevation: 0,
         title: const Text(
           'Create LAN Game',
-          style: TextStyle(color: primary, fontWeight: FontWeight.w800),
+          style: TextStyle(
+            fontSize: 20,
+            color: primary,
+            fontWeight: FontWeight.w800,
+          ),
         ),
       ),
       body: SafeArea(
@@ -1445,8 +1461,8 @@ class _LanHostScreenState extends State<LanHostScreen> {
                   const Text(
                     'You are White',
                     style: TextStyle(
+                      fontSize: 20,
                       color: primary,
-                      fontSize: 22,
                       fontWeight: FontWeight.w900,
                     ),
                   ),
@@ -1456,8 +1472,8 @@ class _LanHostScreenState extends State<LanHostScreen> {
                         ? 'Opponent connected'
                         : 'Waiting for another player',
                     style: TextStyle(
+                      fontSize: 20,
                       color: _clientConnected ? green : muted,
-                      fontSize: 14,
                       fontWeight: FontWeight.w600,
                     ),
                   ),
@@ -1481,6 +1497,7 @@ class _LanHostScreenState extends State<LanHostScreen> {
                     child: Text(
                       'Time control',
                       style: TextStyle(
+                        fontSize: 20,
                         color: primary,
                         fontWeight: FontWeight.w700,
                       ),
@@ -1491,6 +1508,7 @@ class _LanHostScreenState extends State<LanHostScreen> {
                       value: _timeControl,
                       dropdownColor: surface2,
                       style: const TextStyle(
+                        fontSize: 20,
                         color: primary,
                         fontWeight: FontWeight.w800,
                       ),
@@ -1534,6 +1552,7 @@ class _LanHostScreenState extends State<LanHostScreen> {
                     const Text(
                       'Scan to join this game',
                       style: TextStyle(
+                        fontSize: 20,
                         color: primary,
                         fontWeight: FontWeight.w800,
                       ),
@@ -1554,7 +1573,7 @@ class _LanHostScreenState extends State<LanHostScreen> {
                     const Text(
                       'Both devices need to be on the same Wi-Fi network.',
                       textAlign: TextAlign.center,
-                      style: TextStyle(color: secondary, fontSize: 14),
+                      style: TextStyle(fontSize: 20, color: secondary),
                     ),
                   ],
                 ),
@@ -1582,7 +1601,7 @@ class _LanHostScreenState extends State<LanHostScreen> {
                 icon: const Icon(Icons.copy_rounded),
                 label: const Text(
                   'Copy connection details',
-                  style: TextStyle(fontWeight: FontWeight.w800),
+                  style: TextStyle(fontSize: 20, fontWeight: FontWeight.w800),
                 ),
                 style: OutlinedButton.styleFrom(
                   foregroundColor: secondary,
@@ -1606,8 +1625,8 @@ class _LanHostScreenState extends State<LanHostScreen> {
                   Text(
                     'How it works',
                     style: TextStyle(
+                      fontSize: 20,
                       color: primary,
-                      fontSize: 16,
                       fontWeight: FontWeight.w800,
                     ),
                   ),
@@ -1648,6 +1667,7 @@ class _LanHostScreenState extends State<LanHostScreen> {
                       child: Text(
                         'Player connected. Starting the match...',
                         style: TextStyle(
+                          fontSize: 20,
                           color: primary,
                           fontWeight: FontWeight.w700,
                         ),
@@ -1677,10 +1697,10 @@ class _HostField extends StatelessWidget {
 
     return TextField(
       controller: controller,
-      style: const TextStyle(color: primary),
+      style: const TextStyle(fontSize: 20, color: primary),
       decoration: InputDecoration(
         labelText: label,
-        labelStyle: const TextStyle(color: muted),
+        labelStyle: const TextStyle(fontSize: 20, color: muted),
         filled: true,
         fillColor: surface,
         border: OutlineInputBorder(
@@ -1725,13 +1745,13 @@ class _InfoCard extends StatelessWidget {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text(title, style: const TextStyle(color: muted, fontSize: 12)),
+                Text(title, style: const TextStyle(fontSize: 20, color: muted)),
                 const SizedBox(height: 4),
                 Text(
                   value,
                   style: const TextStyle(
+                    fontSize: 20,
                     color: primary,
-                    fontSize: 16,
                     fontWeight: FontWeight.w800,
                   ),
                 ),
@@ -1827,6 +1847,7 @@ class _LanQrScannerScreenState extends State<_LanQrScannerScreen> {
                     'Center the host’s SQI invite QR code in the frame.',
                 textAlign: TextAlign.center,
                 style: const TextStyle(
+                  fontSize: 20,
                   color: Color(0xFF454B46),
                   fontWeight: FontWeight.w600,
                 ),
@@ -1853,7 +1874,10 @@ class _LanQrScannerScreenState extends State<_LanQrScannerScreen> {
                         child: Text(
                           'Camera unavailable. Allow camera access in device settings, then reopen the scanner.\n\n$error',
                           textAlign: TextAlign.center,
-                          style: const TextStyle(color: Color(0xFF454B46)),
+                          style: const TextStyle(
+                            fontSize: 20,
+                            color: Color(0xFF454B46),
+                          ),
                         ),
                       ),
                     ),
@@ -1921,8 +1945,8 @@ class _InstructionRow extends StatelessWidget {
             child: Text(
               number,
               style: const TextStyle(
+                fontSize: 20,
                 color: blue,
-                fontSize: 16,
                 fontWeight: FontWeight.w900,
               ),
             ),
@@ -1931,7 +1955,7 @@ class _InstructionRow extends StatelessWidget {
           Expanded(
             child: Text(
               text,
-              style: const TextStyle(color: muted, fontSize: 14, height: 1.35),
+              style: const TextStyle(fontSize: 20, color: muted, height: 1.35),
             ),
           ),
         ],
@@ -2015,7 +2039,8 @@ class _LanJoinScreenState extends State<LanJoinScreen> {
 
       // Convert the incoming socket stream to broadcast.
       final lines = socket
-          .map(utf8.decode)
+          .cast<List<int>>()
+          .transform(utf8.decoder)
           .transform(const LineSplitter())
           .asBroadcastStream();
 
@@ -2206,7 +2231,11 @@ class _LanJoinScreenState extends State<LanJoinScreen> {
         elevation: 0,
         title: const Text(
           'Join LAN Game',
-          style: TextStyle(color: primary, fontWeight: FontWeight.w800),
+          style: TextStyle(
+            fontSize: 20,
+            color: primary,
+            fontWeight: FontWeight.w800,
+          ),
         ),
       ),
       body: SafeArea(
@@ -2239,8 +2268,8 @@ class _LanJoinScreenState extends State<LanJoinScreen> {
                   Text(
                     widget.discoveredName ?? 'LAN Game',
                     style: const TextStyle(
+                      fontSize: 20,
                       color: primary,
-                      fontSize: 22,
                       fontWeight: FontWeight.w900,
                     ),
                   ),
@@ -2250,7 +2279,7 @@ class _LanJoinScreenState extends State<LanJoinScreen> {
                         ? 'You will play Black'
                         : 'Room ${widget.roomCode}  •  You will play Black',
                     textAlign: TextAlign.center,
-                    style: const TextStyle(color: muted, fontSize: 14),
+                    style: const TextStyle(fontSize: 20, color: muted),
                   ),
                 ],
               ),
@@ -2272,6 +2301,7 @@ class _LanJoinScreenState extends State<LanJoinScreen> {
                       child: Text(
                         _status ?? 'Connected. Waiting for the host...',
                         style: const TextStyle(
+                          fontSize: 20,
                           color: primary,
                           fontWeight: FontWeight.w700,
                         ),
@@ -2289,15 +2319,15 @@ class _LanJoinScreenState extends State<LanJoinScreen> {
                 ),
                 child: Text(
                   _status!,
-                  style: const TextStyle(color: secondary, fontSize: 14),
+                  style: const TextStyle(fontSize: 20, color: secondary),
                 ),
               ),
             const SizedBox(height: 20),
             const Text(
               'Manual connection',
               style: TextStyle(
+                fontSize: 20,
                 color: primary,
-                fontSize: 16,
                 fontWeight: FontWeight.w800,
               ),
             ),
@@ -2305,10 +2335,10 @@ class _LanJoinScreenState extends State<LanJoinScreen> {
             TextField(
               controller: _ipController,
               keyboardType: TextInputType.number,
-              style: const TextStyle(color: primary),
+              style: const TextStyle(fontSize: 20, color: primary),
               decoration: InputDecoration(
                 hintText: 'Host IP, e.g. 192.168.1.10',
-                hintStyle: const TextStyle(color: muted),
+                hintStyle: const TextStyle(fontSize: 20, color: muted),
                 filled: true,
                 fillColor: surface,
                 border: OutlineInputBorder(
@@ -2331,7 +2361,10 @@ class _LanJoinScreenState extends State<LanJoinScreen> {
                     : const Icon(Icons.wifi_find_rounded),
                 label: Text(
                   _connecting ? 'Connecting...' : 'Connect',
-                  style: const TextStyle(fontWeight: FontWeight.w800),
+                  style: const TextStyle(
+                    fontSize: 20,
+                    fontWeight: FontWeight.w800,
+                  ),
                 ),
                 style: FilledButton.styleFrom(
                   backgroundColor: blue,

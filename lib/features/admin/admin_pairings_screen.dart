@@ -1,4 +1,4 @@
-﻿// lib/features/admin/admin_pairings_screen.dart
+// lib/features/admin/admin_pairings_screen.dart
 
 import 'package:flutter/material.dart';
 
@@ -139,8 +139,8 @@ class _AdminPairingsScreenState extends State<AdminPairingsScreen> {
               const Text(
                 'Pairings',
                 style: TextStyle(
+                  fontSize: 20,
                   color: white,
-                  fontSize: 28,
                   fontWeight: FontWeight.w800,
                   letterSpacing: -0.8,
                 ),
@@ -149,8 +149,8 @@ class _AdminPairingsScreenState extends State<AdminPairingsScreen> {
               Text(
                 'Control matchmaking, boards and manual pairings.',
                 style: TextStyle(
+                  fontSize: 20,
                   color: muted.withValues(alpha: 0.9),
-                  fontSize: 14,
                 ),
               ),
             ],
@@ -195,8 +195,8 @@ class _AdminPairingsScreenState extends State<AdminPairingsScreen> {
                       child: Text(
                         'Competition',
                         style: TextStyle(
+                          fontSize: 20,
                           color: white,
-                          fontSize: 13,
                           fontWeight: FontWeight.w700,
                         ),
                       ),
@@ -230,15 +230,15 @@ class _AdminPairingsScreenState extends State<AdminPairingsScreen> {
       initialValue: _selectedCompetition,
       dropdownColor: surfaceLight,
       style: const TextStyle(
+        fontSize: 20,
         color: white,
-        fontSize: 13,
         fontWeight: FontWeight.w600,
       ),
       decoration: InputDecoration(
         labelText: 'Competition',
         labelStyle: TextStyle(
+          fontSize: 20,
           color: muted.withValues(alpha: 0.8),
-          fontSize: 14,
         ),
         filled: true,
         fillColor: surfaceLight,
@@ -274,15 +274,15 @@ class _AdminPairingsScreenState extends State<AdminPairingsScreen> {
       initialValue: _selectedRound,
       dropdownColor: surfaceLight,
       style: const TextStyle(
+        fontSize: 20,
         color: white,
-        fontSize: 13,
         fontWeight: FontWeight.w600,
       ),
       decoration: InputDecoration(
         labelText: 'Round',
         labelStyle: TextStyle(
+          fontSize: 20,
           color: muted.withValues(alpha: 0.8),
-          fontSize: 14,
         ),
         filled: true,
         fillColor: surfaceLight,
@@ -337,8 +337,8 @@ class _AdminPairingsScreenState extends State<AdminPairingsScreen> {
             const Text(
               'Auto Match',
               style: TextStyle(
+                fontSize: 20,
                 color: green,
-                fontSize: 12,
                 fontWeight: FontWeight.w800,
               ),
             ),
@@ -428,8 +428,8 @@ class _AdminPairingsScreenState extends State<AdminPairingsScreen> {
                 Text(
                   stat.value,
                   style: const TextStyle(
+                    fontSize: 20,
                     color: white,
-                    fontSize: 21,
                     fontWeight: FontWeight.w800,
                   ),
                 ),
@@ -439,8 +439,8 @@ class _AdminPairingsScreenState extends State<AdminPairingsScreen> {
                   maxLines: 1,
                   overflow: TextOverflow.ellipsis,
                   style: TextStyle(
+                    fontSize: 20,
                     color: muted.withValues(alpha: 0.85),
-                    fontSize: 14,
                   ),
                 ),
               ],
@@ -490,12 +490,12 @@ class _AdminPairingsScreenState extends State<AdminPairingsScreen> {
             _search = value;
           });
         },
-        style: const TextStyle(color: white, fontSize: 13),
+        style: const TextStyle(fontSize: 20, color: white),
         decoration: InputDecoration(
           hintText: 'Search players or match IDs...',
           hintStyle: TextStyle(
+            fontSize: 20,
             color: muted.withValues(alpha: 0.7),
-            fontSize: 13,
           ),
           prefixIcon: const Icon(Icons.search_rounded, color: muted, size: 20),
           filled: true,
@@ -548,8 +548,8 @@ class _AdminPairingsScreenState extends State<AdminPairingsScreen> {
               child: Text(
                 filter,
                 style: TextStyle(
+                  fontSize: 20,
                   color: selected ? blue : muted,
-                  fontSize: 14,
                   fontWeight: selected ? FontWeight.w800 : FontWeight.w500,
                 ),
               ),
@@ -586,11 +586,11 @@ class _AdminPairingsScreenState extends State<AdminPairingsScreen> {
           const SizedBox(width: 11),
           Expanded(
             child: Text(
-              '$_selectedCompetition Ã¢â‚¬Â¢ $_selectedRound Ã¢â‚¬â€ '
+              '$_selectedCompetition | $_selectedRound - '
               'No pairings are available. Pairing generation requires a verified server-side operation.',
               style: TextStyle(
+                fontSize: 20,
                 color: muted.withValues(alpha: 0.9),
-                fontSize: 14,
                 height: 1.45,
               ),
             ),
@@ -658,8 +658,8 @@ class _AdminPairingsScreenState extends State<AdminPairingsScreen> {
                 child: Text(
                   '${pairing['board']}',
                   style: const TextStyle(
+                    fontSize: 20,
                     color: blue,
-                    fontSize: 12,
                     fontWeight: FontWeight.w800,
                   ),
                 ),
@@ -673,8 +673,8 @@ class _AdminPairingsScreenState extends State<AdminPairingsScreen> {
             child: Text(
               pairing['result'],
               style: const TextStyle(
+                fontSize: 20,
                 color: white,
-                fontSize: 12,
                 fontWeight: FontWeight.w800,
               ),
             ),
@@ -684,8 +684,8 @@ class _AdminPairingsScreenState extends State<AdminPairingsScreen> {
             child: Text(
               pairing['time'],
               style: TextStyle(
+                fontSize: 20,
                 color: pairing['status'] == 'Live' ? green : muted,
-                fontSize: 12,
                 fontWeight: FontWeight.w700,
               ),
             ),
@@ -713,8 +713,8 @@ class _AdminPairingsScreenState extends State<AdminPairingsScreen> {
           child: Text(
             'VS',
             style: TextStyle(
+              fontSize: 20,
               color: muted.withValues(alpha: 0.55),
-              fontSize: 12,
               fontWeight: FontWeight.w800,
             ),
           ),
@@ -755,16 +755,16 @@ class _AdminPairingsScreenState extends State<AdminPairingsScreen> {
                 maxLines: 1,
                 overflow: TextOverflow.ellipsis,
                 style: const TextStyle(
+                  fontSize: 20,
                   color: white,
-                  fontSize: 14,
                   fontWeight: FontWeight.w700,
                 ),
               ),
               Text(
                 '$rating',
                 style: TextStyle(
+                  fontSize: 20,
                   color: muted.withValues(alpha: 0.7),
-                  fontSize: 12,
                 ),
               ),
             ],
@@ -810,8 +810,8 @@ class _AdminPairingsScreenState extends State<AdminPairingsScreen> {
                   child: Text(
                     '${pairing['board']}',
                     style: const TextStyle(
+                      fontSize: 20,
                       color: blue,
-                      fontSize: 12,
                       fontWeight: FontWeight.w800,
                     ),
                   ),
@@ -825,8 +825,8 @@ class _AdminPairingsScreenState extends State<AdminPairingsScreen> {
                     Text(
                       'Board ${pairing['board']}',
                       style: const TextStyle(
+                        fontSize: 20,
                         color: white,
-                        fontSize: 13,
                         fontWeight: FontWeight.w800,
                       ),
                     ),
@@ -834,8 +834,8 @@ class _AdminPairingsScreenState extends State<AdminPairingsScreen> {
                     Text(
                       pairing['matchId'],
                       style: TextStyle(
+                        fontSize: 20,
                         color: muted.withValues(alpha: 0.7),
-                        fontSize: 12,
                       ),
                     ),
                   ],
@@ -863,8 +863,8 @@ class _AdminPairingsScreenState extends State<AdminPairingsScreen> {
                   child: Text(
                     'VS',
                     style: TextStyle(
+                      fontSize: 20,
                       color: muted.withValues(alpha: 0.5),
-                      fontSize: 12,
                       fontWeight: FontWeight.w800,
                     ),
                   ),
@@ -910,10 +910,7 @@ class _AdminPairingsScreenState extends State<AdminPairingsScreen> {
                   icon: const Icon(Icons.visibility_outlined, size: 17),
                   label: const Text(
                     'Details',
-                    style: TextStyle(
-                      fontWeight: FontWeight.w700,
-                      fontSize: 14,
-                    ),
+                    style: TextStyle(fontSize: 20, fontWeight: FontWeight.w700),
                   ),
                 ),
               ),
@@ -963,8 +960,8 @@ class _AdminPairingsScreenState extends State<AdminPairingsScreen> {
                 Text(
                   name,
                   style: const TextStyle(
+                    fontSize: 20,
                     color: white,
-                    fontSize: 12.5,
                     fontWeight: FontWeight.w800,
                   ),
                 ),
@@ -972,8 +969,8 @@ class _AdminPairingsScreenState extends State<AdminPairingsScreen> {
                 Text(
                   username,
                   style: TextStyle(
+                    fontSize: 20,
                     color: muted.withValues(alpha: 0.75),
-                    fontSize: 12,
                   ),
                 ),
               ],
@@ -982,8 +979,8 @@ class _AdminPairingsScreenState extends State<AdminPairingsScreen> {
           Text(
             '$rating',
             style: const TextStyle(
+              fontSize: 20,
               color: white,
-              fontSize: 12,
               fontWeight: FontWeight.w800,
             ),
           ),
@@ -1031,8 +1028,8 @@ class _AdminPairingsScreenState extends State<AdminPairingsScreen> {
           Text(
             status,
             style: TextStyle(
+              fontSize: 20,
               color: color,
-              fontSize: 12,
               fontWeight: FontWeight.w800,
             ),
           ),
@@ -1053,8 +1050,8 @@ class _AdminPairingsScreenState extends State<AdminPairingsScreen> {
       child: Text(
         mode,
         style: TextStyle(
+          fontSize: 20,
           color: isManual ? purple : blue,
-          fontSize: 12,
           fontWeight: FontWeight.w800,
         ),
       ),
@@ -1076,8 +1073,8 @@ class _AdminPairingsScreenState extends State<AdminPairingsScreen> {
           Text(
             text,
             style: const TextStyle(
+              fontSize: 20,
               color: white,
-              fontSize: 12,
               fontWeight: FontWeight.w600,
             ),
           ),
@@ -1123,7 +1120,7 @@ class _AdminPairingsScreenState extends State<AdminPairingsScreen> {
         icon: Icon(icon, size: 15),
         label: Text(
           label,
-          style: const TextStyle(fontSize: 14, fontWeight: FontWeight.w800),
+          style: const TextStyle(fontSize: 20, fontWeight: FontWeight.w800),
         ),
       ),
     );
@@ -1145,7 +1142,7 @@ class _AdminPairingsScreenState extends State<AdminPairingsScreen> {
         icon: const Icon(Icons.tune_rounded, size: 17),
         label: const Text(
           'Manage',
-          style: TextStyle(fontWeight: FontWeight.w800, fontSize: 16),
+          style: TextStyle(fontSize: 20, fontWeight: FontWeight.w800),
         ),
       ),
     );
@@ -1195,8 +1192,8 @@ class _AdminPairingsScreenState extends State<AdminPairingsScreen> {
           const Text(
             'No pairings found',
             style: TextStyle(
+              fontSize: 20,
               color: white,
-              fontSize: 18,
               fontWeight: FontWeight.w800,
             ),
           ),
@@ -1204,8 +1201,8 @@ class _AdminPairingsScreenState extends State<AdminPairingsScreen> {
           Text(
             'Try changing your search or filter.',
             style: TextStyle(
+              fontSize: 20,
               color: muted.withValues(alpha: 0.85),
-              fontSize: 13,
             ),
           ),
         ],
@@ -1339,8 +1336,8 @@ class _PairingDetailsSheet extends StatelessWidget {
                         Text(
                           'Board ${pairing['board']}',
                           style: const TextStyle(
+                            fontSize: 20,
                             color: white,
-                            fontSize: 18,
                             fontWeight: FontWeight.w800,
                           ),
                         ),
@@ -1348,8 +1345,8 @@ class _PairingDetailsSheet extends StatelessWidget {
                         Text(
                           pairing['matchId'],
                           style: TextStyle(
+                            fontSize: 20,
                             color: muted.withValues(alpha: 0.75),
-                            fontSize: 12,
                           ),
                         ),
                       ],
@@ -1380,8 +1377,8 @@ class _PairingDetailsSheet extends StatelessWidget {
                     child: Text(
                       'VS',
                       style: TextStyle(
+                        fontSize: 20,
                         color: muted.withValues(alpha: 0.75),
-                        fontSize: 12,
                         fontWeight: FontWeight.w800,
                       ),
                     ),
@@ -1427,7 +1424,10 @@ class _PairingDetailsSheet extends StatelessWidget {
                       icon: const Icon(Icons.swap_horiz_rounded, size: 18),
                       label: const Text(
                         'Reassign',
-                        style: TextStyle(fontWeight: FontWeight.w700),
+                        style: TextStyle(
+                          fontSize: 20,
+                          fontWeight: FontWeight.w700,
+                        ),
                       ),
                     ),
                   ),
@@ -1455,7 +1455,10 @@ class _PairingDetailsSheet extends StatelessWidget {
                       icon: const Icon(Icons.monitor_heart_outlined, size: 18),
                       label: const Text(
                         'Monitor',
-                        style: TextStyle(fontWeight: FontWeight.w700),
+                        style: TextStyle(
+                          fontSize: 20,
+                          fontWeight: FontWeight.w700,
+                        ),
                       ),
                     ),
                   ),
@@ -1473,7 +1476,7 @@ class _PairingDetailsSheet extends StatelessWidget {
                   icon: const Icon(Icons.link_off_rounded, size: 18),
                   label: const Text(
                     'Remove Pairing',
-                    style: TextStyle(fontWeight: FontWeight.w700),
+                    style: TextStyle(fontSize: 20, fontWeight: FontWeight.w700),
                   ),
                 ),
               ),
@@ -1516,8 +1519,8 @@ class _PairingDetailsSheet extends StatelessWidget {
                 Text(
                   name,
                   style: const TextStyle(
+                    fontSize: 20,
                     color: white,
-                    fontSize: 12.5,
                     fontWeight: FontWeight.w800,
                   ),
                 ),
@@ -1525,8 +1528,8 @@ class _PairingDetailsSheet extends StatelessWidget {
                 Text(
                   username,
                   style: TextStyle(
+                    fontSize: 20,
                     color: muted.withValues(alpha: 0.75),
-                    fontSize: 12,
                   ),
                 ),
               ],
@@ -1538,8 +1541,8 @@ class _PairingDetailsSheet extends StatelessWidget {
               const Text(
                 'RATING',
                 style: TextStyle(
+                  fontSize: 20,
                   color: muted,
-                  fontSize: 12,
                   fontWeight: FontWeight.w600,
                 ),
               ),
@@ -1547,8 +1550,8 @@ class _PairingDetailsSheet extends StatelessWidget {
               Text(
                 '$rating',
                 style: const TextStyle(
+                  fontSize: 20,
                   color: white,
-                  fontSize: 13,
                   fontWeight: FontWeight.w800,
                 ),
               ),
@@ -1570,16 +1573,16 @@ class _PairingDetailsSheet extends StatelessWidget {
             child: Text(
               label,
               style: TextStyle(
+                fontSize: 20,
                 color: muted.withValues(alpha: 0.8),
-                fontSize: 14,
               ),
             ),
           ),
           Text(
             value,
             style: const TextStyle(
+              fontSize: 20,
               color: white,
-              fontSize: 14,
               fontWeight: FontWeight.w700,
             ),
           ),
@@ -1604,8 +1607,8 @@ class _PairingDetailsSheet extends StatelessWidget {
       child: Text(
         status,
         style: TextStyle(
+          fontSize: 20,
           color: color,
-          fontSize: 12,
           fontWeight: FontWeight.w800,
         ),
       ),

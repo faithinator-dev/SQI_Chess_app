@@ -25,6 +25,7 @@ class _LoginScreenState extends State<LoginScreen> {
   String? _errorMessage;
 
   final _supabase = Supabase.instance.client;
+  static const _googleRedirectUri = 'sqi-chess-club://login-callback';
 
   @override
   void dispose() {
@@ -121,6 +122,36 @@ class _LoginScreenState extends State<LoginScreen> {
     return error.message;
   }
 
+  Future<void> _signInWithGoogle() async {
+    FocusScope.of(context).unfocus();
+
+    setState(() {
+      _errorMessage = null;
+      _isLoading = true;
+    });
+
+    try {
+      await _supabase.auth.signInWithOAuth(
+        OAuthProvider.google,
+        redirectTo: _googleRedirectUri,
+      );
+    } on AuthException catch (error) {
+      if (!mounted) return;
+
+      setState(() {
+        _errorMessage = _friendlyAuthError(error);
+        _isLoading = false;
+      });
+    } catch (_) {
+      if (!mounted) return;
+
+      setState(() {
+        _errorMessage = 'Unable to start Google sign-in. Please try again.';
+        _isLoading = false;
+      });
+    }
+  }
+
   Future<void> _forgotPassword() async {
     final email = _emailController.text.trim().toLowerCase();
 
@@ -189,7 +220,7 @@ class _LoginScreenState extends State<LoginScreen> {
   }) {
     return InputDecoration(
       hintText: hintText,
-      hintStyle: TextStyle(color: Theme.of(context).hintColor, fontSize: 14),
+      hintStyle: TextStyle(color: Theme.of(context).hintColor),
       prefixIcon: Icon(icon, color: Theme.of(context).hintColor, size: 20),
       suffixIcon: suffixIcon,
       filled: true,
@@ -282,7 +313,6 @@ class _LoginScreenState extends State<LoginScreen> {
                           textAlign: TextAlign.center,
                           style: TextStyle(
                             color: textPrimary,
-                            fontSize: 30,
                             fontWeight: FontWeight.w800,
                             letterSpacing: -0.7,
                           ),
@@ -293,11 +323,7 @@ class _LoginScreenState extends State<LoginScreen> {
                         Text(
                           'Sign in to continue to SQI Checkmate Arena',
                           textAlign: TextAlign.center,
-                          style: TextStyle(
-                            color: muted,
-                            fontSize: 14,
-                            height: 1.5,
-                          ),
+                          style: TextStyle(color: muted, height: 1.5),
                         ),
 
                         const SizedBox(height: 30),
@@ -326,7 +352,6 @@ class _LoginScreenState extends State<LoginScreen> {
                                     _errorMessage!,
                                     style: TextStyle(
                                       color: textSecondary,
-                                      fontSize: 14,
                                       height: 1.4,
                                     ),
                                   ),
@@ -341,7 +366,6 @@ class _LoginScreenState extends State<LoginScreen> {
                           'Email address',
                           style: TextStyle(
                             color: textSecondary,
-                            fontSize: 14,
                             fontWeight: FontWeight.w600,
                           ),
                         ),
@@ -354,7 +378,7 @@ class _LoginScreenState extends State<LoginScreen> {
                           textInputAction: TextInputAction.next,
                           autocorrect: false,
                           enableSuggestions: false,
-                          style: TextStyle(color: textPrimary, fontSize: 16),
+                          style: TextStyle(color: textPrimary),
                           decoration: _inputDecoration(
                             hintText: 'Enter your email',
                             icon: Icons.email_outlined,
@@ -382,7 +406,6 @@ class _LoginScreenState extends State<LoginScreen> {
                           'Password',
                           style: TextStyle(
                             color: textSecondary,
-                            fontSize: 14,
                             fontWeight: FontWeight.w600,
                           ),
                         ),
@@ -398,7 +421,7 @@ class _LoginScreenState extends State<LoginScreen> {
                               _signIn();
                             }
                           },
-                          style: TextStyle(color: textPrimary, fontSize: 16),
+                          style: TextStyle(color: textPrimary),
                           decoration: _inputDecoration(
                             hintText: 'Enter your password',
                             icon: Icons.lock_outline_rounded,
@@ -453,10 +476,7 @@ class _LoginScreenState extends State<LoginScreen> {
                               ),
                             ),
                             const SizedBox(width: 8),
-                            Text(
-                              'Remember me',
-                              style: TextStyle(color: muted, fontSize: 14),
-                            ),
+                            Text('Remember me', style: TextStyle(color: muted)),
                             const Spacer(),
                             TextButton(
                               onPressed: _isLoading ? null : _forgotPassword,
@@ -469,7 +489,6 @@ class _LoginScreenState extends State<LoginScreen> {
                                 'Forgot password?',
                                 style: TextStyle(
                                   color: primary,
-                                  fontSize: 14,
                                   fontWeight: FontWeight.w600,
                                 ),
                               ),
@@ -525,7 +544,6 @@ class _LoginScreenState extends State<LoginScreen> {
                                 : const Text(
                                     'Sign In',
                                     style: TextStyle(
-                                      fontSize: 16,
                                       fontWeight: FontWeight.w700,
                                     ),
                                   ),
@@ -547,7 +565,6 @@ class _LoginScreenState extends State<LoginScreen> {
                                 'OR',
                                 style: TextStyle(
                                   color: muted,
-                                  fontSize: 14,
                                   fontWeight: FontWeight.w600,
                                 ),
                               ),
@@ -565,17 +582,7 @@ class _LoginScreenState extends State<LoginScreen> {
                         SizedBox(
                           height: 52,
                           child: OutlinedButton(
-                            onPressed: _isLoading
-                                ? null
-                                : () {
-                                    ScaffoldMessenger.of(context).showSnackBar(
-                                      const SnackBar(
-                                        content: Text(
-                                          'Google sign-in will be available after Google OAuth is configured.',
-                                        ),
-                                      ),
-                                    );
-                                  },
+                            onPressed: _isLoading ? null : _signInWithGoogle,
                             style: OutlinedButton.styleFrom(
                               foregroundColor: textPrimary,
                               side: BorderSide(
@@ -600,7 +607,6 @@ class _LoginScreenState extends State<LoginScreen> {
                                       'G',
                                       style: TextStyle(
                                         color: Color(0xFF4285F4),
-                                        fontSize: 16,
                                         fontWeight: FontWeight.w800,
                                       ),
                                     ),
@@ -609,10 +615,7 @@ class _LoginScreenState extends State<LoginScreen> {
                                 const SizedBox(width: 10),
                                 const Text(
                                   'Continue with Google',
-                                  style: TextStyle(
-                                    fontSize: 16,
-                                    fontWeight: FontWeight.w600,
-                                  ),
+                                  style: TextStyle(fontWeight: FontWeight.w600),
                                 ),
                               ],
                             ),
@@ -626,7 +629,7 @@ class _LoginScreenState extends State<LoginScreen> {
                           children: [
                             Text(
                               "Don't have an account? ",
-                              style: TextStyle(color: muted, fontSize: 14),
+                              style: TextStyle(color: muted),
                             ),
                             TextButton(
                               onPressed: _isLoading ? null : _openRegister,
@@ -641,7 +644,6 @@ class _LoginScreenState extends State<LoginScreen> {
                                 'Create one',
                                 style: TextStyle(
                                   color: primary,
-                                  fontSize: 14,
                                   fontWeight: FontWeight.w700,
                                 ),
                               ),
@@ -656,7 +658,6 @@ class _LoginScreenState extends State<LoginScreen> {
                           textAlign: TextAlign.center,
                           style: TextStyle(
                             color: muted,
-                            fontSize: 14,
                             fontWeight: FontWeight.w500,
                           ),
                         ),

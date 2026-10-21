@@ -1,4 +1,4 @@
-﻿import 'package:flutter/material.dart';
+import 'package:flutter/material.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
 import '../dashboard/dashboard_screen.dart';
@@ -260,7 +260,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
           _errorMessage =
               'Account created, but email confirmation is still enabled '
               'in Supabase. Turn off "Confirm email" in '
-              'Authentication â†’ Providers â†’ Email, then try again.';
+              'Authentication -> Providers -> Email, then try again.';
         });
 
         return;
@@ -379,7 +379,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
   }) {
     return InputDecoration(
       hintText: hint,
-      hintStyle: const TextStyle(color: Color(0xFF6F7B91), fontSize: 14),
+      hintStyle: const TextStyle(color: Color(0xFF6F7B91)),
       prefixIcon: Icon(icon, color: const Color(0xFF8290A8), size: 20),
       suffixIcon: suffix,
       filled: true,
@@ -523,7 +523,6 @@ class _RegisterScreenState extends State<RegisterScreen> {
           _passwordStrength(),
           style: TextStyle(
             color: _passwordStrengthColor(),
-            fontSize: 12,
             fontWeight: FontWeight.w600,
           ),
         ),
@@ -750,7 +749,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
           activeColor: const Color(0xFF2D4A3E),
           title: const Text(
             'I agree to the SQI Checkmate Arena terms.',
-            style: TextStyle(color: Color(0xFF454B46), fontSize: 14),
+            style: TextStyle(color: Color(0xFF454B46)),
           ),
           controlAffinity: ListTileControlAffinity.leading,
         ),
@@ -780,13 +779,12 @@ class _RegisterScreenState extends State<RegisterScreen> {
           title,
           style: const TextStyle(
             color: Color(0xFF1A1A1A),
-            fontSize: 16,
             fontWeight: FontWeight.w600,
           ),
         ),
         subtitle: Text(
           subtitle,
-          style: const TextStyle(color: Color(0xFF737A74), fontSize: 14),
+          style: const TextStyle(color: Color(0xFF737A74)),
         ),
       ),
     );
@@ -831,11 +829,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
           Expanded(
             child: Text(
               text,
-              style: const TextStyle(
-                color: Color(0xFF454B46),
-                fontSize: 12,
-                height: 1.45,
-              ),
+              style: const TextStyle(color: Color(0xFF454B46), height: 1.45),
             ),
           ),
         ],
@@ -848,14 +842,13 @@ class _RegisterScreenState extends State<RegisterScreen> {
       text,
       style: const TextStyle(
         color: Color(0xFF454B46),
-        fontSize: 14,
         fontWeight: FontWeight.w600,
       ),
     );
   }
 
   TextStyle _fieldTextStyle() {
-    return const TextStyle(color: Color(0xFF1A1A1A), fontSize: 16);
+    return const TextStyle(color: Color(0xFF1A1A1A));
   }
 
   Widget _buildCurrentStep() {
@@ -943,7 +936,6 @@ class _RegisterScreenState extends State<RegisterScreen> {
                             'Step ${_currentStep + 1} of 4',
                             style: const TextStyle(
                               color: muted,
-                              fontSize: 12,
                               fontWeight: FontWeight.w600,
                             ),
                           ),
@@ -957,7 +949,6 @@ class _RegisterScreenState extends State<RegisterScreen> {
                         textAlign: TextAlign.center,
                         style: TextStyle(
                           color: textPrimary,
-                          fontSize: 24,
                           fontWeight: FontWeight.w800,
                           letterSpacing: -0.5,
                         ),
@@ -966,11 +957,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                       Text(
                         _stepSubtitle(),
                         textAlign: TextAlign.center,
-                        style: const TextStyle(
-                          color: muted,
-                          fontSize: 14,
-                          height: 1.5,
-                        ),
+                        style: const TextStyle(color: muted, height: 1.5),
                       ),
                       const SizedBox(height: 30),
                       if (_errorMessage != null) ...[
@@ -997,7 +984,6 @@ class _RegisterScreenState extends State<RegisterScreen> {
                                   _errorMessage!,
                                   style: const TextStyle(
                                     color: Color(0xFF454B46),
-                                    fontSize: 14,
                                     height: 1.4,
                                   ),
                                 ),
@@ -1011,7 +997,6 @@ class _RegisterScreenState extends State<RegisterScreen> {
                         _stepTitle(),
                         style: const TextStyle(
                           color: textPrimary,
-                          fontSize: 18,
                           fontWeight: FontWeight.w700,
                         ),
                       ),
@@ -1049,7 +1034,6 @@ class _RegisterScreenState extends State<RegisterScreen> {
                                       ? 'Create account'
                                       : 'Continue',
                                   style: const TextStyle(
-                                    fontSize: 16,
                                     fontWeight: FontWeight.w700,
                                   ),
                                 ),
@@ -1062,7 +1046,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                           children: [
                             const Text(
                               'Already have an account? ',
-                              style: TextStyle(color: muted, fontSize: 14),
+                              style: TextStyle(color: muted),
                             ),
                             TextButton(
                               onPressed: _isLoading
@@ -1081,7 +1065,6 @@ class _RegisterScreenState extends State<RegisterScreen> {
                                 'Sign in',
                                 style: TextStyle(
                                   color: primary,
-                                  fontSize: 14,
                                   fontWeight: FontWeight.w700,
                                 ),
                               ),
@@ -1094,7 +1077,6 @@ class _RegisterScreenState extends State<RegisterScreen> {
                         textAlign: TextAlign.center,
                         style: TextStyle(
                           color: Color(0xFF5F6A80),
-                          fontSize: 14,
                           fontWeight: FontWeight.w500,
                         ),
                       ),

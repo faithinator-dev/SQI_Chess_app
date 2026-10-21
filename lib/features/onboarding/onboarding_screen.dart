@@ -1,4 +1,4 @@
-﻿import 'package:flutter/material.dart';
+import 'package:flutter/material.dart';
 
 import 'onboarding_data.dart';
 import '../auth/login_screen.dart';
@@ -18,6 +18,8 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
   static const Color background = Color(0xFFF9F8F6);
   static const Color blue = Color(0xFF2D4A3E);
   static const Color muted = Color(0xFF737A74);
+  static const Color textPrimary = Color(0xFF1A1A1A);
+  static const Color border = Color(0xFFD8E1EC);
 
   bool get isLastPage => currentPage == onboardingPages.length - 1;
 
@@ -124,8 +126,8 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                 Text(
                   'SQI CHECKMATE',
                   style: TextStyle(
-                    color: Colors.white,
-                    fontSize: 14,
+                    fontSize: 20,
+                    color: textPrimary,
                     fontWeight: FontWeight.w900,
                     letterSpacing: 1.1,
                   ),
@@ -134,8 +136,8 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                 Text(
                   'ARENA',
                   style: TextStyle(
+                    fontSize: 20,
                     color: blue,
-                    fontSize: 12,
                     fontWeight: FontWeight.w800,
                     letterSpacing: 3,
                   ),
@@ -148,7 +150,11 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
             onPressed: skipOnboarding,
             child: const Text(
               'Skip',
-              style: TextStyle(color: muted, fontWeight: FontWeight.w600),
+              style: TextStyle(
+                fontSize: 20,
+                color: muted,
+                fontWeight: FontWeight.w600,
+              ),
             ),
           ),
         ],
@@ -207,9 +213,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                 decoration: BoxDecoration(
                   color: const Color(0xFFFFFFFF),
                   borderRadius: BorderRadius.circular(24),
-                  border: Border.all(
-                    color: Colors.white.withValues(alpha: 0.10),
-                  ),
+                  border: Border.all(color: border),
                   boxShadow: [
                     BoxShadow(
                       color: blue.withValues(alpha: 0.13),
@@ -244,14 +248,14 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
     const darkSquare = Color(0xFF263B61);
 
     const pieces = [
-      ['â™œ', 'â™ž', 'â™', 'â™›', 'â™š', 'â™', 'â™ž', 'â™œ'],
-      ['â™Ÿ', 'â™Ÿ', 'â™Ÿ', 'â™Ÿ', 'â™Ÿ', 'â™Ÿ', 'â™Ÿ', 'â™Ÿ'],
+      ['R', 'N', 'B', 'Q', 'K', 'B', 'N', 'R'],
+      ['P', 'P', 'P', 'P', 'P', 'P', 'P', 'P'],
       ['', '', '', '', '', '', '', ''],
       ['', '', '', '', '', '', '', ''],
       ['', '', '', '', '', '', '', ''],
       ['', '', '', '', '', '', '', ''],
-      ['â™™', 'â™™', 'â™™', 'â™™', 'â™™', 'â™™', 'â™™', 'â™™'],
-      ['â™–', 'â™˜', 'â™—', 'â™•', 'â™”', 'â™—', 'â™˜', 'â™–'],
+      ['p', 'p', 'p', 'p', 'p', 'p', 'p', 'p'],
+      ['r', 'n', 'b', 'q', 'k', 'b', 'n', 'r'],
     ];
 
     return ClipRRect(
@@ -276,7 +280,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                               child: Text(
                                 piece,
                                 style: TextStyle(
-                                  fontSize: 31,
+                                  fontSize: 20,
                                   color: row < 2
                                       ? const Color(0xFF101827)
                                       : Colors.white,
@@ -307,7 +311,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
       decoration: BoxDecoration(
         color: const Color(0xFFEDE9E2),
         borderRadius: BorderRadius.circular(13),
-        border: Border.all(color: Colors.white.withValues(alpha: 0.10)),
+        border: Border.all(color: border),
       ),
       child: Row(
         mainAxisSize: MainAxisSize.min,
@@ -317,8 +321,8 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
           Text(
             label,
             style: const TextStyle(
-              color: Colors.white,
-              fontSize: 12,
+              fontSize: 20,
+              color: textPrimary,
               fontWeight: FontWeight.w800,
               letterSpacing: 0.8,
             ),
@@ -345,8 +349,8 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
               child: Text(
                 page.eyebrow,
                 style: const TextStyle(
-                  color: Color(0xFF76A4FF),
-                  fontSize: 12,
+                  fontSize: 20,
+                  color: blue,
                   fontWeight: FontWeight.w800,
                   letterSpacing: 1.3,
                 ),
@@ -358,8 +362,8 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
             Text(
               page.title,
               style: const TextStyle(
-                color: Colors.white,
-                fontSize: 36,
+                fontSize: 20,
+                color: textPrimary,
                 height: 1.13,
                 fontWeight: FontWeight.w900,
                 letterSpacing: -1.1,
@@ -370,7 +374,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
 
             Text(
               page.description,
-              style: const TextStyle(color: muted, fontSize: 15, height: 1.7),
+              style: const TextStyle(fontSize: 20, color: muted, height: 1.7),
             ),
           ],
         ),
@@ -423,7 +427,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                   Text(
                     isLastPage ? 'Enter the Arena' : 'Continue',
                     style: const TextStyle(
-                      fontSize: 15,
+                      fontSize: 20,
                       fontWeight: FontWeight.w800,
                     ),
                   ),
@@ -439,8 +443,8 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
           Text(
             '${currentPage + 1} OF ${onboardingPages.length}',
             style: const TextStyle(
+              fontSize: 20,
               color: Color(0xFF65728A),
-              fontSize: 12,
               fontWeight: FontWeight.w800,
               letterSpacing: 2,
             ),

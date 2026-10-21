@@ -1,4 +1,4 @@
-﻿import 'package:flutter/material.dart';
+import 'package:flutter/material.dart';
 
 import '../match/chess_match_screen.dart';
 
@@ -45,8 +45,8 @@ class MatchFoundScreen extends StatelessWidget {
                     'MATCH FOUND',
                     textAlign: TextAlign.center,
                     style: TextStyle(
+                      fontSize: 20,
                       color: Color(0xFF1A1A1A),
-                      fontSize: 25,
                       fontWeight: FontWeight.w900,
                       letterSpacing: 1.2,
                     ),
@@ -55,7 +55,7 @@ class MatchFoundScreen extends StatelessWidget {
                   const Text(
                     'Your opponent is ready.',
                     textAlign: TextAlign.center,
-                    style: TextStyle(color: Color(0xFF454B46), fontSize: 15),
+                    style: TextStyle(fontSize: 20, color: Color(0xFF454B46)),
                   ),
                   const SizedBox(height: 28),
                   SizedBox(
@@ -79,6 +79,7 @@ class MatchFoundScreen extends StatelessWidget {
                       child: const Text(
                         'ENTER GAME',
                         style: TextStyle(
+                          fontSize: 20,
                           fontWeight: FontWeight.w800,
                           letterSpacing: .8,
                         ),

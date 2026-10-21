@@ -339,8 +339,8 @@ class _CommunityScreenState extends State<CommunityScreen> {
               child: const Text(
                 'SQI CHESS CLUB',
                 style: TextStyle(
+                  fontSize: 20,
                   color: blue,
-                  fontSize: 12,
                   fontWeight: FontWeight.w900,
                   letterSpacing: 1.4,
                 ),
@@ -350,8 +350,8 @@ class _CommunityScreenState extends State<CommunityScreen> {
             const Text(
               'Community',
               style: TextStyle(
+                fontSize: 20,
                 color: textPrimary,
-                fontSize: 22,
                 fontWeight: FontWeight.w900,
               ),
             ),

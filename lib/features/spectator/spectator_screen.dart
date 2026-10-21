@@ -1,4 +1,4 @@
-﻿import 'package:flutter/material.dart';
+import 'package:flutter/material.dart';
 
 import 'spectator_match_screen.dart';
 
@@ -125,8 +125,8 @@ class SpectatorScreen extends StatelessWidget {
               Text(
                 'SPECTATOR',
                 style: TextStyle(
+                  fontSize: 20,
                   color: muted,
-                  fontSize: 12,
                   fontWeight: FontWeight.w800,
                   letterSpacing: 1.4,
                 ),
@@ -135,8 +135,8 @@ class SpectatorScreen extends StatelessWidget {
               Text(
                 'Watch Live Games',
                 style: TextStyle(
+                  fontSize: 20,
                   color: Colors.white,
-                  fontSize: 21,
                   fontWeight: FontWeight.w900,
                 ),
               ),
@@ -198,8 +198,8 @@ class SpectatorScreen extends StatelessWidget {
                 Text(
                   'WATCH THE ARENA',
                   style: TextStyle(
+                    fontSize: 20,
                     color: blue,
-                    fontSize: 12,
                     fontWeight: FontWeight.w900,
                     letterSpacing: 1.3,
                   ),
@@ -208,15 +208,15 @@ class SpectatorScreen extends StatelessWidget {
                 Text(
                   'Follow the best games live.',
                   style: TextStyle(
-                    color: Colors.white,
                     fontSize: 20,
+                    color: Colors.white,
                     fontWeight: FontWeight.w900,
                   ),
                 ),
                 SizedBox(height: 5),
                 Text(
                   'Watch every move without entering the match.',
-                  style: TextStyle(color: muted, fontSize: 14),
+                  style: TextStyle(fontSize: 20, color: muted),
                 ),
               ],
             ),
@@ -260,13 +260,13 @@ class SpectatorScreen extends StatelessWidget {
           Text(
             value,
             style: const TextStyle(
+              fontSize: 20,
               color: Colors.white,
-              fontSize: 22,
               fontWeight: FontWeight.w900,
             ),
           ),
           const SizedBox(height: 3),
-          Text(label, style: const TextStyle(color: muted, fontSize: 12)),
+          Text(label, style: const TextStyle(fontSize: 20, color: muted)),
         ],
       ),
     );
@@ -282,15 +282,15 @@ class SpectatorScreen extends StatelessWidget {
               Text(
                 'Live Games',
                 style: TextStyle(
+                  fontSize: 20,
                   color: Colors.white,
-                  fontSize: 17,
                   fontWeight: FontWeight.w900,
                 ),
               ),
               SizedBox(height: 4),
               Text(
                 'Choose a game to spectate',
-                style: TextStyle(color: muted, fontSize: 12),
+                style: TextStyle(fontSize: 20, color: muted),
               ),
             ],
           ),
@@ -298,8 +298,8 @@ class SpectatorScreen extends StatelessWidget {
         Text(
           'LIVE NOW',
           style: TextStyle(
+            fontSize: 20,
             color: green,
-            fontSize: 12,
             fontWeight: FontWeight.w900,
             letterSpacing: 1,
           ),
@@ -363,8 +363,8 @@ class SpectatorScreen extends StatelessWidget {
                   Text(
                     '${game['spectators']}',
                     style: const TextStyle(
+                      fontSize: 20,
                       color: muted,
-                      fontSize: 12,
                       fontWeight: FontWeight.w700,
                     ),
                   ),
@@ -391,8 +391,8 @@ class SpectatorScreen extends StatelessWidget {
                     child: Text(
                       'VS',
                       style: TextStyle(
+                        fontSize: 20,
                         color: muted,
-                        fontSize: 12,
                         fontWeight: FontWeight.w800,
                       ),
                     ),
@@ -448,8 +448,8 @@ class SpectatorScreen extends StatelessWidget {
           Text(
             'LIVE',
             style: TextStyle(
+              fontSize: 20,
               color: green,
-              fontSize: 12,
               fontWeight: FontWeight.w900,
             ),
           ),
@@ -486,8 +486,8 @@ class SpectatorScreen extends StatelessWidget {
           child: Text(
             name,
             style: const TextStyle(
+              fontSize: 20,
               color: Colors.white,
-              fontSize: 12,
               fontWeight: FontWeight.w800,
             ),
           ),
@@ -495,8 +495,8 @@ class SpectatorScreen extends StatelessWidget {
         Text(
           rating,
           style: const TextStyle(
+            fontSize: 20,
             color: muted,
-            fontSize: 12,
             fontWeight: FontWeight.w700,
           ),
         ),
@@ -510,7 +510,7 @@ class SpectatorScreen extends StatelessWidget {
       children: [
         Icon(icon, color: muted, size: 13),
         const SizedBox(width: 4),
-        Text(text, style: const TextStyle(color: muted, fontSize: 12)),
+        Text(text, style: const TextStyle(fontSize: 20, color: muted)),
       ],
     );
   }
@@ -526,13 +526,17 @@ class SpectatorScreen extends StatelessWidget {
           ),
           title: const Text(
             'Find a Match',
-            style: TextStyle(color: Colors.white, fontWeight: FontWeight.w800),
+            style: TextStyle(
+              fontSize: 20,
+              color: Colors.white,
+              fontWeight: FontWeight.w800,
+            ),
           ),
           content: const TextField(
-            style: TextStyle(color: Colors.white),
+            style: TextStyle(fontSize: 20, color: Colors.white),
             decoration: InputDecoration(
               hintText: 'Enter match ID',
-              hintStyle: TextStyle(color: muted),
+              hintStyle: TextStyle(fontSize: 20, color: muted),
             ),
           ),
           actions: [
@@ -540,7 +544,11 @@ class SpectatorScreen extends StatelessWidget {
               onPressed: () => Navigator.pop(context),
               child: const Text(
                 'Search',
-                style: TextStyle(color: blue, fontWeight: FontWeight.w800),
+                style: TextStyle(
+                  fontSize: 20,
+                  color: blue,
+                  fontWeight: FontWeight.w800,
+                ),
               ),
             ),
           ],

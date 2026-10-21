@@ -460,8 +460,8 @@ class _LearnScreenState extends State<LearnScreen> {
               child: const Text(
                 'ACADEMY',
                 style: TextStyle(
+                  fontSize: 20,
                   color: blue,
-                  fontSize: 12,
                   fontWeight: FontWeight.w900,
                   letterSpacing: 1.4,
                 ),
@@ -471,8 +471,8 @@ class _LearnScreenState extends State<LearnScreen> {
             const Text(
               'Master the Board',
               style: TextStyle(
+                fontSize: 20,
                 color: _learnText,
-                fontSize: 22,
                 fontWeight: FontWeight.w900,
               ),
             ),
@@ -577,8 +577,8 @@ class _LearnScreenState extends State<LearnScreen> {
                   const Text(
                     'COURSE PROGRESS',
                     style: TextStyle(
+                      fontSize: 20,
                       color: muted,
-                      fontSize: 12,
                       fontWeight: FontWeight.w900,
                       letterSpacing: 0.9,
                     ),
@@ -601,8 +601,8 @@ class _LearnScreenState extends State<LearnScreen> {
                       Text(
                         '${(courseProgress * 100).round()}%',
                         style: const TextStyle(
+                          fontSize: 20,
                           color: green,
-                          fontSize: 12,
                           fontWeight: FontWeight.w900,
                         ),
                       ),
@@ -633,12 +633,16 @@ class _LearnScreenState extends State<LearnScreen> {
           const SizedBox(height: 10),
           const Text(
             'Lessons are unavailable.',
-            style: TextStyle(color: _learnText, fontWeight: FontWeight.w700),
+            style: TextStyle(
+              fontSize: 20,
+              color: _learnText,
+              fontWeight: FontWeight.w700,
+            ),
           ),
           const SizedBox(height: 6),
           const Text(
             'Connect to the learning service and try again.',
-            style: TextStyle(color: muted, fontSize: 14),
+            style: TextStyle(fontSize: 20, color: muted),
             textAlign: TextAlign.center,
           ),
           const SizedBox(height: 10),
@@ -676,16 +680,16 @@ class _LearnScreenState extends State<LearnScreen> {
                   value,
                   overflow: TextOverflow.ellipsis,
                   style: const TextStyle(
+                    fontSize: 20,
                     color: _learnText,
                     fontWeight: FontWeight.w900,
-                    fontSize: 16,
                   ),
                 ),
                 const SizedBox(height: 2),
                 Text(
                   label,
                   overflow: TextOverflow.ellipsis,
-                  style: const TextStyle(color: muted, fontSize: 12),
+                  style: const TextStyle(fontSize: 20, color: muted),
                 ),
               ],
             ),
@@ -760,8 +764,8 @@ class _LearnScreenState extends State<LearnScreen> {
             const Text(
               'CONTINUE LEARNING',
               style: TextStyle(
+                fontSize: 20,
                 color: muted,
-                fontSize: 12,
                 fontWeight: FontWeight.w900,
                 letterSpacing: 0.9,
               ),
@@ -772,9 +776,9 @@ class _LearnScreenState extends State<LearnScreen> {
         Text(
           lesson.title,
           style: const TextStyle(
+            fontSize: 20,
             color: _learnText,
             fontFamily: 'Georgia',
-            fontSize: 24,
             fontWeight: FontWeight.w700,
             letterSpacing: -0.2,
           ),
@@ -784,7 +788,7 @@ class _LearnScreenState extends State<LearnScreen> {
           lesson.subtitle,
           maxLines: 2,
           overflow: TextOverflow.ellipsis,
-          style: const TextStyle(color: muted, fontSize: 14, height: 1.45),
+          style: const TextStyle(fontSize: 20, color: muted, height: 1.45),
         ),
         const SizedBox(height: 14),
         Row(
@@ -804,8 +808,8 @@ class _LearnScreenState extends State<LearnScreen> {
             Text(
               '${(lesson.progress * 100).round()}%',
               style: TextStyle(
+                fontSize: 20,
                 color: lesson.accent,
-                fontSize: 12,
                 fontWeight: FontWeight.w900,
               ),
             ),
@@ -814,7 +818,7 @@ class _LearnScreenState extends State<LearnScreen> {
         const SizedBox(height: 7),
         Text(
           'Lesson ${lesson.lessonNumber} of ${lesson.totalLessons} - ${lesson.duration}',
-          style: const TextStyle(color: muted, fontSize: 12),
+          style: const TextStyle(fontSize: 20, color: muted),
         ),
         const SizedBox(height: 15),
         FilledButton.icon(
@@ -859,8 +863,8 @@ class _LearnScreenState extends State<LearnScreen> {
             child: Text(
               '♞',
               style: TextStyle(
+                fontSize: 20,
                 color: lesson.accent.withValues(alpha: 0.15),
-                fontSize: 155,
                 height: 0.9,
               ),
             ),
@@ -885,8 +889,8 @@ class _LearnScreenState extends State<LearnScreen> {
             child: Text(
               lesson.category.toUpperCase(),
               style: TextStyle(
+                fontSize: 20,
                 color: lesson.accent,
-                fontSize: 12,
                 fontWeight: FontWeight.w900,
                 letterSpacing: 1.1,
               ),
@@ -904,8 +908,8 @@ class _LearnScreenState extends State<LearnScreen> {
               child: Text(
                 lesson.duration,
                 style: const TextStyle(
+                  fontSize: 20,
                   color: Colors.white,
-                  fontSize: 14,
                   fontWeight: FontWeight.w800,
                 ),
               ),
@@ -923,15 +927,15 @@ class _LearnScreenState extends State<LearnScreen> {
         const Text(
           'Interactive drills',
           style: TextStyle(
-            color: _learnText,
             fontSize: 20,
+            color: _learnText,
             fontWeight: FontWeight.w900,
           ),
         ),
         const SizedBox(height: 4),
         const Text(
           'Choose the part of your game you want to improve.',
-          style: TextStyle(color: muted, fontSize: 14),
+          style: TextStyle(fontSize: 20, color: muted),
         ),
         const SizedBox(height: 13),
         SizedBox(
@@ -994,8 +998,8 @@ class _LearnScreenState extends State<LearnScreen> {
                     category.title,
                     overflow: TextOverflow.ellipsis,
                     style: const TextStyle(
+                      fontSize: 20,
                       color: _learnText,
-                      fontSize: 18,
                       fontWeight: FontWeight.w800,
                     ),
                   ),
@@ -1005,9 +1009,9 @@ class _LearnScreenState extends State<LearnScreen> {
                     maxLines: 2,
                     overflow: TextOverflow.ellipsis,
                     style: const TextStyle(
+                      fontSize: 17,
                       color: muted,
-                      fontSize: 14,
-                      height: 1.2,
+                      height: 1.0,
                     ),
                   ),
                 ],
@@ -1033,15 +1037,15 @@ class _LearnScreenState extends State<LearnScreen> {
                     ? 'Curriculum & courses'
                     : '$_selectedCategory lessons',
                 style: const TextStyle(
-                  color: _learnText,
                   fontSize: 20,
+                  color: _learnText,
                   fontWeight: FontWeight.w900,
                 ),
               ),
               const SizedBox(height: 4),
               Text(
                 '$count ${count == 1 ? 'lesson' : 'lessons'} available',
-                style: const TextStyle(color: muted, fontSize: 16),
+                style: const TextStyle(fontSize: 20, color: muted),
               ),
             ],
           ),
@@ -1054,7 +1058,7 @@ class _LearnScreenState extends State<LearnScreen> {
           ),
           child: const Text(
             'View learning path',
-            style: TextStyle(fontSize: 14, fontWeight: FontWeight.w800),
+            style: TextStyle(fontSize: 20, fontWeight: FontWeight.w800),
           ),
         ),
       ],
@@ -1088,15 +1092,15 @@ class _LearnScreenState extends State<LearnScreen> {
                 Text(
                   'Puzzle practice',
                   style: TextStyle(
+                    fontSize: 20,
                     color: _learnText,
                     fontWeight: FontWeight.w900,
-                    fontSize: 18,
                   ),
                 ),
                 SizedBox(height: 4),
                 Text(
                   'Practice tactics with interactive positions.',
-                  style: TextStyle(color: muted, fontSize: 14),
+                  style: TextStyle(fontSize: 20, color: muted),
                 ),
               ],
             ),
@@ -1185,9 +1189,9 @@ class _LearnScreenState extends State<LearnScreen> {
                       maxLines: 2,
                       overflow: TextOverflow.ellipsis,
                       style: const TextStyle(
+                        fontSize: 20,
                         color: _learnText,
                         fontFamily: 'Georgia',
-                        fontSize: 16,
                         fontWeight: FontWeight.w700,
                       ),
                     ),
@@ -1197,8 +1201,8 @@ class _LearnScreenState extends State<LearnScreen> {
                       maxLines: 2,
                       overflow: TextOverflow.ellipsis,
                       style: const TextStyle(
+                        fontSize: 20,
                         color: muted,
-                        fontSize: 12,
                         height: 1.35,
                       ),
                     ),
@@ -1222,8 +1226,8 @@ class _LearnScreenState extends State<LearnScreen> {
                         Text(
                           '${(lesson.progress * 100).round()}%',
                           style: TextStyle(
+                            fontSize: 20,
                             color: lesson.accent,
-                            fontSize: 12,
                             fontWeight: FontWeight.w800,
                           ),
                         ),
@@ -1232,7 +1236,7 @@ class _LearnScreenState extends State<LearnScreen> {
                     const SizedBox(height: 6),
                     Text(
                       'Lesson ${lesson.lessonNumber} of ${lesson.totalLessons} - ${lesson.duration}',
-                      style: const TextStyle(color: muted, fontSize: 14),
+                      style: const TextStyle(fontSize: 20, color: muted),
                     ),
                   ],
                 ),
@@ -1256,8 +1260,8 @@ class _LearnScreenState extends State<LearnScreen> {
       child: Text(
         level,
         style: TextStyle(
+          fontSize: 20,
           color: accent,
-          fontSize: 12,
           fontWeight: FontWeight.w900,
           letterSpacing: 0.8,
         ),
@@ -1290,15 +1294,15 @@ class _LearnScreenState extends State<LearnScreen> {
           const Text(
             'No lessons found',
             style: TextStyle(
+              fontSize: 20,
               color: _learnText,
               fontWeight: FontWeight.w900,
-              fontSize: 16,
             ),
           ),
           const SizedBox(height: 5),
           const Text(
             'Try another topic or search term.',
-            style: TextStyle(color: muted, fontSize: 14),
+            style: TextStyle(fontSize: 20, color: muted),
           ),
           const SizedBox(height: 14),
           TextButton(
@@ -1311,7 +1315,11 @@ class _LearnScreenState extends State<LearnScreen> {
             },
             child: const Text(
               'Clear filters',
-              style: TextStyle(color: blue, fontWeight: FontWeight.w800),
+              style: TextStyle(
+                fontSize: 20,
+                color: blue,
+                fontWeight: FontWeight.w800,
+              ),
             ),
           ),
         ],
@@ -1352,19 +1360,23 @@ class _LearnScreenState extends State<LearnScreen> {
           ),
           title: const Text(
             'Search Learn',
-            style: TextStyle(color: _learnText, fontWeight: FontWeight.w900),
+            style: TextStyle(
+              fontSize: 20,
+              color: _learnText,
+              fontWeight: FontWeight.w900,
+            ),
           ),
           content: TextField(
             controller: _searchController,
             autofocus: true,
-            style: const TextStyle(color: _learnText),
+            style: const TextStyle(fontSize: 20, color: _learnText),
             onChanged: (value) {
               _searchQuery = value;
             },
             decoration: InputDecoration(
               prefixIcon: const Icon(Icons.search_rounded, color: muted),
               hintText: 'Search lessons, topics or levels',
-              hintStyle: const TextStyle(color: muted, fontSize: 14),
+              hintStyle: const TextStyle(fontSize: 20, color: muted),
               filled: true,
               fillColor: surfaceLight,
               border: OutlineInputBorder(
@@ -1376,7 +1388,10 @@ class _LearnScreenState extends State<LearnScreen> {
           actions: [
             TextButton(
               onPressed: () => Navigator.pop(context),
-              child: const Text('Cancel', style: TextStyle(color: muted)),
+              child: const Text(
+                'Cancel',
+                style: TextStyle(fontSize: 20, color: muted),
+              ),
             ),
             FilledButton(
               onPressed: () {
@@ -1433,16 +1448,16 @@ class _LearnScreenState extends State<LearnScreen> {
                 const Text(
                   'Your learning path',
                   style: TextStyle(
+                    fontSize: 20,
                     color: _learnText,
                     fontFamily: 'Georgia',
-                    fontSize: 22,
                     fontWeight: FontWeight.w700,
                   ),
                 ),
                 const SizedBox(height: 5),
                 const Text(
                   'A simple route from fundamentals to stronger decision-making.',
-                  style: TextStyle(color: muted, fontSize: 14, height: 1.45),
+                  style: TextStyle(fontSize: 20, color: muted, height: 1.45),
                 ),
                 const SizedBox(height: 16),
                 for (var i = 0; i < stages.length; i++)
@@ -1463,8 +1478,8 @@ class _LearnScreenState extends State<LearnScreen> {
                           child: Text(
                             stages[i].$1,
                             style: TextStyle(
+                              fontSize: 20,
                               color: stages[i].$4,
-                              fontSize: 12,
                               fontWeight: FontWeight.w900,
                             ),
                           ),
@@ -1477,8 +1492,8 @@ class _LearnScreenState extends State<LearnScreen> {
                               Text(
                                 stages[i].$2,
                                 style: const TextStyle(
+                                  fontSize: 20,
                                   color: _learnText,
-                                  fontSize: 16,
                                   fontWeight: FontWeight.w800,
                                 ),
                               ),
@@ -1486,8 +1501,8 @@ class _LearnScreenState extends State<LearnScreen> {
                               Text(
                                 stages[i].$3,
                                 style: const TextStyle(
+                                  fontSize: 20,
                                   color: muted,
-                                  fontSize: 14,
                                 ),
                               ),
                             ],
@@ -1588,8 +1603,8 @@ class _LessonPlayerScreenState extends State<_LessonPlayerScreen> {
             Text(
               widget.lesson.category,
               style: const TextStyle(
+                fontSize: 20,
                 color: muted,
-                fontSize: 12,
                 fontWeight: FontWeight.w800,
               ),
             ),
@@ -1598,8 +1613,8 @@ class _LessonPlayerScreenState extends State<_LessonPlayerScreen> {
               maxLines: 1,
               overflow: TextOverflow.ellipsis,
               style: const TextStyle(
+                fontSize: 20,
                 color: _learnText,
-                fontSize: 16,
                 fontWeight: FontWeight.w800,
               ),
             ),
@@ -1706,8 +1721,8 @@ class _LessonPlayerScreenState extends State<_LessonPlayerScreen> {
                     child: Text(
                       '♞',
                       style: TextStyle(
+                        fontSize: 20,
                         color: widget.lesson.accent,
-                        fontSize: 240,
                       ),
                     ),
                   ),
@@ -1749,8 +1764,8 @@ class _LessonPlayerScreenState extends State<_LessonPlayerScreen> {
               Text(
                 '${(_progress * 100).round()}%',
                 style: const TextStyle(
+                  fontSize: 20,
                   color: green,
-                  fontSize: 12,
                   fontWeight: FontWeight.w900,
                 ),
               ),
@@ -1759,7 +1774,7 @@ class _LessonPlayerScreenState extends State<_LessonPlayerScreen> {
           const SizedBox(height: 7),
           Text(
             'Step ${_stepIndex + 1} of ${widget.lesson.lessons.length}',
-            style: const TextStyle(color: muted, fontSize: 12),
+            style: const TextStyle(fontSize: 20, color: muted),
           ),
         ],
       ),
@@ -1777,9 +1792,9 @@ class _LessonPlayerScreenState extends State<_LessonPlayerScreen> {
         Text(
           _step.title,
           style: const TextStyle(
+            fontSize: 20,
             color: _learnText,
             fontFamily: 'Georgia',
-            fontSize: 24,
             fontWeight: FontWeight.w700,
             height: 1.08,
           ),
@@ -1787,7 +1802,7 @@ class _LessonPlayerScreenState extends State<_LessonPlayerScreen> {
         const SizedBox(height: 12),
         Text(
           _step.body,
-          style: const TextStyle(color: muted, fontSize: 16, height: 1.65),
+          style: const TextStyle(fontSize: 20, color: muted, height: 1.65),
         ),
         const SizedBox(height: 16),
         Container(
@@ -1823,8 +1838,8 @@ class _LessonPlayerScreenState extends State<_LessonPlayerScreen> {
                     const Text(
                       'KEY IDEA',
                       style: TextStyle(
+                        fontSize: 20,
                         color: gold,
-                        fontSize: 12,
                         fontWeight: FontWeight.w900,
                         letterSpacing: 0.9,
                       ),
@@ -1833,8 +1848,8 @@ class _LessonPlayerScreenState extends State<_LessonPlayerScreen> {
                     Text(
                       _step.tip,
                       style: const TextStyle(
+                        fontSize: 20,
                         color: muted,
-                        fontSize: 14,
                         height: 1.45,
                       ),
                     ),
@@ -1901,8 +1916,8 @@ class _LessonPlayerScreenState extends State<_LessonPlayerScreen> {
       child: Text(
         widget.lesson.level,
         style: TextStyle(
+          fontSize: 20,
           color: widget.lesson.accent,
-          fontSize: 12,
           fontWeight: FontWeight.w900,
           letterSpacing: 0.8,
         ),
@@ -2102,23 +2117,23 @@ class _PuzzlePracticeScreenState extends State<_PuzzlePracticeScreen> {
                     const Text(
                       'BEGINNER · TACTICS',
                       style: TextStyle(
+                        fontSize: 20,
                         color: _green,
                         fontWeight: FontWeight.w800,
-                        fontSize: 14,
                       ),
                     ),
                     const SizedBox(height: 8),
                     const Text(
                       'Capture the knight',
                       style: TextStyle(
-                        fontSize: 22,
+                        fontSize: 20,
                         fontWeight: FontWeight.w800,
                       ),
                     ),
                     const SizedBox(height: 5),
                     const Text(
                       'Move your king to capture the undefended knight.',
-                      style: TextStyle(color: _muted),
+                      style: TextStyle(fontSize: 20, color: _muted),
                     ),
                     const SizedBox(height: 16),
                     AspectRatio(
@@ -2137,6 +2152,7 @@ class _PuzzlePracticeScreenState extends State<_PuzzlePracticeScreen> {
                     Text(
                       _message,
                       style: TextStyle(
+                        fontSize: 20,
                         color: _complete ? _green : _muted,
                         fontWeight: FontWeight.w700,
                       ),

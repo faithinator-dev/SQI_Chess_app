@@ -1,4 +1,4 @@
-﻿import 'dart:async';
+import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
@@ -275,7 +275,7 @@ class _MatchmakingScreenState extends State<MatchmakingScreen> {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.stretch,
       children: [
-        _buildHeader(),
+        _buildHeader(compact),
         const SizedBox(height: 22),
         _buildMainCard(compact),
         const SizedBox(height: 16),
@@ -286,35 +286,55 @@ class _MatchmakingScreenState extends State<MatchmakingScreen> {
     );
   }
 
-  Widget _buildHeader() {
+  Widget _buildHeader(bool compact) {
+    final title = const Expanded(
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Text(
+            'Quick Match',
+            style: TextStyle(
+              fontSize: 20,
+              color: primaryText,
+              fontWeight: FontWeight.w800,
+            ),
+          ),
+          SizedBox(height: 4),
+          Text(
+            'Finding your next opponent',
+            style: TextStyle(fontSize: 20, color: muted),
+          ),
+        ],
+      ),
+    );
+    final badge = _statusBadge(
+      _searching ? 'SEARCHING' : 'READY',
+      _searching ? blue : green,
+    );
+
+    if (compact) {
+      return Column(
+        crossAxisAlignment: CrossAxisAlignment.stretch,
+        children: [
+          Row(
+            children: [
+              _iconButton(Icons.arrow_back_rounded, _cancelSearch),
+              const SizedBox(width: 14),
+              title,
+            ],
+          ),
+          const SizedBox(height: 10),
+          Align(alignment: Alignment.centerRight, child: badge),
+        ],
+      );
+    }
+
     return Row(
       children: [
         _iconButton(Icons.arrow_back_rounded, _cancelSearch),
         const SizedBox(width: 14),
-        const Expanded(
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Text(
-                'Quick Match',
-                style: TextStyle(
-                  color: primaryText,
-                  fontSize: 20,
-                  fontWeight: FontWeight.w800,
-                ),
-              ),
-              SizedBox(height: 4),
-              Text(
-                'Finding your next opponent',
-                style: TextStyle(color: muted, fontSize: 12),
-              ),
-            ],
-          ),
-        ),
-        _statusBadge(
-          _searching ? 'SEARCHING' : 'READY',
-          _searching ? blue : green,
-        ),
+        title,
+        badge,
       ],
     );
   }
@@ -346,8 +366,8 @@ class _MatchmakingScreenState extends State<MatchmakingScreen> {
                 : 'Finding an opponent',
             textAlign: TextAlign.center,
             style: const TextStyle(
+              fontSize: 20,
               color: primaryText,
-              fontSize: 25,
               fontWeight: FontWeight.w800,
             ),
           ),
@@ -356,7 +376,7 @@ class _MatchmakingScreenState extends State<MatchmakingScreen> {
             _errorMessage ??
                 'SQI is searching for a player with a suitable rating.',
             textAlign: TextAlign.center,
-            style: const TextStyle(color: muted, fontSize: 13, height: 1.5),
+            style: const TextStyle(fontSize: 20, color: muted, height: 1.5),
           ),
           const SizedBox(height: 28),
           if (_errorMessage == null) ...[
@@ -412,8 +432,8 @@ class _MatchmakingScreenState extends State<MatchmakingScreen> {
         Text(
           '$minutes:$seconds',
           style: const TextStyle(
+            fontSize: 20,
             color: primaryText,
-            fontSize: 40,
             fontWeight: FontWeight.w800,
             letterSpacing: 2,
           ),
@@ -422,8 +442,8 @@ class _MatchmakingScreenState extends State<MatchmakingScreen> {
         const Text(
           'SEARCH TIME',
           style: TextStyle(
+            fontSize: 20,
             color: muted,
-            fontSize: 12,
             fontWeight: FontWeight.w800,
             letterSpacing: 1.5,
           ),
@@ -451,7 +471,7 @@ class _MatchmakingScreenState extends State<MatchmakingScreen> {
             SizedBox(width: 7),
             Text(
               'Searching the live player pool',
-              style: TextStyle(color: muted, fontSize: 12),
+              style: TextStyle(fontSize: 20, color: muted),
             ),
           ],
         ),
@@ -476,8 +496,8 @@ class _MatchmakingScreenState extends State<MatchmakingScreen> {
             child: Text(
               _errorMessage!,
               style: const TextStyle(
+                fontSize: 20,
                 color: primaryText,
-                fontSize: 12,
                 height: 1.4,
               ),
             ),
@@ -500,17 +520,9 @@ class _MatchmakingScreenState extends State<MatchmakingScreen> {
           Expanded(
             child: _infoItem(Icons.timer_outlined, '10:00', 'START TIME'),
           ),
-          Container(
-            width: 1,
-            height: 38,
-            color: surface2,
-          ),
+          Container(width: 1, height: 38, color: surface2),
           Expanded(child: _infoItem(Icons.bolt_rounded, '+0', 'INCREMENT')),
-          Container(
-            width: 1,
-            height: 38,
-            color: surface2,
-          ),
+          Container(width: 1, height: 38, color: surface2),
           Expanded(child: _infoItem(Icons.groups_outlined, 'LIVE', 'POOL')),
         ],
       ),
@@ -525,8 +537,8 @@ class _MatchmakingScreenState extends State<MatchmakingScreen> {
         Text(
           value,
           style: const TextStyle(
+            fontSize: 20,
             color: primaryText,
-            fontSize: 13,
             fontWeight: FontWeight.w800,
           ),
         ),
@@ -534,8 +546,8 @@ class _MatchmakingScreenState extends State<MatchmakingScreen> {
         Text(
           label,
           style: const TextStyle(
+            fontSize: 20,
             color: muted,
-            fontSize: 12,
             fontWeight: FontWeight.w700,
             letterSpacing: 0.7,
           ),
@@ -558,7 +570,7 @@ class _MatchmakingScreenState extends State<MatchmakingScreen> {
         ),
         child: Text(
           _errorMessage == null ? 'Cancel Search' : 'Go Back',
-          style: const TextStyle(fontWeight: FontWeight.w700),
+          style: const TextStyle(fontSize: 20, fontWeight: FontWeight.w700),
         ),
       ),
     );
@@ -584,8 +596,8 @@ class _MatchmakingScreenState extends State<MatchmakingScreen> {
           Text(
             text,
             style: TextStyle(
+              fontSize: 20,
               color: color,
-              fontSize: 12,
               fontWeight: FontWeight.w900,
               letterSpacing: 0.6,
             ),

@@ -68,7 +68,7 @@ class _AdminLessonsScreenState extends State<AdminLessonsScreen> {
           backgroundColor: _surface,
           title: const Text(
             'Add lesson',
-            style: TextStyle(color: Colors.white),
+            style: TextStyle(fontSize: 20, color: Colors.white),
           ),
           content: SizedBox(
             width: 520,
@@ -163,7 +163,7 @@ class _AdminLessonsScreenState extends State<AdminLessonsScreen> {
                     onChanged: (v) => setDialogState(() => publish = v),
                     title: const Text(
                       'Publish now',
-                      style: TextStyle(color: Colors.white),
+                      style: TextStyle(fontSize: 20, color: Colors.white),
                     ),
                   ),
                 ],
@@ -251,7 +251,7 @@ class _AdminLessonsScreenState extends State<AdminLessonsScreen> {
     child: TextField(
       controller: controller,
       maxLines: maxLines,
-      style: const TextStyle(color: Colors.white),
+      style: const TextStyle(fontSize: 20, color: Colors.white),
       decoration: InputDecoration(labelText: label),
     ),
   );
@@ -296,13 +296,13 @@ class _AdminLessonsScreenState extends State<AdminLessonsScreen> {
                   const Text(
                     'Lessons could not be loaded. Apply the admin lesson policy migration and check administrator access.',
                     textAlign: TextAlign.center,
-                    style: TextStyle(color: Colors.white),
+                    style: TextStyle(fontSize: 20, color: Colors.white),
                   ),
                   const SizedBox(height: 8),
                   Text(
                     _error!,
                     textAlign: TextAlign.center,
-                    style: const TextStyle(color: _muted),
+                    style: const TextStyle(fontSize: 20, color: _muted),
                   ),
                   TextButton.icon(
                     onPressed: _load,
@@ -317,7 +317,7 @@ class _AdminLessonsScreenState extends State<AdminLessonsScreen> {
         ? const Center(
             child: Text(
               'No lessons yet. Add the first lesson.',
-              style: TextStyle(color: _muted),
+              style: TextStyle(fontSize: 20, color: _muted),
             ),
           )
         : ListView.builder(
@@ -331,20 +331,21 @@ class _AdminLessonsScreenState extends State<AdminLessonsScreen> {
                   title: Text(
                     lesson.title,
                     style: const TextStyle(
+                      fontSize: 20,
                       color: Colors.white,
                       fontWeight: FontWeight.w700,
                     ),
                   ),
                   subtitle: Text(
-                    '${lesson.category} Â· ${lesson.difficulty}${lesson.description == null ? '' : ' Â· ${lesson.description}'}',
-                    style: const TextStyle(color: _muted),
+                    '${lesson.category} | ${lesson.difficulty}${lesson.description == null ? '' : ' | ${lesson.description}'}',
+                    style: const TextStyle(fontSize: 20, color: _muted),
                   ),
                   trailing: Row(
                     mainAxisSize: MainAxisSize.min,
                     children: [
                       Text(
                         lesson.isPublished ? 'Published' : 'Draft',
-                        style: const TextStyle(color: _muted),
+                        style: const TextStyle(fontSize: 20, color: _muted),
                       ),
                       Switch.adaptive(
                         value: lesson.isPublished,

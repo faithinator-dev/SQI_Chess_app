@@ -1,4 +1,4 @@
-﻿import 'dart:async';
+import 'dart:async';
 
 import 'package:chessground/chessground.dart';
 import 'package:dartchess/dartchess.dart';
@@ -326,8 +326,8 @@ class _ChessSpectatorScreenState extends State<ChessSpectatorScreen> {
               const Text(
                 'Unable to load game',
                 style: TextStyle(
-                  color: primary,
                   fontSize: 20,
+                  color: primary,
                   fontWeight: FontWeight.w800,
                 ),
               ),
@@ -337,7 +337,7 @@ class _ChessSpectatorScreenState extends State<ChessSpectatorScreen> {
                 textAlign: TextAlign.center,
                 maxLines: 3,
                 overflow: TextOverflow.ellipsis,
-                style: const TextStyle(color: muted, fontSize: 13),
+                style: const TextStyle(fontSize: 20, color: muted),
               ),
               const SizedBox(height: 20),
               FilledButton(
@@ -460,8 +460,8 @@ class _ChessSpectatorScreenState extends State<ChessSpectatorScreen> {
             const Text(
               'SPECTATOR',
               style: TextStyle(
+                fontSize: 20,
                 color: primary,
-                fontSize: 15,
                 fontWeight: FontWeight.w900,
                 letterSpacing: 1.1,
               ),
@@ -488,8 +488,8 @@ class _ChessSpectatorScreenState extends State<ChessSpectatorScreen> {
                   Text(
                     _timeControl,
                     style: const TextStyle(
+                      fontSize: 20,
                       color: secondary,
-                      fontSize: 12,
                       fontWeight: FontWeight.w700,
                     ),
                   ),
@@ -547,8 +547,8 @@ class _ChessSpectatorScreenState extends State<ChessSpectatorScreen> {
                   maxLines: 1,
                   overflow: TextOverflow.ellipsis,
                   style: const TextStyle(
+                    fontSize: 20,
                     color: primary,
-                    fontSize: 13,
                     fontWeight: FontWeight.w800,
                   ),
                 ),
@@ -556,8 +556,8 @@ class _ChessSpectatorScreenState extends State<ChessSpectatorScreen> {
                   const Text(
                     'THINKING',
                     style: TextStyle(
+                      fontSize: 20,
                       color: green,
-                      fontSize: 12,
                       fontWeight: FontWeight.w900,
                       letterSpacing: 1,
                     ),
@@ -568,8 +568,8 @@ class _ChessSpectatorScreenState extends State<ChessSpectatorScreen> {
           Text(
             clock,
             style: TextStyle(
+              fontSize: 20,
               color: isActive ? primary : secondary,
-              fontSize: 21,
               fontWeight: FontWeight.w900,
               fontFeatures: const [FontFeature.tabularFigures()],
             ),
@@ -631,8 +631,8 @@ class _ChessSpectatorScreenState extends State<ChessSpectatorScreen> {
               child: Text(
                 'No moves yet',
                 style: TextStyle(
+                  fontSize: 20,
                   color: muted,
-                  fontSize: 12,
                   fontWeight: FontWeight.w600,
                 ),
               ),
@@ -660,8 +660,8 @@ class _ChessSpectatorScreenState extends State<ChessSpectatorScreen> {
                       Text(
                         '${pair.number}.',
                         style: const TextStyle(
+                          fontSize: 20,
                           color: muted,
-                          fontSize: 14,
                           fontWeight: FontWeight.w800,
                         ),
                       ),
@@ -669,8 +669,8 @@ class _ChessSpectatorScreenState extends State<ChessSpectatorScreen> {
                       Text(
                         pair.white,
                         style: const TextStyle(
+                          fontSize: 20,
                           color: primary,
-                          fontSize: 12,
                           fontWeight: FontWeight.w800,
                         ),
                       ),
@@ -678,8 +678,8 @@ class _ChessSpectatorScreenState extends State<ChessSpectatorScreen> {
                       Text(
                         pair.black ?? '—',
                         style: const TextStyle(
+                          fontSize: 20,
                           color: secondary,
-                          fontSize: 12,
                           fontWeight: FontWeight.w700,
                         ),
                       ),
@@ -706,8 +706,8 @@ class _ChessSpectatorScreenState extends State<ChessSpectatorScreen> {
           Text(
             '$_spectatorCount watching',
             style: const TextStyle(
+              fontSize: 20,
               color: secondary,
-              fontSize: 12,
               fontWeight: FontWeight.w700,
             ),
           ),
@@ -723,8 +723,8 @@ class _ChessSpectatorScreenState extends State<ChessSpectatorScreen> {
             child: Text(
               _gameStatus.toUpperCase(),
               style: TextStyle(
+                fontSize: 20,
                 color: _gameStatus == 'active' ? green : gold,
-                fontSize: 12,
                 fontWeight: FontWeight.w900,
                 letterSpacing: 1,
               ),

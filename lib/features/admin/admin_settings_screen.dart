@@ -110,8 +110,8 @@ class _AdminSettingsScreenState extends State<AdminSettingsScreen> {
           const Text(
             'Admin Settings',
             style: TextStyle(
-              color: white,
               fontSize: 20,
+              color: white,
               fontWeight: FontWeight.w700,
             ),
           ),
@@ -153,8 +153,8 @@ class _AdminSettingsScreenState extends State<AdminSettingsScreen> {
           Text(
             'System Operational',
             style: TextStyle(
+              fontSize: 20,
               color: green,
-              fontSize: 12,
               fontWeight: FontWeight.w700,
             ),
           ),
@@ -247,8 +247,8 @@ class _AdminSettingsScreenState extends State<AdminSettingsScreen> {
         const Text(
           'Platform Settings',
           style: TextStyle(
+            fontSize: 20,
             color: white,
-            fontSize: 24,
             fontWeight: FontWeight.w800,
             letterSpacing: -0.6,
           ),
@@ -256,7 +256,7 @@ class _AdminSettingsScreenState extends State<AdminSettingsScreen> {
         const SizedBox(height: 7),
         Text(
           'Configure competition rules, matchmaking, games and platform behaviour.',
-          style: TextStyle(color: muted.withValues(alpha: 0.9), fontSize: 14),
+          style: TextStyle(fontSize: 20, color: muted.withValues(alpha: 0.9)),
         ),
       ],
     );
@@ -318,8 +318,8 @@ class _AdminSettingsScreenState extends State<AdminSettingsScreen> {
             Text(
               title,
               style: TextStyle(
+                fontSize: 20,
                 color: selected ? white : muted,
-                fontSize: 14,
                 fontWeight: selected ? FontWeight.w700 : FontWeight.w500,
               ),
             ),
@@ -697,15 +697,15 @@ class _AdminSettingsScreenState extends State<AdminSettingsScreen> {
                       Text(
                         'Danger Zone',
                         style: TextStyle(
+                          fontSize: 20,
                           color: white,
-                          fontSize: 18,
                           fontWeight: FontWeight.w800,
                         ),
                       ),
                       SizedBox(height: 4),
                       Text(
                         'These actions can affect the entire platform.',
-                        style: TextStyle(color: muted, fontSize: 14),
+                        style: TextStyle(fontSize: 20, color: muted),
                       ),
                     ],
                   ),
@@ -783,15 +783,15 @@ class _AdminSettingsScreenState extends State<AdminSettingsScreen> {
                       Text(
                         title,
                         style: const TextStyle(
+                          fontSize: 20,
                           color: white,
-                          fontSize: 18,
                           fontWeight: FontWeight.w800,
                         ),
                       ),
                       const SizedBox(height: 4),
                       Text(
                         subtitle,
-                        style: const TextStyle(color: muted, fontSize: 14),
+                        style: const TextStyle(fontSize: 20, color: muted),
                       ),
                     ],
                   ),
@@ -849,8 +849,8 @@ class _AdminSettingsScreenState extends State<AdminSettingsScreen> {
                 Text(
                   title,
                   style: const TextStyle(
+                    fontSize: 20,
                     color: white,
-                    fontSize: 16,
                     fontWeight: FontWeight.w600,
                   ),
                 ),
@@ -858,8 +858,8 @@ class _AdminSettingsScreenState extends State<AdminSettingsScreen> {
                 Text(
                   subtitle,
                   style: const TextStyle(
+                    fontSize: 20,
                     color: muted,
-                    fontSize: 14,
                     height: 1.35,
                   ),
                 ),
@@ -913,8 +913,8 @@ class _AdminSettingsScreenState extends State<AdminSettingsScreen> {
                 Text(
                   title,
                   style: const TextStyle(
+                    fontSize: 20,
                     color: white,
-                    fontSize: 16,
                     fontWeight: FontWeight.w600,
                   ),
                 ),
@@ -922,8 +922,8 @@ class _AdminSettingsScreenState extends State<AdminSettingsScreen> {
                 Text(
                   subtitle,
                   style: const TextStyle(
+                    fontSize: 20,
                     color: muted,
-                    fontSize: 14,
                     height: 1.35,
                   ),
                 ),
@@ -950,8 +950,8 @@ class _AdminSettingsScreenState extends State<AdminSettingsScreen> {
                   size: 18,
                 ),
                 style: const TextStyle(
+                  fontSize: 20,
                   color: white,
-                  fontSize: 14,
                   fontWeight: FontWeight.w600,
                 ),
                 items: items.map((item) {
@@ -1005,15 +1005,15 @@ class _AdminSettingsScreenState extends State<AdminSettingsScreen> {
                 Text(
                   title,
                   style: const TextStyle(
+                    fontSize: 20,
                     color: white,
-                    fontSize: 16,
                     fontWeight: FontWeight.w600,
                   ),
                 ),
                 const SizedBox(height: 4),
                 Text(
                   subtitle,
-                  style: const TextStyle(color: muted, fontSize: 14),
+                  style: const TextStyle(fontSize: 20, color: muted),
                 ),
               ],
             ),
@@ -1061,8 +1061,8 @@ class _AdminSettingsScreenState extends State<AdminSettingsScreen> {
             child: Text(
               title,
               style: const TextStyle(
+                fontSize: 20,
                 color: white,
-                fontSize: 16,
                 fontWeight: FontWeight.w600,
               ),
             ),
@@ -1087,8 +1087,8 @@ class _AdminSettingsScreenState extends State<AdminSettingsScreen> {
                 Text(
                   status,
                   style: TextStyle(
+                    fontSize: 20,
                     color: color,
-                    fontSize: 12,
                     fontWeight: FontWeight.w700,
                   ),
                 ),
@@ -1133,8 +1133,8 @@ class _AdminSettingsScreenState extends State<AdminSettingsScreen> {
                 Text(
                   title,
                   style: const TextStyle(
+                    fontSize: 20,
                     color: white,
-                    fontSize: 16,
                     fontWeight: FontWeight.w700,
                   ),
                 ),
@@ -1142,8 +1142,8 @@ class _AdminSettingsScreenState extends State<AdminSettingsScreen> {
                 Text(
                   subtitle,
                   style: const TextStyle(
+                    fontSize: 20,
                     color: muted,
-                    fontSize: 14,
                     height: 1.35,
                   ),
                 ),
@@ -1165,7 +1165,7 @@ class _AdminSettingsScreenState extends State<AdminSettingsScreen> {
             ),
             child: Text(
               buttonText,
-              style: const TextStyle(fontSize: 16, fontWeight: FontWeight.w700),
+              style: const TextStyle(fontSize: 20, fontWeight: FontWeight.w700),
             ),
           ),
         ],
@@ -1201,8 +1201,8 @@ class _AdminSettingsScreenState extends State<AdminSettingsScreen> {
                 child: Text(
                   'Enable Maintenance Mode?',
                   style: TextStyle(
-                    color: white,
                     fontSize: 20,
+                    color: white,
                     fontWeight: FontWeight.w800,
                   ),
                 ),
@@ -1211,12 +1211,15 @@ class _AdminSettingsScreenState extends State<AdminSettingsScreen> {
           ),
           content: const Text(
             'Players will temporarily be unable to access competitive features while maintenance mode is active.',
-            style: TextStyle(color: muted, fontSize: 16, height: 1.5),
+            style: TextStyle(fontSize: 20, color: muted, height: 1.5),
           ),
           actions: [
             TextButton(
               onPressed: () => Navigator.pop(context),
-              child: const Text('Cancel', style: TextStyle(color: muted)),
+              child: const Text(
+                'Cancel',
+                style: TextStyle(fontSize: 20, color: muted),
+              ),
             ),
             ElevatedButton(
               onPressed: () {
@@ -1276,8 +1279,8 @@ class _AdminSettingsScreenState extends State<AdminSettingsScreen> {
           content: Text(
             message,
             style: const TextStyle(
+              fontSize: 20,
               color: white,
-              fontSize: 14,
               fontWeight: FontWeight.w600,
             ),
           ),

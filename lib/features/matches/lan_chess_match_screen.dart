@@ -1,4 +1,4 @@
-﻿import 'dart:async';
+import 'dart:async';
 import 'dart:convert';
 import 'dart:io';
 
@@ -72,6 +72,7 @@ class _LanChessMatchScreenState extends State<LanChessMatchScreen> {
   int _ply = 0;
   String? _winnerSide;
   final List<String> _moveHistory = [];
+  bool _joinerReady = false;
 
   @override
   void initState() {
@@ -89,7 +90,8 @@ class _LanChessMatchScreenState extends State<LanChessMatchScreen> {
     _boardController = ChessboardController(game: _buildGame());
 
     _incomingLines = _socket
-        .map(utf8.decode)
+        .cast<List<int>>()
+        .transform(utf8.decoder)
         .transform(const LineSplitter())
         .asBroadcastStream();
     _socketSubscription = _incomingLines!.listen(
@@ -99,10 +101,13 @@ class _LanChessMatchScreenState extends State<LanChessMatchScreen> {
       cancelOnError: false,
     );
 
-    if (widget.isHost) {
-      WidgetsBinding.instance.addPostFrameCallback((_) {
-        _startAuthoritativeGame();
-      });
+    if (!widget.isHost) {
+      _sendMessage({'type': 'ready'});
+      if (mounted) {
+        setState(() {
+          _statusMessage = 'Connected. Waiting for the host...';
+        });
+      }
     }
   }
 
@@ -209,6 +214,13 @@ class _LanChessMatchScreenState extends State<LanChessMatchScreen> {
       switch (type) {
         case 'game_start':
           _handleGameStart(message);
+          break;
+
+        case 'ready':
+          if (widget.isHost && !_joinerReady) {
+            _joinerReady = true;
+            _startAuthoritativeGame();
+          }
           break;
 
         case 'move_request':
@@ -489,10 +501,13 @@ class _LanChessMatchScreenState extends State<LanChessMatchScreen> {
       builder: (context) {
         return AlertDialog(
           backgroundColor: _surface2,
-          title: const Text('Draw offer', style: TextStyle(color: _primary)),
+          title: const Text(
+            'Draw offer',
+            style: TextStyle(fontSize: 20, color: _primary),
+          ),
           content: const Text(
             'Your opponent offered a draw.',
-            style: TextStyle(color: _secondary),
+            style: TextStyle(fontSize: 20, color: _secondary),
           ),
           actions: [
             TextButton(
@@ -745,10 +760,13 @@ class _LanChessMatchScreenState extends State<LanChessMatchScreen> {
       builder: (context) {
         return AlertDialog(
           backgroundColor: _surface2,
-          title: const Text('Resign game?', style: TextStyle(color: _primary)),
+          title: const Text(
+            'Resign game?',
+            style: TextStyle(fontSize: 20, color: _primary),
+          ),
           content: const Text(
             'Are you sure you want to resign?',
-            style: TextStyle(color: _secondary),
+            style: TextStyle(fontSize: 20, color: _secondary),
           ),
           actions: [
             TextButton(
@@ -843,8 +861,8 @@ class _LanChessMatchScreenState extends State<LanChessMatchScreen> {
             const Text(
               'LAN Match',
               style: TextStyle(
+                fontSize: 20,
                 color: _primary,
-                fontSize: 19,
                 fontWeight: FontWeight.w800,
               ),
             ),
@@ -858,8 +876,8 @@ class _LanChessMatchScreenState extends State<LanChessMatchScreen> {
               child: Text(
                 widget.timeControl,
                 style: const TextStyle(
+                  fontSize: 20,
                   color: _gold,
-                  fontSize: 12,
                   fontWeight: FontWeight.w900,
                 ),
               ),
@@ -884,8 +902,8 @@ class _LanChessMatchScreenState extends State<LanChessMatchScreen> {
                   const Text(
                     'LAN',
                     style: TextStyle(
+                      fontSize: 20,
                       color: _green,
-                      fontSize: 12,
                       fontWeight: FontWeight.w800,
                     ),
                   ),
@@ -1060,8 +1078,8 @@ class _LanChessMatchScreenState extends State<LanChessMatchScreen> {
                   maxLines: 1,
                   overflow: TextOverflow.ellipsis,
                   style: const TextStyle(
+                    fontSize: 20,
                     color: _primary,
-                    fontSize: 13,
                     fontWeight: FontWeight.w800,
                   ),
                 ),
@@ -1069,8 +1087,8 @@ class _LanChessMatchScreenState extends State<LanChessMatchScreen> {
                 Text(
                   side,
                   style: const TextStyle(
+                    fontSize: 20,
                     color: _muted,
-                    fontSize: 12,
                     fontWeight: FontWeight.w900,
                     letterSpacing: .7,
                   ),
@@ -1081,8 +1099,8 @@ class _LanChessMatchScreenState extends State<LanChessMatchScreen> {
           Text(
             _formatClock(time),
             style: TextStyle(
+              fontSize: 20,
               color: active ? _clockColor(time) : _secondary,
-              fontSize: 22,
               fontWeight: FontWeight.w900,
               fontFeatures: const [FontFeature.tabularFigures()],
             ),
@@ -1118,8 +1136,8 @@ class _LanChessMatchScreenState extends State<LanChessMatchScreen> {
               Text(
                 _gameOver ? 'GAME OVER' : 'GAME STATUS',
                 style: const TextStyle(
+                  fontSize: 20,
                   color: _muted,
-                  fontSize: 12,
                   fontWeight: FontWeight.w900,
                   letterSpacing: .8,
                 ),
@@ -1131,8 +1149,8 @@ class _LanChessMatchScreenState extends State<LanChessMatchScreen> {
             _statusMessage ??
                 (_gameStarted ? 'Game in progress' : 'Starting game...'),
             style: const TextStyle(
+              fontSize: 20,
               color: _primary,
-              fontSize: 14,
               fontWeight: FontWeight.w700,
             ),
           ),
@@ -1141,8 +1159,8 @@ class _LanChessMatchScreenState extends State<LanChessMatchScreen> {
             Text(
               _result!,
               style: const TextStyle(
+                fontSize: 20,
                 color: _gold,
-                fontSize: 12,
                 fontWeight: FontWeight.w700,
               ),
             ),
@@ -1160,7 +1178,7 @@ class _LanChessMatchScreenState extends State<LanChessMatchScreen> {
               const SizedBox(width: 7),
               const Text(
                 'Moves',
-                style: TextStyle(color: _muted, fontSize: 12),
+                style: TextStyle(fontSize: 20, color: _muted),
               ),
               const SizedBox(width: 10),
               Expanded(
@@ -1171,7 +1189,7 @@ class _LanChessMatchScreenState extends State<LanChessMatchScreen> {
                           alignment: Alignment.centerLeft,
                           child: Text(
                             'No moves yet',
-                            style: TextStyle(color: _muted, fontSize: 12),
+                            style: TextStyle(fontSize: 20, color: _muted),
                           ),
                         )
                       : ListView.builder(
@@ -1183,10 +1201,10 @@ class _LanChessMatchScreenState extends State<LanChessMatchScreen> {
                               child: Text(
                                 '${index.isEven ? '${index ~/ 2 + 1}. ' : ''}${_moveHistory[index]}',
                                 style: TextStyle(
+                                  fontSize: 20,
                                   color: index == _moveHistory.length - 1
                                       ? _primary
                                       : _secondary,
-                                  fontSize: 14,
                                   fontWeight: index == _moveHistory.length - 1
                                       ? FontWeight.w800
                                       : FontWeight.w500,

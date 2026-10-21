@@ -1,4 +1,4 @@
-﻿import 'package:flutter/material.dart';
+import 'package:flutter/material.dart';
 
 import 'guest_dashboard_screen.dart';
 
@@ -17,6 +17,8 @@ class _GuestEntryScreenState extends State<GuestEntryScreen> {
   static const Color green = Color(0xFF557B63);
   static const Color danger = Color(0xFFFF5C70);
   static const Color muted = Color(0xFF737A74);
+  static const Color textPrimary = Color(0xFF1A1A1A);
+  static const Color border = Color(0xFFD8E1EC);
 
   final TextEditingController _nameController = TextEditingController();
 
@@ -88,8 +90,8 @@ class _GuestEntryScreenState extends State<GuestEntryScreen> {
                   const Text(
                     'PLAY AS GUEST',
                     style: TextStyle(
+                      fontSize: 20,
                       color: muted,
-                      fontSize: 12,
                       fontWeight: FontWeight.w900,
                       letterSpacing: 1.6,
                     ),
@@ -98,8 +100,8 @@ class _GuestEntryScreenState extends State<GuestEntryScreen> {
                   const Text(
                     'Enter your name.',
                     style: TextStyle(
-                      color: Colors.white,
-                      fontSize: 29,
+                      fontSize: 20,
+                      color: textPrimary,
                       fontWeight: FontWeight.w900,
                       letterSpacing: -0.8,
                     ),
@@ -107,7 +109,7 @@ class _GuestEntryScreenState extends State<GuestEntryScreen> {
                   const SizedBox(height: 8),
                   const Text(
                     'No account needed. Enter a name and start playing.',
-                    style: TextStyle(color: muted, fontSize: 12, height: 1.5),
+                    style: TextStyle(fontSize: 20, color: muted, height: 1.5),
                   ),
                   const SizedBox(height: 28),
                   Container(
@@ -115,9 +117,7 @@ class _GuestEntryScreenState extends State<GuestEntryScreen> {
                     decoration: BoxDecoration(
                       color: surface,
                       borderRadius: BorderRadius.circular(22),
-                      border: Border.all(
-                        color: Colors.white.withValues(alpha: 0.055),
-                      ),
+                      border: Border.all(color: border),
                     ),
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
@@ -125,8 +125,8 @@ class _GuestEntryScreenState extends State<GuestEntryScreen> {
                         const Text(
                           'YOUR NAME',
                           style: TextStyle(
+                            fontSize: 20,
                             color: muted,
-                            fontSize: 12,
                             fontWeight: FontWeight.w900,
                             letterSpacing: 1.2,
                           ),
@@ -141,16 +141,16 @@ class _GuestEntryScreenState extends State<GuestEntryScreen> {
                             _continueAsGuest();
                           },
                           style: const TextStyle(
-                            color: Colors.white,
-                            fontSize: 15,
+                            fontSize: 20,
+                            color: textPrimary,
                             fontWeight: FontWeight.w700,
                           ),
                           decoration: InputDecoration(
                             counterText: '',
                             hintText: 'e.g. Alex',
                             hintStyle: const TextStyle(
+                              fontSize: 20,
                               color: muted,
-                              fontSize: 14,
                             ),
                             filled: true,
                             fillColor: surfaceLight,
@@ -199,8 +199,8 @@ class _GuestEntryScreenState extends State<GuestEntryScreen> {
                                   child: Text(
                                     _error!,
                                     style: const TextStyle(
-                                      color: Colors.white,
-                                      fontSize: 14,
+                                      fontSize: 20,
+                                      color: textPrimary,
                                       height: 1.4,
                                     ),
                                   ),
@@ -226,7 +226,7 @@ class _GuestEntryScreenState extends State<GuestEntryScreen> {
                             child: const Text(
                               'CONTINUE AS GUEST',
                               style: TextStyle(
-                                fontSize: 12,
+                                fontSize: 20,
                                 fontWeight: FontWeight.w900,
                                 letterSpacing: 0.5,
                               ),
@@ -245,8 +245,8 @@ class _GuestEntryScreenState extends State<GuestEntryScreen> {
                       Text(
                         'Guest mode • No profile required',
                         style: TextStyle(
+                          fontSize: 20,
                           color: muted,
-                          fontSize: 12,
                           fontWeight: FontWeight.w600,
                         ),
                       ),

@@ -58,7 +58,7 @@ class _GameHistoryScreenState extends State<GameHistoryScreen> {
         foregroundColor: const Color(0xFF17382B),
         title: const Text(
           'Game History',
-          style: TextStyle(fontWeight: FontWeight.w800),
+          style: TextStyle(fontSize: 20, fontWeight: FontWeight.w800),
         ),
       ),
       body: SafeArea(
@@ -111,15 +111,15 @@ class _GameHistoryScreenState extends State<GameHistoryScreen> {
           Text(
             value,
             style: const TextStyle(
+              fontSize: 20,
               color: Color(0xFF17382B),
-              fontSize: 19,
               fontWeight: FontWeight.w800,
             ),
           ),
           const SizedBox(height: 4),
           Text(
             label,
-            style: const TextStyle(color: Color(0xFF737A74), fontSize: 12),
+            style: const TextStyle(fontSize: 20, color: Color(0xFF737A74)),
           ),
         ],
       ),
@@ -141,8 +141,8 @@ class _GameHistoryScreenState extends State<GameHistoryScreen> {
               selectedColor: const Color(0xFF2D4A3E),
               backgroundColor: const Color(0xFFFFFFFF),
               labelStyle: TextStyle(
+                fontSize: 20,
                 color: selected ? Colors.white : const Color(0xFF737A74),
-                fontSize: 12,
                 fontWeight: FontWeight.w700,
               ),
             ),
@@ -174,6 +174,7 @@ class _GameHistoryScreenState extends State<GameHistoryScreen> {
                 child: Text(
                   opponent?.initials ?? '?',
                   style: const TextStyle(
+                    fontSize: 20,
                     color: Colors.white,
                     fontWeight: FontWeight.w800,
                   ),
@@ -187,17 +188,17 @@ class _GameHistoryScreenState extends State<GameHistoryScreen> {
                     Text(
                       opponent?.fullName ?? 'Opponent unavailable',
                       style: const TextStyle(
+                        fontSize: 20,
                         color: Color(0xFF17382B),
-                        fontSize: 13,
                         fontWeight: FontWeight.w700,
                       ),
                     ),
                     const SizedBox(height: 5),
                     Text(
-                      '${entry.game.timeControl} � $dateText',
+                      '${entry.game.timeControl} | $dateText',
                       style: const TextStyle(
+                        fontSize: 20,
                         color: Color(0xFF737A74),
-                        fontSize: 12,
                       ),
                     ),
                   ],
@@ -206,8 +207,8 @@ class _GameHistoryScreenState extends State<GameHistoryScreen> {
               Text(
                 entry.result,
                 style: TextStyle(
+                  fontSize: 20,
                   color: color,
-                  fontSize: 12,
                   fontWeight: FontWeight.w800,
                 ),
               ),
@@ -287,7 +288,7 @@ class _StateMessage extends StatelessWidget {
             Text(
               message,
               textAlign: TextAlign.center,
-              style: const TextStyle(color: Color(0xFF737A74)),
+              style: const TextStyle(fontSize: 20, color: Color(0xFF737A74)),
             ),
             if (onRetry != null) ...[
               const SizedBox(height: 12),

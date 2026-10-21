@@ -1,4 +1,4 @@
-﻿import 'package:flutter/material.dart';
+import 'package:flutter/material.dart';
 import 'package:sqi_chess_club/practice/practice_game_screen.dart';
 
 class PracticeScreen extends StatefulWidget {
@@ -29,7 +29,7 @@ class _PracticeScreenState extends State<PracticeScreen> {
       'subtitle': 'Build your foundation',
       'description':
           'Learn basic tactics, piece movement, check, captures and simple winning patterns.',
-      'rating': '600 â€“ 900',
+      'rating': '600 - 900',
       'exercises': '120+',
       'icon': Icons.school_rounded,
       'color': green,
@@ -45,7 +45,7 @@ class _PracticeScreenState extends State<PracticeScreen> {
       'subtitle': 'Sharpen your game',
       'description':
           'Improve tactical awareness, calculation, positional understanding and decision making.',
-      'rating': '900 â€“ 1300',
+      'rating': '900 - 1300',
       'exercises': '240+',
       'icon': Icons.psychology_rounded,
       'color': blue,
@@ -61,7 +61,7 @@ class _PracticeScreenState extends State<PracticeScreen> {
       'subtitle': 'Think several moves ahead',
       'description':
           'Train deeper calculation, strategic planning, advanced tactics and difficult positions.',
-      'rating': '1300 â€“ 1700',
+      'rating': '1300 - 1700',
       'exercises': '180+',
       'icon': Icons.auto_awesome_rounded,
       'color': purple,
@@ -158,8 +158,8 @@ class _PracticeScreenState extends State<PracticeScreen> {
               Text(
                 'Practice',
                 style: TextStyle(
+                  fontSize: 16,
                   color: white,
-                  fontSize: 24,
                   fontWeight: FontWeight.w900,
                 ),
               ),
@@ -167,8 +167,8 @@ class _PracticeScreenState extends State<PracticeScreen> {
               Text(
                 'Train your mind. Improve your game.',
                 style: TextStyle(
+                  fontSize: 16,
                   color: muted,
-                  fontSize: 14,
                   fontWeight: FontWeight.w500,
                 ),
               ),
@@ -276,8 +276,8 @@ class _PracticeScreenState extends State<PracticeScreen> {
                         Text(
                           'NO RATING IMPACT',
                           style: TextStyle(
+                            fontSize: 16,
                             color: green,
-                            fontSize: 12,
                             fontWeight: FontWeight.w900,
                             letterSpacing: .7,
                           ),
@@ -291,8 +291,8 @@ class _PracticeScreenState extends State<PracticeScreen> {
               Text(
                 'Train like a\nbetter player.',
                 style: TextStyle(
+                  fontSize: 16,
                   color: white,
-                  fontSize: desktop ? 40 : 30,
                   height: 1.05,
                   fontWeight: FontWeight.w900,
                 ),
@@ -303,8 +303,8 @@ class _PracticeScreenState extends State<PracticeScreen> {
                 child: Text(
                   'Choose your level and solve chess positions \ndesigned to improve your tactical vision, \ncalculation and decision making.',
                   style: TextStyle(
+                    fontSize: 16,
                     color: Color(0xFF1B3057),
-                    fontSize: 14,
                     height: 1.6,
                   ),
                 ),
@@ -346,12 +346,12 @@ class _PracticeScreenState extends State<PracticeScreen> {
             Text(
               value,
               style: const TextStyle(
+                fontSize: 16,
                 color: white,
-                fontSize: 12,
                 fontWeight: FontWeight.w900,
               ),
             ),
-            Text(label, style: const TextStyle(color: muted, fontSize: 12)),
+            Text(label, style: const TextStyle(fontSize: 16, color: muted)),
           ],
         ),
       ],
@@ -368,15 +368,15 @@ class _PracticeScreenState extends State<PracticeScreen> {
               Text(
                 'Choose Your Level',
                 style: TextStyle(
+                  fontSize: 16,
                   color: white,
-                  fontSize: 17,
                   fontWeight: FontWeight.w900,
                 ),
               ),
               SizedBox(height: 5),
               Text(
                 'Select a difficulty that matches your current skill.',
-                style: TextStyle(color: muted, fontSize: 12),
+                style: TextStyle(fontSize: 16, color: muted),
               ),
             ],
           ),
@@ -395,8 +395,8 @@ class _PracticeScreenState extends State<PracticeScreen> {
               Text(
                 'Practice is unrated',
                 style: TextStyle(
+                  fontSize: 16,
                   color: muted,
-                  fontSize: 12,
                   fontWeight: FontWeight.w700,
                 ),
               ),
@@ -497,8 +497,8 @@ class _PracticeScreenState extends State<PracticeScreen> {
             Text(
               level['title'],
               style: const TextStyle(
+                fontSize: 16,
                 color: white,
-                fontSize: 17,
                 fontWeight: FontWeight.w900,
               ),
             ),
@@ -506,8 +506,8 @@ class _PracticeScreenState extends State<PracticeScreen> {
             Text(
               level['subtitle'],
               style: TextStyle(
+                fontSize: 16,
                 color: color,
-                fontSize: 12,
                 fontWeight: FontWeight.w800,
               ),
             ),
@@ -516,7 +516,7 @@ class _PracticeScreenState extends State<PracticeScreen> {
               level['description'],
               maxLines: desktop ? 4 : 5,
               overflow: TextOverflow.ellipsis,
-              style: const TextStyle(color: muted, fontSize: 12, height: 1.55),
+              style: const TextStyle(fontSize: 16, color: muted, height: 1.55),
             ),
             const SizedBox(height: 16),
             Container(
@@ -531,14 +531,14 @@ class _PracticeScreenState extends State<PracticeScreen> {
                   const SizedBox(width: 7),
                   const Text(
                     'Rating',
-                    style: TextStyle(color: muted, fontSize: 12),
+                    style: TextStyle(fontSize: 16, color: muted),
                   ),
                   const Spacer(),
                   Text(
                     level['rating'],
                     style: const TextStyle(
+                      fontSize: 16,
                       color: white,
-                      fontSize: 12,
                       fontWeight: FontWeight.w800,
                     ),
                   ),
@@ -558,14 +558,14 @@ class _PracticeScreenState extends State<PracticeScreen> {
                   const SizedBox(width: 7),
                   const Text(
                     'Exercises',
-                    style: TextStyle(color: muted, fontSize: 12),
+                    style: TextStyle(fontSize: 16, color: muted),
                   ),
                   const Spacer(),
                   Text(
                     level['exercises'],
                     style: const TextStyle(
+                      fontSize: 16,
                       color: white,
-                      fontSize: 12,
                       fontWeight: FontWeight.w800,
                     ),
                   ),
@@ -576,8 +576,8 @@ class _PracticeScreenState extends State<PracticeScreen> {
             const Text(
               'FOCUS',
               style: TextStyle(
+                fontSize: 16,
                 color: muted,
-                fontSize: 12,
                 fontWeight: FontWeight.w900,
                 letterSpacing: .8,
               ),
@@ -622,7 +622,7 @@ class _PracticeScreenState extends State<PracticeScreen> {
                     Text(
                       'Start Practice',
                       style: TextStyle(
-                        fontSize: 12,
+                        fontSize: 16,
                         fontWeight: FontWeight.w900,
                         color: selected ? Colors.white : white,
                       ),
@@ -647,8 +647,8 @@ class _PracticeScreenState extends State<PracticeScreen> {
       child: Text(
         text,
         style: TextStyle(
+          fontSize: 16,
           color: color.withValues(alpha: 0.9),
-          fontSize: 12,
           fontWeight: FontWeight.w700,
         ),
       ),
@@ -748,15 +748,19 @@ class _PracticeScreenState extends State<PracticeScreen> {
               Text(
                 title,
                 style: const TextStyle(
+                  fontSize: 16,
                   color: white,
-                  fontSize: 14,
                   fontWeight: FontWeight.w900,
                 ),
               ),
               const SizedBox(height: 4),
               Text(
                 description,
-                style: const TextStyle(color: muted, fontSize: 12, height: 1.45),
+                style: const TextStyle(
+                  fontSize: 16,
+                  color: muted,
+                  height: 1.45,
+                ),
               ),
             ],
           ),
@@ -779,8 +783,8 @@ class _PracticeScreenState extends State<PracticeScreen> {
               child: Text(
                 '${level['title']} practice selected',
                 style: const TextStyle(
+                  fontSize: 16,
                   color: white,
-                  fontSize: 14,
                   fontWeight: FontWeight.w700,
                 ),
               ),

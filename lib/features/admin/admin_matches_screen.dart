@@ -1,4 +1,4 @@
-﻿// lib/features/admin/admin_matches_screen.dart
+// lib/features/admin/admin_matches_screen.dart
 
 import 'package:flutter/material.dart';
 
@@ -129,8 +129,8 @@ class _AdminMatchesScreenState extends State<AdminMatchesScreen> {
               const Text(
                 'Matches',
                 style: TextStyle(
+                  fontSize: 20,
                   color: white,
-                  fontSize: 28,
                   fontWeight: FontWeight.w800,
                   letterSpacing: -0.8,
                 ),
@@ -139,8 +139,8 @@ class _AdminMatchesScreenState extends State<AdminMatchesScreen> {
               Text(
                 'Monitor live games, results and match activity.',
                 style: TextStyle(
+                  fontSize: 20,
                   color: muted.withValues(alpha: 0.9),
-                  fontSize: 14,
                 ),
               ),
             ],
@@ -162,7 +162,7 @@ class _AdminMatchesScreenState extends State<AdminMatchesScreen> {
             icon: const Icon(Icons.tune_rounded, size: 18),
             label: const Text(
               'Match Controls',
-              style: TextStyle(fontWeight: FontWeight.w700),
+              style: TextStyle(fontSize: 20, fontWeight: FontWeight.w700),
             ),
           ),
         ],
@@ -216,8 +216,8 @@ class _AdminMatchesScreenState extends State<AdminMatchesScreen> {
               const Text(
                 'LIVE NOW',
                 style: TextStyle(
+                  fontSize: 20,
                   color: white,
-                  fontSize: 12,
                   fontWeight: FontWeight.w800,
                   letterSpacing: 0.7,
                 ),
@@ -226,8 +226,8 @@ class _AdminMatchesScreenState extends State<AdminMatchesScreen> {
               Text(
                 '${liveMatches.length} active games',
                 style: TextStyle(
+                  fontSize: 20,
                   color: muted.withValues(alpha: 0.8),
-                  fontSize: 14,
                 ),
               ),
               const Spacer(),
@@ -241,7 +241,7 @@ class _AdminMatchesScreenState extends State<AdminMatchesScreen> {
                 icon: const Icon(Icons.visibility_outlined, size: 16),
                 label: const Text(
                   'View all live',
-                  style: TextStyle(fontSize: 14, fontWeight: FontWeight.w700),
+                  style: TextStyle(fontSize: 20, fontWeight: FontWeight.w700),
                 ),
               ),
             ],
@@ -293,8 +293,8 @@ class _AdminMatchesScreenState extends State<AdminMatchesScreen> {
                     Text(
                       'LIVE',
                       style: TextStyle(
+                        fontSize: 20,
                         color: green,
-                        fontSize: 12,
                         fontWeight: FontWeight.w900,
                       ),
                     ),
@@ -305,8 +305,8 @@ class _AdminMatchesScreenState extends State<AdminMatchesScreen> {
               Text(
                 '#${match['id']}',
                 style: TextStyle(
+                  fontSize: 20,
                   color: muted.withValues(alpha: 0.65),
-                  fontSize: 12,
                 ),
               ),
             ],
@@ -327,8 +327,8 @@ class _AdminMatchesScreenState extends State<AdminMatchesScreen> {
                 child: Text(
                   'VS',
                   style: TextStyle(
+                    fontSize: 20,
                     color: muted.withValues(alpha: 0.5),
-                    fontSize: 12,
                     fontWeight: FontWeight.w800,
                   ),
                 ),
@@ -369,8 +369,8 @@ class _AdminMatchesScreenState extends State<AdminMatchesScreen> {
                       Text(
                         'Open',
                         style: TextStyle(
+                          fontSize: 20,
                           color: blue,
-                          fontSize: 12,
                           fontWeight: FontWeight.w800,
                         ),
                       ),
@@ -396,22 +396,22 @@ class _AdminMatchesScreenState extends State<AdminMatchesScreen> {
           maxLines: 1,
           overflow: TextOverflow.ellipsis,
           style: const TextStyle(
+            fontSize: 20,
             color: white,
-            fontSize: 14,
             fontWeight: FontWeight.w700,
           ),
         ),
         const SizedBox(height: 3),
         Text(
           '$rating',
-          style: TextStyle(color: muted.withValues(alpha: 0.65), fontSize: 12),
+          style: TextStyle(fontSize: 20, color: muted.withValues(alpha: 0.65)),
         ),
         const SizedBox(height: 6),
         Text(
           time,
           style: TextStyle(
+            fontSize: 20,
             color: time.startsWith('00:') ? danger : white,
-            fontSize: 17,
             fontWeight: FontWeight.w900,
             fontFeatures: const [FontFeature.tabularFigures()],
           ),
@@ -435,8 +435,8 @@ class _AdminMatchesScreenState extends State<AdminMatchesScreen> {
           Text(
             text,
             style: TextStyle(
+              fontSize: 20,
               color: muted.withValues(alpha: 0.9),
-              fontSize: 12,
               fontWeight: FontWeight.w600,
             ),
           ),
@@ -537,8 +537,8 @@ class _AdminMatchesScreenState extends State<AdminMatchesScreen> {
                   maxLines: 1,
                   overflow: TextOverflow.ellipsis,
                   style: const TextStyle(
+                    fontSize: 20,
                     color: white,
-                    fontSize: 21,
                     fontWeight: FontWeight.w800,
                   ),
                 ),
@@ -548,8 +548,8 @@ class _AdminMatchesScreenState extends State<AdminMatchesScreen> {
                   maxLines: 1,
                   overflow: TextOverflow.ellipsis,
                   style: TextStyle(
+                    fontSize: 20,
                     color: muted.withValues(alpha: 0.85),
-                    fontSize: 14,
                   ),
                 ),
               ],
@@ -603,12 +603,12 @@ class _AdminMatchesScreenState extends State<AdminMatchesScreen> {
             _search = value;
           });
         },
-        style: const TextStyle(color: white, fontSize: 13),
+        style: const TextStyle(fontSize: 20, color: white),
         decoration: InputDecoration(
           hintText: 'Search players or match IDs...',
           hintStyle: TextStyle(
+            fontSize: 20,
             color: muted.withValues(alpha: 0.7),
-            fontSize: 13,
           ),
           prefixIcon: const Icon(Icons.search_rounded, color: muted, size: 20),
           filled: true,
@@ -637,8 +637,8 @@ class _AdminMatchesScreenState extends State<AdminMatchesScreen> {
         initialValue: _selectedCompetition,
         dropdownColor: surfaceLight,
         style: const TextStyle(
+          fontSize: 20,
           color: white,
-          fontSize: 14,
           fontWeight: FontWeight.w600,
         ),
         decoration: InputDecoration(
@@ -705,8 +705,8 @@ class _AdminMatchesScreenState extends State<AdminMatchesScreen> {
               child: Text(
                 filter,
                 style: TextStyle(
+                  fontSize: 20,
                   color: selected ? blue : muted,
-                  fontSize: 14,
                   fontWeight: selected ? FontWeight.w800 : FontWeight.w500,
                 ),
               ),
@@ -778,8 +778,8 @@ class _AdminMatchesScreenState extends State<AdminMatchesScreen> {
                             child: Text(
                               match['id'],
                               style: const TextStyle(
+                                fontSize: 20,
                                 color: white,
-                                fontSize: 12,
                                 fontWeight: FontWeight.w800,
                               ),
                             ),
@@ -795,8 +795,8 @@ class _AdminMatchesScreenState extends State<AdminMatchesScreen> {
                         maxLines: 1,
                         overflow: TextOverflow.ellipsis,
                         style: TextStyle(
+                          fontSize: 20,
                           color: muted.withValues(alpha: 0.72),
-                          fontSize: 12,
                         ),
                       ),
                     ],
@@ -815,7 +815,7 @@ class _AdminMatchesScreenState extends State<AdminMatchesScreen> {
                   padding: EdgeInsets.symmetric(horizontal: 5),
                   child: Text(
                     '/',
-                    style: TextStyle(color: muted, fontSize: 12),
+                    style: TextStyle(fontSize: 20, color: muted),
                   ),
                 ),
                 _clockText(match['blackTime'], false),
@@ -827,8 +827,8 @@ class _AdminMatchesScreenState extends State<AdminMatchesScreen> {
             child: Text(
               '${match['moves']}',
               style: const TextStyle(
+                fontSize: 20,
                 color: white,
-                fontSize: 14,
                 fontWeight: FontWeight.w700,
               ),
             ),
@@ -842,8 +842,8 @@ class _AdminMatchesScreenState extends State<AdminMatchesScreen> {
                 Text(
                   '${match['spectators']}',
                   style: const TextStyle(
+                    fontSize: 20,
                     color: white,
-                    fontSize: 14,
                     fontWeight: FontWeight.w700,
                   ),
                 ),
@@ -855,8 +855,8 @@ class _AdminMatchesScreenState extends State<AdminMatchesScreen> {
             child: Text(
               match['result'],
               style: TextStyle(
+                fontSize: 20,
                 color: match['result'] == '-' ? muted : white,
-                fontSize: 14,
                 fontWeight: FontWeight.w800,
               ),
             ),
@@ -884,8 +884,8 @@ class _AdminMatchesScreenState extends State<AdminMatchesScreen> {
         child: Text(
           '$board',
           style: const TextStyle(
+            fontSize: 20,
             color: blue,
-            fontSize: 12,
             fontWeight: FontWeight.w800,
           ),
         ),
@@ -899,12 +899,12 @@ class _AdminMatchesScreenState extends State<AdminMatchesScreen> {
     return Text(
       time,
       style: TextStyle(
+        fontSize: 20,
         color: isCritical
             ? danger
             : isWhite
             ? white
             : muted,
-        fontSize: 12,
         fontWeight: FontWeight.w800,
         fontFeatures: const [FontFeature.tabularFigures()],
       ),
@@ -945,19 +945,19 @@ class _AdminMatchesScreenState extends State<AdminMatchesScreen> {
                     Text(
                       match['id'],
                       style: const TextStyle(
+                        fontSize: 20,
                         color: white,
-                        fontSize: 13,
                         fontWeight: FontWeight.w800,
                       ),
                     ),
                     const SizedBox(height: 3),
                     Text(
-                      '${match['competition']} Ã¢â‚¬Â¢ ${match['round']}',
+                      '${match['competition']} | ${match['round']}',
                       maxLines: 1,
                       overflow: TextOverflow.ellipsis,
                       style: TextStyle(
+                        fontSize: 20,
                         color: muted.withValues(alpha: 0.7),
-                        fontSize: 12,
                       ),
                     ),
                   ],
@@ -986,8 +986,8 @@ class _AdminMatchesScreenState extends State<AdminMatchesScreen> {
                   child: Text(
                     'VS',
                     style: TextStyle(
+                      fontSize: 20,
                       color: muted.withValues(alpha: 0.5),
-                      fontSize: 12,
                       fontWeight: FontWeight.w800,
                     ),
                   ),
@@ -1038,10 +1038,7 @@ class _AdminMatchesScreenState extends State<AdminMatchesScreen> {
                   icon: const Icon(Icons.visibility_outlined, size: 17),
                   label: const Text(
                     'Details',
-                    style: TextStyle(
-                      fontSize: 14,
-                      fontWeight: FontWeight.w700,
-                    ),
+                    style: TextStyle(fontSize: 20, fontWeight: FontWeight.w700),
                   ),
                 ),
               ),
@@ -1092,17 +1089,17 @@ class _AdminMatchesScreenState extends State<AdminMatchesScreen> {
                 Text(
                   name,
                   style: const TextStyle(
+                    fontSize: 20,
                     color: white,
-                    fontSize: 12,
                     fontWeight: FontWeight.w800,
                   ),
                 ),
                 const SizedBox(height: 2),
                 Text(
-                  '$username Ã¢â‚¬Â¢ $rating',
+                  '$username | $rating',
                   style: TextStyle(
+                    fontSize: 20,
                     color: muted.withValues(alpha: 0.7),
-                    fontSize: 12,
                   ),
                 ),
               ],
@@ -1111,8 +1108,8 @@ class _AdminMatchesScreenState extends State<AdminMatchesScreen> {
           Text(
             time,
             style: TextStyle(
+              fontSize: 20,
               color: time.startsWith('00:') ? danger : white,
-              fontSize: 14,
               fontWeight: FontWeight.w900,
               fontFeatures: const [FontFeature.tabularFigures()],
             ),
@@ -1137,8 +1134,8 @@ class _AdminMatchesScreenState extends State<AdminMatchesScreen> {
           Text(
             text,
             style: const TextStyle(
+              fontSize: 20,
               color: white,
-              fontSize: 12,
               fontWeight: FontWeight.w600,
             ),
           ),
@@ -1189,8 +1186,8 @@ class _AdminMatchesScreenState extends State<AdminMatchesScreen> {
           Text(
             status,
             style: TextStyle(
+              fontSize: 20,
               color: color,
-              fontSize: 12,
               fontWeight: FontWeight.w800,
             ),
           ),
@@ -1244,7 +1241,7 @@ class _AdminMatchesScreenState extends State<AdminMatchesScreen> {
         icon: Icon(icon, size: 15),
         label: Text(
           label,
-          style: const TextStyle(fontSize: 14, fontWeight: FontWeight.w800),
+          style: const TextStyle(fontSize: 20, fontWeight: FontWeight.w800),
         ),
       ),
     );
@@ -1266,7 +1263,7 @@ class _AdminMatchesScreenState extends State<AdminMatchesScreen> {
         icon: const Icon(Icons.tune_rounded, size: 17),
         label: const Text(
           'Manage Match',
-          style: TextStyle(fontWeight: FontWeight.w800, fontSize: 16),
+          style: TextStyle(fontSize: 20, fontWeight: FontWeight.w800),
         ),
       ),
     );
@@ -1316,8 +1313,8 @@ class _AdminMatchesScreenState extends State<AdminMatchesScreen> {
           const Text(
             'No matches found',
             style: TextStyle(
+              fontSize: 20,
               color: white,
-              fontSize: 18,
               fontWeight: FontWeight.w800,
             ),
           ),
@@ -1326,8 +1323,8 @@ class _AdminMatchesScreenState extends State<AdminMatchesScreen> {
             'Try changing your search, competition or status filter.',
             textAlign: TextAlign.center,
             style: TextStyle(
+              fontSize: 20,
               color: muted.withValues(alpha: 0.85),
-              fontSize: 13,
             ),
           ),
         ],
@@ -1427,8 +1424,8 @@ class _AdminMatchesScreenState extends State<AdminMatchesScreen> {
                   child: Text(
                     'Match Controls',
                     style: TextStyle(
+                      fontSize: 20,
                       color: white,
-                      fontSize: 18,
                       fontWeight: FontWeight.w800,
                     ),
                   ),
@@ -1520,14 +1517,14 @@ class _AdminMatchesScreenState extends State<AdminMatchesScreen> {
       title: Text(
         title,
         style: const TextStyle(
+          fontSize: 20,
           color: white,
-          fontSize: 12,
           fontWeight: FontWeight.w700,
         ),
       ),
       subtitle: Text(
         subtitle,
-        style: TextStyle(color: muted.withValues(alpha: 0.7), fontSize: 14),
+        style: TextStyle(fontSize: 20, color: muted.withValues(alpha: 0.7)),
       ),
       trailing: const Icon(Icons.chevron_right_rounded, color: muted),
       onTap: onTap,
@@ -1618,17 +1615,17 @@ class _MatchDetailsSheet extends StatelessWidget {
                         Text(
                           match['id'],
                           style: const TextStyle(
+                            fontSize: 20,
                             color: white,
-                            fontSize: 18,
                             fontWeight: FontWeight.w800,
                           ),
                         ),
                         const SizedBox(height: 4),
                         Text(
-                          '${match['competition']} Ã¢â‚¬Â¢ ${match['round']}',
+                          '${match['competition']} | ${match['round']}',
                           style: TextStyle(
+                            fontSize: 20,
                             color: muted.withValues(alpha: 0.75),
-                            fontSize: 12,
                           ),
                         ),
                       ],
@@ -1660,8 +1657,8 @@ class _MatchDetailsSheet extends StatelessWidget {
                     child: const Text(
                       'VS',
                       style: TextStyle(
+                        fontSize: 20,
                         color: muted,
-                        fontSize: 12,
                         fontWeight: FontWeight.w800,
                       ),
                     ),
@@ -1693,8 +1690,8 @@ class _MatchDetailsSheet extends StatelessWidget {
               const Text(
                 'Admin Controls',
                 style: TextStyle(
+                  fontSize: 20,
                   color: white,
-                  fontSize: 14,
                   fontWeight: FontWeight.w800,
                 ),
               ),
@@ -1718,7 +1715,10 @@ class _MatchDetailsSheet extends StatelessWidget {
                         icon: const Icon(Icons.pause_rounded, size: 18),
                         label: const Text(
                           'Pause',
-                          style: TextStyle(fontWeight: FontWeight.w700),
+                          style: TextStyle(
+                            fontSize: 20,
+                            fontWeight: FontWeight.w700,
+                          ),
                         ),
                       ),
                     ),
@@ -1737,7 +1737,10 @@ class _MatchDetailsSheet extends StatelessWidget {
                       icon: const Icon(Icons.flag_outlined, size: 18),
                       label: const Text(
                         'Set Result',
-                        style: TextStyle(fontWeight: FontWeight.w700),
+                        style: TextStyle(
+                          fontSize: 20,
+                          fontWeight: FontWeight.w700,
+                        ),
                       ),
                     ),
                   ),
@@ -1755,7 +1758,7 @@ class _MatchDetailsSheet extends StatelessWidget {
                   icon: const Icon(Icons.stop_circle_outlined, size: 18),
                   label: const Text(
                     'End Match',
-                    style: TextStyle(fontWeight: FontWeight.w700),
+                    style: TextStyle(fontSize: 20, fontWeight: FontWeight.w700),
                   ),
                 ),
               ),
@@ -1804,8 +1807,8 @@ class _MatchDetailsSheet extends StatelessWidget {
                 Text(
                   name,
                   style: const TextStyle(
+                    fontSize: 20,
                     color: white,
-                    fontSize: 12.5,
                     fontWeight: FontWeight.w800,
                   ),
                 ),
@@ -1813,8 +1816,8 @@ class _MatchDetailsSheet extends StatelessWidget {
                 Text(
                   username,
                   style: TextStyle(
+                    fontSize: 20,
                     color: muted.withValues(alpha: 0.75),
-                    fontSize: 12,
                   ),
                 ),
               ],
@@ -1826,8 +1829,8 @@ class _MatchDetailsSheet extends StatelessWidget {
               Text(
                 time,
                 style: TextStyle(
+                  fontSize: 20,
                   color: time.startsWith('00:') ? danger : white,
-                  fontSize: 14,
                   fontWeight: FontWeight.w900,
                   fontFeatures: const [FontFeature.tabularFigures()],
                 ),
@@ -1836,8 +1839,8 @@ class _MatchDetailsSheet extends StatelessWidget {
               Text(
                 '$rating rating',
                 style: TextStyle(
+                  fontSize: 20,
                   color: muted.withValues(alpha: 0.7),
-                  fontSize: 12,
                 ),
               ),
             ],
@@ -1858,16 +1861,16 @@ class _MatchDetailsSheet extends StatelessWidget {
             child: Text(
               label,
               style: TextStyle(
+                fontSize: 20,
                 color: muted.withValues(alpha: 0.8),
-                fontSize: 14,
               ),
             ),
           ),
           Text(
             value,
             style: const TextStyle(
+              fontSize: 20,
               color: white,
-              fontSize: 14,
               fontWeight: FontWeight.w700,
             ),
           ),
@@ -1894,8 +1897,8 @@ class _MatchDetailsSheet extends StatelessWidget {
       child: Text(
         status,
         style: TextStyle(
+          fontSize: 20,
           color: color,
-          fontSize: 12,
           fontWeight: FontWeight.w800,
         ),
       ),

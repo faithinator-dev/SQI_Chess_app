@@ -49,7 +49,8 @@ class _ProfileEditScreenState extends State<ProfileEditScreen> {
       if (!mounted) return;
       setState(() {
         _loading = false;
-        _loadError = 'We couldn’t load your profile. Check your connection and try again.';
+        _loadError =
+            'We couldn’t load your profile. Check your connection and try again.';
       });
     }
   }
@@ -72,16 +73,17 @@ class _ProfileEditScreenState extends State<ProfileEditScreen> {
         bio: _bio.text,
       );
       if (!mounted) return;
-      ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(content: Text('Profile updated.')),
-      );
+      ScaffoldMessenger.of(
+        context,
+      ).showSnackBar(const SnackBar(content: Text('Profile updated.')));
       Navigator.pop(context);
     } catch (_) {
       if (mounted) {
         await showSettingsErrorDialog(
           context,
           title: 'Could not save profile',
-          message: 'Your profile changes were not saved. Check your connection and try again.',
+          message:
+              'Your profile changes were not saved. Check your connection and try again.',
         );
       }
     } finally {
@@ -132,10 +134,14 @@ class _ProfileEditScreenState extends State<ProfileEditScreen> {
                   const SizedBox(height: 14),
                   TextFormField(
                     controller: _username,
-                    decoration: _decoration('Chess handle', Icons.alternate_email),
+                    decoration: _decoration(
+                      'Chess handle',
+                      Icons.alternate_email,
+                    ),
                     validator: (value) {
                       final username = value?.trim() ?? '';
-                      if (username.length < 3) return 'Use at least 3 characters.';
+                      if (username.length < 3)
+                        return 'Use at least 3 characters.';
                       if (!RegExp(r'^[a-zA-Z0-9_]+$').hasMatch(username)) {
                         return 'Use letters, numbers and underscores.';
                       }
@@ -161,11 +167,15 @@ class _ProfileEditScreenState extends State<ProfileEditScreen> {
                         SettingsTile(
                           icon: Icons.school_outlined,
                           title: 'SQI affiliation',
-                          subtitle: [
-                            _profile!.department,
-                            _profile!.level,
-                            _profile!.campus,
-                          ].whereType<String>().where((value) => value.isNotEmpty).join(' · '),
+                          subtitle:
+                              [
+                                    _profile!.department,
+                                    _profile!.level,
+                                    _profile!.campus,
+                                  ]
+                                  .whereType<String>()
+                                  .where((value) => value.isNotEmpty)
+                                  .join(' · '),
                         ),
                       ],
                     ),

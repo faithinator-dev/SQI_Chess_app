@@ -66,7 +66,9 @@ class _PrivacySettingsScreenState extends State<PrivacySettingsScreen> {
       return SettingsPage(
         title: 'Privacy',
         description: 'Control profile visibility and interface motion.',
-        errorMessage: settings == null || _profileFailed ? null : _controller.error,
+        errorMessage: settings == null || _profileFailed
+            ? null
+            : _controller.error,
         onRetry: () {
           _controller.retry();
           _loadProfile();
@@ -99,7 +101,8 @@ class _PrivacySettingsScreenState extends State<PrivacySettingsScreen> {
                     await showSettingsErrorDialog(
                       context,
                       title: 'Could not update privacy',
-                      message: 'Your profile visibility was not changed. Check your connection and try again.',
+                      message:
+                          'Your profile visibility was not changed. Check your connection and try again.',
                     );
                   }
                 }
@@ -111,9 +114,8 @@ class _PrivacySettingsScreenState extends State<PrivacySettingsScreen> {
               title: 'Reduce motion',
               subtitle: 'Minimize non-essential animations',
               value: settings.reduceMotion,
-              onChanged: (value) => _controller.update(
-                settings.copyWith(reduceMotion: value),
-              ),
+              onChanged: (value) =>
+                  _controller.update(settings.copyWith(reduceMotion: value)),
             ),
           ],
         ],

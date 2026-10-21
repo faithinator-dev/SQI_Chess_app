@@ -1,4 +1,4 @@
-﻿import 'package:chessground/chessground.dart';
+import 'package:chessground/chessground.dart';
 import 'package:dartchess/dartchess.dart';
 import 'package:flutter/material.dart';
 
@@ -160,8 +160,8 @@ class _GameReviewScreenState extends State<GameReviewScreen> {
               Text(
                 'Game Review',
                 style: TextStyle(
-                  color: Colors.white,
                   fontSize: 20,
+                  color: blue,
                   fontWeight: FontWeight.w800,
                 ),
               ),
@@ -169,8 +169,8 @@ class _GameReviewScreenState extends State<GameReviewScreen> {
               Text(
                 'Review every move',
                 style: TextStyle(
+                  fontSize: 20,
                   color: muted,
-                  fontSize: 14,
                   fontWeight: FontWeight.w500,
                 ),
               ),
@@ -217,8 +217,6 @@ class _GameReviewScreenState extends State<GameReviewScreen> {
           _buildPlayerHeader(),
           const SizedBox(height: 14),
           _buildBoardSection(context),
-          const SizedBox(height: 16),
-          _buildMoveControls(),
           const SizedBox(height: 16),
           _buildMoveList(),
           const SizedBox(height: 16),
@@ -287,7 +285,7 @@ class _GameReviewScreenState extends State<GameReviewScreen> {
             score: widget.winnerSide == 'white'
                 ? '1'
                 : widget.winnerSide == 'draw'
-                ? 'Â½'
+                ? '0.5'
                 : '0',
             isWinner: widget.winnerSide == 'white',
           ),
@@ -303,8 +301,8 @@ class _GameReviewScreenState extends State<GameReviewScreen> {
           child: const Text(
             'VS',
             style: TextStyle(
+              fontSize: 20,
               color: muted,
-              fontSize: 14,
               fontWeight: FontWeight.w800,
             ),
           ),
@@ -318,7 +316,7 @@ class _GameReviewScreenState extends State<GameReviewScreen> {
             score: widget.winnerSide == 'black'
                 ? '1'
                 : widget.winnerSide == 'draw'
-                ? 'Â½'
+                ? '0.5'
                 : '0',
             isWinner: widget.winnerSide == 'black',
           ),
@@ -367,8 +365,8 @@ class _GameReviewScreenState extends State<GameReviewScreen> {
                         name,
                         overflow: TextOverflow.ellipsis,
                         style: const TextStyle(
-                          color: Colors.white,
-                          fontSize: 13,
+                          fontSize: 20,
+                          color: blue,
                           fontWeight: FontWeight.w700,
                         ),
                       ),
@@ -386,7 +384,7 @@ class _GameReviewScreenState extends State<GameReviewScreen> {
                 const SizedBox(height: 3),
                 Text(
                   rating > 0 ? '$rating rating' : 'Rating unavailable',
-                  style: const TextStyle(color: muted, fontSize: 12),
+                  style: const TextStyle(fontSize: 20, color: muted),
                 ),
               ],
             ),
@@ -394,8 +392,8 @@ class _GameReviewScreenState extends State<GameReviewScreen> {
           Text(
             score,
             style: const TextStyle(
-              color: Colors.white,
-              fontSize: 22,
+              fontSize: 20,
+              color: blue,
               fontWeight: FontWeight.w900,
             ),
           ),
@@ -451,8 +449,8 @@ class _GameReviewScreenState extends State<GameReviewScreen> {
                 Text(
                   widget.result,
                   style: TextStyle(
-                    color: isVictory ? green : danger,
                     fontSize: 20,
+                    color: isVictory ? green : danger,
                     fontWeight: FontWeight.w900,
                   ),
                 ),
@@ -465,7 +463,7 @@ class _GameReviewScreenState extends State<GameReviewScreen> {
                       : 'Move-by-move replay',
                   maxLines: 2,
                   overflow: TextOverflow.ellipsis,
-                  style: TextStyle(color: muted, fontSize: 12),
+                  style: TextStyle(fontSize: 20, color: muted),
                 ),
               ],
             ),
@@ -473,8 +471,8 @@ class _GameReviewScreenState extends State<GameReviewScreen> {
           Text(
             '${_moves.length} moves',
             style: const TextStyle(
-              color: Colors.white,
-              fontSize: 12,
+              fontSize: 20,
+              color: blue,
               fontWeight: FontWeight.w700,
             ),
           ),
@@ -505,63 +503,93 @@ class _GameReviewScreenState extends State<GameReviewScreen> {
                 const Text(
                   'Move History',
                   style: TextStyle(
-                    color: Colors.white,
-                    fontSize: 14,
+                    fontSize: 20,
+                    color: blue,
                     fontWeight: FontWeight.w800,
                   ),
                 ),
                 const Spacer(),
                 Text(
                   '${_moves.length} moves',
-                  style: const TextStyle(color: muted, fontSize: 12),
+                  style: const TextStyle(fontSize: 20, color: muted),
                 ),
               ],
             ),
           ),
           const Divider(color: Color(0xFF202B3E), height: 1),
-          SizedBox(
-            height: 330,
-            child: ListView.builder(
-              padding: const EdgeInsets.all(10),
-              itemCount: (_moves.length / 2).ceil(),
-              itemBuilder: (context, index) {
-                final whiteIndex = index * 2;
-                final blackIndex = whiteIndex + 1;
+          if (_moves.isEmpty)
+            const Padding(
+              padding: EdgeInsets.fromLTRB(18, 28, 18, 32),
+              child: Column(
+                children: [
+                  Icon(
+                    Icons.history_toggle_off_rounded,
+                    color: muted,
+                    size: 42,
+                  ),
+                  SizedBox(height: 10),
+                  Text(
+                    'No move history available',
+                    textAlign: TextAlign.center,
+                    style: TextStyle(
+                      fontSize: 20,
+                      color: blue,
+                      fontWeight: FontWeight.w800,
+                    ),
+                  ),
+                  SizedBox(height: 4),
+                  Text(
+                    'This game can still be viewed, but there are no recorded moves to replay.',
+                    textAlign: TextAlign.center,
+                    style: TextStyle(fontSize: 18, color: muted),
+                  ),
+                ],
+              ),
+            )
+          else
+            SizedBox(
+              height: 330,
+              child: ListView.builder(
+                padding: const EdgeInsets.all(10),
+                itemCount: (_moves.length / 2).ceil(),
+                itemBuilder: (context, index) {
+                  final whiteIndex = index * 2;
+                  final blackIndex = whiteIndex + 1;
 
-                return Row(
-                  children: [
-                    SizedBox(
-                      width: 38,
-                      child: Text(
-                        '${index + 1}.',
-                        textAlign: TextAlign.center,
-                        style: const TextStyle(
-                          color: muted,
-                          fontSize: 14,
-                          fontWeight: FontWeight.w700,
+                  return Row(
+                    children: [
+                      SizedBox(
+                        width: 38,
+                        child: Text(
+                          '${index + 1}.',
+                          textAlign: TextAlign.center,
+                          style: const TextStyle(
+                            fontSize: 20,
+                            color: muted,
+                            fontWeight: FontWeight.w700,
+                          ),
                         ),
                       ),
-                    ),
-                    Expanded(
-                      child: _moveTile(
-                        moveIndex: whiteIndex,
-                        move: _moves[whiteIndex],
+                      Expanded(
+                        child: _moveTile(
+                          moveIndex: whiteIndex,
+                          move: _moves[whiteIndex],
+                        ),
                       ),
-                    ),
-                    const SizedBox(width: 5),
-                    Expanded(
-                      child: blackIndex < _moves.length
-                          ? _moveTile(
-                              moveIndex: blackIndex,
-                              move: _moves[blackIndex],
-                            )
-                          : const SizedBox(),
-                    ),
-                  ],
-                );
-              },
+                      const SizedBox(width: 5),
+                      Expanded(
+                        child: blackIndex < _moves.length
+                            ? _moveTile(
+                                moveIndex: blackIndex,
+                                move: _moves[blackIndex],
+                              )
+                            : const SizedBox(),
+                      ),
+                    ],
+                  );
+                },
+              ),
             ),
-          ),
         ],
       ),
     );
@@ -585,8 +613,8 @@ class _GameReviewScreenState extends State<GameReviewScreen> {
         child: Text(
           move,
           style: TextStyle(
+            fontSize: 20,
             color: selected ? Colors.white : const Color(0xFFC5CCDA),
-            fontSize: 12,
             fontWeight: selected ? FontWeight.w800 : FontWeight.w600,
           ),
         ),
@@ -607,15 +635,19 @@ class _GameReviewScreenState extends State<GameReviewScreen> {
       ),
       child: Row(
         children: [
-          _controlButton(
-            icon: Icons.first_page_rounded,
-            enabled: !atBeginning,
-            onTap: _firstMove,
-          ),
-          _controlButton(
-            icon: Icons.chevron_left_rounded,
-            enabled: !atBeginning,
-            onTap: _previousMove,
+          _controlGroup(
+            buttons: [
+              _controlButtonData(
+                icon: Icons.first_page_rounded,
+                enabled: !atBeginning,
+                onTap: _firstMove,
+              ),
+              _controlButtonData(
+                icon: Icons.chevron_left_rounded,
+                enabled: !atBeginning,
+                onTap: _previousMove,
+              ),
+            ],
           ),
           Expanded(
             child: Column(
@@ -623,32 +655,54 @@ class _GameReviewScreenState extends State<GameReviewScreen> {
                 Text(
                   '$_currentMove / ${_moves.length}',
                   style: const TextStyle(
-                    color: Colors.white,
-                    fontSize: 14,
+                    fontSize: 20,
+                    color: blue,
                     fontWeight: FontWeight.w900,
                   ),
                 ),
                 const SizedBox(height: 2),
                 const Text(
                   'moves',
-                  style: TextStyle(color: muted, fontSize: 12),
+                  style: TextStyle(fontSize: 20, color: muted),
                 ),
               ],
             ),
           ),
-          _controlButton(
-            icon: Icons.chevron_right_rounded,
-            enabled: !atEnd,
-            onTap: _nextMove,
-          ),
-          _controlButton(
-            icon: Icons.last_page_rounded,
-            enabled: !atEnd,
-            onTap: _lastMoveButton,
+          _controlGroup(
+            buttons: [
+              _controlButtonData(
+                icon: Icons.chevron_right_rounded,
+                enabled: !atEnd,
+                onTap: _nextMove,
+              ),
+              _controlButtonData(
+                icon: Icons.last_page_rounded,
+                enabled: !atEnd,
+                onTap: _lastMoveButton,
+              ),
+            ],
           ),
         ],
       ),
     );
+  }
+
+  Widget _controlGroup({required List<Widget> buttons}) {
+    return Container(
+      decoration: BoxDecoration(
+        color: surfaceLight,
+        borderRadius: BorderRadius.circular(12),
+      ),
+      child: Row(children: buttons),
+    );
+  }
+
+  Widget _controlButtonData({
+    required IconData icon,
+    required bool enabled,
+    required VoidCallback onTap,
+  }) {
+    return _controlButton(icon: icon, enabled: enabled, onTap: onTap);
   }
 
   Widget _controlButton({
@@ -659,8 +713,8 @@ class _GameReviewScreenState extends State<GameReviewScreen> {
     return IconButton(
       onPressed: enabled ? onTap : null,
       icon: Icon(icon),
-      color: Colors.white,
-      disabledColor: const Color(0xFF414B5D),
+      color: blue,
+      disabledColor: muted.withValues(alpha: 0.45),
       tooltip: enabled ? 'Navigate' : null,
     );
   }
@@ -679,8 +733,8 @@ class _GameReviewScreenState extends State<GameReviewScreen> {
           const Text(
             'Match Details',
             style: TextStyle(
-              color: Colors.white,
-              fontSize: 14,
+              fontSize: 20,
+              color: blue,
               fontWeight: FontWeight.w800,
             ),
           ),
@@ -727,7 +781,7 @@ class _GameReviewScreenState extends State<GameReviewScreen> {
         children: [
           Icon(icon, color: muted, size: 16),
           const SizedBox(width: 9),
-          Text(label, style: const TextStyle(color: muted, fontSize: 12)),
+          Text(label, style: const TextStyle(fontSize: 20, color: muted)),
           const Spacer(),
           Flexible(
             child: Text(
@@ -735,8 +789,8 @@ class _GameReviewScreenState extends State<GameReviewScreen> {
               textAlign: TextAlign.right,
               overflow: TextOverflow.ellipsis,
               style: TextStyle(
+                fontSize: 20,
                 color: valueColor,
-                fontSize: 14,
                 fontWeight: FontWeight.w700,
               ),
             ),
@@ -756,7 +810,7 @@ class _GameReviewScreenState extends State<GameReviewScreen> {
         child: SizedBox(
           width: 42,
           height: 42,
-          child: Icon(icon, color: Colors.white, size: 19),
+          child: Icon(icon, color: blue, size: 22),
         ),
       ),
     );

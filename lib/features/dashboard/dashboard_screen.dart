@@ -64,12 +64,12 @@ class _DashboardScreenState extends State<DashboardScreen> {
           selectedItemColor: _Colors.blue,
           unselectedItemColor: _Colors.textMuted,
           selectedLabelStyle: const TextStyle(
+            fontSize: 20,
             fontWeight: FontWeight.w900,
-            fontSize: 14,
           ),
           unselectedLabelStyle: const TextStyle(
+            fontSize: 20,
             fontWeight: FontWeight.w500,
-            fontSize: 14,
           ),
 
           items: const [
@@ -319,8 +319,8 @@ class _HomeTabState extends State<_HomeTab> {
                             child: Text(
                               'Notifications',
                               style: TextStyle(
+                                fontSize: 20,
                                 color: _Colors.textPrimary,
-                                fontSize: 24,
                                 fontWeight: FontWeight.w800,
                               ),
                             ),
@@ -339,6 +339,7 @@ class _HomeTabState extends State<_HomeTab> {
                               child: const Text(
                                 'Mark all read',
                                 style: TextStyle(
+                                  fontSize: 20,
                                   color: _Colors.blue,
                                   fontWeight: FontWeight.w700,
                                 ),
@@ -437,15 +438,15 @@ class _HomeTabState extends State<_HomeTab> {
                 alignment: Alignment.center,
                 child: const Text(
                   '♟',
-                  style: TextStyle(color: Colors.black, fontSize: 18),
+                  style: TextStyle(fontSize: 20, color: Colors.black),
                 ),
               ),
               const SizedBox(width: 9),
               const Text(
                 'CHECKMATE',
                 style: TextStyle(
+                  fontSize: 20,
                   color: _Colors.textPrimary,
-                  fontSize: 17,
                   fontWeight: FontWeight.w900,
                   letterSpacing: 1.4,
                 ),
@@ -501,9 +502,9 @@ class _HomeTabState extends State<_HomeTab> {
               child: Text(
                 _playerInitial,
                 style: const TextStyle(
+                  fontSize: 20,
                   color: Colors.white,
                   fontWeight: FontWeight.w800,
-                  fontSize: 16,
                 ),
               ),
             ),
@@ -521,7 +522,8 @@ class _HomeTabState extends State<_HomeTab> {
         borderRadius: BorderRadius.circular(18),
         image: DecorationImage(
           image: AssetImage("assets/images/herobg3.jpg"),
-          fit: .cover,
+          opacity: 0.7,
+          fit: BoxFit.cover,
         ),
       ),
       clipBehavior: Clip.antiAlias,
@@ -569,8 +571,8 @@ class _HomeTabState extends State<_HomeTab> {
                       const Text(
                         'SQI CHECKMATE ARENA',
                         style: TextStyle(
-                          fontSize: 12,
-                          fontWeight: FontWeight.w800,
+                          fontSize: 17,
+                          fontWeight: FontWeight.w700,
                           letterSpacing: 1.6,
                           color: _Colors.bluedeep,
                         ),
@@ -581,10 +583,10 @@ class _HomeTabState extends State<_HomeTab> {
                   const Text(
                     'Better at Chess.\nTogether.',
                     style: TextStyle(
+                      fontSize: 34,
                       fontFamily: 'Roboto',
-                      fontSize: 32,
-                      height: 1.1,
-                      fontWeight: FontWeight.w800,
+                      height: 1.4,
+                      fontWeight: FontWeight.w900,
                       letterSpacing: -0.5,
                       color: Colors.black,
                     ),
@@ -593,7 +595,7 @@ class _HomeTabState extends State<_HomeTab> {
                   const Text(
                     'Learn. Play. Compete.',
                     style: TextStyle(
-                      fontSize: 14,
+                      fontSize: 20,
                       height: 1.4,
                       color: _Colors.blue,
                     ),
@@ -622,7 +624,7 @@ class _HomeTabState extends State<_HomeTab> {
                           Text(
                             'Start Playing',
                             style: TextStyle(
-                              fontSize: 16,
+                              fontSize: 20,
                               fontWeight: FontWeight.w700,
                             ),
                           ),
@@ -760,8 +762,8 @@ class _HomeTabState extends State<_HomeTab> {
                             Text(
                               lesson.category.toUpperCase(),
                               style: const TextStyle(
+                                fontSize: 20,
                                 color: _Colors.blue,
-                                fontSize: 12,
                                 fontWeight: FontWeight.w900,
                                 letterSpacing: 1.2,
                               ),
@@ -772,8 +774,8 @@ class _HomeTabState extends State<_HomeTab> {
                               maxLines: 1,
                               overflow: TextOverflow.ellipsis,
                               style: const TextStyle(
+                                fontSize: 20,
                                 color: _Colors.textPrimary,
-                                fontSize: 16,
                                 fontWeight: FontWeight.w800,
                               ),
                             ),
@@ -781,8 +783,8 @@ class _HomeTabState extends State<_HomeTab> {
                             Text(
                               '${lesson.progress}% complete • ${lesson.durationMinutes} min',
                               style: const TextStyle(
+                                fontSize: 20,
                                 color: _Colors.textMuted,
-                                fontSize: 14,
                               ),
                             ),
                             const SizedBox(height: 10),
@@ -867,8 +869,8 @@ class _HomeTabState extends State<_HomeTab> {
                           child: Text(
                             'Finding a live game...',
                             style: TextStyle(
+                              fontSize: 20,
                               color: _Colors.textMuted,
-                              fontSize: 14,
                             ),
                           ),
                         ),
@@ -902,8 +904,8 @@ class _HomeTabState extends State<_HomeTab> {
                             Text(
                               'Watch live chess',
                               style: TextStyle(
+                                fontSize: 20,
                                 color: _Colors.textPrimary,
-                                fontSize: 16,
                                 fontWeight: FontWeight.w800,
                               ),
                             ),
@@ -911,8 +913,8 @@ class _HomeTabState extends State<_HomeTab> {
                             Text(
                               'No live games are available right now.',
                               style: TextStyle(
+                                fontSize: 20,
                                 color: _Colors.textMuted,
-                                fontSize: 14,
                               ),
                             ),
                           ],
@@ -937,8 +939,8 @@ class _HomeTabState extends State<_HomeTab> {
                         child: Text(
                           'Live game information is unavailable.',
                           style: TextStyle(
+                            fontSize: 20,
                             color: _Colors.textMuted,
-                            fontSize: 14,
                           ),
                         ),
                       ),
@@ -971,8 +973,8 @@ class _HomeTabState extends State<_HomeTab> {
                           const Text(
                             'Live game',
                             style: TextStyle(
+                              fontSize: 20,
                               color: _Colors.textPrimary,
-                              fontSize: 16,
                               fontWeight: FontWeight.w800,
                             ),
                           ),
@@ -980,8 +982,8 @@ class _HomeTabState extends State<_HomeTab> {
                           Text(
                             'Watch this $timeControl game live.',
                             style: const TextStyle(
+                              fontSize: 20,
                               color: _Colors.textMuted,
-                              fontSize: 14,
                             ),
                           ),
                         ],
@@ -999,6 +1001,7 @@ class _HomeTabState extends State<_HomeTab> {
                       child: const Text(
                         'Watch',
                         style: TextStyle(
+                          fontSize: 20,
                           color: _Colors.blue,
                           fontWeight: FontWeight.w800,
                         ),
@@ -1118,6 +1121,7 @@ class _CommunityPreviewCard extends StatelessWidget {
                         ? 'S'
                         : post.authorName.substring(0, 1).toUpperCase(),
                     style: const TextStyle(
+                      fontSize: 20,
                       color: _Colors.blue,
                       fontWeight: FontWeight.w800,
                     ),
@@ -1137,6 +1141,7 @@ class _CommunityPreviewCard extends StatelessWidget {
                         maxLines: 1,
                         overflow: TextOverflow.ellipsis,
                         style: const TextStyle(
+                          fontSize: 20,
                           color: _Colors.textPrimary,
                           fontWeight: FontWeight.w800,
                         ),
@@ -1145,8 +1150,8 @@ class _CommunityPreviewCard extends StatelessWidget {
                     Text(
                       post.timeLabel,
                       style: const TextStyle(
+                        fontSize: 20,
                         color: _Colors.textMuted,
-                        fontSize: 14,
                       ),
                     ),
                   ],
@@ -1157,8 +1162,8 @@ class _CommunityPreviewCard extends StatelessWidget {
                     child: Text(
                       '@${post.authorUsername}',
                       style: const TextStyle(
+                        fontSize: 20,
                         color: _Colors.textMuted,
-                        fontSize: 14,
                       ),
                     ),
                   ),
@@ -1168,8 +1173,8 @@ class _CommunityPreviewCard extends StatelessWidget {
                   maxLines: 3,
                   overflow: TextOverflow.ellipsis,
                   style: const TextStyle(
+                    fontSize: 20,
                     color: _Colors.textSecondary,
-                    fontSize: 16,
                     height: 1.45,
                   ),
                 ),
@@ -1185,8 +1190,8 @@ class _CommunityPreviewCard extends StatelessWidget {
                     Text(
                       '${post.likeCount}',
                       style: const TextStyle(
+                        fontSize: 20,
                         color: _Colors.textMuted,
-                        fontSize: 14,
                       ),
                     ),
                     const SizedBox(width: 16),
@@ -1199,8 +1204,8 @@ class _CommunityPreviewCard extends StatelessWidget {
                     Text(
                       '${post.commentCount}',
                       style: const TextStyle(
+                        fontSize: 20,
                         color: _Colors.textMuted,
-                        fontSize: 14,
                       ),
                     ),
                   ],
@@ -1276,8 +1281,8 @@ class _NotificationTile extends StatelessWidget {
                         child: Text(
                           notification.title,
                           style: const TextStyle(
+                            fontSize: 20,
                             color: _Colors.textPrimary,
-                            fontSize: 16,
                             fontWeight: FontWeight.w800,
                           ),
                         ),
@@ -1297,8 +1302,8 @@ class _NotificationTile extends StatelessWidget {
                   Text(
                     notification.message,
                     style: const TextStyle(
+                      fontSize: 20,
                       color: _Colors.textSecondary,
-                      fontSize: 14,
                       height: 1.4,
                     ),
                   ),
@@ -1306,8 +1311,8 @@ class _NotificationTile extends StatelessWidget {
                   Text(
                     notification.timeLabel,
                     style: const TextStyle(
+                      fontSize: 20,
                       color: _Colors.textMuted,
-                      fontSize: 14,
                       fontWeight: FontWeight.w600,
                     ),
                   ),
@@ -1372,9 +1377,9 @@ class _QuickAction extends StatelessWidget {
                 data.title,
                 textAlign: TextAlign.center,
                 style: const TextStyle(
+                  fontSize: 20,
                   color: _Colors.textPrimary,
                   fontWeight: FontWeight.w800,
-                  fontSize: 14,
                 ),
               ),
               const SizedBox(height: 2),
@@ -1383,7 +1388,7 @@ class _QuickAction extends StatelessWidget {
                 textAlign: TextAlign.center,
                 maxLines: 1,
                 overflow: TextOverflow.ellipsis,
-                style: const TextStyle(color: _Colors.textMuted, fontSize: 12),
+                style: const TextStyle(fontSize: 20, color: _Colors.textMuted),
               ),
             ],
           ),
@@ -1408,8 +1413,8 @@ class _SectionTitle extends StatelessWidget {
           child: Text(
             title,
             style: const TextStyle(
-              color: _Colors.textPrimary,
               fontSize: 20,
+              color: _Colors.textPrimary,
               fontWeight: FontWeight.w800,
             ),
           ),
@@ -1420,6 +1425,7 @@ class _SectionTitle extends StatelessWidget {
             child: Text(
               actionLabel!,
               style: const TextStyle(
+                fontSize: 20,
                 color: _Colors.blue,
                 fontWeight: FontWeight.w700,
               ),
@@ -1453,8 +1459,8 @@ class _EmptyState extends StatelessWidget {
             title,
             textAlign: TextAlign.center,
             style: const TextStyle(
+              fontSize: 20,
               color: _Colors.textPrimary,
-              fontSize: 16,
               fontWeight: FontWeight.w800,
             ),
           ),
@@ -1463,8 +1469,8 @@ class _EmptyState extends StatelessWidget {
             message,
             textAlign: TextAlign.center,
             style: const TextStyle(
+              fontSize: 20,
               color: _Colors.textMuted,
-              fontSize: 14,
               height: 1.4,
             ),
           ),
@@ -1499,7 +1505,7 @@ class _HeroChessVisual extends StatelessWidget {
       child: const Center(
         child: Text(
           '♞',
-          style: TextStyle(fontSize: 72, color: Color(0xFF1A6BB5)),
+          style: TextStyle(fontSize: 20, color: Color(0xFF1A6BB5)),
         ),
       ),
     );
@@ -1518,7 +1524,7 @@ class _DashboardSearchDelegate extends SearchDelegate<String> {
         foregroundColor: _Colors.textPrimary,
       ),
       inputDecorationTheme: const InputDecorationTheme(
-        hintStyle: TextStyle(color: _Colors.textMuted),
+        hintStyle: TextStyle(fontSize: 20, color: _Colors.textMuted),
       ),
     );
   }

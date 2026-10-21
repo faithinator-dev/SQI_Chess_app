@@ -1,4 +1,4 @@
-﻿import 'package:flutter/material.dart';
+import 'package:flutter/material.dart';
 
 import 'spectator_chess_board.dart';
 import 'spectator_replay_screen.dart';
@@ -46,7 +46,10 @@ class SpectatorMatchScreen extends StatelessWidget {
           children: [
             Icon(Icons.visibility_rounded, color: green, size: 20),
             SizedBox(width: 10),
-            Text('Live Match', style: TextStyle(fontWeight: FontWeight.w800)),
+            Text(
+              'Live Match',
+              style: TextStyle(fontSize: 20, fontWeight: FontWeight.w800),
+            ),
           ],
         ),
         actions: [
@@ -72,8 +75,8 @@ class SpectatorMatchScreen extends StatelessWidget {
                 const Text(
                   'LIVE',
                   style: TextStyle(
+                    fontSize: 20,
                     color: green,
-                    fontSize: 14,
                     fontWeight: FontWeight.w900,
                   ),
                 ),
@@ -204,7 +207,7 @@ class SpectatorMatchScreen extends StatelessWidget {
           _playerBar(
             name: blackPlayer,
             rating: blackRating,
-            piece: 'â™š',
+            piece: 'K',
             active: false,
           ),
           const SizedBox(height: 14),
@@ -221,7 +224,7 @@ class SpectatorMatchScreen extends StatelessWidget {
           _playerBar(
             name: whitePlayer,
             rating: whiteRating,
-            piece: 'â™”',
+            piece: 'K',
             active: true,
           ),
         ],
@@ -256,7 +259,7 @@ class SpectatorMatchScreen extends StatelessWidget {
               shape: BoxShape.circle,
             ),
             alignment: Alignment.center,
-            child: Text(piece, style: const TextStyle(fontSize: 26)),
+            child: Text(piece, style: const TextStyle(fontSize: 15)),
           ),
           const SizedBox(width: 12),
           Expanded(
@@ -266,15 +269,15 @@ class SpectatorMatchScreen extends StatelessWidget {
                 Text(
                   name,
                   style: const TextStyle(
+                    fontSize: 20,
                     color: Colors.white,
                     fontWeight: FontWeight.w800,
-                    fontSize: 14,
                   ),
                 ),
                 const SizedBox(height: 3),
                 Text(
                   'Rating $rating',
-                  style: const TextStyle(color: muted, fontSize: 12),
+                  style: const TextStyle(fontSize: 20, color: muted),
                 ),
               ],
             ),
@@ -289,8 +292,8 @@ class SpectatorMatchScreen extends StatelessWidget {
               child: const Text(
                 'WHITE',
                 style: TextStyle(
+                  fontSize: 20,
                   color: blue,
-                  fontSize: 12,
                   fontWeight: FontWeight.w900,
                 ),
               ),
@@ -305,8 +308,8 @@ class SpectatorMatchScreen extends StatelessWidget {
               child: const Text(
                 'BLACK',
                 style: TextStyle(
+                  fontSize: 20,
                   color: muted,
-                  fontSize: 12,
                   fontWeight: FontWeight.w900,
                 ),
               ),
@@ -405,8 +408,8 @@ class SpectatorMatchScreen extends StatelessWidget {
           Text(
             title,
             style: const TextStyle(
+              fontSize: 20,
               color: muted,
-              fontSize: 12,
               fontWeight: FontWeight.w900,
               letterSpacing: 1.2,
             ),
@@ -433,14 +436,14 @@ class SpectatorMatchScreen extends StatelessWidget {
           Expanded(
             child: Text(
               label,
-              style: const TextStyle(color: muted, fontSize: 12),
+              style: const TextStyle(fontSize: 20, color: muted),
             ),
           ),
           Text(
             value,
             style: TextStyle(
+              fontSize: 20,
               color: valueColor,
-              fontSize: 12,
               fontWeight: FontWeight.w700,
             ),
           ),
@@ -458,13 +461,14 @@ class SpectatorMatchScreen extends StatelessWidget {
             width: 28,
             child: Text(
               number,
-              style: const TextStyle(color: muted, fontSize: 12),
+              style: const TextStyle(fontSize: 20, color: muted),
             ),
           ),
           Expanded(
             child: Text(
               white,
               style: const TextStyle(
+                fontSize: 20,
                 color: Colors.white,
                 fontWeight: FontWeight.w700,
               ),
@@ -474,6 +478,7 @@ class SpectatorMatchScreen extends StatelessWidget {
             child: Text(
               black,
               style: const TextStyle(
+                fontSize: 20,
                 color: Colors.white,
                 fontWeight: FontWeight.w700,
               ),
@@ -492,7 +497,11 @@ class SpectatorMatchScreen extends StatelessWidget {
           backgroundColor: accent.withValues(alpha: 0.12),
           child: Text(
             name.isNotEmpty ? name.substring(0, 1).toUpperCase() : '?',
-            style: TextStyle(color: accent, fontWeight: FontWeight.w900),
+            style: TextStyle(
+              fontSize: 20,
+              color: accent,
+              fontWeight: FontWeight.w900,
+            ),
           ),
         ),
         const SizedBox(width: 10),
@@ -500,13 +509,13 @@ class SpectatorMatchScreen extends StatelessWidget {
           child: Text(
             name,
             style: const TextStyle(
+              fontSize: 20,
               color: Colors.white,
               fontWeight: FontWeight.w700,
-              fontSize: 12,
             ),
           ),
         ),
-        Text(side, style: const TextStyle(color: muted, fontSize: 12)),
+        Text(side, style: const TextStyle(fontSize: 20, color: muted)),
       ],
     );
   }

@@ -51,9 +51,8 @@ class _SettingsOverviewScreenState extends State<SettingsOverviewScreen> {
     }
   }
 
-  void _open(Widget page) => Navigator.of(
-    context,
-  ).push(MaterialPageRoute(builder: (_) => page));
+  void _open(Widget page) =>
+      Navigator.of(context).push(MaterialPageRoute(builder: (_) => page));
 
   @override
   Widget build(BuildContext context) => Scaffold(
@@ -63,7 +62,8 @@ class _SettingsOverviewScreenState extends State<SettingsOverviewScreen> {
       children: [
         if (_loadFailed)
           SettingsErrorBanner(
-            message: 'We couldn’t load your profile. Check your connection and retry.',
+            message:
+                'We couldn’t load your profile. Check your connection and retry.',
             onRetry: _load,
           ),
         Card(
@@ -79,7 +79,11 @@ class _SettingsOverviewScreenState extends State<SettingsOverviewScreen> {
                           height: 18,
                           child: CircularProgressIndicator(strokeWidth: 2),
                         )
-                      : Icon(_loadFailed ? Icons.person_off_outlined : Icons.person_outline),
+                      : Icon(
+                          _loadFailed
+                              ? Icons.person_off_outlined
+                              : Icons.person_outline,
+                        ),
                 ),
                 const SizedBox(width: 14),
                 Expanded(
@@ -92,9 +96,8 @@ class _SettingsOverviewScreenState extends State<SettingsOverviewScreen> {
                             : _loadFailed
                             ? 'Profile unavailable'
                             : (_profile?.fullName ?? 'Your account'),
-                        style: Theme.of(context).textTheme.titleMedium?.copyWith(
-                          fontWeight: FontWeight.bold,
-                        ),
+                        style: Theme.of(context).textTheme.titleMedium
+                            ?.copyWith(fontWeight: FontWeight.bold),
                       ),
                       Text(
                         _loadFailed

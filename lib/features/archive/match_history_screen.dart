@@ -1,4 +1,4 @@
-﻿import 'package:flutter/material.dart';
+import 'package:flutter/material.dart';
 
 import 'game_review_screen.dart';
 
@@ -170,8 +170,8 @@ class _MatchHistoryScreenState extends State<MatchHistoryScreen> {
               Text(
                 'Match History',
                 style: TextStyle(
-                  color: Color(0xFF1A1A1A),
                   fontSize: 20,
+                  color: Color(0xFF1A1A1A),
                   fontWeight: FontWeight.w800,
                 ),
               ),
@@ -179,8 +179,8 @@ class _MatchHistoryScreenState extends State<MatchHistoryScreen> {
               Text(
                 'Your competitive journey',
                 style: TextStyle(
+                  fontSize: 20,
                   color: muted,
-                  fontSize: 14,
                   fontWeight: FontWeight.w500,
                 ),
               ),
@@ -360,8 +360,8 @@ class _MatchHistoryScreenState extends State<MatchHistoryScreen> {
                 Text(
                   value,
                   style: const TextStyle(
+                    fontSize: 20,
                     color: Color(0xFF1A1A1A),
-                    fontSize: 21,
                     fontWeight: FontWeight.w900,
                   ),
                 ),
@@ -369,8 +369,8 @@ class _MatchHistoryScreenState extends State<MatchHistoryScreen> {
                 Text(
                   label,
                   style: const TextStyle(
+                    fontSize: 20,
                     color: muted,
-                    fontSize: 12,
                     fontWeight: FontWeight.w600,
                   ),
                 ),
@@ -398,13 +398,13 @@ class _MatchHistoryScreenState extends State<MatchHistoryScreen> {
                 _searchQuery = value;
               });
             },
-            style: const TextStyle(color: Color(0xFF1A1A1A), fontSize: 13),
+            style: const TextStyle(fontSize: 20, color: Color(0xFF1A1A1A)),
             cursorColor: blue,
             decoration: const InputDecoration(
               border: InputBorder.none,
               prefixIcon: Icon(Icons.search_rounded, color: muted, size: 20),
               hintText: 'Search opponent or match ID...',
-              hintStyle: TextStyle(color: muted, fontSize: 12),
+              hintStyle: TextStyle(fontSize: 20, color: muted),
               contentPadding: EdgeInsets.symmetric(vertical: 15),
             ),
           ),
@@ -453,8 +453,8 @@ class _MatchHistoryScreenState extends State<MatchHistoryScreen> {
               ? 'Losses'
               : filter,
           style: TextStyle(
+            fontSize: 20,
             color: selected ? Colors.white : muted,
-            fontSize: 14,
             fontWeight: FontWeight.w800,
           ),
         ),
@@ -597,8 +597,8 @@ class _MatchHistoryScreenState extends State<MatchHistoryScreen> {
                 game['opponent'],
                 overflow: TextOverflow.ellipsis,
                 style: const TextStyle(
+                  fontSize: 20,
                   color: Color(0xFF1A1A1A),
-                  fontSize: 14,
                   fontWeight: FontWeight.w800,
                 ),
               ),
@@ -607,8 +607,8 @@ class _MatchHistoryScreenState extends State<MatchHistoryScreen> {
             Text(
               '${game['rating']}',
               style: const TextStyle(
+                fontSize: 20,
                 color: muted,
-                fontSize: 12,
                 fontWeight: FontWeight.w600,
               ),
             ),
@@ -620,12 +620,12 @@ class _MatchHistoryScreenState extends State<MatchHistoryScreen> {
             Text(
               result,
               style: TextStyle(
+                fontSize: 20,
                 color: result == 'Victory'
                     ? green
                     : result == 'Draw'
                     ? gold
                     : danger,
-                fontSize: 12,
                 fontWeight: FontWeight.w800,
               ),
             ),
@@ -641,7 +641,7 @@ class _MatchHistoryScreenState extends State<MatchHistoryScreen> {
             const SizedBox(width: 7),
             Text(
               game['matchId'],
-              style: const TextStyle(color: muted, fontSize: 12),
+              style: const TextStyle(fontSize: 20, color: muted),
             ),
           ],
         ),
@@ -665,13 +665,13 @@ class _MatchHistoryScreenState extends State<MatchHistoryScreen> {
             Text(
               value,
               style: const TextStyle(
+                fontSize: 20,
                 color: Color(0xFF1A1A1A),
-                fontSize: 14,
                 fontWeight: FontWeight.w700,
               ),
             ),
             const SizedBox(height: 2),
-            Text(label, style: const TextStyle(color: muted, fontSize: 12)),
+            Text(label, style: const TextStyle(fontSize: 20, color: muted)),
           ],
         ),
       ],
@@ -713,8 +713,8 @@ class _MatchHistoryScreenState extends State<MatchHistoryScreen> {
             value,
             overflow: TextOverflow.ellipsis,
             style: const TextStyle(
+              fontSize: 20,
               color: Color(0xFF1A1A1A),
-              fontSize: 12,
               fontWeight: FontWeight.w600,
             ),
           ),
@@ -733,8 +733,8 @@ class _MatchHistoryScreenState extends State<MatchHistoryScreen> {
       child: Text(
         change.toString(),
         style: TextStyle(
+          fontSize: 20,
           color: color,
-          fontSize: 14,
           fontWeight: FontWeight.w900,
         ),
       ),
@@ -765,8 +765,8 @@ class _MatchHistoryScreenState extends State<MatchHistoryScreen> {
           const Text(
             'No games found',
             style: TextStyle(
+              fontSize: 20,
               color: Color(0xFF1A1A1A),
-              fontSize: 16,
               fontWeight: FontWeight.w800,
             ),
           ),
@@ -774,7 +774,7 @@ class _MatchHistoryScreenState extends State<MatchHistoryScreen> {
           const Text(
             'Try another filter or search term.',
             textAlign: TextAlign.center,
-            style: TextStyle(color: muted, fontSize: 12),
+            style: TextStyle(fontSize: 20, color: muted),
           ),
         ],
       ),
@@ -825,8 +825,8 @@ class _MatchHistoryScreenState extends State<MatchHistoryScreen> {
                   child: Text(
                     'Filter Games',
                     style: TextStyle(
+                      fontSize: 20,
                       color: Color(0xFF1A1A1A),
-                      fontSize: 18,
                       fontWeight: FontWeight.w800,
                     ),
                   ),
@@ -860,8 +860,8 @@ class _MatchHistoryScreenState extends State<MatchHistoryScreen> {
                           ? 'Losses'
                           : filter,
                       style: TextStyle(
+                        fontSize: 20,
                         color: selected ? blue : muted,
-                        fontSize: 13,
                         fontWeight: FontWeight.w700,
                       ),
                     ),

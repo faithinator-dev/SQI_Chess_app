@@ -1,4 +1,4 @@
-﻿import 'package:flutter/material.dart';
+import 'package:flutter/material.dart';
 
 import '../match/local_pvp_screen.dart';
 import '../match/match_config.dart';
@@ -19,6 +19,8 @@ class GuestDashboardScreen extends StatelessWidget {
   static const Color gold = Color(0xFFF5C451);
   static const Color purple = Color(0xFF9B7BFF);
   static const Color muted = Color(0xFF737A74);
+  static const Color textPrimary = Color(0xFF1A1A1A);
+  static const Color border = Color(0xFFD8E1EC);
 
   void _openLocalPvp(BuildContext context) {
     Navigator.of(context).push(
@@ -56,11 +58,11 @@ class GuestDashboardScreen extends StatelessWidget {
       backgroundColor: background,
       appBar: AppBar(
         backgroundColor: background,
-        foregroundColor: Colors.white,
+        foregroundColor: textPrimary,
         elevation: 0,
         title: const Text(
           'Guest Dashboard',
-          style: TextStyle(fontWeight: FontWeight.w800),
+          style: TextStyle(fontSize: 20, fontWeight: FontWeight.w800),
         ),
       ),
       body: SafeArea(
@@ -72,8 +74,8 @@ class GuestDashboardScreen extends StatelessWidget {
             const Text(
               'PLAY WITHOUT AN ACCOUNT',
               style: TextStyle(
+                fontSize: 20,
                 color: muted,
-                fontSize: 12,
                 fontWeight: FontWeight.w800,
                 letterSpacing: 1.2,
               ),
@@ -121,7 +123,7 @@ class GuestDashboardScreen extends StatelessWidget {
                   Expanded(
                     child: Text(
                       'Guest mode does not sign in or use the online database. Online matches and account features are available after signing in.',
-                      style: TextStyle(color: muted, height: 1.4, fontSize: 12),
+                      style: TextStyle(fontSize: 20, color: muted, height: 1.4),
                     ),
                   ),
                 ],
@@ -139,7 +141,7 @@ class GuestDashboardScreen extends StatelessWidget {
       decoration: BoxDecoration(
         color: surface,
         borderRadius: BorderRadius.circular(24),
-        border: Border.all(color: Colors.white.withValues(alpha: 0.06)),
+        border: Border.all(color: border),
       ),
       child: Row(
         children: [
@@ -154,8 +156,8 @@ class GuestDashboardScreen extends StatelessWidget {
             child: Text(
               playerName.substring(0, 1).toUpperCase(),
               style: const TextStyle(
-                color: Colors.white,
-                fontSize: 21,
+                fontSize: 20,
+                color: textPrimary,
                 fontWeight: FontWeight.w800,
               ),
             ),
@@ -167,14 +169,14 @@ class GuestDashboardScreen extends StatelessWidget {
               children: [
                 const Text(
                   'Welcome,',
-                  style: TextStyle(color: muted, fontSize: 13),
+                  style: TextStyle(fontSize: 20, color: muted),
                 ),
                 const SizedBox(height: 3),
                 Text(
                   playerName,
                   style: const TextStyle(
-                    color: Colors.white,
-                    fontSize: 22,
+                    fontSize: 20,
+                    color: textPrimary,
                     fontWeight: FontWeight.w800,
                   ),
                 ),
@@ -223,14 +225,15 @@ class GuestDashboardScreen extends StatelessWidget {
                     Text(
                       title,
                       style: const TextStyle(
-                        color: Colors.white,
+                        fontSize: 20,
+                        color: textPrimary,
                         fontWeight: FontWeight.w800,
                       ),
                     ),
                     const SizedBox(height: 4),
                     Text(
                       subtitle,
-                      style: const TextStyle(color: muted, fontSize: 12),
+                      style: const TextStyle(fontSize: 20, color: muted),
                     ),
                   ],
                 ),
@@ -238,8 +241,8 @@ class GuestDashboardScreen extends StatelessWidget {
               Text(
                 trailing,
                 style: TextStyle(
+                  fontSize: 20,
                   color: color,
-                  fontSize: 12,
                   fontWeight: FontWeight.w800,
                 ),
               ),

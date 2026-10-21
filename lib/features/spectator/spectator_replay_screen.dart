@@ -1,4 +1,4 @@
-﻿import 'package:flutter/material.dart';
+import 'package:flutter/material.dart';
 
 import 'spectator_chess_board.dart';
 
@@ -132,7 +132,7 @@ class _SpectatorReplayScreenState extends State<SpectatorReplayScreen> {
         elevation: 0,
         title: const Text(
           'Game Review',
-          style: TextStyle(fontWeight: FontWeight.w800),
+          style: TextStyle(fontSize: 20, fontWeight: FontWeight.w800),
         ),
       ),
       body: SafeArea(
@@ -192,7 +192,7 @@ class _SpectatorReplayScreenState extends State<SpectatorReplayScreen> {
       ),
       child: Column(
         children: [
-          _player(blackPlayer, 'BLACK', 'â™š'),
+          _player(blackPlayer, 'BLACK', 'K'),
           const SizedBox(height: 14),
           Center(
             child: ConstrainedBox(
@@ -204,7 +204,7 @@ class _SpectatorReplayScreenState extends State<SpectatorReplayScreen> {
             ),
           ),
           const SizedBox(height: 14),
-          _player(whitePlayer, 'WHITE', 'â™”'),
+          _player(whitePlayer, 'WHITE', 'K'),
           const SizedBox(height: 18),
           Container(
             width: double.infinity,
@@ -225,15 +225,15 @@ class _SpectatorReplayScreenState extends State<SpectatorReplayScreen> {
                   child: Text(
                     _moveLabel,
                     style: const TextStyle(
+                      fontSize: 20,
                       color: Colors.white,
                       fontWeight: FontWeight.w700,
-                      fontSize: 12,
                     ),
                   ),
                 ),
                 Text(
                   '$_currentMove / ${_positions.length - 1}',
-                  style: const TextStyle(color: muted, fontSize: 12),
+                  style: const TextStyle(fontSize: 20, color: muted),
                 ),
               ],
             ),
@@ -256,7 +256,7 @@ class _SpectatorReplayScreenState extends State<SpectatorReplayScreen> {
             shape: BoxShape.circle,
           ),
           alignment: Alignment.center,
-          child: Text(piece, style: const TextStyle(fontSize: 27)),
+          child: Text(piece, style: const TextStyle(fontSize: 15)),
         ),
         const SizedBox(width: 12),
         Expanded(
@@ -266,6 +266,7 @@ class _SpectatorReplayScreenState extends State<SpectatorReplayScreen> {
               Text(
                 name,
                 style: const TextStyle(
+                  fontSize: 20,
                   color: Colors.white,
                   fontWeight: FontWeight.w800,
                 ),
@@ -274,8 +275,8 @@ class _SpectatorReplayScreenState extends State<SpectatorReplayScreen> {
               Text(
                 side,
                 style: TextStyle(
+                  fontSize: 20,
                   color: isWhite ? blue : muted,
-                  fontSize: 12,
                   fontWeight: FontWeight.w900,
                   letterSpacing: 1,
                 ),
@@ -301,8 +302,8 @@ class _SpectatorReplayScreenState extends State<SpectatorReplayScreen> {
           const Text(
             'GAME REVIEW',
             style: TextStyle(
+              fontSize: 20,
               color: muted,
-              fontSize: 12,
               fontWeight: FontWeight.w900,
               letterSpacing: 1.2,
             ),
@@ -311,8 +312,8 @@ class _SpectatorReplayScreenState extends State<SpectatorReplayScreen> {
           Text(
             matchId,
             style: const TextStyle(
-              color: Colors.white,
               fontSize: 20,
+              color: Colors.white,
               fontWeight: FontWeight.w900,
             ),
           ),
@@ -338,14 +339,14 @@ class _SpectatorReplayScreenState extends State<SpectatorReplayScreen> {
           children: [
             const Text(
               'Progress',
-              style: TextStyle(color: muted, fontSize: 12),
+              style: TextStyle(fontSize: 20, color: muted),
             ),
             const Spacer(),
             Text(
               '${(_currentMove / 2).ceil()} / ${(_moves.length / 2).ceil()} moves',
               style: const TextStyle(
+                fontSize: 20,
                 color: Colors.white,
-                fontSize: 12,
                 fontWeight: FontWeight.w700,
               ),
             ),
@@ -398,7 +399,7 @@ class _SpectatorReplayScreenState extends State<SpectatorReplayScreen> {
                   width: 32,
                   child: Text(
                     '${index + 1}.',
-                    style: const TextStyle(color: muted, fontSize: 12),
+                    style: const TextStyle(fontSize: 20, color: muted),
                   ),
                 ),
                 Expanded(
@@ -442,8 +443,8 @@ class _SpectatorReplayScreenState extends State<SpectatorReplayScreen> {
         child: Text(
           move,
           style: TextStyle(
+            fontSize: 20,
             color: selected ? Colors.white : muted,
-            fontSize: 12,
             fontWeight: selected ? FontWeight.w900 : FontWeight.w600,
           ),
         ),

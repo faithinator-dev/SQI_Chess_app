@@ -1,4 +1,4 @@
-﻿import 'dart:async';
+import 'dart:async';
 import 'dart:math';
 
 import 'package:chessground/chessground.dart';
@@ -300,11 +300,15 @@ class _PracticeGameScreenState extends State<PracticeGameScreen> {
           title: Text(
             title,
             style: const TextStyle(
+              fontSize: 20,
               color: primaryText,
               fontWeight: FontWeight.w800,
             ),
           ),
-          content: Text(message, style: const TextStyle(color: muted)),
+          content: Text(
+            message,
+            style: const TextStyle(fontSize: 20, color: muted),
+          ),
           actions: [
             TextButton(
               onPressed: () {
@@ -325,7 +329,10 @@ class _PracticeGameScreenState extends State<PracticeGameScreen> {
                   ),
                 );
               },
-              child: const Text('Review Game', style: TextStyle(color: blue)),
+              child: const Text(
+                'Review Game',
+                style: TextStyle(fontSize: 20, color: blue),
+              ),
             ),
             TextButton(
               onPressed: () {
@@ -334,7 +341,11 @@ class _PracticeGameScreenState extends State<PracticeGameScreen> {
               },
               child: const Text(
                 'Play Again',
-                style: TextStyle(color: blue, fontWeight: FontWeight.w700),
+                style: TextStyle(
+                  fontSize: 20,
+                  color: blue,
+                  fontWeight: FontWeight.w700,
+                ),
               ),
             ),
             TextButton(
@@ -342,7 +353,10 @@ class _PracticeGameScreenState extends State<PracticeGameScreen> {
                 Navigator.pop(context);
                 Navigator.pop(context);
               },
-              child: const Text('Exit', style: TextStyle(color: muted)),
+              child: const Text(
+                'Exit',
+                style: TextStyle(fontSize: 20, color: muted),
+              ),
             ),
           ],
         );
@@ -410,11 +424,15 @@ class _PracticeGameScreenState extends State<PracticeGameScreen> {
           ),
           title: const Text(
             'Game Resigned',
-            style: TextStyle(color: primaryText, fontWeight: FontWeight.w800),
+            style: TextStyle(
+              fontSize: 20,
+              color: primaryText,
+              fontWeight: FontWeight.w800,
+            ),
           ),
           content: const Text(
             'The computer wins this practice game.',
-            style: TextStyle(color: muted),
+            style: TextStyle(fontSize: 20, color: muted),
           ),
           actions: [
             TextButton(
@@ -432,21 +450,30 @@ class _PracticeGameScreenState extends State<PracticeGameScreen> {
                   ),
                 );
               },
-              child: const Text('Review Game', style: TextStyle(color: blue)),
+              child: const Text(
+                'Review Game',
+                style: TextStyle(fontSize: 20, color: blue),
+              ),
             ),
             TextButton(
               onPressed: () {
                 Navigator.pop(context);
                 _resetGame();
               },
-              child: const Text('Play Again', style: TextStyle(color: blue)),
+              child: const Text(
+                'Play Again',
+                style: TextStyle(fontSize: 20, color: blue),
+              ),
             ),
             TextButton(
               onPressed: () {
                 Navigator.pop(context);
                 Navigator.pop(context);
               },
-              child: const Text('Exit', style: TextStyle(color: muted)),
+              child: const Text(
+                'Exit',
+                style: TextStyle(fontSize: 20, color: muted),
+              ),
             ),
           ],
         );
@@ -470,7 +497,7 @@ class _PracticeGameScreenState extends State<PracticeGameScreen> {
           children: [
             const Text(
               'Practice',
-              style: TextStyle(fontWeight: FontWeight.w800),
+              style: TextStyle(fontSize: 20, fontWeight: FontWeight.w800),
             ),
             const SizedBox(width: 10),
             Container(
@@ -482,8 +509,8 @@ class _PracticeGameScreenState extends State<PracticeGameScreen> {
               child: Text(
                 _difficulty.title,
                 style: const TextStyle(
+                  fontSize: 20,
                   color: blue,
-                  fontSize: 12,
                   fontWeight: FontWeight.w700,
                 ),
               ),
@@ -541,7 +568,7 @@ class _PracticeGameScreenState extends State<PracticeGameScreen> {
         _buildPlayerRow(
           name: _difficulty.title == "Creator" ? 'Faith Tolu' : 'SQI Computer',
           subtitle: '${_difficulty.title} • ${_difficulty.elo}',
-          avatar: 'ðŸ¤–',
+          avatar: 'BOT',
           active: _botThinking,
           indicatorColor: _botThinking ? gold : muted,
         ),
@@ -593,6 +620,7 @@ class _PracticeGameScreenState extends State<PracticeGameScreen> {
                 maxLines: 1,
                 overflow: TextOverflow.ellipsis,
                 style: TextStyle(
+                  fontSize: 20,
                   color: _botThinking
                       ? gold
                       : _gameOver
@@ -604,7 +632,7 @@ class _PracticeGameScreenState extends State<PracticeGameScreen> {
             ),
             Text(
               '${_moveHistory.length} plies',
-              style: const TextStyle(color: muted, fontSize: 12),
+              style: const TextStyle(fontSize: 20, color: muted),
             ),
           ],
         ),
@@ -682,7 +710,7 @@ class _PracticeGameScreenState extends State<PracticeGameScreen> {
     return _buildPlayerRow(
       name: _difficulty.title == "Creator" ? 'Faith Tolu' : "SQI Computer",
       subtitle: '${_difficulty.title} • ${_difficulty.elo}',
-      avatar: 'ðŸ¤–',
+      avatar: 'BOT',
       active: _botThinking,
       indicatorColor: _botThinking ? gold : muted,
     );
@@ -724,9 +752,9 @@ class _PracticeGameScreenState extends State<PracticeGameScreen> {
             child: Text(
               avatar,
               style: const TextStyle(
+                fontSize: 20,
                 color: blue,
                 fontWeight: FontWeight.w800,
-                fontSize: 18,
               ),
             ),
           ),
@@ -738,6 +766,7 @@ class _PracticeGameScreenState extends State<PracticeGameScreen> {
                 Text(
                   name,
                   style: const TextStyle(
+                    fontSize: 20,
                     color: primaryText,
                     fontWeight: FontWeight.w800,
                   ),
@@ -745,7 +774,7 @@ class _PracticeGameScreenState extends State<PracticeGameScreen> {
                 const SizedBox(height: 3),
                 Text(
                   subtitle,
-                  style: const TextStyle(color: muted, fontSize: 12),
+                  style: const TextStyle(fontSize: 20, color: muted),
                 ),
               ],
             ),
@@ -797,8 +826,8 @@ class _PracticeGameScreenState extends State<PracticeGameScreen> {
           const Text(
             'GAME STATUS',
             style: TextStyle(
+              fontSize: 20,
               color: muted,
-              fontSize: 14,
               fontWeight: FontWeight.w800,
               letterSpacing: 1.2,
             ),
@@ -807,12 +836,12 @@ class _PracticeGameScreenState extends State<PracticeGameScreen> {
           Text(
             _status,
             style: TextStyle(
+              fontSize: 20,
               color: isThinking
                   ? gold
                   : _gameOver
                   ? red
                   : primaryText,
-              fontSize: 22,
               fontWeight: FontWeight.w800,
             ),
           ),
@@ -839,9 +868,9 @@ class _PracticeGameScreenState extends State<PracticeGameScreen> {
                   child: Text(
                     _difficulty.description,
                     style: const TextStyle(
+                      fontSize: 20,
                       color: muted,
                       height: 1.4,
-                      fontSize: 12,
                     ),
                   ),
                 ),
@@ -867,8 +896,8 @@ class _PracticeGameScreenState extends State<PracticeGameScreen> {
             Text(
               title,
               style: const TextStyle(
+                fontSize: 20,
                 color: muted,
-                fontSize: 12,
                 fontWeight: FontWeight.w800,
               ),
             ),
@@ -876,6 +905,7 @@ class _PracticeGameScreenState extends State<PracticeGameScreen> {
             Text(
               value,
               style: const TextStyle(
+                fontSize: 20,
                 color: primaryText,
                 fontWeight: FontWeight.w800,
               ),
@@ -903,15 +933,15 @@ class _PracticeGameScreenState extends State<PracticeGameScreen> {
               const Text(
                 'Move History',
                 style: TextStyle(
+                  fontSize: 20,
                   color: primaryText,
                   fontWeight: FontWeight.w800,
-                  fontSize: 18,
                 ),
               ),
               const Spacer(),
               Text(
                 '${_moveHistory.length} plies',
-                style: const TextStyle(color: muted, fontSize: 12),
+                style: const TextStyle(fontSize: 20, color: muted),
               ),
             ],
           ),
@@ -921,7 +951,7 @@ class _PracticeGameScreenState extends State<PracticeGameScreen> {
                 ? const Center(
                     child: Text(
                       'Your first move starts the game.',
-                      style: TextStyle(color: muted),
+                      style: TextStyle(fontSize: 20, color: muted),
                     ),
                   )
                 : ListView.builder(
@@ -950,8 +980,8 @@ class _PracticeGameScreenState extends State<PracticeGameScreen> {
                               child: Text(
                                 isWhite ? '$moveNumber.' : '',
                                 style: const TextStyle(
+                                  fontSize: 20,
                                   color: muted,
-                                  fontSize: 12,
                                   fontWeight: FontWeight.w700,
                                 ),
                               ),
@@ -960,6 +990,7 @@ class _PracticeGameScreenState extends State<PracticeGameScreen> {
                               child: Text(
                                 _moveHistory[index],
                                 style: const TextStyle(
+                                  fontSize: 20,
                                   color: primaryText,
                                   fontWeight: FontWeight.w700,
                                 ),
@@ -968,8 +999,8 @@ class _PracticeGameScreenState extends State<PracticeGameScreen> {
                             Text(
                               isWhite ? 'White' : 'Black',
                               style: const TextStyle(
+                                fontSize: 20,
                                 color: muted,
-                                fontSize: 14,
                               ),
                             ),
                           ],
@@ -1020,7 +1051,7 @@ class _PracticeGameScreenState extends State<PracticeGameScreen> {
               Expanded(
                 child: Text(
                   'The computer evaluates the position and searches candidate moves instead of following a fixed move script.',
-                  style: TextStyle(color: muted, height: 1.4, fontSize: 12),
+                  style: TextStyle(fontSize: 20, color: muted, height: 1.4),
                 ),
               ),
             ],

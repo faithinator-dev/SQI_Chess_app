@@ -105,7 +105,7 @@ class SpectatorChessBoard extends StatelessWidget {
                               child: Text(
                                 pieces[piece] ?? '',
                                 style: TextStyle(
-                                  fontSize: squareSize * 0.76,
+                                  fontSize: 20,
                                   height: 1,
                                   color: piece == piece.toUpperCase()
                                       ? Colors.white
@@ -136,7 +136,7 @@ class SpectatorChessBoard extends StatelessWidget {
                             child: Text(
                               _fileName(i),
                               style: TextStyle(
-                                fontSize: 12,
+                                fontSize: 20,
                                 fontWeight: FontWeight.w700,
                                 color: i.isEven ? darkSquare : lightSquare,
                               ),
@@ -151,7 +151,7 @@ class SpectatorChessBoard extends StatelessWidget {
                             child: Text(
                               _rankName(i),
                               style: TextStyle(
-                                fontSize: 12,
+                                fontSize: 20,
                                 fontWeight: FontWeight.w700,
                                 color: i.isEven ? lightSquare : darkSquare,
                               ),

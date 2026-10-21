@@ -1,4 +1,4 @@
-﻿import 'dart:async';
+import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
@@ -259,8 +259,8 @@ class _EmailVerificationScreenState extends State<EmailVerificationScreen> {
                         'Verify your email',
                         textAlign: TextAlign.center,
                         style: TextStyle(
+                          fontSize: 20,
                           color: textPrimary,
-                          fontSize: 29,
                           fontWeight: FontWeight.w800,
                           letterSpacing: -0.6,
                         ),
@@ -272,8 +272,8 @@ class _EmailVerificationScreenState extends State<EmailVerificationScreen> {
                         'We sent a 6-digit verification code to',
                         textAlign: TextAlign.center,
                         style: TextStyle(
+                          fontSize: 20,
                           color: muted,
-                          fontSize: 14,
                           height: 1.5,
                         ),
                       ),
@@ -284,8 +284,8 @@ class _EmailVerificationScreenState extends State<EmailVerificationScreen> {
                         widget.email,
                         textAlign: TextAlign.center,
                         style: const TextStyle(
+                          fontSize: 20,
                           color: textSecondary,
-                          fontSize: 14,
                           fontWeight: FontWeight.w700,
                         ),
                       ),
@@ -315,8 +315,8 @@ class _EmailVerificationScreenState extends State<EmailVerificationScreen> {
                                 child: Text(
                                   _errorMessage!,
                                   style: const TextStyle(
+                                    fontSize: 20,
                                     color: textSecondary,
-                                    fontSize: 13,
                                     height: 1.4,
                                   ),
                                 ),
@@ -330,8 +330,8 @@ class _EmailVerificationScreenState extends State<EmailVerificationScreen> {
                       const Text(
                         'Verification code',
                         style: TextStyle(
+                          fontSize: 20,
                           color: textSecondary,
-                          fontSize: 13,
                           fontWeight: FontWeight.w600,
                         ),
                       ),
@@ -351,8 +351,8 @@ class _EmailVerificationScreenState extends State<EmailVerificationScreen> {
                           }
                         },
                         style: const TextStyle(
+                          fontSize: 20,
                           color: textPrimary,
-                          fontSize: 25,
                           fontWeight: FontWeight.w700,
                           letterSpacing: 9,
                         ),
@@ -360,8 +360,8 @@ class _EmailVerificationScreenState extends State<EmailVerificationScreen> {
                           counterText: '',
                           hintText: '000000',
                           hintStyle: const TextStyle(
+                            fontSize: 20,
                             color: Color(0xFF4E5A71),
-                            fontSize: 25,
                             fontWeight: FontWeight.w700,
                             letterSpacing: 9,
                           ),
@@ -422,7 +422,7 @@ class _EmailVerificationScreenState extends State<EmailVerificationScreen> {
                               : const Text(
                                   'Verify email',
                                   style: TextStyle(
-                                    fontSize: 15,
+                                    fontSize: 20,
                                     fontWeight: FontWeight.w700,
                                   ),
                                 ),
@@ -436,7 +436,7 @@ class _EmailVerificationScreenState extends State<EmailVerificationScreen> {
                         children: [
                           const Text(
                             "Didn't receive the code? ",
-                            style: TextStyle(color: muted, fontSize: 13),
+                            style: TextStyle(fontSize: 20, color: muted),
                           ),
                           TextButton(
                             onPressed:
@@ -459,8 +459,8 @@ class _EmailVerificationScreenState extends State<EmailVerificationScreen> {
                                   ? 'Resend in ${_secondsRemaining}s'
                                   : 'Resend code',
                               style: TextStyle(
+                                fontSize: 20,
                                 color: _secondsRemaining == 0 ? primary : muted,
-                                fontSize: 13,
                                 fontWeight: FontWeight.w700,
                               ),
                             ),
@@ -474,7 +474,7 @@ class _EmailVerificationScreenState extends State<EmailVerificationScreen> {
                         onPressed: _isVerifying ? null : _changeEmail,
                         child: const Text(
                           'Use a different email',
-                          style: TextStyle(color: muted, fontSize: 13),
+                          style: TextStyle(fontSize: 20, color: muted),
                         ),
                       ),
 
@@ -485,8 +485,8 @@ class _EmailVerificationScreenState extends State<EmailVerificationScreen> {
                         'ownership of your email address.',
                         textAlign: TextAlign.center,
                         style: TextStyle(
+                          fontSize: 20,
                           color: Color(0xFF5F6A80),
-                          fontSize: 14,
                           height: 1.5,
                         ),
                       ),
@@ -497,8 +497,8 @@ class _EmailVerificationScreenState extends State<EmailVerificationScreen> {
                         'SQI Checkmate Arena',
                         textAlign: TextAlign.center,
                         style: TextStyle(
+                          fontSize: 20,
                           color: Color(0xFF5F6A80),
-                          fontSize: 14,
                           fontWeight: FontWeight.w500,
                         ),
                       ),

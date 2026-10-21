@@ -1,4 +1,4 @@
-﻿import 'package:flutter/material.dart';
+import 'package:flutter/material.dart';
 
 class AchievementsScreen extends StatelessWidget {
   const AchievementsScreen({super.key});
@@ -15,42 +15,42 @@ class AchievementsScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     final achievements = [
       {
-        'icon': 'â™›',
+        'icon': 'WIN',
         'title': 'First Victory',
         'description': 'Win your first competitive game.',
         'unlocked': true,
         'color': gold,
       },
       {
-        'icon': 'âš¡',
+        'icon': 'SPD',
         'title': 'Speed Demon',
         'description': 'Win a rapid time-control game.',
         'unlocked': true,
         'color': blue,
       },
       {
-        'icon': 'ðŸ”¥',
+        'icon': 'HOT',
         'title': 'Hot Streak',
         'description': 'Win three games in a row.',
         'unlocked': true,
         'color': green,
       },
       {
-        'icon': 'â™œ',
+        'icon': 'TRN',
         'title': 'Tournament Player',
         'description': 'Complete your first tournament.',
         'unlocked': false,
         'color': blue,
       },
       {
-        'icon': 'â˜…',
+        'icon': 'RAT',
         'title': 'Rating Climber',
         'description': 'Reach a rating of 1,400.',
         'unlocked': false,
         'color': gold,
       },
       {
-        'icon': 'â™ž',
+        'icon': 'TAC',
         'title': 'Tactical Mind',
         'description': 'Win 10 competitive games.',
         'unlocked': false,
@@ -65,7 +65,7 @@ class AchievementsScreen extends StatelessWidget {
         foregroundColor: Colors.white,
         title: const Text(
           'Achievements',
-          style: TextStyle(fontWeight: FontWeight.w800),
+          style: TextStyle(fontSize: 20, fontWeight: FontWeight.w800),
         ),
       ),
       body: SafeArea(
@@ -101,8 +101,8 @@ class AchievementsScreen extends StatelessWidget {
           const Text(
             'YOUR PROGRESS',
             style: TextStyle(
+              fontSize: 20,
               color: muted,
-              fontSize: 12,
               fontWeight: FontWeight.w800,
               letterSpacing: 1.2,
             ),
@@ -113,16 +113,16 @@ class AchievementsScreen extends StatelessWidget {
               Text(
                 '3',
                 style: TextStyle(
+                  fontSize: 20,
                   color: Colors.white,
-                  fontSize: 32,
                   fontWeight: FontWeight.w800,
                 ),
               ),
               Text(
                 ' / 12',
                 style: TextStyle(
+                  fontSize: 20,
                   color: muted,
-                  fontSize: 18,
                   fontWeight: FontWeight.w600,
                 ),
               ),
@@ -143,7 +143,7 @@ class AchievementsScreen extends StatelessWidget {
           const SizedBox(height: 9),
           const Text(
             'Keep playing to unlock more achievements.',
-            style: TextStyle(color: muted, fontSize: 12),
+            style: TextStyle(fontSize: 20, color: muted),
           ),
         ],
       ),
@@ -177,7 +177,7 @@ class AchievementsScreen extends StatelessWidget {
             child: Center(
               child: Text(
                 achievement['icon'].toString(),
-                style: TextStyle(color: unlocked ? color : muted, fontSize: 23),
+                style: TextStyle(fontSize: 20, color: unlocked ? color : muted),
               ),
             ),
           ),
@@ -189,8 +189,8 @@ class AchievementsScreen extends StatelessWidget {
                 Text(
                   achievement['title'].toString(),
                   style: TextStyle(
+                    fontSize: 20,
                     color: unlocked ? Colors.white : muted,
-                    fontSize: 13,
                     fontWeight: FontWeight.w800,
                   ),
                 ),
@@ -198,8 +198,8 @@ class AchievementsScreen extends StatelessWidget {
                 Text(
                   achievement['description'].toString(),
                   style: const TextStyle(
+                    fontSize: 20,
                     color: muted,
-                    fontSize: 12,
                     height: 1.4,
                   ),
                 ),

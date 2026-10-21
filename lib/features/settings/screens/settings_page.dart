@@ -25,11 +25,17 @@ class SettingsPage extends StatelessWidget {
         if (description != null)
           Padding(
             padding: const EdgeInsets.fromLTRB(4, 0, 4, 16),
-            child: Text(description!, style: Theme.of(context).textTheme.bodyMedium),
+            child: Text(
+              description!,
+              style: Theme.of(context).textTheme.bodyMedium,
+            ),
           ),
         if (errorMessage != null)
           SettingsErrorBanner(message: errorMessage!, onRetry: onRetry),
-        Card(clipBehavior: Clip.antiAlias, child: Column(children: children)),
+        Card(
+          clipBehavior: Clip.antiAlias,
+          child: Column(children: children),
+        ),
       ],
     ),
   );
@@ -58,7 +64,11 @@ class SettingsLoadState extends StatelessWidget {
         child: Column(
           mainAxisSize: MainAxisSize.min,
           children: [
-            Icon(Icons.cloud_off_outlined, size: 40, color: Theme.of(context).colorScheme.error),
+            Icon(
+              Icons.cloud_off_outlined,
+              size: 40,
+              color: Theme.of(context).colorScheme.error,
+            ),
             const SizedBox(height: 12),
             Text(
               error ?? 'We could not load this information. Please try again.',
@@ -78,11 +88,7 @@ class SettingsLoadState extends StatelessWidget {
 }
 
 class SettingsErrorBanner extends StatelessWidget {
-  const SettingsErrorBanner({
-    super.key,
-    required this.message,
-    this.onRetry,
-  });
+  const SettingsErrorBanner({super.key, required this.message, this.onRetry});
 
   final String message;
   final VoidCallback? onRetry;
@@ -94,12 +100,18 @@ class SettingsErrorBanner extends StatelessWidget {
       padding: const EdgeInsets.all(14),
       child: Row(
         children: [
-          Icon(Icons.error_outline, color: Theme.of(context).colorScheme.onErrorContainer),
+          Icon(
+            Icons.error_outline,
+            color: Theme.of(context).colorScheme.onErrorContainer,
+          ),
           const SizedBox(width: 12),
           Expanded(
             child: Text(
               message,
-              style: TextStyle(color: Theme.of(context).colorScheme.onErrorContainer),
+              style: TextStyle(
+                fontSize: 20,
+                color: Theme.of(context).colorScheme.onErrorContainer,
+              ),
             ),
           ),
           if (onRetry != null)
@@ -125,7 +137,10 @@ Future<void> showSettingsErrorDialog(
     title: Text(title),
     content: Text(message),
     actions: [
-      TextButton(onPressed: () => Navigator.pop(context), child: const Text('OK')),
+      TextButton(
+        onPressed: () => Navigator.pop(context),
+        child: const Text('OK'),
+      ),
     ],
   ),
 );
