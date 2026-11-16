@@ -1,4 +1,5 @@
 import 'package:supabase_flutter/supabase_flutter.dart';
+import 'package:dartchess/dartchess.dart';
 
 import '../models/lesson_model.dart';
 
@@ -35,6 +36,7 @@ class LessonRepository {
     if (_client.auth.currentUser == null) {
       throw StateError('Sign in to create a lesson.');
     }
+    _validateLesson(title, durationMinutes, steps);
     final latest = await _client
         .from('lessons')
         .select('sort_order')
@@ -51,6 +53,66 @@ class LessonRepository {
       'content': {'steps': steps},
       'is_published': publish,
     });
+  }
+
+  Future<void> updateLesson({
+    required String id,
+    required String title,
+    required String description,
+    required String category,
+    required String difficulty,
+    required int durationMinutes,
+    required List<Map<String, String>> steps,
+    required bool publish,
+  }) async {
+    if (_client.auth.currentUser == null) {
+      throw StateError('Sign in to manage lessons.');
+    }
+    _validateLesson(title, durationMinutes, steps);
+    await _client.from('lessons').update({
+      'title': title.trim(),
+      'description': description.trim(),
+      'category': category,
+      'difficulty': difficulty,
+      'duration_minutes': durationMinutes,
+      'content': {'steps': steps},
+      'is_published': publish,
+    }).eq('id', id);
+  }
+
+  void _validateLesson(
+    String title,
+    int durationMinutes,
+    List<Map<String, String>> steps,
+  ) {
+    if (title.trim().isEmpty || title.trim().length > 120) {
+      throw ArgumentError('Enter a lesson title of 1–120 characters.');
+    }
+    if (durationMinutes < 1 || steps.isEmpty || steps.length > 30) {
+      throw ArgumentError('A lesson needs 1–30 steps and a valid duration.');
+    }
+    for (var index = 0; index < steps.length; index++) {
+      final step = steps[index];
+      if ((step['title'] ?? '').trim().isEmpty ||
+          (step['body'] ?? '').trim().isEmpty) {
+        throw ArgumentError('Step ${index + 1} needs a title and lesson text.');
+      }
+      final fen = (step['fen'] ?? '').trim();
+      if (fen.isNotEmpty) {
+        ChessPositionValidator.validateFen(fen);
+      }
+      final moves = (step['moves'] ?? '').trim();
+      if (moves.isNotEmpty && fen.isEmpty) {
+        throw ArgumentError('Step ${index + 1}: add a starting FEN for moves.');
+      }
+      if (moves.isNotEmpty) {
+        for (final move in moves.split(RegExp(r'\s+'))) {
+          if (!RegExp(r'^[a-h][1-8][a-h][1-8][qrbn]?$').hasMatch(move)) {
+            throw ArgumentError('Invalid UCI move "$move" in step ${index + 1}.');
+          }
+        }
+      }
+    }
   }
 
   Future<void> setLessonPublished(String lessonId, bool published) async {
@@ -141,5 +203,15 @@ class LessonRepository {
           : existing?['completed_at'],
       'updated_at': now.toIso8601String(),
     }, onConflict: 'user_id,lesson_id');
+  }
+}
+
+class ChessPositionValidator {
+  static void validateFen(String fen) {
+    try {
+      Chess.fromSetup(Setup.parseFen(fen));
+    } catch (_) {
+      throw ArgumentError('The FEN position is invalid.');
+    }
   }
 }

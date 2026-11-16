@@ -12,36 +12,9 @@ class OnboardingScreen extends StatefulWidget {
 
 class _OnboardingScreenState extends State<OnboardingScreen> {
   final PageController _pageController = PageController();
+  int _currentPage = 0;
 
-  int currentPage = 0;
-
-  static const Color background = Color(0xFFF9F8F6);
-  static const Color blue = Color(0xFF2D4A3E);
-  static const Color muted = Color(0xFF737A74);
-  static const Color textPrimary = Color(0xFF1A1A1A);
-  static const Color border = Color(0xFFD8E1EC);
-
-  bool get isLastPage => currentPage == onboardingPages.length - 1;
-
-  void nextPage() {
-    if (isLastPage) {
-      Navigator.of(
-        context,
-      ).pushReplacement(MaterialPageRoute(builder: (_) => const LoginScreen()));
-      return;
-    }
-
-    _pageController.nextPage(
-      duration: const Duration(milliseconds: 450),
-      curve: Curves.easeInOutCubic,
-    );
-  }
-
-  void skipOnboarding() {
-    Navigator.of(
-      context,
-    ).pushReplacement(MaterialPageRoute(builder: (_) => const LoginScreen()));
-  }
+  bool get isLastPage => _currentPage == onboardingPages.length - 1;
 
   @override
   void dispose() {
@@ -49,23 +22,60 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
     super.dispose();
   }
 
+  void _nextPage() {
+    if (isLastPage) {
+      _finishOnboarding();
+      return;
+    }
+
+    _pageController.nextPage(
+      duration: const Duration(milliseconds: 280),
+      curve: Curves.easeInOut,
+    );
+  }
+
+  void _finishOnboarding() {
+    Navigator.of(
+      context,
+    ).pushReplacement(MaterialPageRoute(builder: (_) => const LoginScreen()));
+  }
+
   @override
   Widget build(BuildContext context) {
+    final activeData = onboardingPages[_currentPage];
+    final isDark = Theme.of(context).brightness == Brightness.dark;
+
+    final bgColor = isDark ? const Color(0xFF0A0F1D) : const Color(0xFFFAFAFA);
+    final cardColor = isDark ? const Color(0xFF131B2E) : Colors.white;
+    final textMain = isDark ? const Color(0xFFF1F5F9) : const Color(0xFF0F172A);
+    final textSub = isDark ? const Color(0xFF94A3B8) : const Color(0xFF64748B);
+    final borderColor = isDark
+        ? const Color(0xFF243048)
+        : const Color(0xFFE2E8F0);
+
     return Scaffold(
-      backgroundColor: background,
+      backgroundColor: bgColor,
       body: SafeArea(
         child: LayoutBuilder(
           builder: (context, constraints) {
-            final isWide = constraints.maxWidth >= 700;
+            final isWide = constraints.maxWidth >= 720;
 
             return Center(
               child: ConstrainedBox(
-                constraints: const BoxConstraints(maxWidth: 1100),
+                constraints: const BoxConstraints(maxWidth: 960),
                 child: Padding(
-                  padding: EdgeInsets.symmetric(horizontal: isWide ? 48 : 24),
+                  padding: EdgeInsets.symmetric(horizontal: isWide ? 40 : 20),
                   child: Column(
                     children: [
-                      _buildHeader(),
+                      _buildHeader(
+                        activeData: activeData,
+                        cardColor: cardColor,
+                        textMain: textMain,
+                        textSub: textSub,
+                        borderColor: borderColor,
+                        isDark: isDark,
+                      ),
+                      const SizedBox(height: 12),
 
                       Expanded(
                         child: PageView.builder(
@@ -73,20 +83,30 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                           itemCount: onboardingPages.length,
                           onPageChanged: (index) {
                             setState(() {
-                              currentPage = index;
+                              _currentPage = index;
                             });
                           },
                           itemBuilder: (context, index) {
-                            return _buildPage(
-                              onboardingPages[index],
-                              index,
-                              isWide,
+                            final page = onboardingPages[index];
+                            return _buildPageContent(
+                              page: page,
+                              index: index,
+                              isWide: isWide,
+                              cardColor: cardColor,
+                              textMain: textMain,
+                              textSub: textSub,
+                              borderColor: borderColor,
+                              isDark: isDark,
                             );
                           },
                         ),
                       ),
 
-                      _buildFooter(),
+                      _buildFooter(
+                        activeData: activeData,
+                        isDark: isDark,
+                        textMain: textMain,
+                      ),
                     ],
                   ),
                 ),
@@ -98,62 +118,133 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
     );
   }
 
-  Widget _buildHeader() {
+  // --- Header with Clean Logo, Club Name & Skip Button ---
+  Widget _buildHeader({
+    required OnboardingData activeData,
+    required Color cardColor,
+    required Color textMain,
+    required Color textSub,
+    required Color borderColor,
+    required bool isDark,
+  }) {
     return Padding(
-      padding: const EdgeInsets.only(top: 18, bottom: 12),
+      padding: const EdgeInsets.only(top: 10, bottom: 6),
       child: Row(
         children: [
           Container(
             width: 44,
             height: 44,
+            padding: const EdgeInsets.all(7),
             decoration: BoxDecoration(
-              color: blue.withValues(alpha: 0.13),
-              borderRadius: BorderRadius.circular(14),
-              border: Border.all(color: blue.withValues(alpha: 0.35)),
-            ),
-            child: const Image(
-              image: AssetImage("assets/images/chesssqi.png"),
-              fit: .contain,
-            ),
-          ),
-
-          const SizedBox(width: 12),
-
-          const Expanded(
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text(
-                  'SQI CHECKMATE',
-                  style: TextStyle(
-                    fontSize: 20,
-                    color: textPrimary,
-                    fontWeight: FontWeight.w900,
-                    letterSpacing: 1.1,
-                  ),
-                ),
-                SizedBox(height: 3),
-                Text(
-                  'ARENA',
-                  style: TextStyle(
-                    fontSize: 20,
-                    color: blue,
-                    fontWeight: FontWeight.w800,
-                    letterSpacing: 3,
-                  ),
+              color: cardColor,
+              borderRadius: BorderRadius.circular(15),
+              boxShadow: [
+                BoxShadow(
+                  color: Colors.black.withValues(alpha: isDark ? 0.3 : 0.04),
+                  blurRadius: 10,
+                  offset: const Offset(0, 3),
                 ),
               ],
+              border: Border.all(color: borderColor, width: 1.2),
+            ),
+            child: Image.asset(
+              'assets/images/chesssqi.png',
+              fit: BoxFit.contain,
+              errorBuilder: (_, _, _) => Icon(
+                Icons.sports_esports_rounded,
+                color: isDark ? const Color(0xFF38BDF8) : activeData.themeColor,
+                size: 24,
+              ),
             ),
           ),
+          const SizedBox(width: 12),
 
-          TextButton(
-            onPressed: skipOnboarding,
-            child: const Text(
-              'Skip',
-              style: TextStyle(
-                fontSize: 20,
-                color: muted,
-                fontWeight: FontWeight.w600,
+          Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              Row(
+                children: [
+                  Text(
+                    'SQI CHESS',
+                    style: TextStyle(
+                      fontSize: 16,
+                      fontWeight: FontWeight.w900,
+                      color: textMain,
+                      letterSpacing: 1.2,
+                    ),
+                  ),
+                  const SizedBox(width: 6),
+                  Container(
+                    padding: const EdgeInsets.symmetric(
+                      horizontal: 7,
+                      vertical: 2,
+                    ),
+                    decoration: BoxDecoration(
+                      color:
+                          (isDark
+                                  ? const Color(0xFF38BDF8)
+                                  : activeData.themeColor)
+                              .withValues(alpha: isDark ? 0.2 : 0.1),
+                      borderRadius: BorderRadius.circular(6),
+                    ),
+                    child: Text(
+                      'CLUB',
+                      style: TextStyle(
+                        fontSize: 10,
+                        fontWeight: FontWeight.w800,
+                        color: isDark
+                            ? const Color(0xFF38BDF8)
+                            : activeData.themeColor,
+                        letterSpacing: 0.8,
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+              Text(
+                'Play • Learn • Connect',
+                style: TextStyle(
+                  fontSize: 12,
+                  fontWeight: FontWeight.w600,
+                  color: textSub,
+                ),
+              ),
+            ],
+          ),
+
+          const Spacer(),
+
+          Material(
+            color: Colors.transparent,
+            child: InkWell(
+              onTap: _finishOnboarding,
+              borderRadius: BorderRadius.circular(20),
+              child: Container(
+                padding: const EdgeInsets.symmetric(
+                  horizontal: 14,
+                  vertical: 7,
+                ),
+                decoration: BoxDecoration(
+                  color: cardColor,
+                  borderRadius: BorderRadius.circular(20),
+                  border: Border.all(color: borderColor, width: 1.2),
+                ),
+                child: Row(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    Text(
+                      'Skip',
+                      style: TextStyle(
+                        fontSize: 13,
+                        color: textSub,
+                        fontWeight: FontWeight.w700,
+                      ),
+                    ),
+                    const SizedBox(width: 3),
+                    Icon(Icons.chevron_right_rounded, size: 16, color: textSub),
+                  ],
+                ),
               ),
             ),
           ),
@@ -162,169 +253,292 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
     );
   }
 
-  Widget _buildPage(OnboardingData page, int index, bool isWide) {
-    return AnimatedSwitcher(
-      duration: const Duration(milliseconds: 350),
-      child: isWide
-          ? Row(
-              key: ValueKey(index),
-              children: [
-                Expanded(flex: 11, child: _buildArtwork(index, page)),
-                const SizedBox(width: 48),
-                Expanded(flex: 9, child: _buildText(page)),
-              ],
-            )
-          : Column(
-              key: ValueKey(index),
-              children: [
-                Expanded(flex: 11, child: _buildArtwork(index, page)),
-                const SizedBox(height: 12),
-                Expanded(flex: 9, child: _buildText(page)),
-              ],
+  // --- Page Content ---
+  Widget _buildPageContent({
+    required OnboardingData page,
+    required int index,
+    required bool isWide,
+    required Color cardColor,
+    required Color textMain,
+    required Color textSub,
+    required Color borderColor,
+    required bool isDark,
+  }) {
+    if (isWide) {
+      return Row(
+        crossAxisAlignment: CrossAxisAlignment.center,
+        children: [
+          Expanded(
+            flex: 5,
+            child: _buildArtwork(
+              page: page,
+              cardColor: cardColor,
+              textMain: textMain,
+              borderColor: borderColor,
+              isDark: isDark,
             ),
+          ),
+          const SizedBox(width: 36),
+          Expanded(
+            flex: 5,
+            child: _buildTextCard(
+              page: page,
+              textMain: textMain,
+              textSub: textSub,
+              isDark: isDark,
+            ),
+          ),
+        ],
+      );
+    }
+
+    return Column(
+      children: [
+        const SizedBox(height: 8),
+        Expanded(
+          flex: 11,
+          child: _buildArtwork(
+            page: page,
+            cardColor: cardColor,
+            textMain: textMain,
+            borderColor: borderColor,
+            isDark: isDark,
+          ),
+        ),
+        const SizedBox(height: 12),
+        Expanded(
+          flex: 9,
+          child: _buildTextCard(
+            page: page,
+            textMain: textMain,
+            textSub: textSub,
+            isDark: isDark,
+          ),
+        ),
+      ],
     );
   }
 
-  Widget _buildArtwork(int index, OnboardingData page) {
+  // --- Center Artwork: Crisp Card with Subtle Chess Board ---
+  Widget _buildArtwork({
+    required OnboardingData page,
+    required Color cardColor,
+    required Color textMain,
+    required Color borderColor,
+    required bool isDark,
+  }) {
+    final themeAccent = isDark ? const Color(0xFF38BDF8) : page.themeColor;
+
     return Center(
-      child: AspectRatio(
-        aspectRatio: 1,
-        child: Stack(
-          alignment: Alignment.center,
-          children: [
-            Container(
-              decoration: BoxDecoration(
-                shape: BoxShape.circle,
-                gradient: RadialGradient(
-                  colors: [
-                    blue.withValues(alpha: 0.20),
-                    background.withValues(alpha: 0),
-                  ],
+      child: Stack(
+        alignment: Alignment.center,
+        children: [
+          // Soft solid outer ring
+          Container(
+            width: 270,
+            height: 270,
+            decoration: BoxDecoration(
+              shape: BoxShape.circle,
+              color: themeAccent.withValues(alpha: isDark ? 0.08 : 0.05),
+            ),
+          ),
+
+          // Main Card Container
+          Container(
+            width: 240,
+            height: 240,
+            decoration: BoxDecoration(
+              color: cardColor,
+              borderRadius: BorderRadius.circular(32),
+              boxShadow: [
+                BoxShadow(
+                  color: Colors.black.withValues(alpha: isDark ? 0.45 : 0.06),
+                  blurRadius: 24,
+                  spreadRadius: 1,
+                  offset: const Offset(0, 10),
                 ),
+              ],
+              border: Border.all(color: borderColor, width: 1.5),
+            ),
+            child: ClipRRect(
+              borderRadius: BorderRadius.circular(30),
+              child: Stack(
+                children: [
+                  _buildCleanChessboard(page, isDark),
+                  Center(child: _buildHeroDisplay(page, isDark)),
+                ],
               ),
             ),
+          ),
 
-            Transform.rotate(
-              angle: -0.07,
-              child: Container(
-                width: 250,
-                height: 250,
-                padding: const EdgeInsets.all(12),
-                decoration: BoxDecoration(
-                  color: const Color(0xFFFFFFFF),
-                  borderRadius: BorderRadius.circular(24),
-                  border: Border.all(color: border),
-                  boxShadow: [
-                    BoxShadow(
-                      color: blue.withValues(alpha: 0.13),
-                      blurRadius: 55,
-                      spreadRadius: 5,
-                    ),
-                  ],
-                ),
-                child: _buildChessboard(index),
-              ),
+          // Top-Right Feature Badge
+          Positioned(
+            top: 20,
+            right: 8,
+            child: _buildBadge(
+              icon: page.icon,
+              label: page.badgeText,
+              color: themeAccent,
+              cardColor: cardColor,
+              borderColor: borderColor,
+              textMain: textMain,
             ),
+          ),
 
-            Positioned(
-              top: 30,
-              right: 12,
-              child: _floatingCard(Icons.bolt_rounded, 'MAKE YOUR MOVE'),
+          // Bottom-Left Arena Badge
+          Positioned(
+            bottom: 20,
+            left: 8,
+            child: _buildBadge(
+              icon: Icons.check_circle_rounded,
+              label: 'SQI Arena',
+              color: isDark ? const Color(0xFF38BDF8) : textMain,
+              cardColor: cardColor,
+              borderColor: borderColor,
+              textMain: textMain,
             ),
+          ),
+        ],
+      ),
+    );
+  }
 
-            Positioned(
-              bottom: 32,
-              left: 0,
-              child: _floatingCard(page.icon, 'CHECKMATE ARENA'),
+  // --- Hero Display: Real Picture or Chess Mascot ---
+  Widget _buildHeroDisplay(OnboardingData page, bool isDark) {
+    final showPicture =
+        page.isPicturehere &&
+        page.chessPicture != null &&
+        page.chessPicture!.isNotEmpty;
+
+    if (showPicture) {
+      return Container(
+        width: 140,
+        height: 140,
+        decoration: BoxDecoration(
+          shape: BoxShape.circle,
+          boxShadow: [
+            BoxShadow(
+              color: Colors.black.withValues(alpha: isDark ? 0.5 : 0.08),
+              blurRadius: 18,
+              offset: const Offset(0, 8),
             ),
           ],
         ),
-      ),
-    );
+        child: ClipRRect(
+          borderRadius: BorderRadius.circular(70),
+          child: Image.asset(
+            page.chessPicture!,
+            fit: BoxFit.contain,
+            errorBuilder: (context, error, stackTrace) {
+              return _buildEmojiMascot(page, isDark);
+            },
+          ),
+        ),
+      );
+    }
+
+    return _buildEmojiMascot(page, isDark);
   }
 
-  Widget _buildChessboard(int pageIndex) {
-    const lightSquare = Color(0xFFCBD8F0);
-    const darkSquare = Color(0xFF263B61);
+  Widget _buildEmojiMascot(OnboardingData page, bool isDark) {
+    final bgMascotColor = isDark ? const Color(0xFF1E293B) : page.themeColor;
 
-    const pieces = [
-      ['R', 'N', 'B', 'Q', 'K', 'B', 'N', 'R'],
-      ['P', 'P', 'P', 'P', 'P', 'P', 'P', 'P'],
-      ['', '', '', '', '', '', '', ''],
-      ['', '', '', '', '', '', '', ''],
-      ['', '', '', '', '', '', '', ''],
-      ['', '', '', '', '', '', '', ''],
-      ['p', 'p', 'p', 'p', 'p', 'p', 'p', 'p'],
-      ['r', 'n', 'b', 'q', 'k', 'b', 'n', 'r'],
-    ];
-
-    return ClipRRect(
-      borderRadius: BorderRadius.circular(12),
-      child: AspectRatio(
-        aspectRatio: 1,
-        child: Column(
-          children: List.generate(8, (row) {
-            return Expanded(
-              child: Row(
-                children: List.generate(8, (col) {
-                  final isLight = (row + col).isEven;
-                  final piece = pieces[row][col];
-
-                  return Expanded(
-                    child: Container(
-                      color: isLight ? lightSquare : darkSquare,
-                      alignment: Alignment.center,
-                      child: piece.isEmpty
-                          ? null
-                          : FittedBox(
-                              child: Text(
-                                piece,
-                                style: TextStyle(
-                                  fontSize: 20,
-                                  color: row < 2
-                                      ? const Color(0xFF101827)
-                                      : Colors.white,
-                                  shadows: const [
-                                    Shadow(
-                                      color: Colors.black38,
-                                      blurRadius: 2,
-                                      offset: Offset(1, 2),
-                                    ),
-                                  ],
-                                ),
-                              ),
-                            ),
-                    ),
-                  );
-                }),
-              ),
-            );
-          }),
+    return Container(
+      width: 100,
+      height: 100,
+      decoration: BoxDecoration(
+        shape: BoxShape.circle,
+        color: bgMascotColor,
+        border: Border.all(
+          color: isDark ? const Color(0xFF38BDF8) : Colors.white,
+          width: isDark ? 2.5 : 4,
+        ),
+        boxShadow: [
+          BoxShadow(
+            color: Colors.black.withValues(alpha: isDark ? 0.4 : 0.14),
+            blurRadius: 18,
+            offset: const Offset(0, 6),
+          ),
+        ],
+      ),
+      child: Center(
+        child: Text(
+          page.chessEmoji ?? '♟',
+          style: TextStyle(
+            fontSize: 46,
+            color: isDark ? const Color(0xFF38BDF8) : Colors.white,
+            fontWeight: FontWeight.bold,
+          ),
         ),
       ),
     );
   }
 
-  Widget _floatingCard(IconData icon, String label) {
+  // --- Clean Chessboard Grid with Dark Mode Contrast ---
+  Widget _buildCleanChessboard(OnboardingData page, bool isDark) {
+    final lightSquare = isDark ? const Color(0xFF131B2E) : Colors.white;
+    final darkSquare = isDark
+        ? const Color(0xFF1B243B)
+        : page.themeColor.withValues(alpha: 0.05);
+
+    return Column(
+      children: List.generate(8, (row) {
+        return Expanded(
+          child: Row(
+            children: List.generate(8, (col) {
+              final isLight = (row + col).isEven;
+              return Expanded(
+                child: Container(color: isLight ? lightSquare : darkSquare),
+              );
+            }),
+          ),
+        );
+      }),
+    );
+  }
+
+  // --- Crisp Badge with Adaptive Colors ---
+  Widget _buildBadge({
+    required IconData icon,
+    required String label,
+    required Color color,
+    required Color cardColor,
+    required Color borderColor,
+    required Color textMain,
+  }) {
     return Container(
-      padding: const EdgeInsets.symmetric(horizontal: 13, vertical: 11),
+      padding: const EdgeInsets.symmetric(horizontal: 13, vertical: 8),
       decoration: BoxDecoration(
-        color: const Color(0xFFEDE9E2),
-        borderRadius: BorderRadius.circular(13),
-        border: Border.all(color: border),
+        color: cardColor,
+        borderRadius: BorderRadius.circular(24),
+        border: Border.all(color: borderColor, width: 1.2),
+        boxShadow: [
+          BoxShadow(
+            color: Colors.black.withValues(alpha: 0.08),
+            blurRadius: 12,
+            offset: const Offset(0, 4),
+          ),
+        ],
       ),
       child: Row(
         mainAxisSize: MainAxisSize.min,
         children: [
-          Icon(icon, color: blue, size: 17),
+          Container(
+            padding: const EdgeInsets.all(5),
+            decoration: BoxDecoration(
+              color: color.withValues(alpha: 0.15),
+              shape: BoxShape.circle,
+            ),
+            child: Icon(icon, color: color, size: 14),
+          ),
           const SizedBox(width: 8),
           Text(
             label,
-            style: const TextStyle(
-              fontSize: 20,
-              color: textPrimary,
+            style: TextStyle(
+              fontSize: 12,
               fontWeight: FontWeight.w800,
-              letterSpacing: 0.8,
+              color: textMain,
+              letterSpacing: 0.3,
             ),
           ),
         ],
@@ -332,90 +546,128 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
     );
   }
 
-  Widget _buildText(OnboardingData page) {
+  // --- Text Content Section ---
+  Widget _buildTextCard({
+    required OnboardingData page,
+    required Color textMain,
+    required Color textSub,
+    required bool isDark,
+  }) {
+    final themeAccent = isDark ? const Color(0xFF38BDF8) : page.themeColor;
+
     return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 4),
-      child: SingleChildScrollView(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Container(
-              padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
-              decoration: BoxDecoration(
-                color: blue.withValues(alpha: 0.12),
-                borderRadius: BorderRadius.circular(30),
+      padding: const EdgeInsets.symmetric(horizontal: 8),
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        crossAxisAlignment: CrossAxisAlignment.center,
+        children: [
+          Container(
+            padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 6),
+            decoration: BoxDecoration(
+              color: themeAccent.withValues(alpha: isDark ? 0.18 : 0.08),
+              borderRadius: BorderRadius.circular(30),
+              border: Border.all(
+                color: themeAccent.withValues(alpha: isDark ? 0.35 : 0.18),
+                width: 1,
               ),
-              child: Text(
-                page.eyebrow,
-                style: const TextStyle(
-                  fontSize: 20,
-                  color: blue,
-                  fontWeight: FontWeight.w800,
-                  letterSpacing: 1.3,
+            ),
+            child: Row(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                Icon(page.icon, size: 15, color: themeAccent),
+                const SizedBox(width: 6),
+                Text(
+                  page.eyebrow,
+                  style: TextStyle(
+                    fontSize: 11,
+                    fontWeight: FontWeight.w800,
+                    letterSpacing: 1.2,
+                    color: themeAccent,
+                  ),
                 ),
-              ),
+              ],
             ),
+          ),
 
-            const SizedBox(height: 22),
+          const SizedBox(height: 16),
 
-            Text(
-              page.title,
-              style: const TextStyle(
-                fontSize: 20,
-                color: textPrimary,
-                height: 1.13,
-                fontWeight: FontWeight.w900,
-                letterSpacing: -1.1,
-              ),
+          Text(
+            page.title,
+            textAlign: TextAlign.center,
+            style: TextStyle(
+              fontSize: 27,
+              fontWeight: FontWeight.w900,
+              color: textMain,
+              height: 1.2,
+              letterSpacing: -0.6,
             ),
+          ),
 
-            const SizedBox(height: 18),
+          const SizedBox(height: 12),
 
-            Text(
-              page.description,
-              style: const TextStyle(fontSize: 20, color: muted, height: 1.7),
+          Text(
+            page.description,
+            textAlign: TextAlign.center,
+            maxLines: 3,
+            overflow: TextOverflow.ellipsis,
+            style: TextStyle(
+              fontSize: 14.5,
+              height: 1.55,
+              color: textSub,
+              fontWeight: FontWeight.w500,
             ),
-          ],
-        ),
+          ),
+        ],
       ),
     );
   }
 
-  Widget _buildFooter() {
+  // --- Footer with Indicator and Button ---
+  Widget _buildFooter({
+    required OnboardingData activeData,
+    required bool isDark,
+    required Color textMain,
+  }) {
+    final buttonBg = isDark ? const Color(0xFF38BDF8) : activeData.themeColor;
+    final buttonTextColor = isDark ? const Color(0xFF0A0F1D) : Colors.white;
+
     return Padding(
-      padding: const EdgeInsets.only(top: 12, bottom: 22),
+      padding: const EdgeInsets.only(top: 8, bottom: 20),
       child: Column(
         children: [
+          // Indicator Dots
           Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: List.generate(onboardingPages.length, (index) {
-              final active = index == currentPage;
+              final active = index == _currentPage;
 
-              return AnimatedContainer(
-                duration: const Duration(milliseconds: 250),
-                curve: Curves.easeInOut,
+              return Container(
                 margin: const EdgeInsets.symmetric(horizontal: 4),
-                height: 6,
-                width: active ? 28 : 6,
+                height: 7,
+                width: active ? 28 : 7,
                 decoration: BoxDecoration(
-                  color: active ? blue : const Color(0xFF303B50),
+                  color: active
+                      ? buttonBg
+                      : (isDark
+                            ? const Color(0xFF243048)
+                            : const Color(0xFFE2E8F0)),
                   borderRadius: BorderRadius.circular(20),
                 ),
               );
             }),
           ),
 
-          const SizedBox(height: 22),
+          const SizedBox(height: 20),
 
+          // Solid High-Contrast CTA Button
           SizedBox(
             width: double.infinity,
-            height: 58,
+            height: 54,
             child: ElevatedButton(
-              onPressed: nextPage,
+              onPressed: _nextPage,
               style: ElevatedButton.styleFrom(
-                backgroundColor: blue,
-                foregroundColor: Colors.white,
+                backgroundColor: buttonBg,
+                foregroundColor: buttonTextColor,
                 elevation: 0,
                 shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(16),
@@ -425,28 +677,34 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   Text(
-                    isLastPage ? 'Enter the Arena' : 'Continue',
-                    style: const TextStyle(
-                      fontSize: 20,
+                    isLastPage ? "Let's Play Chess" : 'Continue',
+                    style: TextStyle(
+                      fontSize: 16,
                       fontWeight: FontWeight.w800,
+                      color: buttonTextColor,
+                      letterSpacing: 0.3,
                     ),
                   ),
-                  const SizedBox(width: 10),
-                  const Icon(Icons.arrow_forward_rounded, size: 19),
+                  const SizedBox(width: 8),
+                  Icon(
+                    Icons.arrow_forward_rounded,
+                    size: 19,
+                    color: buttonTextColor,
+                  ),
                 ],
               ),
             ),
           ),
 
-          const SizedBox(height: 15),
+          const SizedBox(height: 12),
 
           Text(
-            '${currentPage + 1} OF ${onboardingPages.length}',
+            '${_currentPage + 1} of ${onboardingPages.length}',
             style: const TextStyle(
-              fontSize: 20,
-              color: Color(0xFF65728A),
-              fontWeight: FontWeight.w800,
-              letterSpacing: 2,
+              fontSize: 12,
+              fontWeight: FontWeight.w700,
+              color: Color(0xFF94A3B8),
+              letterSpacing: 1.2,
             ),
           ),
         ],

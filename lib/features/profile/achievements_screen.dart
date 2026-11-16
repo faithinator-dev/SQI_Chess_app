@@ -1,7 +1,15 @@
 import 'package:flutter/material.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+import '../../core/models/practice_achievement.dart';
 
-class AchievementsScreen extends StatelessWidget {
+class AchievementsScreen extends StatefulWidget {
   const AchievementsScreen({super.key});
+
+  @override
+  State<AchievementsScreen> createState() => _AchievementsScreenState();
+}
+
+class _AchievementsScreenState extends State<AchievementsScreen> {
 
   static const Color background = Color(0xFFF9F8F6);
   static const Color surface = Color(0xFFFFFFFF);
@@ -10,6 +18,19 @@ class AchievementsScreen extends StatelessWidget {
   static const Color muted = Color(0xFF737A74);
   static const Color green = Color(0xFF557B63);
   static const Color gold = Color(0xFFF5C451);
+
+  Set<String> _practiceUnlocked = {};
+
+  @override
+  void initState() {
+    super.initState();
+    _loadPracticeAchievements();
+  }
+
+  Future<void> _loadPracticeAchievements() async {
+    final prefs = await SharedPreferences.getInstance();
+    if (mounted) setState(() => _practiceUnlocked = (prefs.getStringList('practice_achievements_v1') ?? []).toSet());
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -57,6 +78,13 @@ class AchievementsScreen extends StatelessWidget {
         'color': green,
       },
     ];
+    achievements.addAll(practiceAchievements.map((achievement) => {
+      'icon': achievement.emoji,
+      'title': achievement.title,
+      'description': achievement.description,
+      'unlocked': _practiceUnlocked.contains(achievement.id),
+      'color': gold,
+    }));
 
     return Scaffold(
       backgroundColor: background,

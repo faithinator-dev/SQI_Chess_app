@@ -145,6 +145,32 @@ class MatchmakingRepository {
     return Map<String, dynamic>.from(result);
   }
 
+  Future<Map<String, dynamic>> createFriendGame() async {
+    final result = await _client.rpc(
+      'create_friend_game',
+      params: {
+        'p_time_control': '10+0',
+        'p_initial_time_seconds': 600,
+        'p_increment_seconds': 0,
+        'p_opponent_id': null,
+      },
+    );
+    return Map<String, dynamic>.from(result as Map);
+  }
+
+  Future<Map<String, dynamic>> joinFriendGame(String gameId) async {
+    final normalizedId = gameId.trim();
+    if (normalizedId.isEmpty) {
+      throw const FormatException('Enter a game ID.');
+    }
+
+    final result = await _client.rpc(
+      'join_friend_game',
+      params: {'p_game_id': normalizedId},
+    );
+    return Map<String, dynamic>.from(result as Map);
+  }
+
   Future<void> setOnline() async {
     await _client.rpc('set_player_presence', params: {'p_status': 'online'});
   }

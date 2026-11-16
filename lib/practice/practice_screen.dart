@@ -794,13 +794,60 @@ class _PracticeScreenState extends State<PracticeScreen> {
       ),
     );
 
-    // Later:
-    Navigator.push(
-      context,
-      MaterialPageRoute(
-        builder: (_) => PracticeGameScreen(
-          level: level['title'],
-          playerName: widget.playerName,
+    showModalBottomSheet<void>(
+      context: context,
+      showDragHandle: true,
+      builder: (sheetContext) => SafeArea(
+        child: Padding(
+          padding: const EdgeInsets.fromLTRB(20, 8, 20, 24),
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            crossAxisAlignment: CrossAxisAlignment.stretch,
+            children: [
+              Text(
+                'Choose your side',
+                style: Theme.of(context).textTheme.titleLarge,
+              ),
+              const SizedBox(height: 6),
+              Text(
+                'Play ${level['title']} against the computer.',
+                style: Theme.of(context).textTheme.bodyMedium,
+              ),
+              const SizedBox(height: 16),
+              for (final choice in [
+                (
+                  PlayerSideChoice.white,
+                  'Play as White',
+                  Icons.circle_outlined,
+                ),
+                (PlayerSideChoice.black, 'Play as Black', Icons.circle),
+                (PlayerSideChoice.random, 'Play Random', Icons.shuffle_rounded),
+              ])
+                Padding(
+                  padding: const EdgeInsets.only(bottom: 8),
+                  child: OutlinedButton.icon(
+                    onPressed: () {
+                      Navigator.pop(sheetContext);
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (_) => PracticeGameScreen(
+                            level: level['title'],
+                            playerName: widget.playerName,
+                            sideChoice: choice.$1,
+                          ),
+                        ),
+                      );
+                    },
+                    icon: Icon(choice.$3),
+                    label: Text(choice.$2),
+                    style: OutlinedButton.styleFrom(
+                      minimumSize: const Size.fromHeight(50),
+                    ),
+                  ),
+                ),
+            ],
+          ),
         ),
       ),
     );

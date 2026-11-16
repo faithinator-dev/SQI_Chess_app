@@ -3,6 +3,16 @@
 
 GRANT SELECT, INSERT, UPDATE ON public.lessons TO authenticated;
 
+-- Use the non-recursive SECURITY DEFINER role check from the role management
+-- migration so lesson policies cannot recurse through profiles RLS.
+DO $$
+BEGIN
+  IF to_regprocedure('public.current_user_is_admin()') IS NULL THEN
+    RAISE EXCEPTION 'Apply 20261011110000_admin_role_management.sql first';
+  END IF;
+END;
+$$;
+
 DO $$
 BEGIN
   IF NOT EXISTS (
@@ -12,10 +22,7 @@ BEGIN
   ) THEN
     CREATE POLICY "Admins can view all lessons"
       ON public.lessons FOR SELECT TO authenticated
-      USING (EXISTS (
-        SELECT 1 FROM public.profiles p
-        WHERE p.id = auth.uid() AND p.role = 'admin'
-      ));
+      USING (public.current_user_is_admin());
   END IF;
   IF NOT EXISTS (
     SELECT 1 FROM pg_policies
@@ -24,10 +31,7 @@ BEGIN
   ) THEN
     CREATE POLICY "Admins can create lessons"
       ON public.lessons FOR INSERT TO authenticated
-      WITH CHECK (EXISTS (
-        SELECT 1 FROM public.profiles p
-        WHERE p.id = auth.uid() AND p.role = 'admin'
-      ));
+      WITH CHECK (public.current_user_is_admin());
   END IF;
   IF NOT EXISTS (
     SELECT 1 FROM pg_policies
@@ -36,14 +40,8 @@ BEGIN
   ) THEN
     CREATE POLICY "Admins can update lessons"
       ON public.lessons FOR UPDATE TO authenticated
-      USING (EXISTS (
-        SELECT 1 FROM public.profiles p
-        WHERE p.id = auth.uid() AND p.role = 'admin'
-      ))
-      WITH CHECK (EXISTS (
-        SELECT 1 FROM public.profiles p
-        WHERE p.id = auth.uid() AND p.role = 'admin'
-      ));
+      USING (public.current_user_is_admin())
+      WITH CHECK (public.current_user_is_admin());
   END IF;
 END;
 $$;

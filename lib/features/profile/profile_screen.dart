@@ -1,4 +1,4 @@
-﻿import 'package:flutter/material.dart';
+import 'package:flutter/material.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
 import '../../core/models/profile_model.dart';
@@ -9,6 +9,7 @@ import 'player_statistics_screen.dart';
 import 'game_history_screen.dart';
 import 'achievements_screen.dart';
 import 'settings_screen.dart';
+import 'friends_screen.dart';
 
 class ProfileScreen extends StatefulWidget {
   const ProfileScreen({super.key});
@@ -156,8 +157,9 @@ class _ProfileScreenState extends State<ProfileScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final colors = Theme.of(context).colorScheme;
     return Scaffold(
-      backgroundColor: _ProfileColors.background,
+      backgroundColor: colors.surface,
       body: SafeArea(
         bottom: false,
         child: _loading
@@ -283,32 +285,53 @@ class _ProfileScreenState extends State<ProfileScreen> {
     ProfileModel profile,
     bool desktop,
   ) {
+    final isDark = Theme.of(context).brightness == Brightness.dark;
+    final heroBgColor = isDark ? const Color(0xFF131B2E) : Colors.white;
+    final heroBorderColor = isDark
+        ? const Color(0xFF243048)
+        : _ProfileColors.blue.withValues(alpha: 0.11);
+
     return Container(
       width: double.infinity,
       padding: EdgeInsets.all(desktop ? 27 : 20),
       decoration: BoxDecoration(
-        gradient: LinearGradient(
-          begin: Alignment.topLeft,
-          end: Alignment.bottomRight,
-          colors: [
-            _ProfileColors.blue.withValues(alpha: 0.15),
-            _ProfileColors.border.withValues(alpha: 0.05),
-          ],
-        ),
-        image: const DecorationImage(
-          image: AssetImage('assets/images/profile_bg.png'),
-          fit: BoxFit.cover,
-          opacity: 0.3,
-        ),
+        color: heroBgColor,
+        gradient: isDark
+            ? null
+            : LinearGradient(
+                begin: Alignment.topLeft,
+                end: Alignment.bottomRight,
+                colors: [
+                  _ProfileColors.blue.withValues(alpha: 0.15),
+                  _ProfileColors.border.withValues(alpha: 0.05),
+                ],
+              ),
+        // In dark mode: chess background image is removed for crystal clear readability
+        image: isDark
+            ? null
+            : const DecorationImage(
+                image: AssetImage('assets/images/profile_bg.png'),
+                fit: BoxFit.cover,
+                opacity: 0.3,
+              ),
         borderRadius: BorderRadius.circular(26),
-        border: Border.all(color: _ProfileColors.blue.withValues(alpha: 0.11)),
+        border: Border.all(color: heroBorderColor, width: isDark ? 1.4 : 1.0),
+        boxShadow: isDark
+            ? [
+                BoxShadow(
+                  color: Colors.black.withValues(alpha: 0.35),
+                  blurRadius: 16,
+                  offset: const Offset(0, 6),
+                ),
+              ]
+            : null,
       ),
       child: desktop
           ? Row(
               children: [
-                _avatar(profile, 86),
+                _avatar(context, profile, 86),
                 const SizedBox(width: 18),
-                Expanded(child: _identity(profile)),
+                Expanded(child: _identity(context, profile)),
                 const SizedBox(width: 20),
                 _editButton(context, profile),
               ],
@@ -318,9 +341,9 @@ class _ProfileScreenState extends State<ProfileScreen> {
               children: [
                 Row(
                   children: [
-                    _avatar(profile, 72),
+                    _avatar(context, profile, 72),
                     const SizedBox(width: 14),
-                    Expanded(child: _identity(profile)),
+                    Expanded(child: _identity(context, profile)),
                   ],
                 ),
                 const SizedBox(height: 16),
@@ -330,7 +353,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
     );
   }
 
-  Widget _avatar(ProfileModel profile, double size) {
+  Widget _avatar(BuildContext context, ProfileModel profile, double size) {
     if (profile.avatarUrl != null && profile.avatarUrl!.trim().isNotEmpty) {
       return ClipOval(
         clipBehavior: Clip.hardEdge,
@@ -340,16 +363,34 @@ class _ProfileScreenState extends State<ProfileScreen> {
           height: size,
           fit: BoxFit.cover,
           errorBuilder: (_, _, _) {
-            return _initialAvatar(profile, size);
+            return _initialAvatar(context, profile, size);
           },
         ),
       );
     }
 
-    return _initialAvatar(profile, size);
+    return _initialAvatar(context, profile, size);
   }
 
-  Widget _initialAvatar(ProfileModel profile, double size) {
+  Widget _initialAvatar(
+    BuildContext context,
+    ProfileModel profile,
+    double size,
+  ) {
+    final isDark = Theme.of(context).brightness == Brightness.dark;
+    final avatarBg = isDark
+        ? const Color(0xFF1B243B)
+        : _ProfileColors.blue.withValues(alpha: 0.13);
+    final avatarBorder = isDark
+        ? const Color(0xFF38BDF8).withValues(alpha: 0.4)
+        : _ProfileColors.blue.withValues(alpha: 0.20);
+    final avatarTextColor = isDark
+        ? const Color(0xFF38BDF8)
+        : _ProfileColors.blue;
+    final ringBorder = isDark
+        ? const Color(0xFF131B2E)
+        : _ProfileColors.surface;
+
     return Stack(
       children: [
         Container(
@@ -357,18 +398,15 @@ class _ProfileScreenState extends State<ProfileScreen> {
           height: size,
           alignment: Alignment.center,
           decoration: BoxDecoration(
-            color: _ProfileColors.blue.withValues(alpha: 0.13),
+            color: avatarBg,
             shape: BoxShape.circle,
-            border: Border.all(
-              color: _ProfileColors.blue.withValues(alpha: 0.20),
-              width: 2,
-            ),
+            border: Border.all(color: avatarBorder, width: 2),
           ),
           child: Text(
             profile.initials,
             style: TextStyle(
               fontSize: 20,
-              color: _ProfileColors.blue,
+              color: avatarTextColor,
               fontWeight: FontWeight.w900,
             ),
           ),
@@ -382,7 +420,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
             decoration: BoxDecoration(
               color: _ProfileColors.green,
               shape: BoxShape.circle,
-              border: Border.all(color: _ProfileColors.surface, width: 3),
+              border: Border.all(color: ringBorder, width: 3),
             ),
           ),
         ),
@@ -390,7 +428,16 @@ class _ProfileScreenState extends State<ProfileScreen> {
     );
   }
 
-  Widget _identity(ProfileModel profile) {
+  Widget _identity(BuildContext context, ProfileModel profile) {
+    final isDark = Theme.of(context).brightness == Brightness.dark;
+    final nameColor = isDark
+        ? const Color(0xFFF1F5F9)
+        : _ProfileColors.textPrimary;
+    final handleColor = isDark ? const Color(0xFF94A3B8) : _ProfileColors.muted;
+    final skillPillColor = isDark
+        ? const Color(0xFF38BDF8)
+        : _ProfileColors.blue;
+
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -401,18 +448,18 @@ class _ProfileScreenState extends State<ProfileScreen> {
                 profile.fullName,
                 maxLines: 1,
                 overflow: TextOverflow.ellipsis,
-                style: const TextStyle(
+                style: TextStyle(
                   fontSize: 20,
-                  color: _ProfileColors.textPrimary,
+                  color: nameColor,
                   fontWeight: FontWeight.w900,
                 ),
               ),
             ),
             if (profile.isAdmin) ...[
               const SizedBox(width: 8),
-              const Icon(
+              Icon(
                 Icons.admin_panel_settings_rounded,
-                color: _ProfileColors.purple,
+                color: isDark ? const Color(0xFFC084FC) : _ProfileColors.purple,
                 size: 18,
               ),
             ],
@@ -421,19 +468,26 @@ class _ProfileScreenState extends State<ProfileScreen> {
         const SizedBox(height: 4),
         Text(
           '@${profile.username}',
-          style: const TextStyle(fontSize: 20, color: _ProfileColors.muted),
+          style: TextStyle(
+            fontSize: 14,
+            color: handleColor,
+            fontWeight: FontWeight.w500,
+          ),
         ),
         const SizedBox(height: 9),
         Wrap(
           spacing: 7,
           runSpacing: 7,
           children: [
-            _ProfilePill(text: profile.skillLevel, color: _ProfileColors.blue),
+            _ProfilePill(text: profile.skillLevel, color: skillPillColor),
             if (profile.level != null && profile.level!.trim().isNotEmpty)
-              _ProfilePill(text: profile.level!, color: _ProfileColors.purple),
+              _ProfilePill(
+                text: profile.level!,
+                color: isDark ? const Color(0xFFC084FC) : _ProfileColors.purple,
+              ),
             _ProfilePill(
               text: '${profile.gamesPlayed} games',
-              color: _ProfileColors.green,
+              color: isDark ? const Color(0xFF34D399) : _ProfileColors.green,
             ),
           ],
         ),
@@ -442,6 +496,12 @@ class _ProfileScreenState extends State<ProfileScreen> {
   }
 
   Widget _editButton(BuildContext context, ProfileModel profile) {
+    final isDark = Theme.of(context).brightness == Brightness.dark;
+    final btnTextColor = isDark ? const Color(0xFF38BDF8) : _ProfileColors.blue;
+    final btnBorderColor = isDark
+        ? const Color(0xFF243048)
+        : _ProfileColors.border;
+
     return SizedBox(
       width: 140,
       child: OutlinedButton.icon(
@@ -449,9 +509,12 @@ class _ProfileScreenState extends State<ProfileScreen> {
         icon: const Icon(Icons.edit_outlined, size: 16),
         label: const Text('Edit profile'),
         style: OutlinedButton.styleFrom(
-          foregroundColor: _ProfileColors.blue,
+          foregroundColor: btnTextColor,
+          backgroundColor: isDark
+              ? const Color(0xFF1B243B)
+              : Colors.transparent,
           minimumSize: const Size(140, 45),
-          side: BorderSide(color: _ProfileColors.border),
+          side: BorderSide(color: btnBorderColor),
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(13),
           ),
@@ -858,6 +921,14 @@ class _ProfileScreenState extends State<ProfileScreen> {
           ),
           _divider(),
           _menuItem(
+            icon: Icons.people_alt_outlined,
+            color: _ProfileColors.green,
+            title: 'Friends',
+            subtitle: 'Add friends and challenge them online',
+            onTap: () => _push(context, const FriendsScreen()),
+          ),
+          _divider(),
+          _menuItem(
             icon: Icons.settings_outlined,
             color: _ProfileColors.muted,
             title: 'Settings',
@@ -1251,17 +1322,21 @@ class _ProfilePill extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final isDark = Theme.of(context).brightness == Brightness.dark;
+
     return Container(
-      padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 5),
+      padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 4),
       decoration: BoxDecoration(
-        color: color.withValues(alpha: 0.08),
+        color: color.withValues(alpha: isDark ? 0.16 : 0.08),
         borderRadius: BorderRadius.circular(999),
-        border: Border.all(color: color.withValues(alpha: 0.10)),
+        border: Border.all(
+          color: color.withValues(alpha: isDark ? 0.35 : 0.15),
+        ),
       ),
       child: Text(
         text,
         style: TextStyle(
-          fontSize: 20,
+          fontSize: 12.5,
           color: color,
           fontWeight: FontWeight.w800,
         ),

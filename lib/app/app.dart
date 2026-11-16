@@ -8,6 +8,8 @@ import 'theme.dart';
 import '../core/config/supabase_config.dart';
 import '../features/dashboard/dashboard_screen.dart';
 import '../features/onboarding/onboarding_screen.dart';
+import '../core/repositories/guest_preferences_repository.dart';
+import '../features/guest/guest_dashboard_screen.dart';
 
 class CheckmateArenaApp extends StatefulWidget {
   const CheckmateArenaApp({super.key, this.client});
@@ -20,7 +22,9 @@ class CheckmateArenaApp extends StatefulWidget {
 
 class _CheckmateArenaAppState extends State<CheckmateArenaApp> {
   bool _initializing = true;
-  String _appearance = 'System';
+  String? _guestName;
+  String _appearance = 'Light';
+  String? _appearanceUserId;
   String? _startupError;
   int _attempt = 0;
   StreamSubscription<Uri>? _authLinkSubscription;
@@ -61,6 +65,8 @@ class _CheckmateArenaAppState extends State<CheckmateArenaApp> {
         publishableKey: SupabaseConfig.publishableKey,
       );
       await _startAuthDeepLinks(Supabase.instance.client);
+      await _loadSavedAppearance(Supabase.instance.client);
+      await _checkGuestSession();
       if (!mounted || attempt != _attempt) return;
       setState(() => _initializing = false);
     } catch (error) {
@@ -70,6 +76,20 @@ class _CheckmateArenaAppState extends State<CheckmateArenaApp> {
         _startupError = _startupMessage(error);
       });
     }
+  }
+
+  Future<void> _checkGuestSession() async {
+    final name = await GuestPreferencesRepository().getActiveGuestName();
+    final savedAppearance = await GuestPreferencesRepository().getAppearance();
+    final appearance = savedAppearance;
+    if (!mounted) return;
+    setState(() {
+      _guestName = name != null && name.trim().isNotEmpty ? name : null;
+      if (appearance != null &&
+          const ['Dark', 'Light', 'System'].contains(appearance)) {
+        _appearance = appearance;
+      }
+    });
   }
 
   Future<void> _startAuthDeepLinks(SupabaseClient client) async {
@@ -83,6 +103,30 @@ class _CheckmateArenaAppState extends State<CheckmateArenaApp> {
         debugPrint('Auth deep-link error: $error');
       },
     );
+  }
+
+  Future<void> _loadSavedAppearance(SupabaseClient client) async {
+    final user = client.auth.currentUser;
+    if (user == null || _appearanceUserId == user.id) return;
+    _appearanceUserId = user.id;
+    try {
+      final localAppearance = await GuestPreferencesRepository()
+          .getAppearance();
+      if (localAppearance != null &&
+          const ['Dark', 'Light', 'System'].contains(localAppearance)) {
+        if (mounted) _setAppearance(localAppearance);
+      }
+    } catch (error) {
+      _appearanceUserId = null;
+      debugPrint('Could not load local appearance: $error');
+    }
+  }
+
+  void _setAppearance(String appearance) {
+    if (!const ['Dark', 'Light', 'System'].contains(appearance)) return;
+    if (_appearance != appearance && mounted) {
+      setState(() => _appearance = appearance);
+    }
   }
 
   Future<void> _handleAuthDeepLink(SupabaseClient client, Uri uri) async {
@@ -116,13 +160,22 @@ class _CheckmateArenaAppState extends State<CheckmateArenaApp> {
         'Dark' => ThemeMode.dark,
         _ => ThemeMode.system,
       },
+      // UserSettingsModel defaults to Dark; start there and let the persisted
+      // preference replace it as soon as the preferences page loads.
       builder: (context, child) => _AppearanceBridge(
+        onLoad: _loadSavedAppearance,
         onChanged: (value) {
           if (mounted && value != _appearance) {
-            setState(() => _appearance = value);
+            _setAppearance(value);
           }
         },
-        child: child ?? const SizedBox.shrink(),
+        child: _GuestSessionBridge(
+          onAuthenticated: () async {
+            await GuestPreferencesRepository().clear();
+            if (mounted) setState(() => _guestName = null);
+          },
+          child: child ?? const SizedBox.shrink(),
+        ),
       ),
       home: widget.client != null
           ? AuthGate(client: widget.client)
@@ -130,15 +183,39 @@ class _CheckmateArenaAppState extends State<CheckmateArenaApp> {
           ? const _StartupScreen()
           : _startupError != null
           ? _StartupScreen(error: _startupError, onRetry: _initializeSupabase)
+          : _guestName != null
+          ? GuestDashboardScreen(playerName: _guestName!)
           : const AuthGate(),
     );
   }
 }
 
+class _GuestSessionBridge extends InheritedWidget {
+  const _GuestSessionBridge({
+    required this.onAuthenticated,
+    required super.child,
+  });
+  final VoidCallback onAuthenticated;
+  static void authenticated(BuildContext context) => context
+      .getInheritedWidgetOfExactType<_GuestSessionBridge>()
+      ?.onAuthenticated();
+  @override
+  bool updateShouldNotify(_GuestSessionBridge oldWidget) =>
+      onAuthenticated != oldWidget.onAuthenticated;
+}
+
+void clearGuestSessionAfterAuthentication(BuildContext context) =>
+    _GuestSessionBridge.authenticated(context);
+
 class _AppearanceBridge extends InheritedWidget {
-  const _AppearanceBridge({required this.onChanged, required super.child});
+  const _AppearanceBridge({
+    required this.onChanged,
+    required this.onLoad,
+    required super.child,
+  });
 
   final ValueChanged<String> onChanged;
+  final ValueChanged<SupabaseClient> onLoad;
 
   static void update(BuildContext context, String appearance) {
     context.getInheritedWidgetOfExactType<_AppearanceBridge>()?.onChanged(
@@ -146,9 +223,13 @@ class _AppearanceBridge extends InheritedWidget {
     );
   }
 
+  static void loadAppearance(BuildContext context, SupabaseClient client) {
+    context.getInheritedWidgetOfExactType<_AppearanceBridge>()?.onLoad(client);
+  }
+
   @override
   bool updateShouldNotify(_AppearanceBridge oldWidget) =>
-      onChanged != oldWidget.onChanged;
+      onChanged != oldWidget.onChanged || onLoad != oldWidget.onLoad;
 }
 
 void updateAppAppearance(BuildContext context, String appearance) {
@@ -164,54 +245,135 @@ class _StartupScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final hasError = error != null;
+
     return Scaffold(
-      backgroundColor: const Color(0xFFF9F8F6),
+      backgroundColor: const Color(
+        0xFF0A0F1D,
+      ), // Deep obsidian / navy background
       body: SafeArea(
         child: Center(
           child: Padding(
-            padding: const EdgeInsets.all(28),
+            padding: const EdgeInsets.symmetric(horizontal: 32),
             child: ConstrainedBox(
-              constraints: const BoxConstraints(maxWidth: 380),
+              constraints: const BoxConstraints(maxWidth: 360),
               child: Column(
-                mainAxisSize: MainAxisSize.min,
+                mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  const Icon(
-                    Icons.sports_esports_rounded,
-                    color: Color(0xFF2D4A3E),
-                    size: 54,
+                  // Game Logo Container
+                  Container(
+                    width: 90,
+                    height: 90,
+                    padding: const EdgeInsets.all(16),
+                    decoration: BoxDecoration(
+                      color: const Color(0xFF131B2E),
+                      borderRadius: BorderRadius.circular(26),
+                      border: Border.all(
+                        color: const Color(0xFF243048),
+                        width: 1.5,
+                      ),
+                      boxShadow: [
+                        BoxShadow(
+                          color: const Color(
+                            0xFF38BDF8,
+                          ).withValues(alpha: 0.18),
+                          blurRadius: 28,
+                          offset: const Offset(0, 8),
+                        ),
+                      ],
+                    ),
+                    child: Image.asset(
+                      'assets/images/chesssqi.png',
+                      fit: BoxFit.contain,
+                      errorBuilder: (_, _, _) => const Icon(
+                        Icons.sports_esports_rounded,
+                        color: Color(0xFF38BDF8),
+                        size: 44,
+                      ),
+                    ),
                   ),
-                  const SizedBox(height: 18),
+
+                  const SizedBox(height: 24),
+
+                  // Game Title
                   const Text(
-                    'SQI CHESS APP',
+                    'SQI CHECKMATE ARENA',
                     textAlign: TextAlign.center,
                     style: TextStyle(
-                      color: Colors.white,
+                      fontSize: 18,
+                      color: Color(0xFFF1F5F9),
                       fontWeight: FontWeight.w900,
-                      letterSpacing: 1.2,
+                      letterSpacing: 1.4,
                     ),
                   ),
-                  const SizedBox(height: 12),
-                  if (!hasError) ...[
-                    const Text(
-                      'Starting secure services...',
-                      style: TextStyle(color: Color(0xFF737A74)),
+
+                  const SizedBox(height: 6),
+
+                  Text(
+                    hasError ? 'Startup Failed' : 'Loading Game Arena...',
+                    textAlign: TextAlign.center,
+                    style: TextStyle(
+                      fontSize: 13.5,
+                      color: hasError
+                          ? const Color(0xFFEF4444)
+                          : const Color(0xFF94A3B8),
+                      fontWeight: FontWeight.w500,
+                      letterSpacing: 0.3,
                     ),
-                    const SizedBox(height: 18),
-                    const CircularProgressIndicator(color: Color(0xFF2D4A3E)),
+                  ),
+
+                  const SizedBox(height: 28),
+
+                  if (!hasError) ...[
+                    // Gaming Style Progress Bar
+                    ClipRRect(
+                      borderRadius: BorderRadius.circular(99),
+                      child: const SizedBox(
+                        width: 160,
+                        height: 6,
+                        child: LinearProgressIndicator(
+                          backgroundColor: Color(0xFF1B243B),
+                          valueColor: AlwaysStoppedAnimation<Color>(
+                            Color(0xFF38BDF8),
+                          ),
+                        ),
+                      ),
+                    ),
                   ] else ...[
-                    Text(
-                      error!,
-                      textAlign: TextAlign.center,
-                      style: const TextStyle(
-                        color: Color(0xFF737A74),
-                        height: 1.5,
+                    Container(
+                      padding: const EdgeInsets.all(14),
+                      decoration: BoxDecoration(
+                        color: const Color(0xFFEF4444).withValues(alpha: 0.1),
+                        borderRadius: BorderRadius.circular(14),
+                        border: Border.all(
+                          color: const Color(0xFFEF4444).withValues(alpha: 0.3),
+                        ),
+                      ),
+                      child: Text(
+                        error!,
+                        textAlign: TextAlign.center,
+                        style: const TextStyle(
+                          fontSize: 13,
+                          color: Color(0xFFEF4444),
+                          height: 1.4,
+                        ),
                       ),
                     ),
                     if (onRetry != null) ...[
-                      const SizedBox(height: 18),
-                      FilledButton(
+                      const SizedBox(height: 20),
+                      ElevatedButton(
                         onPressed: onRetry,
-                        child: const Text('Retry'),
+                        style: ElevatedButton.styleFrom(
+                          backgroundColor: const Color(0xFF38BDF8),
+                          foregroundColor: const Color(0xFF0A0F1D),
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(14),
+                          ),
+                          minimumSize: const Size(140, 46),
+                        ),
+                        child: const Text(
+                          'Retry',
+                          style: TextStyle(fontWeight: FontWeight.w800),
+                        ),
                       ),
                     ],
                   ],
@@ -234,6 +396,10 @@ class AuthGate extends StatelessWidget {
   Widget build(BuildContext context) {
     final supabase = client ?? Supabase.instance.client;
     final session = supabase.auth.currentSession;
+
+    if (session != null) {
+      _AppearanceBridge.loadAppearance(context, supabase);
+    }
 
     if (session != null) {
       return const DashboardScreen();

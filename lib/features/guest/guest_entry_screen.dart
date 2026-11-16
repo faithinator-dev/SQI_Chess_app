@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
+import '../auth/login_screen.dart';
+import '../auth/register_screen.dart';
 
 import 'guest_dashboard_screen.dart';
+import '../../core/repositories/guest_preferences_repository.dart';
 
 class GuestEntryScreen extends StatefulWidget {
   const GuestEntryScreen({super.key});
@@ -21,6 +24,8 @@ class _GuestEntryScreenState extends State<GuestEntryScreen> {
   static const Color border = Color(0xFFD8E1EC);
 
   final TextEditingController _nameController = TextEditingController();
+  final _preferences = GuestPreferencesRepository();
+  bool _loading = true;
 
   String? _error;
 
@@ -30,7 +35,25 @@ class _GuestEntryScreenState extends State<GuestEntryScreen> {
     super.dispose();
   }
 
-  void _continueAsGuest() {
+  @override
+  void initState() {
+    super.initState();
+    _loadSavedGuest();
+  }
+
+  Future<void> _loadSavedGuest() async {
+    final name = await _preferences.getName();
+    if (!mounted) return;
+    final activeName = await _preferences.getActiveGuestName();
+    if (activeName != null && activeName.trim().isNotEmpty) {
+      Navigator.of(context).pushReplacement(MaterialPageRoute<void>(builder: (_) => GuestDashboardScreen(playerName: activeName)));
+      return;
+    }
+    if (name != null) _nameController.text = name;
+    setState(() => _loading = false);
+  }
+
+  Future<void> _continueAsGuest() async {
     final name = _nameController.text.trim();
 
     if (name.isEmpty) {
@@ -51,6 +74,9 @@ class _GuestEntryScreenState extends State<GuestEntryScreen> {
       _error = null;
     });
 
+    await _preferences.startSession(name);
+    if (!mounted) return;
+
     Navigator.of(context).pushReplacement(
       MaterialPageRoute<void>(
         builder: (_) => GuestDashboardScreen(playerName: name),
@@ -60,6 +86,7 @@ class _GuestEntryScreenState extends State<GuestEntryScreen> {
 
   @override
   Widget build(BuildContext context) {
+    if (_loading) return const Scaffold(body: Center(child: CircularProgressIndicator()));
     return Scaffold(
       backgroundColor: background,
       body: SafeArea(
@@ -237,6 +264,15 @@ class _GuestEntryScreenState extends State<GuestEntryScreen> {
                     ),
                   ),
                   const SizedBox(height: 14),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      TextButton(onPressed: () => Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (_) => const LoginScreen())), child: const Text('Sign in')),
+                      const Text('or'),
+                      TextButton(onPressed: () => Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (_) => const RegisterScreen())), child: const Text('Create an account')),
+                    ],
+                  ),
+                  const SizedBox(height: 8),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: const [

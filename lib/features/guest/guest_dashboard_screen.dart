@@ -5,11 +5,27 @@ import '../match/match_config.dart';
 import '../match/match_mode.dart';
 import '../../practice/practice_screen.dart';
 import '../matches/matches_screen.dart';
+import 'guest_settings_screen.dart';
+import 'guest_entry_screen.dart';
+import '../../core/repositories/guest_preferences_repository.dart';
 
-class GuestDashboardScreen extends StatelessWidget {
+class GuestDashboardScreen extends StatefulWidget {
   const GuestDashboardScreen({super.key, required this.playerName});
 
   final String playerName;
+
+  @override
+  State<GuestDashboardScreen> createState() => _GuestDashboardScreenState();
+}
+
+class _GuestDashboardScreenState extends State<GuestDashboardScreen> {
+  late String _playerName;
+
+  @override
+  void initState() {
+    super.initState();
+    _playerName = widget.playerName;
+  }
 
   static const Color background = Color(0xFFF9F8F6);
   static const Color surface = Color(0xFFFFFFFF);
@@ -30,7 +46,7 @@ class GuestDashboardScreen extends StatelessWidget {
             mode: MatchMode.local,
             initialTimeSeconds: 600,
             incrementSeconds: 0,
-            whitePlayerName: playerName,
+            whitePlayerName: _playerName,
             blackPlayerName: 'Player 2',
           ),
         ),
@@ -41,7 +57,7 @@ class GuestDashboardScreen extends StatelessWidget {
   void _openPractice(BuildContext context) {
     Navigator.of(context).push(
       MaterialPageRoute<void>(
-        builder: (_) => PracticeScreen(playerName: playerName),
+        builder: (_) => PracticeScreen(playerName: _playerName),
       ),
     );
   }
@@ -64,6 +80,10 @@ class GuestDashboardScreen extends StatelessWidget {
           'Guest Dashboard',
           style: TextStyle(fontSize: 20, fontWeight: FontWeight.w800),
         ),
+        actions: [
+          IconButton(tooltip: 'Guest settings', icon: const Icon(Icons.settings_outlined), onPressed: _openSettings),
+          IconButton(tooltip: 'Exit guest mode', icon: const Icon(Icons.logout), onPressed: _exitGuest),
+        ],
       ),
       body: SafeArea(
         child: ListView(
@@ -135,6 +155,19 @@ class GuestDashboardScreen extends StatelessWidget {
     );
   }
 
+  Future<void> _openSettings() async {
+    final result = await Navigator.of(context).push<String>(MaterialPageRoute(builder: (_) => GuestSettingsScreen(playerName: _playerName)));
+    if (result != null && mounted) setState(() => _playerName = result);
+  }
+
+  Future<void> _exitGuest() async {
+    await GuestPreferencesRepository().endSession();
+    if (!mounted) return;
+    Navigator.of(context).pushReplacement(
+      MaterialPageRoute<void>(builder: (_) => const GuestEntryScreen()),
+    );
+  }
+
   Widget _welcomeCard() {
     return Container(
       padding: const EdgeInsets.all(20),
@@ -154,7 +187,7 @@ class GuestDashboardScreen extends StatelessWidget {
               shape: BoxShape.circle,
             ),
             child: Text(
-              playerName.substring(0, 1).toUpperCase(),
+              _playerName.substring(0, 1).toUpperCase(),
               style: const TextStyle(
                 fontSize: 20,
                 color: textPrimary,
@@ -173,7 +206,7 @@ class GuestDashboardScreen extends StatelessWidget {
                 ),
                 const SizedBox(height: 3),
                 Text(
-                  playerName,
+                  _playerName,
                   style: const TextStyle(
                     fontSize: 20,
                     color: textPrimary,

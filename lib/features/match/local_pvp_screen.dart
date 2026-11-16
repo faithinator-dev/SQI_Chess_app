@@ -387,6 +387,35 @@ class _LocalPvpScreenState extends State<LocalPvpScreen> {
     _finishGame(winner: winner, reason: 'Opponent resigned.');
   }
 
+  Future<void> _confirmExit() async {
+    if (_gameOver) {
+      if (mounted) Navigator.of(context).pop();
+      return;
+    }
+
+    final exit = await showDialog<bool>(
+      context: context,
+      builder: (dialogContext) => AlertDialog(
+        title: const Text('Exit game?'),
+        content: const Text(
+          'This game is still in progress. Do you want to continue playing or exit?',
+        ),
+        actions: [
+          TextButton(
+            onPressed: () => Navigator.pop(dialogContext, false),
+            child: const Text('Continue game'),
+          ),
+          FilledButton(
+            onPressed: () => Navigator.pop(dialogContext, true),
+            child: const Text('Exit'),
+          ),
+        ],
+      ),
+    );
+
+    if (exit == true && mounted) Navigator.of(context).pop();
+  }
+
   void _offerDraw() {
     if (_gameOver) return;
 
@@ -587,7 +616,7 @@ class _LocalPvpScreenState extends State<LocalPvpScreen> {
             child: Row(
               children: [
                 IconButton(
-                  onPressed: () => Navigator.of(context).pop(),
+                  onPressed: _confirmExit,
                   icon: const Icon(
                     Icons.arrow_back_rounded,
                     color: textSecondary,
@@ -675,7 +704,7 @@ class _LocalPvpScreenState extends State<LocalPvpScreen> {
                   Row(
                     children: [
                       IconButton(
-                        onPressed: () => Navigator.of(context).pop(),
+                        onPressed: _confirmExit,
                         icon: const Icon(
                           Icons.arrow_back_rounded,
                           color: textSecondary,
@@ -732,16 +761,22 @@ class _LocalPvpScreenState extends State<LocalPvpScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: background,
-      body: OrientationBuilder(
-        builder: (context, orientation) {
-          if (orientation == Orientation.landscape) {
-            return _buildLandscape();
-          }
+    return PopScope(
+      canPop: false,
+      onPopInvokedWithResult: (didPop, _) {
+        if (!didPop) unawaited(_confirmExit());
+      },
+      child: Scaffold(
+        backgroundColor: background,
+        body: OrientationBuilder(
+          builder: (context, orientation) {
+            if (orientation == Orientation.landscape) {
+              return _buildLandscape();
+            }
 
-          return _buildPortrait();
-        },
+            return _buildPortrait();
+          },
+        ),
       ),
     );
   }

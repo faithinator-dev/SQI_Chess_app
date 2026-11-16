@@ -9,6 +9,7 @@ import '../match/local_pvp_screen.dart';
 import '../match/match_config.dart';
 import '../match/match_mode.dart';
 import 'matchmaking_screen.dart';
+import 'friend_game_screen.dart';
 import 'matches_screen.dart' show LanLobbyScreen;
 import '../../practice/practice_screen.dart';
 
@@ -31,6 +32,7 @@ class _MatchesScreenState extends State<MatchesScreen> {
 
   static const _modes = [
     ('Quick Match', Icons.bolt_rounded),
+    ('Play with Friend', Icons.people_alt_outlined),
     ('Play Computer', Icons.computer_rounded),
     ('Local PvP', Icons.people_alt_outlined),
     ('Wi-Fi', Icons.wifi_rounded),
@@ -70,6 +72,7 @@ class _MatchesScreenState extends State<MatchesScreen> {
 
   void _startMode() {
     final Widget screen = switch (_selectedMode) {
+      'Play with Friend' => const FriendGameScreen(),
       'Play Computer' => const PracticeScreen(),
       'Local PvP' => LocalPvpScreen(
         config: MatchConfig(

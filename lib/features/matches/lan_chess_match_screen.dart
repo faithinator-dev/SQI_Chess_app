@@ -13,6 +13,7 @@ class LanChessMatchScreen extends StatefulWidget {
     super.key,
     required this.socket,
     required this.isHost,
+    this.incomingLines,
     this.timeControl = '10+0',
     this.initialTimeSeconds = 600,
     this.incrementSeconds = 0,
@@ -22,6 +23,7 @@ class LanChessMatchScreen extends StatefulWidget {
 
   final Socket socket;
   final bool isHost;
+  final Stream<String>? incomingLines;
 
   final String timeControl;
   final int initialTimeSeconds;
@@ -89,11 +91,13 @@ class _LanChessMatchScreenState extends State<LanChessMatchScreen> {
 
     _boardController = ChessboardController(game: _buildGame());
 
-    _incomingLines = _socket
-        .cast<List<int>>()
-        .transform(utf8.decoder)
-        .transform(const LineSplitter())
-        .asBroadcastStream();
+    _incomingLines =
+        widget.incomingLines ??
+        _socket
+            .cast<List<int>>()
+            .transform(utf8.decoder)
+            .transform(const LineSplitter())
+            .asBroadcastStream();
     _socketSubscription = _incomingLines!.listen(
       _handleMessage,
       onError: (_) => _handleDisconnected(),
@@ -660,6 +664,35 @@ class _LanChessMatchScreenState extends State<LanChessMatchScreen> {
     }
   }
 
+  Future<void> _confirmExit() async {
+    if (_gameOver) {
+      if (mounted) Navigator.of(context).pop();
+      return;
+    }
+
+    final exit = await showDialog<bool>(
+      context: context,
+      builder: (dialogContext) => AlertDialog(
+        title: const Text('Exit game?'),
+        content: const Text(
+          'Your LAN game is still in progress. Continue playing or exit?',
+        ),
+        actions: [
+          TextButton(
+            onPressed: () => Navigator.pop(dialogContext, false),
+            child: const Text('Continue game'),
+          ),
+          FilledButton(
+            onPressed: () => Navigator.pop(dialogContext, true),
+            child: const Text('Exit'),
+          ),
+        ],
+      ),
+    );
+
+    if (exit == true && mounted) Navigator.of(context).pop();
+  }
+
   void _sendState({required String type, String? san, String? uci}) {
     _sendMessage({
       'type': type,
@@ -850,79 +883,85 @@ class _LanChessMatchScreenState extends State<LanChessMatchScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: _background,
-      appBar: AppBar(
+    return PopScope(
+      canPop: false,
+      onPopInvokedWithResult: (didPop, _) {
+        if (!didPop) unawaited(_confirmExit());
+      },
+      child: Scaffold(
         backgroundColor: _background,
-        elevation: 0,
-        titleSpacing: 16,
-        title: Row(
-          children: [
-            const Text(
-              'LAN Match',
-              style: TextStyle(
-                fontSize: 20,
-                color: _primary,
-                fontWeight: FontWeight.w800,
-              ),
-            ),
-            const SizedBox(width: 9),
-            Container(
-              padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
-              decoration: BoxDecoration(
-                color: _gold.withValues(alpha: .10),
-                borderRadius: BorderRadius.circular(7),
-              ),
-              child: Text(
-                widget.timeControl,
-                style: const TextStyle(
+        appBar: AppBar(
+          backgroundColor: _background,
+          elevation: 0,
+          titleSpacing: 16,
+          title: Row(
+            children: [
+              const Text(
+                'LAN Match',
+                style: TextStyle(
                   fontSize: 20,
-                  color: _gold,
-                  fontWeight: FontWeight.w900,
+                  color: _primary,
+                  fontWeight: FontWeight.w800,
                 ),
               ),
-            ),
+              const SizedBox(width: 9),
+              Container(
+                padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
+                decoration: BoxDecoration(
+                  color: _gold.withValues(alpha: .10),
+                  borderRadius: BorderRadius.circular(7),
+                ),
+                child: Text(
+                  widget.timeControl,
+                  style: const TextStyle(
+                    fontSize: 20,
+                    color: _gold,
+                    fontWeight: FontWeight.w900,
+                  ),
+                ),
+              ),
+            ],
+          ),
+          actions: [
+            if (_connected)
+              Padding(
+                padding: const EdgeInsets.only(right: 16),
+                child: Row(
+                  children: [
+                    Container(
+                      width: 7,
+                      height: 7,
+                      decoration: const BoxDecoration(
+                        color: _green,
+                        shape: BoxShape.circle,
+                      ),
+                    ),
+                    const SizedBox(width: 6),
+                    const Text(
+                      'LAN',
+                      style: TextStyle(
+                        fontSize: 20,
+                        color: _green,
+                        fontWeight: FontWeight.w800,
+                      ),
+                    ),
+                  ],
+                ),
+              ),
           ],
         ),
-        actions: [
-          if (_connected)
-            Padding(
-              padding: const EdgeInsets.only(right: 16),
-              child: Row(
-                children: [
-                  Container(
-                    width: 7,
-                    height: 7,
-                    decoration: const BoxDecoration(
-                      color: _green,
-                      shape: BoxShape.circle,
-                    ),
-                  ),
-                  const SizedBox(width: 6),
-                  const Text(
-                    'LAN',
-                    style: TextStyle(
-                      fontSize: 20,
-                      color: _green,
-                      fontWeight: FontWeight.w800,
-                    ),
-                  ),
-                ],
-              ),
-            ),
-        ],
-      ),
-      body: SafeArea(
-        child: LayoutBuilder(
-          builder: (context, constraints) {
-            final landscape = constraints.maxWidth > 750;
+        body: SafeArea(
+          child: LayoutBuilder(
+            builder: (context, constraints) {
+              final landscape = constraints.maxWidth > 750;
 
-            if (landscape) {
-              return _buildLandscape();
-            }
+              if (landscape) {
+                return _buildLandscape();
+              }
 
-            return _buildPortrait();
-          },
+              return _buildPortrait();
+            },
+          ),
         ),
       ),
     );
@@ -1237,7 +1276,7 @@ class _LanChessMatchScreenState extends State<LanChessMatchScreen> {
           const SizedBox(width: 10),
           Expanded(
             child: OutlinedButton.icon(
-              onPressed: () => Navigator.of(context).pop(),
+              onPressed: _confirmExit,
               icon: const Icon(Icons.exit_to_app_rounded, size: 18),
               label: const Text('Exit'),
               style: OutlinedButton.styleFrom(foregroundColor: _secondary),

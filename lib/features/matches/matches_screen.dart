@@ -9,6 +9,7 @@ import 'package:mobile_scanner/mobile_scanner.dart';
 import 'package:qr_flutter/qr_flutter.dart';
 import 'package:sqi_chess_club/features/matches/lan_chess_match_screen.dart';
 import 'package:sqi_chess_club/features/matches/matchmaking_screen.dart';
+import 'package:sqi_chess_club/features/matches/friend_game_screen.dart';
 import 'package:sqi_chess_club/practice/practice_screen.dart';
 
 import '../match/local_pvp_screen.dart';
@@ -29,10 +30,11 @@ class MatchesScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final colors = Theme.of(context).colorScheme;
     return Scaffold(
-      backgroundColor: _background,
+      backgroundColor: colors.surface,
       appBar: AppBar(
-        backgroundColor: _background,
+        backgroundColor: colors.surface,
         elevation: 0,
         titleSpacing: 20,
         title: Column(
@@ -55,20 +57,20 @@ class MatchesScreen extends StatelessWidget {
               ),
             ),
             const SizedBox(height: 3),
-            const Text(
+            Text(
               'Play & Challenge',
               style: TextStyle(
                 fontSize: 20,
-                color: _primary,
+                color: colors.onSurface,
                 fontWeight: FontWeight.w900,
               ),
             ),
             const SizedBox(height: 2),
-            const Text(
+            Text(
               'Select your battlefield or resume ongoing clashes.',
               style: TextStyle(
                 fontSize: 20,
-                color: _muted,
+                color: colors.onSurfaceVariant,
                 fontWeight: FontWeight.w500,
               ),
             ),
@@ -83,7 +85,7 @@ class MatchesScreen extends StatelessWidget {
             _HeroCard(
               onTap: () {
                 Navigator.of(context).push(
-                  MaterialPageRoute(builder: (_) => const MatchmakingScreen()),
+                  MaterialPageRoute(builder: (_) => const FriendGameScreen()),
                 );
               },
             ),
@@ -114,7 +116,7 @@ class MatchesScreen extends StatelessWidget {
               trailing: 'FRIEND',
               onTap: () {
                 Navigator.of(context).push(
-                  MaterialPageRoute(builder: (_) => const MatchmakingScreen()),
+                  MaterialPageRoute(builder: (_) => const FriendGameScreen()),
                 );
               },
             ),
@@ -1306,6 +1308,7 @@ class _LanHostScreenState extends State<LanHostScreen> {
               builder: (_) => LanChessMatchScreen(
                 socket: socket,
                 isHost: true,
+                incomingLines: lines,
                 timeControl: _timeControl,
                 initialTimeSeconds: _initialTimeSeconds,
                 incrementSeconds: _incrementSeconds,
@@ -2128,6 +2131,7 @@ class _LanJoinScreenState extends State<LanJoinScreen> {
               builder: (_) => LanChessMatchScreen(
                 socket: socket,
                 isHost: false,
+                incomingLines: lines,
                 timeControl: widget.timeControl,
                 initialTimeSeconds: _initialTimeSeconds(widget.timeControl),
                 incrementSeconds: _incrementSeconds(widget.timeControl),

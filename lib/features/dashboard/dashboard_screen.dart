@@ -36,14 +36,15 @@ class _DashboardScreenState extends State<DashboardScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final colors = Theme.of(context).colorScheme;
     return Scaffold(
-      backgroundColor: _Colors.background,
+      backgroundColor: colors.surface,
       body: IndexedStack(index: _selectedIndex, children: _pages),
       bottomNavigationBar: Container(
         decoration: BoxDecoration(
-          color: _Colors.surface,
-          border: const Border(
-            top: BorderSide(color: Color(0xFFCCDEF0), width: 1),
+          color: colors.surface,
+          border: Border(
+            top: BorderSide(color: colors.outlineVariant, width: 1),
           ),
           boxShadow: [
             BoxShadow(
@@ -57,12 +58,12 @@ class _DashboardScreenState extends State<DashboardScreen> {
           currentIndex: _selectedIndex,
           onTap: (index) => setState(() => _selectedIndex = index),
           type: BottomNavigationBarType.fixed, // Keeps all labels visible
-          backgroundColor: _Colors.surface,
+          backgroundColor: colors.surface,
           elevation: 0,
 
           // Selection Styling
-          selectedItemColor: _Colors.blue,
-          unselectedItemColor: _Colors.textMuted,
+          selectedItemColor: colors.primary,
+          unselectedItemColor: colors.onSurfaceVariant,
           selectedLabelStyle: const TextStyle(
             fontSize: 20,
             fontWeight: FontWeight.w900,

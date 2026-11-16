@@ -369,6 +369,12 @@ class _LearnScreenState extends State<LearnScreen> {
             title: step['title']?.toString() ?? '',
             body: step['body']?.toString() ?? '',
             tip: step['tip']?.toString() ?? '',
+            fen: step['fen']?.toString(),
+            moves: step['moves'] is List
+                ? (step['moves'] as List).map((move) => move.toString()).toList()
+                : (step['moves']?.toString().trim().isNotEmpty ?? false)
+                ? step['moves'].toString().trim().split(RegExp(r'\s+'))
+                : const [],
           );
         })
         .where((step) => step.title.isNotEmpty && step.body.isNotEmpty)
@@ -1542,6 +1548,8 @@ class _LessonPlayerScreenState extends State<_LessonPlayerScreen> {
   late double _progress;
   late Position _demoPosition;
   late ChessboardController _demoBoardController;
+  int _expectedMoveIndex = 0;
+  String? _moveFeedback;
   final LessonRepository _repository = LessonRepository();
 
   static const Map<String, String> _pieceDemoFens = {
@@ -1567,7 +1575,7 @@ class _LessonPlayerScreenState extends State<_LessonPlayerScreen> {
   }
 
   Position get _initialDemoPosition => Chess.fromSetup(
-    Setup.parseFen(_pieceDemoFens[widget.lesson.id] ?? Chess.initial.fen),
+    Setup.parseFen(_step.fen ?? _pieceDemoFens[widget.lesson.id] ?? Chess.initial.fen),
   );
 
   GameData _demoGame() => GameData(
@@ -1582,8 +1590,22 @@ class _LessonPlayerScreenState extends State<_LessonPlayerScreen> {
 
   void _onDemoMove(Move move, {bool? viaDragAndDrop}) {
     if (!_demoPosition.isLegal(move)) return;
+    if (_step.moves.isNotEmpty) {
+      final moveUci = move.uci.toLowerCase();
+      if (_expectedMoveIndex >= _step.moves.length || moveUci != _step.moves[_expectedMoveIndex]) {
+        setState(() => _moveFeedback = 'Try again: that is not the lesson move.');
+        _resetDemoBoard();
+        return;
+      }
+    }
     setState(() {
       _demoPosition = _demoPosition.play(move);
+      if (_step.moves.isNotEmpty) {
+        _expectedMoveIndex++;
+        _moveFeedback = _expectedMoveIndex == _step.moves.length
+            ? 'Correct. Continue when ready.'
+            : 'Correct. Make the next move.';
+      }
       _demoBoardController.updatePosition(_demoGame());
     });
   }
@@ -1672,7 +1694,7 @@ class _LessonPlayerScreenState extends State<_LessonPlayerScreen> {
   }
 
   Widget _buildLessonVisual() {
-    final isPieceLesson = _pieceDemoFens.containsKey(widget.lesson.id);
+    final isPieceLesson = _pieceDemoFens.containsKey(widget.lesson.id) || _step.fen != null || _step.moves.isNotEmpty;
     return Container(
       padding: const EdgeInsets.all(18),
       decoration: BoxDecoration(
@@ -1683,6 +1705,11 @@ class _LessonPlayerScreenState extends State<_LessonPlayerScreen> {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
+          if (_moveFeedback != null)
+            Padding(
+              padding: const EdgeInsets.only(bottom: 12),
+              child: Text(_moveFeedback!, style: TextStyle(color: _moveFeedback!.startsWith('Try') ? Colors.red : green, fontWeight: FontWeight.w700)),
+            ),
           if (isPieceLesson)
             LayoutBuilder(
               builder: (context, constraints) {
@@ -1939,6 +1966,10 @@ class _LessonPlayerScreenState extends State<_LessonPlayerScreen> {
   } */
 
   void _next() {
+    if (_step.moves.isNotEmpty && _expectedMoveIndex < _step.moves.length) {
+      ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text('Complete the move sequence before continuing.')));
+      return;
+    }
     if (_stepIndex < widget.lesson.lessons.length - 1) {
       setState(() {
         _stepIndex++;
@@ -1991,6 +2022,8 @@ class _LessonPlayerScreenState extends State<_LessonPlayerScreen> {
   }
 
   void _resetDemoBoard() {
+    _expectedMoveIndex = 0;
+    _moveFeedback = null;
     _demoPosition = _initialDemoPosition;
     _demoBoardController.updatePosition(_demoGame(), animate: false);
   }
@@ -2228,11 +2261,15 @@ class _LessonStep {
     required this.title,
     required this.body,
     required this.tip,
+    this.fen,
+    this.moves = const [],
   });
 
   final String title;
   final String body;
   final String tip;
+  final String? fen;
+  final List<String> moves;
 }
 
 int min(int a, int b) => a < b ? a : b;

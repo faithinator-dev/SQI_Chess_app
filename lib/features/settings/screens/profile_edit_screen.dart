@@ -140,8 +140,9 @@ class _ProfileEditScreenState extends State<ProfileEditScreen> {
                     ),
                     validator: (value) {
                       final username = value?.trim() ?? '';
-                      if (username.length < 3)
+                      if (username.length < 3) {
                         return 'Use at least 3 characters.';
+                      }
                       if (!RegExp(r'^[a-zA-Z0-9_]+$').hasMatch(username)) {
                         return 'Use letters, numbers and underscores.';
                       }

@@ -11,11 +11,6 @@ class AdminLessonsScreen extends StatefulWidget {
 }
 
 class _AdminLessonsScreenState extends State<AdminLessonsScreen> {
-  static const _background = Color(0xFFF9F8F6);
-  static const _surface = Color(0xFFFFFFFF);
-  static const _muted = Color(0xFF737A74);
-  static const _blue = Color(0xFF2D4A3E);
-
   final _repository = LessonRepository();
   List<LessonModel> _lessons = [];
   bool _loading = true;
@@ -49,27 +44,67 @@ class _AdminLessonsScreenState extends State<AdminLessonsScreen> {
     }
   }
 
-  Future<void> _createLesson() async {
-    final title = TextEditingController();
-    final description = TextEditingController();
-    final stepTitle = TextEditingController();
-    final stepBody = TextEditingController();
-    final stepTip = TextEditingController();
-    var category = 'Basics';
-    var difficulty = 'Beginner';
-    var publish = true;
-    var duration = 10;
+  Future<void> _createLesson() => _editLesson();
+
+  Future<void> _editExistingLesson(LessonModel lesson) => _editLesson(lesson);
+
+  Future<void> _editLesson([LessonModel? existing]) async {
+    final title = TextEditingController(text: existing?.title ?? '');
+    final description = TextEditingController(
+      text: existing?.description ?? '',
+    );
+    final existingSteps =
+        (existing?.content['steps'] as List?)
+            ?.whereType<Map>()
+            .map((step) => Map<String, dynamic>.from(step))
+            .toList() ??
+        [];
+    final steps = existingSteps.isEmpty ? [<String, dynamic>{}] : existingSteps;
+    final stepTitles = steps
+        .map((s) => TextEditingController(text: s['title']?.toString() ?? ''))
+        .toList();
+    final stepBodies = steps
+        .map((s) => TextEditingController(text: s['body']?.toString() ?? ''))
+        .toList();
+    final stepTips = steps
+        .map((s) => TextEditingController(text: s['tip']?.toString() ?? ''))
+        .toList();
+    final stepFens = steps
+        .map((s) => TextEditingController(text: s['fen']?.toString() ?? ''))
+        .toList();
+    final stepMoves = steps
+        .map(
+          (s) => TextEditingController(
+            text:
+                (s['moves'] is List
+                    ? (s['moves'] as List).join(' ')
+                    : s['moves']?.toString()) ??
+                '',
+          ),
+        )
+        .toList();
+    var category = existing?.category ?? 'Basics';
+    var difficulty = existing?.difficulty ?? 'Beginner';
+    var publish = existing?.isPublished ?? true;
+    var duration = existing?.durationMinutes ?? 10;
     var dialogSaving = false;
+    void disposeStepControllers() {
+      for (final controller in [
+        ...stepTitles,
+        ...stepBodies,
+        ...stepTips,
+        ...stepFens,
+        ...stepMoves,
+      ]) {
+        controller.dispose();
+      }
+    }
 
     final created = await showDialog<bool>(
       context: context,
       builder: (dialogContext) => StatefulBuilder(
         builder: (context, setDialogState) => AlertDialog(
-          backgroundColor: _surface,
-          title: const Text(
-            'Add lesson',
-            style: TextStyle(fontSize: 20, color: Colors.white),
-          ),
+          title: Text(existing == null ? 'Add lesson' : 'Edit lesson'),
           content: SizedBox(
             width: 520,
             child: SingleChildScrollView(
@@ -83,7 +118,7 @@ class _AdminLessonsScreenState extends State<AdminLessonsScreen> {
                       Expanded(
                         child: DropdownButtonFormField<String>(
                           initialValue: category,
-                          dropdownColor: _surface,
+                          dropdownColor: Theme.of(context).colorScheme.surface,
                           decoration: const InputDecoration(
                             labelText: 'Category',
                           ),
@@ -110,7 +145,7 @@ class _AdminLessonsScreenState extends State<AdminLessonsScreen> {
                       Expanded(
                         child: DropdownButtonFormField<String>(
                           initialValue: difficulty,
-                          dropdownColor: _surface,
+                          dropdownColor: Theme.of(context).colorScheme.surface,
                           decoration: const InputDecoration(
                             labelText: 'Difficulty',
                           ),
@@ -138,7 +173,7 @@ class _AdminLessonsScreenState extends State<AdminLessonsScreen> {
                   const SizedBox(height: 8),
                   DropdownButtonFormField<int>(
                     initialValue: duration,
-                    dropdownColor: _surface,
+                    dropdownColor: Theme.of(context).colorScheme.surface,
                     decoration: const InputDecoration(
                       labelText: 'Estimated minutes',
                     ),
@@ -154,17 +189,62 @@ class _AdminLessonsScreenState extends State<AdminLessonsScreen> {
                         setDialogState(() => duration = v ?? duration),
                   ),
                   const SizedBox(height: 12),
-                  _field(stepTitle, 'First step title'),
-                  _field(stepBody, 'Lesson text', maxLines: 4),
-                  _field(stepTip, 'Optional tip', maxLines: 2),
+                  for (var i = 0; i < steps.length; i++) ...[
+                    const Divider(height: 26),
+                    Row(
+                      children: [
+                        Expanded(
+                          child: Text(
+                            'Step ${i + 1}',
+                            style: Theme.of(context).textTheme.titleMedium,
+                          ),
+                        ),
+                        if (steps.length > 1)
+                          IconButton(
+                            onPressed: () => setDialogState(() {
+                              steps.removeAt(i);
+                              stepTitles.removeAt(i).dispose();
+                              stepBodies.removeAt(i).dispose();
+                              stepTips.removeAt(i).dispose();
+                              stepFens.removeAt(i).dispose();
+                              stepMoves.removeAt(i).dispose();
+                            }),
+                            icon: const Icon(Icons.delete_outline),
+                          ),
+                      ],
+                    ),
+                    _field(stepTitles[i], 'Step title'),
+                    _field(stepBodies[i], 'Teaching text', maxLines: 4),
+                    _field(stepTips[i], 'Teaching tip (optional)', maxLines: 2),
+                    _field(stepFens[i], 'Starting position FEN (optional)'),
+                    _field(
+                      stepMoves[i],
+                      'Student moves in UCI, e.g. e2e4 e7e5',
+                      maxLines: 2,
+                    ),
+                  ],
+                  Align(
+                    alignment: Alignment.centerLeft,
+                    child: TextButton.icon(
+                      onPressed: steps.length >= 30
+                          ? null
+                          : () => setDialogState(() {
+                              steps.add({});
+                              stepTitles.add(TextEditingController());
+                              stepBodies.add(TextEditingController());
+                              stepTips.add(TextEditingController());
+                              stepFens.add(TextEditingController());
+                              stepMoves.add(TextEditingController());
+                            }),
+                      icon: const Icon(Icons.add),
+                      label: const Text('Add another step'),
+                    ),
+                  ),
                   SwitchListTile.adaptive(
                     contentPadding: EdgeInsets.zero,
                     value: publish,
                     onChanged: (v) => setDialogState(() => publish = v),
-                    title: const Text(
-                      'Publish now',
-                      style: TextStyle(fontSize: 20, color: Colors.white),
-                    ),
+                    title: const Text('Publish now'),
                   ),
                 ],
               ),
@@ -179,32 +259,43 @@ class _AdminLessonsScreenState extends State<AdminLessonsScreen> {
               onPressed: dialogSaving
                   ? null
                   : () async {
-                      if (title.text.trim().isEmpty ||
-                          stepTitle.text.trim().isEmpty ||
-                          stepBody.text.trim().isEmpty) {
-                        _showMessage(
-                          'Enter a lesson title, first step title, and lesson text.',
-                        );
-                        return;
-                      }
                       setDialogState(() => dialogSaving = true);
                       setState(() => _saving = true);
                       try {
-                        await _repository.createLesson(
-                          title: title.text,
-                          description: description.text,
-                          category: category,
-                          difficulty: difficulty,
-                          durationMinutes: duration,
-                          steps: [
-                            {
-                              'title': stepTitle.text.trim(),
-                              'body': stepBody.text.trim(),
-                              'tip': stepTip.text.trim(),
-                            },
-                          ],
-                          publish: publish,
+                        final lessonSteps = List.generate(
+                          steps.length,
+                          (i) => {
+                            'title': stepTitles[i].text.trim(),
+                            'body': stepBodies[i].text.trim(),
+                            'tip': stepTips[i].text.trim(),
+                            if (stepFens[i].text.trim().isNotEmpty)
+                              'fen': stepFens[i].text.trim(),
+                            if (stepMoves[i].text.trim().isNotEmpty)
+                              'moves': stepMoves[i].text.trim(),
+                          },
                         );
+                        if (existing == null) {
+                          await _repository.createLesson(
+                            title: title.text,
+                            description: description.text,
+                            category: category,
+                            difficulty: difficulty,
+                            durationMinutes: duration,
+                            steps: lessonSteps,
+                            publish: publish,
+                          );
+                        } else {
+                          await _repository.updateLesson(
+                            id: existing.id,
+                            title: title.text,
+                            description: description.text,
+                            category: category,
+                            difficulty: difficulty,
+                            durationMinutes: duration,
+                            steps: lessonSteps,
+                            publish: publish,
+                          );
+                        }
                         if (dialogContext.mounted) {
                           Navigator.pop(dialogContext, true);
                         }
@@ -227,9 +318,7 @@ class _AdminLessonsScreenState extends State<AdminLessonsScreen> {
     );
     title.dispose();
     description.dispose();
-    stepTitle.dispose();
-    stepBody.dispose();
-    stepTip.dispose();
+    disposeStepControllers();
     if (created == true && mounted) await _load();
   }
 
@@ -251,7 +340,10 @@ class _AdminLessonsScreenState extends State<AdminLessonsScreen> {
     child: TextField(
       controller: controller,
       maxLines: maxLines,
-      style: const TextStyle(fontSize: 20, color: Colors.white),
+      style: TextStyle(
+        fontSize: 20,
+        color: Theme.of(context).colorScheme.onSurface,
+      ),
       decoration: InputDecoration(labelText: label),
     ),
   );
@@ -264,9 +356,9 @@ class _AdminLessonsScreenState extends State<AdminLessonsScreen> {
 
   @override
   Widget build(BuildContext context) => Scaffold(
-    backgroundColor: _background,
+    backgroundColor: Theme.of(context).colorScheme.surface,
     appBar: AppBar(
-      backgroundColor: _background,
+      backgroundColor: Theme.of(context).colorScheme.surface,
       foregroundColor: Colors.white,
       title: const Text('Lessons'),
       actions: [
@@ -279,7 +371,7 @@ class _AdminLessonsScreenState extends State<AdminLessonsScreen> {
     ),
     floatingActionButton: FloatingActionButton.extended(
       onPressed: _saving ? null : _createLesson,
-      backgroundColor: _blue,
+      backgroundColor: Theme.of(context).colorScheme.primary,
       foregroundColor: Colors.white,
       icon: const Icon(Icons.add),
       label: const Text('Add lesson'),
@@ -302,7 +394,10 @@ class _AdminLessonsScreenState extends State<AdminLessonsScreen> {
                   Text(
                     _error!,
                     textAlign: TextAlign.center,
-                    style: const TextStyle(fontSize: 20, color: _muted),
+                    style: TextStyle(
+                      fontSize: 20,
+                      color: Theme.of(context).colorScheme.onSurfaceVariant,
+                    ),
                   ),
                   TextButton.icon(
                     onPressed: _load,
@@ -314,10 +409,13 @@ class _AdminLessonsScreenState extends State<AdminLessonsScreen> {
             ),
           )
         : _lessons.isEmpty
-        ? const Center(
+        ? Center(
             child: Text(
               'No lessons yet. Add the first lesson.',
-              style: TextStyle(fontSize: 20, color: _muted),
+              style: TextStyle(
+                fontSize: 20,
+                color: Theme.of(context).colorScheme.onSurfaceVariant,
+              ),
             ),
           )
         : ListView.builder(
@@ -326,30 +424,42 @@ class _AdminLessonsScreenState extends State<AdminLessonsScreen> {
             itemBuilder: (context, index) {
               final lesson = _lessons[index];
               return Card(
-                color: _surface,
                 child: ListTile(
                   title: Text(
                     lesson.title,
-                    style: const TextStyle(
+                    style: TextStyle(
                       fontSize: 20,
-                      color: Colors.white,
+                      color: Theme.of(context).colorScheme.onSurface,
                       fontWeight: FontWeight.w700,
                     ),
                   ),
                   subtitle: Text(
-                    '${lesson.category} | ${lesson.difficulty}${lesson.description == null ? '' : ' | ${lesson.description}'}',
-                    style: const TextStyle(fontSize: 20, color: _muted),
+                    '${lesson.category} | ${lesson.difficulty} | ${(lesson.content['steps'] as List?)?.length ?? 0} steps${lesson.description == null ? '' : ' | ${lesson.description}'}',
+                    style: TextStyle(
+                      fontSize: 20,
+                      color: Theme.of(context).colorScheme.onSurfaceVariant,
+                    ),
                   ),
                   trailing: Row(
                     mainAxisSize: MainAxisSize.min,
                     children: [
                       Text(
                         lesson.isPublished ? 'Published' : 'Draft',
-                        style: const TextStyle(fontSize: 20, color: _muted),
+                        style: TextStyle(
+                          fontSize: 20,
+                          color: Theme.of(context).colorScheme.onSurfaceVariant,
+                        ),
                       ),
                       Switch.adaptive(
                         value: lesson.isPublished,
                         onChanged: (v) => _togglePublished(lesson, v),
+                      ),
+                      IconButton(
+                        tooltip: 'Edit lesson',
+                        onPressed: _saving
+                            ? null
+                            : () => _editExistingLesson(lesson),
+                        icon: const Icon(Icons.edit_outlined),
                       ),
                     ],
                   ),

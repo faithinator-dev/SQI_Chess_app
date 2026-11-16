@@ -96,7 +96,7 @@ class _ChessMatchScreenState extends State<ChessMatchScreen>
       ((_currentTurn == 'white' && _isWhite) ||
           (_currentTurn == 'black' && _isBlack));
 
-  bool get _gameHasStarted => _status == 'active' || _currentTurn != null;
+  bool get _gameHasStarted => _status == 'active';
 
   String get _reviewResultLabel {
     if (_result == 'draw') {
@@ -419,6 +419,35 @@ class _ChessMatchScreenState extends State<ChessMatchScreen>
     );
   }
 
+  Future<void> _confirmExit() async {
+    if (_isFinished) {
+      if (mounted) Navigator.of(context).pop();
+      return;
+    }
+
+    final exit = await showDialog<bool>(
+      context: context,
+      builder: (dialogContext) => AlertDialog(
+        title: const Text('Exit game?'),
+        content: const Text(
+          'Your game is still in progress. Do you want to continue playing or exit?',
+        ),
+        actions: [
+          TextButton(
+            onPressed: () => Navigator.pop(dialogContext, false),
+            child: const Text('Continue game'),
+          ),
+          FilledButton(
+            onPressed: () => Navigator.pop(dialogContext, true),
+            child: const Text('Exit'),
+          ),
+        ],
+      ),
+    );
+
+    if (exit == true && mounted) Navigator.of(context).pop();
+  }
+
   void _subscribeToGame() {
     final oldChannel = _gameChannel;
 
@@ -593,6 +622,9 @@ class _ChessMatchScreenState extends State<ChessMatchScreen>
 
     final incomingWhitePlayerId = game['white_player_id'] as String?;
     final incomingBlackPlayerId = game['black_player_id'] as String?;
+    final playersChanged =
+        incomingWhitePlayerId != _whitePlayerId ||
+        incomingBlackPlayerId != _blackPlayerId;
 
     final positionChanged =
         incomingFen != null &&
@@ -617,8 +649,7 @@ class _ChessMatchScreenState extends State<ChessMatchScreen>
       _syncBoard(animate: false, resetPremove: false);
     }
 
-    if (incomingWhitePlayerId != _whitePlayerId ||
-        incomingBlackPlayerId != _blackPlayerId) {
+    if (playersChanged) {
       unawaited(_loadOpponent());
     }
 
@@ -633,7 +664,7 @@ class _ChessMatchScreenState extends State<ChessMatchScreen>
     _clockTimer?.cancel();
 
     _clockTimer = Timer.periodic(const Duration(milliseconds: 100), (_) {
-      if (!mounted || _isFinished || _currentTurn == null) {
+      if (!mounted || !_gameHasStarted || _isFinished || _currentTurn == null) {
         return;
       }
 
@@ -978,30 +1009,36 @@ class _ChessMatchScreenState extends State<ChessMatchScreen>
       );
     }
 
-    return Scaffold(
-      backgroundColor: _background,
-      resizeToAvoidBottomInset: false,
-      body: SafeArea(
-        child: LayoutBuilder(
-          builder: (context, constraints) {
-            final isLandscape = constraints.maxWidth > constraints.maxHeight;
+    return PopScope(
+      canPop: false,
+      onPopInvokedWithResult: (didPop, _) {
+        if (!didPop) unawaited(_confirmExit());
+      },
+      child: Scaffold(
+        backgroundColor: _background,
+        resizeToAvoidBottomInset: false,
+        body: SafeArea(
+          child: LayoutBuilder(
+            builder: (context, constraints) {
+              final isLandscape = constraints.maxWidth > constraints.maxHeight;
 
-            final availableWidth = constraints.maxWidth - 24;
+              final availableWidth = constraints.maxWidth - 24;
 
-            final availableHeight =
-                constraints.maxHeight - (isLandscape ? 170 : 310);
+              final availableHeight =
+                  constraints.maxHeight - (isLandscape ? 170 : 310);
 
-            final boardSize = math
-                .min(availableWidth, availableHeight)
-                .clamp(220.0, 760.0)
-                .toDouble();
+              final boardSize = math
+                  .min(availableWidth, availableHeight)
+                  .clamp(220.0, 760.0)
+                  .toDouble();
 
-            if (isLandscape) {
-              return _buildLandscape(context, boardSize);
-            }
+              if (isLandscape) {
+                return _buildLandscape(context, boardSize);
+              }
 
-            return _buildPortrait(context, boardSize);
-          },
+              return _buildPortrait(context, boardSize);
+            },
+          ),
         ),
       ),
     );
@@ -1221,7 +1258,7 @@ class _ChessMatchScreenState extends State<ChessMatchScreen>
       child: Row(
         children: [
           IconButton(
-            onPressed: () => Navigator.pop(context),
+            onPressed: _confirmExit,
             icon: const Icon(Icons.arrow_back_rounded, color: _primary),
           ),
 

@@ -5,6 +5,7 @@ import 'package:sqi_chess_club/features/admin/player_management_screen.dart';
 import '../../core/repositories/admin_repository.dart';
 import 'analytics_dashboard_screen.dart';
 import 'tournament_admin_screen.dart';
+import 'admin_lessons_screen.dart';
 
 class AdminDashboardScreen extends StatefulWidget {
   const AdminDashboardScreen({super.key});
@@ -75,6 +76,12 @@ class _AdminDashboardScreenState extends State<AdminDashboardScreen> {
         'Review published competitions and tournament availability.',
         Icons.emoji_events_outlined,
         const TournamentAdminScreen(),
+      ),
+      _AdminDestination(
+        'Lessons',
+        'Create and edit chess lessons, positions, and move sequences.',
+        Icons.menu_book_outlined,
+        const AdminLessonsScreen(),
       ),
     ];
 

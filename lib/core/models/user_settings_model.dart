@@ -11,7 +11,7 @@ class UserSettingsModel {
     this.boardCoordinates = true,
     this.confirmResignation = true,
     this.reduceMotion = false,
-    this.appearance = 'Dark',
+    this.appearance = 'Light',
     this.language = 'English',
     this.timezone = 'Africa/Lagos',
   });
@@ -48,7 +48,7 @@ class UserSettingsModel {
       boardCoordinates: map['board_coordinates'] as bool? ?? true,
       confirmResignation: map['confirm_resignation'] as bool? ?? true,
       reduceMotion: map['reduce_motion'] as bool? ?? false,
-      appearance: map['appearance'] as String? ?? 'Dark',
+      appearance: map['appearance'] as String? ?? 'Light',
       language: map['language'] as String? ?? 'English',
       timezone: map['timezone'] as String? ?? 'Africa/Lagos',
     );

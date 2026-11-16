@@ -137,6 +137,7 @@ class _CommunityScreenState extends State<CommunityScreen> {
     var loadingComments = true;
     var sendingComment = false;
     String? commentError;
+    var sheetOpen = true;
     try {
       comments = await _repository.getComments(post.id);
     } catch (error) {
@@ -148,151 +149,321 @@ class _CommunityScreenState extends State<CommunityScreen> {
       return;
     }
 
-    await showModalBottomSheet<void>(
-      context: context,
-      isScrollControlled: true,
-      useSafeArea: true,
-      showDragHandle: true,
-      builder: (sheetContext) => StatefulBuilder(
-        builder: (context, setSheetState) => Padding(
-          padding: EdgeInsets.fromLTRB(
-            20,
-            4,
-            20,
-            MediaQuery.viewInsetsOf(context).bottom + 16,
-          ),
-          child: SizedBox(
-            height:
-                (MediaQuery.sizeOf(context).height -
-                    MediaQuery.viewInsetsOf(context).bottom) *
-                .68,
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text('Comments', style: Theme.of(context).textTheme.titleLarge),
-                const SizedBox(height: 12),
-                Expanded(
-                  child: loadingComments
-                      ? const Center(child: CircularProgressIndicator())
-                      : commentError != null
-                      ? _CommentError(
-                          message: commentError!,
-                          onRetry: () async {
-                            setSheetState(() {
-                              loadingComments = true;
-                              commentError = null;
-                            });
-                            try {
-                              final refreshed = await _repository.getComments(
-                                post.id,
-                              );
-                              setSheetState(() => comments = refreshed);
-                            } catch (error) {
-                              setSheetState(
-                                () => commentError = _commentError(error),
-                              );
-                            } finally {
-                              setSheetState(() => loadingComments = false);
-                            }
-                          },
-                        )
-                      : comments.isEmpty
-                      ? const Center(child: Text('No comments yet.'))
-                      : ListView.separated(
-                          itemCount: comments.length,
-                          separatorBuilder: (_, _) => const Divider(height: 1),
-                          itemBuilder: (context, index) {
-                            final comment = comments[index];
-                            final profile = comment['profiles'] is Map
-                                ? Map<String, dynamic>.from(
-                                    comment['profiles'] as Map,
-                                  )
-                                : <String, dynamic>{};
-                            return ListTile(
-                              contentPadding: EdgeInsets.zero,
-                              leading: CircleAvatar(
-                                child: Text(
-                                  _initials(
-                                    (profile['full_name'] ?? 'Player')
-                                        .toString(),
-                                  ),
-                                ),
-                              ),
-                              title: Text(
-                                (profile['full_name'] ?? 'Player').toString(),
-                              ),
-                              subtitle: Text(
-                                (comment['content'] ?? '').toString(),
-                              ),
-                            );
-                          },
-                        ),
-                ),
-                const SizedBox(height: 10),
-                Row(
+    try {
+      await showModalBottomSheet<void>(
+        context: context,
+        isScrollControlled: true,
+        useSafeArea: true,
+        showDragHandle: true,
+        backgroundColor: Theme.of(context).colorScheme.surface,
+        isDismissible: true,
+        builder: (sheetContext) => PopScope(
+          onPopInvokedWithResult: (_, _) => sheetOpen = false,
+          child: StatefulBuilder(
+            builder: (context, setSheetState) => Padding(
+              padding: EdgeInsets.fromLTRB(
+                18,
+                6,
+                18,
+                MediaQuery.viewInsetsOf(context).bottom + 16,
+              ),
+              child: SizedBox(
+                height:
+                    (MediaQuery.sizeOf(context).height -
+                        MediaQuery.viewInsetsOf(context).bottom) *
+                    .76,
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Expanded(
-                      child: TextField(
-                        controller: controller,
-                        textCapitalization: TextCapitalization.sentences,
-                        decoration: const InputDecoration(
-                          hintText: 'Add a comment',
-                          border: OutlineInputBorder(),
-                          contentPadding: EdgeInsets.symmetric(
-                            horizontal: 14,
-                            vertical: 11,
+                    Row(
+                      children: [
+                        Expanded(
+                          child: Text(
+                            'Comments',
+                            style: Theme.of(context).textTheme.titleLarge
+                                ?.copyWith(fontWeight: FontWeight.w800),
                           ),
                         ),
-                      ),
+                        if (!loadingComments && commentError == null)
+                          Container(
+                            padding: const EdgeInsets.symmetric(
+                              horizontal: 10,
+                              vertical: 5,
+                            ),
+                            decoration: BoxDecoration(
+                              color: Theme.of(
+                                context,
+                              ).colorScheme.primaryContainer,
+                              borderRadius: BorderRadius.circular(20),
+                            ),
+                            child: Text(
+                              '${comments.length}',
+                              style: TextStyle(
+                                color: Theme.of(
+                                  context,
+                                ).colorScheme.onPrimaryContainer,
+                                fontWeight: FontWeight.w700,
+                              ),
+                            ),
+                          ),
+                        IconButton(
+                          tooltip: 'Close comments',
+                          onPressed: () {
+                            sheetOpen = false;
+                            Navigator.pop(sheetContext);
+                          },
+                          icon: const Icon(Icons.close_rounded),
+                        ),
+                      ],
                     ),
-                    const SizedBox(width: 8),
-                    IconButton.filled(
-                      tooltip: 'Send comment',
-                      onPressed: sendingComment || commentError != null
-                          ? null
-                          : () async {
-                              if (controller.text.trim().isEmpty) return;
-                              setSheetState(() => sendingComment = true);
-                              try {
-                                await _repository.createComment(
-                                  postId: post.id,
-                                  content: controller.text,
-                                );
-                                controller.clear();
-                                final refreshed = await _repository.getComments(
-                                  post.id,
-                                );
-                                setSheetState(() => comments = refreshed);
-                                await _load();
-                              } catch (error) {
-                                if (context.mounted) {
-                                  ScaffoldMessenger.of(context).showSnackBar(
-                                    SnackBar(
-                                      content: Text(_commentError(error)),
-                                    ),
+                    const SizedBox(height: 8),
+                    Expanded(
+                      child: loadingComments
+                          ? const Center(child: CircularProgressIndicator())
+                          : commentError != null
+                          ? _CommentError(
+                              message: commentError!,
+                              onRetry: () async {
+                                setSheetState(() {
+                                  loadingComments = true;
+                                  commentError = null;
+                                });
+                                try {
+                                  final refreshed = await _repository
+                                      .getComments(post.id);
+                                  if (!sheetOpen || !sheetContext.mounted) {
+                                    return;
+                                  }
+                                  setSheetState(() => comments = refreshed);
+                                } catch (error) {
+                                  if (!sheetOpen || !sheetContext.mounted) {
+                                    return;
+                                  }
+                                  setSheetState(
+                                    () => commentError = _commentError(error),
                                   );
+                                } finally {
+                                  if (sheetOpen && sheetContext.mounted) {
+                                    setSheetState(
+                                      () => loadingComments = false,
+                                    );
+                                  }
                                 }
-                              } finally {
-                                setSheetState(() => sendingComment = false);
-                              }
-                            },
-                      icon: sendingComment
-                          ? const SizedBox(
-                              width: 17,
-                              height: 17,
-                              child: CircularProgressIndicator(strokeWidth: 2),
+                              },
                             )
-                          : const Icon(Icons.send_rounded),
+                          : comments.isEmpty
+                          ? const Center(child: Text('No comments yet.'))
+                          : ListView.separated(
+                              itemCount: comments.length,
+                              separatorBuilder: (_, _) =>
+                                  const Divider(height: 1),
+                              itemBuilder: (context, index) {
+                                final comment = comments[index];
+                                final profile = comment['profiles'] is Map
+                                    ? Map<String, dynamic>.from(
+                                        comment['profiles'] as Map,
+                                      )
+                                    : <String, dynamic>{};
+                                final author =
+                                    (profile['full_name'] ?? 'Player')
+                                        .toString();
+                                final created = DateTime.tryParse(
+                                  comment['created_at']?.toString() ?? '',
+                                );
+                                final timeLabel = created == null
+                                    ? ''
+                                    : _commentTimeLabel(created);
+                                final colors = Theme.of(context).colorScheme;
+                                return Container(
+                                  margin: const EdgeInsets.only(bottom: 10),
+                                  padding: const EdgeInsets.all(13),
+                                  decoration: BoxDecoration(
+                                    color: colors.surfaceContainerLow,
+                                    borderRadius: BorderRadius.circular(16),
+                                    border: Border.all(
+                                      color: colors.outlineVariant.withValues(
+                                        alpha: .55,
+                                      ),
+                                    ),
+                                  ),
+                                  child: Row(
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
+                                    children: [
+                                      CircleAvatar(
+                                        radius: 19,
+                                        backgroundColor:
+                                            colors.primaryContainer,
+                                        foregroundColor:
+                                            colors.onPrimaryContainer,
+                                        child: Text(
+                                          _initials(author),
+                                          style: const TextStyle(
+                                            fontWeight: FontWeight.w800,
+                                          ),
+                                        ),
+                                      ),
+                                      const SizedBox(width: 11),
+                                      Expanded(
+                                        child: Column(
+                                          crossAxisAlignment:
+                                              CrossAxisAlignment.start,
+                                          children: [
+                                            Row(
+                                              children: [
+                                                Expanded(
+                                                  child: Text(
+                                                    author,
+                                                    maxLines: 1,
+                                                    overflow:
+                                                        TextOverflow.ellipsis,
+                                                    style: const TextStyle(
+                                                      fontWeight:
+                                                          FontWeight.w800,
+                                                    ),
+                                                  ),
+                                                ),
+                                                if (timeLabel.isNotEmpty)
+                                                  Text(
+                                                    timeLabel,
+                                                    style: Theme.of(
+                                                      context,
+                                                    ).textTheme.labelSmall,
+                                                  ),
+                                              ],
+                                            ),
+                                            const SizedBox(height: 5),
+                                            Text(
+                                              (comment['content'] ?? '')
+                                                  .toString(),
+                                              style: Theme.of(context)
+                                                  .textTheme
+                                                  .bodyMedium
+                                                  ?.copyWith(height: 1.4),
+                                            ),
+                                          ],
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                );
+                              },
+                            ),
+                    ),
+                    const SizedBox(height: 8),
+                    Row(
+                      children: [
+                        Expanded(
+                          child: TextField(
+                            controller: controller,
+                            minLines: 1,
+                            maxLines: 3,
+                            textCapitalization: TextCapitalization.sentences,
+                            decoration: InputDecoration(
+                              hintText: 'Write a comment…',
+                              filled: true,
+                              fillColor: Theme.of(
+                                context,
+                              ).colorScheme.surfaceContainerLow,
+                              border: OutlineInputBorder(
+                                borderRadius: BorderRadius.circular(18),
+                                borderSide: BorderSide.none,
+                              ),
+                              enabledBorder: OutlineInputBorder(
+                                borderRadius: BorderRadius.circular(18),
+                                borderSide: BorderSide(
+                                  color: Theme.of(context)
+                                      .colorScheme
+                                      .outlineVariant
+                                      .withValues(alpha: .6),
+                                ),
+                              ),
+                              contentPadding: const EdgeInsets.symmetric(
+                                horizontal: 16,
+                                vertical: 12,
+                              ),
+                            ),
+                          ),
+                        ),
+                        const SizedBox(width: 8),
+                        IconButton.filled(
+                          tooltip: 'Send comment',
+                          onPressed: sendingComment || commentError != null
+                              ? null
+                              : () async {
+                                  if (!sheetOpen ||
+                                      !sheetContext.mounted ||
+                                      controller.text.trim().isEmpty) {
+                                    return;
+                                  }
+                                  setSheetState(() => sendingComment = true);
+                                  try {
+                                    await _repository.createComment(
+                                      postId: post.id,
+                                      content: controller.text,
+                                    );
+                                    if (!sheetOpen || !sheetContext.mounted) {
+                                      return;
+                                    }
+                                    controller.clear();
+                                    final refreshed = await _repository
+                                        .getComments(post.id);
+                                    if (!sheetOpen || !sheetContext.mounted) {
+                                      return;
+                                    }
+                                    setSheetState(() => comments = refreshed);
+                                    if (mounted) await _load();
+                                  } catch (error) {
+                                    if (sheetOpen && sheetContext.mounted) {
+                                      ScaffoldMessenger.of(
+                                        sheetContext,
+                                      ).showSnackBar(
+                                        SnackBar(
+                                          content: Text(_commentError(error)),
+                                        ),
+                                      );
+                                    }
+                                  } finally {
+                                    if (sheetOpen && sheetContext.mounted) {
+                                      setSheetState(
+                                        () => sendingComment = false,
+                                      );
+                                    }
+                                  }
+                                },
+                          icon: sendingComment
+                              ? const SizedBox(
+                                  width: 17,
+                                  height: 17,
+                                  child: CircularProgressIndicator(
+                                    strokeWidth: 2,
+                                  ),
+                                )
+                              : const Icon(Icons.send_rounded),
+                        ),
+                      ],
                     ),
                   ],
                 ),
-              ],
+              ),
             ),
           ),
         ),
-      ),
-    );
-    controller.dispose();
+      );
+    } finally {
+      sheetOpen = false;
+      WidgetsBinding.instance.addPostFrameCallback((_) {
+        controller.dispose();
+      });
+    }
+  }
+
+  String _commentTimeLabel(DateTime time) {
+    final elapsed = DateTime.now().difference(time.toLocal());
+    if (elapsed.inMinutes < 1) return 'now';
+    if (elapsed.inHours < 1) return '${elapsed.inMinutes}m';
+    if (elapsed.inDays < 1) return '${elapsed.inHours}h';
+    return '${elapsed.inDays}d';
   }
 
   String _initials(String name) {

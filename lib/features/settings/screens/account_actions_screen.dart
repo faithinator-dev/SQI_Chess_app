@@ -163,8 +163,9 @@ class AccountActionsScreen extends StatelessWidget {
 
     try {
       await Supabase.instance.client.auth.signOut();
-      if (context.mounted)
+      if (context.mounted) {
         Navigator.of(context).popUntil((route) => route.isFirst);
+      }
     } catch (_) {
       if (context.mounted) {
         await showSettingsErrorDialog(

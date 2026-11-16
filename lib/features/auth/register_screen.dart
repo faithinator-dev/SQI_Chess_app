@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import '../../app/app.dart' show clearGuestSessionAfterAuthentication;
+import '../../core/repositories/guest_preferences_repository.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
 import '../dashboard/dashboard_screen.dart';
@@ -240,6 +242,10 @@ class _RegisterScreenState extends State<RegisterScreen> {
         setState(() {
           _isLoading = false;
         });
+
+        await GuestPreferencesRepository().clear();
+
+        clearGuestSessionAfterAuthentication(context);
 
         Navigator.of(context).pushAndRemoveUntil(
           MaterialPageRoute(builder: (_) => const DashboardScreen()),
