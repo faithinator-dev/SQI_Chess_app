@@ -111,7 +111,8 @@ class _LoginScreenState extends State<LoginScreen> {
       return 'Network error. Check your internet connection.';
     }
 
-    return error.message;
+    debugPrint('Sign-in failed: ${error.message}');
+    return 'We couldn’t sign you in. Check your email and password, then try again.';
   }
 
   Future<void> _forgotPassword() async {

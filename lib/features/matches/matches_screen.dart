@@ -4,6 +4,7 @@ import 'dart:io';
 import 'dart:math';
 
 import 'package:flutter/material.dart';
+import 'package:flutter/foundation.dart';
 import '../../app/theme.dart';
 import 'package:flutter/services.dart';
 import 'package:mobile_scanner/mobile_scanner.dart';
@@ -145,7 +146,7 @@ class MatchesScreen extends StatelessWidget {
               },
             ),
             const SizedBox(height: 10),
-            _PlayModeCard(
+            if (!kIsWeb) _PlayModeCard(
               icon: Icons.wifi_rounded,
               iconColor: _gold,
               title: 'LAN / Wi-Fi',

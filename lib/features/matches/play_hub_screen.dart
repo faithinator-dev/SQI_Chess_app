@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/foundation.dart';
 
 import '../../app/theme.dart';
 import '../../app/widgets/arena_components.dart';
@@ -37,7 +38,11 @@ class _MatchesScreenState extends State<MatchesScreen> {
     ('Play with Friend', Icons.people_alt_outlined),
     ('Play Computer', Icons.computer_rounded),
     ('Local PvP', Icons.people_alt_outlined),
-    ('Wi-Fi', Icons.wifi_rounded),
+  ];
+
+  List<(String, IconData)> get _availableModes => [
+    ..._modes,
+    if (!kIsWeb) ('Wi-Fi', Icons.wifi_rounded),
   ];
 
   @override
@@ -121,7 +126,7 @@ class _MatchesScreenState extends State<MatchesScreen> {
                   ],
                 ),
               ),
-            ..._modes.map((mode) => _modeCard(context, mode)),
+            ..._availableModes.map((mode) => _modeCard(context, mode)),
             const SizedBox(height: 26),
             _sectionHeader(context, 'Active games', '${_activeGames.length}'),
             const SizedBox(height: 10),
@@ -253,7 +258,7 @@ class _MatchesScreenState extends State<MatchesScreen> {
                     borderRadius: BorderRadius.circular(14),
                   ),
                   child: Icon(
-                    _modes.firstWhere((mode) => mode.$1 == _selectedMode).$2,
+                    _availableModes.firstWhere((mode) => mode.$1 == _selectedMode).$2,
                     color: colors.primary,
                   ),
                 ),

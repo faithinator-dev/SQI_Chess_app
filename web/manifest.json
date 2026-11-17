@@ -1,12 +1,14 @@
 {
-    "name": "sqi_chess_club",
-    "short_name": "sqi_chess_club",
-    "start_url": ".",
+    "name": "SQI Chess",
+    "short_name": "SQI Chess",
+    "start_url": "/",
+    "scope": "/",
     "display": "standalone",
-    "background_color": "#0175C2",
-    "theme_color": "#0175C2",
-    "description": "A new Flutter project.",
+    "background_color": "#0A1428",
+    "theme_color": "#0A1428",
+    "description": "Play chess, learn tactics, and connect with the SQI Chess community.",
     "orientation": "portrait-primary",
+    "categories": ["games", "education", "social"],
     "prefer_related_applications": false,
     "icons": [
         {
