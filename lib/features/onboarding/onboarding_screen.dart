@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 
+import '../../app/theme.dart';
 import 'onboarding_data.dart';
 import '../auth/login_screen.dart';
 
@@ -45,13 +46,11 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
     final activeData = onboardingPages[_currentPage];
     final isDark = Theme.of(context).brightness == Brightness.dark;
 
-    final bgColor = isDark ? const Color(0xFF0A0F1D) : const Color(0xFFFAFAFA);
-    final cardColor = isDark ? const Color(0xFF131B2E) : Colors.white;
-    final textMain = isDark ? const Color(0xFFF1F5F9) : const Color(0xFF0F172A);
-    final textSub = isDark ? const Color(0xFF94A3B8) : const Color(0xFF64748B);
-    final borderColor = isDark
-        ? const Color(0xFF243048)
-        : const Color(0xFFE2E8F0);
+    final bgColor = isDark ? AppTheme.canvas : const Color(0xFFFAFAFA);
+    final cardColor = isDark ? AppTheme.surface : Colors.white;
+    final textMain = isDark ? AppTheme.textPrimary : const Color(0xFF0F172A);
+    final textSub = isDark ? AppTheme.textSecondary : const Color(0xFF64748B);
+    final borderColor = isDark ? AppTheme.divider : const Color(0xFFE2E8F0);
 
     return Scaffold(
       backgroundColor: bgColor,
@@ -152,7 +151,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
               fit: BoxFit.contain,
               errorBuilder: (_, _, _) => Icon(
                 Icons.sports_esports_rounded,
-                color: isDark ? const Color(0xFF38BDF8) : activeData.themeColor,
+                color: isDark ? AppTheme.blue : activeData.themeColor,
                 size: 24,
               ),
             ),
@@ -166,7 +165,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
               Row(
                 children: [
                   Text(
-                    'SQI CHESS',
+                    'SQI CHECKMATE',
                     style: TextStyle(
                       fontSize: 16,
                       fontWeight: FontWeight.w900,
@@ -183,7 +182,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                     decoration: BoxDecoration(
                       color:
                           (isDark
-                                  ? const Color(0xFF38BDF8)
+                                  ? const Color(0xFF3978FF)
                                   : activeData.themeColor)
                               .withValues(alpha: isDark ? 0.2 : 0.1),
                       borderRadius: BorderRadius.circular(6),
@@ -194,7 +193,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                         fontSize: 10,
                         fontWeight: FontWeight.w800,
                         color: isDark
-                            ? const Color(0xFF38BDF8)
+                            ? const Color(0xFF3978FF)
                             : activeData.themeColor,
                         letterSpacing: 0.8,
                       ),
@@ -327,7 +326,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
     required Color borderColor,
     required bool isDark,
   }) {
-    final themeAccent = isDark ? const Color(0xFF38BDF8) : page.themeColor;
+    final themeAccent = isDark ? const Color(0xFF3978FF) : page.themeColor;
 
     return Center(
       child: Stack(
@@ -392,7 +391,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
             child: _buildBadge(
               icon: Icons.check_circle_rounded,
               label: 'SQI Arena',
-              color: isDark ? const Color(0xFF38BDF8) : textMain,
+              color: isDark ? const Color(0xFF3978FF) : textMain,
               cardColor: cardColor,
               borderColor: borderColor,
               textMain: textMain,
@@ -450,7 +449,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
         shape: BoxShape.circle,
         color: bgMascotColor,
         border: Border.all(
-          color: isDark ? const Color(0xFF38BDF8) : Colors.white,
+          color: isDark ? const Color(0xFF3978FF) : Colors.white,
           width: isDark ? 2.5 : 4,
         ),
         boxShadow: [
@@ -466,7 +465,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
           page.chessEmoji ?? '♟',
           style: TextStyle(
             fontSize: 46,
-            color: isDark ? const Color(0xFF38BDF8) : Colors.white,
+            color: isDark ? const Color(0xFF3978FF) : Colors.white,
             fontWeight: FontWeight.bold,
           ),
         ),
@@ -476,9 +475,9 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
 
   // --- Clean Chessboard Grid with Dark Mode Contrast ---
   Widget _buildCleanChessboard(OnboardingData page, bool isDark) {
-    final lightSquare = isDark ? const Color(0xFF131B2E) : Colors.white;
+    final lightSquare = isDark ? const Color(0xFF111A2C) : Colors.white;
     final darkSquare = isDark
-        ? const Color(0xFF1B243B)
+        ? const Color(0xFF18243A)
         : page.themeColor.withValues(alpha: 0.05);
 
     return Column(
@@ -553,7 +552,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
     required Color textSub,
     required bool isDark,
   }) {
-    final themeAccent = isDark ? const Color(0xFF38BDF8) : page.themeColor;
+    final themeAccent = isDark ? const Color(0xFF3978FF) : page.themeColor;
 
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 8),
@@ -628,8 +627,8 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
     required bool isDark,
     required Color textMain,
   }) {
-    final buttonBg = isDark ? const Color(0xFF38BDF8) : activeData.themeColor;
-    final buttonTextColor = isDark ? const Color(0xFF0A0F1D) : Colors.white;
+    final buttonBg = isDark ? const Color(0xFF3978FF) : activeData.themeColor;
+    final buttonTextColor = isDark ? const Color(0xFF080D19) : Colors.white;
 
     return Padding(
       padding: const EdgeInsets.only(top: 8, bottom: 20),
@@ -649,7 +648,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                   color: active
                       ? buttonBg
                       : (isDark
-                            ? const Color(0xFF243048)
+                            ? const Color(0xFF26334A)
                             : const Color(0xFFE2E8F0)),
                   borderRadius: BorderRadius.circular(20),
                 ),
@@ -703,7 +702,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
             style: const TextStyle(
               fontSize: 12,
               fontWeight: FontWeight.w700,
-              color: Color(0xFF94A3B8),
+              color: Color(0xFFA6B2C7),
               letterSpacing: 1.2,
             ),
           ),

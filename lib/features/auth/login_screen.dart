@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:sqi_chess_club/features/guest/guest_entry_screen.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
+import '../../app/theme.dart';
 import '../dashboard/dashboard_screen.dart';
 import 'register_screen.dart';
 
@@ -26,7 +27,7 @@ class _LoginScreenState extends State<LoginScreen> {
   final _supabase = Supabase.instance.client;
   static const _googleRedirectUri = 'sqi-chess-club://login-callback';
 
-  static const Color danger = Color(0xFFEF4444);
+  static const Color danger = AppTheme.errorColor;
 
   @override
   void dispose() {
@@ -225,7 +226,11 @@ class _LoginScreenState extends State<LoginScreen> {
         width: 20,
         height: 20,
         child: CustomPaint(
-          painter: _GoogleLogoPainter(cutoutColor: isDark ? const Color(0xFF1B243B) : const Color(0xFFF1F5F9)),
+          painter: _GoogleLogoPainter(
+            cutoutColor: isDark
+                ? const Color(0xFF18243A)
+                : const Color(0xFFF5F7FC),
+          ),
         ),
       ),
     );
@@ -235,14 +240,14 @@ class _LoginScreenState extends State<LoginScreen> {
   Widget build(BuildContext context) {
     final isDark = Theme.of(context).brightness == Brightness.dark;
 
-    final bgColor = isDark ? const Color(0xFF0A0F1D) : const Color(0xFFFAFAFA);
-    final cardBg = isDark ? const Color(0xFF131B2E) : Colors.white;
-    final inputBg = isDark ? const Color(0xFF1B243B) : Colors.white;
-    final textPrimary = isDark ? const Color(0xFFF1F5F9) : const Color(0xFF0F172A);
-    final textMuted = isDark ? const Color(0xFF94A3B8) : const Color(0xFF64748B);
-    final borderColor = isDark ? const Color(0xFF243048) : const Color(0xFFE2E8F0);
-    final brandAction = isDark ? const Color(0xFF38BDF8) : const Color(0xFF1E293B);
-    final buttonTextColor = isDark ? const Color(0xFF0A0F1D) : Colors.white;
+    final bgColor = isDark ? AppTheme.canvas : const Color(0xFFFAFAFA);
+    final cardBg = isDark ? AppTheme.surface : Colors.white;
+    final inputBg = isDark ? AppTheme.elevated : Colors.white;
+    final textPrimary = isDark ? AppTheme.textPrimary : const Color(0xFF0F172A);
+    final textMuted = isDark ? AppTheme.textSecondary : const Color(0xFF64748B);
+    final borderColor = isDark ? AppTheme.divider : const Color(0xFFE2E8F0);
+    final brandAction = isDark ? AppTheme.blue : const Color(0xFF1E293B);
+    final buttonTextColor = isDark ? AppTheme.canvas : Colors.white;
 
     return Scaffold(
       backgroundColor: bgColor,
@@ -373,10 +378,7 @@ class _LoginScreenState extends State<LoginScreen> {
                           decoration: BoxDecoration(
                             color: cardBg,
                             borderRadius: BorderRadius.circular(22),
-                            border: Border.all(
-                              color: borderColor,
-                              width: 1.2,
-                            ),
+                            border: Border.all(color: borderColor, width: 1.2),
                             boxShadow: [
                               BoxShadow(
                                 color: Colors.black.withValues(
@@ -524,8 +526,9 @@ class _LoginScreenState extends State<LoginScreen> {
                                   ),
                                   const Spacer(),
                                   TextButton(
-                                    onPressed:
-                                        _isLoading ? null : _forgotPassword,
+                                    onPressed: _isLoading
+                                        ? null
+                                        : _forgotPassword,
                                     style: TextButton.styleFrom(
                                       padding: EdgeInsets.zero,
                                       minimumSize: Size.zero,
@@ -568,8 +571,8 @@ class _LoginScreenState extends State<LoginScreen> {
                                             strokeWidth: 2.2,
                                             valueColor:
                                                 AlwaysStoppedAnimation<Color>(
-                                              buttonTextColor,
-                                            ),
+                                                  buttonTextColor,
+                                                ),
                                           ),
                                         )
                                       : Row(
@@ -633,13 +636,12 @@ class _LoginScreenState extends State<LoginScreen> {
                         Row(
                           children: [
                             Expanded(
-                              child: Divider(
-                                color: borderColor,
-                                thickness: 1,
-                              ),
+                              child: Divider(color: borderColor, thickness: 1),
                             ),
                             Padding(
-                              padding: const EdgeInsets.symmetric(horizontal: 14),
+                              padding: const EdgeInsets.symmetric(
+                                horizontal: 14,
+                              ),
                               child: Text(
                                 'OR',
                                 style: TextStyle(
@@ -651,10 +653,7 @@ class _LoginScreenState extends State<LoginScreen> {
                               ),
                             ),
                             Expanded(
-                              child: Divider(
-                                color: borderColor,
-                                thickness: 1,
-                              ),
+                              child: Divider(color: borderColor, thickness: 1),
                             ),
                           ],
                         ),
@@ -668,8 +667,8 @@ class _LoginScreenState extends State<LoginScreen> {
                             height: 48,
                             decoration: BoxDecoration(
                               color: isDark
-                                  ? const Color(0xFF1B243B)
-                                  : const Color(0xFFF1F5F9),
+                                  ? const Color(0xFF18243A)
+                                  : const Color(0xFFF5F7FC),
                               borderRadius: BorderRadius.circular(14),
                               border: Border.all(
                                 color: borderColor,
@@ -679,7 +678,10 @@ class _LoginScreenState extends State<LoginScreen> {
                             child: Row(
                               mainAxisAlignment: MainAxisAlignment.center,
                               children: [
-                                _buildRealGoogleLogo(isDark: isDark, isDimmed: true),
+                                _buildRealGoogleLogo(
+                                  isDark: isDark,
+                                  isDimmed: true,
+                                ),
                                 const SizedBox(width: 10),
                                 Text(
                                   'Continue with Google',
@@ -697,7 +699,7 @@ class _LoginScreenState extends State<LoginScreen> {
                                   ),
                                   decoration: BoxDecoration(
                                     color: isDark
-                                        ? const Color(0xFF243048)
+                                        ? const Color(0xFF26334A)
                                         : const Color(0xFFE2E8F0),
                                     borderRadius: BorderRadius.circular(5),
                                   ),
@@ -736,8 +738,7 @@ class _LoginScreenState extends State<LoginScreen> {
                                   horizontal: 2,
                                 ),
                                 minimumSize: Size.zero,
-                                tapTargetSize:
-                                    MaterialTapTargetSize.shrinkWrap,
+                                tapTargetSize: MaterialTapTargetSize.shrinkWrap,
                               ),
                               child: Text(
                                 'Create one',

@@ -41,6 +41,7 @@ class _ChessMatchScreenState extends State<ChessMatchScreen>
 
   RealtimeChannel? _gameChannel;
   Timer? _clockTimer;
+  Timer? _pendingGameTimer;
 
   String? _whitePlayerId;
   String? _blackPlayerId;
@@ -124,6 +125,7 @@ class _ChessMatchScreenState extends State<ChessMatchScreen>
     WidgetsBinding.instance.removeObserver(this);
 
     _clockTimer?.cancel();
+    _pendingGameTimer?.cancel();
 
     final channel = _gameChannel;
     _gameChannel = null;
@@ -170,6 +172,7 @@ class _ChessMatchScreenState extends State<ChessMatchScreen>
       }
 
       _subscribeToGame();
+      _startPendingGamePolling();
       unawaited(_loadPendingDrawOffer());
 
       setState(() {
@@ -192,6 +195,23 @@ class _ChessMatchScreenState extends State<ChessMatchScreen>
 
       _showError('Unable to load game: $error');
     }
+  }
+
+  void _startPendingGamePolling() {
+    _pendingGameTimer?.cancel();
+
+    if (_status != 'pending') {
+      return;
+    }
+
+    _pendingGameTimer = Timer.periodic(const Duration(seconds: 2), (_) {
+      if (!mounted || _status != 'pending') {
+        _pendingGameTimer?.cancel();
+        return;
+      }
+
+      unawaited(_refreshGame());
+    });
   }
 
   Future<void> _refreshGame() async {
@@ -284,6 +304,10 @@ class _ChessMatchScreenState extends State<ChessMatchScreen>
     _status = game['status'] as String?;
     _result = game['result'] as String?;
     _stateVersion = (game['state_version'] as num?)?.toInt() ?? _stateVersion;
+
+    if (_status != 'pending') {
+      _pendingGameTimer?.cancel();
+    }
 
     final fen = game['current_fen'] as String?;
 

@@ -10,11 +10,14 @@ import '../../core/repositories/community_repository.dart';
 import '../../core/repositories/lesson_repository.dart';
 import '../../core/repositories/notification_repository.dart';
 import '../../core/repositories/profile_repository.dart';
+import '../../app/theme.dart';
+import '../../app/widgets/arena_components.dart';
 
 import '../community/community_screen.dart';
 import '../competitions/competitions_screen.dart';
 import '../learn/learn_screen.dart';
 import '../profile/profile_screen.dart';
+import '../../practice/practice_screen.dart';
 
 class DashboardScreen extends StatefulWidget {
   const DashboardScreen({super.key});
@@ -36,71 +39,13 @@ class _DashboardScreenState extends State<DashboardScreen> {
 
   @override
   Widget build(BuildContext context) {
-    final colors = Theme.of(context).colorScheme;
     return Scaffold(
-      backgroundColor: colors.surface,
+      backgroundColor: Theme.of(context).scaffoldBackgroundColor,
       body: IndexedStack(index: _selectedIndex, children: _pages),
-      bottomNavigationBar: Container(
-        decoration: BoxDecoration(
-          color: colors.surface,
-          border: Border(
-            top: BorderSide(color: colors.outlineVariant, width: 1),
-          ),
-          boxShadow: [
-            BoxShadow(
-              color: _Colors.blue.withValues(alpha: 0.06),
-              blurRadius: 16,
-              offset: const Offset(0, -4),
-            ),
-          ],
-        ),
-        child: BottomNavigationBar(
-          currentIndex: _selectedIndex,
-          onTap: (index) => setState(() => _selectedIndex = index),
-          type: BottomNavigationBarType.fixed, // Keeps all labels visible
-          backgroundColor: colors.surface,
-          elevation: 0,
-
-          // Selection Styling
-          selectedItemColor: colors.primary,
-          unselectedItemColor: colors.onSurfaceVariant,
-          selectedLabelStyle: const TextStyle(
-            fontSize: 20,
-            fontWeight: FontWeight.w900,
-          ),
-          unselectedLabelStyle: const TextStyle(
-            fontSize: 20,
-            fontWeight: FontWeight.w500,
-          ),
-
-          items: const [
-            BottomNavigationBarItem(
-              icon: Icon(Icons.home_outlined),
-              activeIcon: Icon(Icons.home_rounded),
-              label: 'Home',
-            ),
-            BottomNavigationBarItem(
-              icon: Icon(Icons.grid_view_outlined),
-              activeIcon: Icon(Icons.grid_view_rounded),
-              label: 'Play',
-            ),
-            BottomNavigationBarItem(
-              icon: Icon(Icons.menu_book_outlined),
-              activeIcon: Icon(Icons.menu_book_rounded),
-              label: 'Learn',
-            ),
-            BottomNavigationBarItem(
-              icon: Icon(Icons.people_outline_rounded),
-              activeIcon: Icon(Icons.people_rounded),
-              label: 'Community',
-            ),
-            BottomNavigationBarItem(
-              icon: Icon(Icons.person_outline_rounded),
-              activeIcon: Icon(Icons.person_rounded),
-              label: 'Profile',
-            ),
-          ],
-        ),
+      bottomNavigationBar: AppBottomNavigation(
+        currentIndex: _selectedIndex,
+        onDestinationSelected: (index) =>
+            setState(() => _selectedIndex = index),
       ),
     );
   }
@@ -298,8 +243,10 @@ class _HomeTabState extends State<_HomeTab> {
 
     await showModalBottomSheet<void>(
       context: context,
-      backgroundColor: _Colors.surface,
+      backgroundColor: const Color(0xFF13233F),
+
       isScrollControlled: true,
+      color: const Color(0xFF2D8DFF), // for Mark all read
       shape: const RoundedRectangleBorder(
         borderRadius: BorderRadius.vertical(top: Radius.circular(28)),
       ),
@@ -398,20 +345,15 @@ class _HomeTabState extends State<_HomeTab> {
     return SafeArea(
       child: LayoutBuilder(
         builder: (context, constraints) {
-          final maxWidth = constraints.maxWidth >= 900 ? 1120.0 : 760.0;
+          final maxWidth = constraints.maxWidth >= 900 ? 980.0 : 760.0;
 
           return Center(
             child: ConstrainedBox(
               constraints: BoxConstraints(maxWidth: maxWidth),
               child: CustomScrollView(
                 slivers: [
-                  SliverToBoxAdapter(child: _buildTopBar()),
-                  SliverToBoxAdapter(child: _buildHero()),
-                  // SliverToBoxAdapter(child: _buildQuickActions()),
-                  SliverToBoxAdapter(child: _buildLearning()),
-                  SliverToBoxAdapter(child: _buildLiveGames()),
-                  SliverToBoxAdapter(child: _buildCommunity()),
-                  const SliverToBoxAdapter(child: SizedBox(height: 24)),
+                  SliverToBoxAdapter(child: _buildDesignHome()),
+                  const SliverToBoxAdapter(child: SizedBox(height: 28)),
                 ],
               ),
             ),
@@ -421,45 +363,550 @@ class _HomeTabState extends State<_HomeTab> {
     );
   }
 
-  Widget _buildTopBar() {
+  Widget _buildDesignHome() {
+    final lesson = _continueLesson;
+    final profile = _profile;
+    final width = MediaQuery.sizeOf(context).width;
+    final tileWidth = (width - 64) / 4;
+
     return Padding(
-      padding: const EdgeInsets.fromLTRB(20, 18, 20, 8),
-      child: Row(
+      padding: const EdgeInsets.fromLTRB(20, 14, 20, 0),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          // Logo
+          // --- TOP BAR ---
           Row(
             children: [
-              Container(
-                width: 32,
-                height: 32,
-                decoration: BoxDecoration(
-                  color: Colors.transparent,
-                  borderRadius: BorderRadius.circular(9),
-                ),
-                alignment: Alignment.center,
-                child: const Text(
-                  '♟',
-                  style: TextStyle(fontSize: 20, color: Colors.black),
-                ),
-              ),
-              const SizedBox(width: 9),
               const Text(
                 'CHECKMATE',
                 style: TextStyle(
-                  fontSize: 20,
-                  color: _Colors.textPrimary,
+                  fontSize: 16,
+                  letterSpacing: 1.2,
                   fontWeight: FontWeight.w900,
-                  letterSpacing: 1.4,
+                  color: Colors.white,
                 ),
+              ),
+              const SizedBox(width: 10),
+              Container(
+                padding: const EdgeInsets.symmetric(horizontal: 6, vertical: 2),
+                decoration: BoxDecoration(
+                  color: const Color(0xFF1E3352),
+                  borderRadius: BorderRadius.circular(4),
+                ),
+                child: const Text(
+                  'SQI',
+                  style: TextStyle(
+                    fontSize: 10,
+                    letterSpacing: 1.1,
+                    fontWeight: FontWeight.w800,
+                    color: Color(0xFF8A9BB0),
+                  ),
+                ),
+              ),
+              const Spacer(),
+              Stack(
+                children: [
+                  IconButton(
+                    onPressed: _showNotifications,
+                    icon: const Icon(
+                      Icons.notifications_none_rounded,
+                      color: Color(0xFFB8C6D9),
+                    ),
+                    visualDensity: VisualDensity.compact,
+                  ),
+                  if (_unreadNotificationCount > 0)
+                    Positioned(
+                      right: 9,
+                      top: 7,
+                      child: Container(
+                        width: 8,
+                        height: 8,
+                        decoration: const BoxDecoration(
+                          color: Color(0xFF2D8DFF),
+                          shape: BoxShape.circle,
+                        ),
+                      ),
+                    ),
+                ],
+              ),
+              const SizedBox(width: 4),
+              PlayerAvatar(
+                name: profile?.fullName,
+                imageUrl: profile?.avatarUrl,
+                radius: 21,
+                accent: AppTheme.blue,
               ),
             ],
           ),
 
-          const Spacer(),
+          const SizedBox(height: 16),
+          Text(
+            'Good evening, $_playerName',
+            style: const TextStyle(
+              fontSize: 14,
+              color: Color(0xFFB8C6D9),
+              fontWeight: FontWeight.w600,
+            ),
+          ),
+          const SizedBox(height: 3),
+          const Text(
+            'Make your next move.',
+            style: TextStyle(
+              fontSize: 27,
+              height: 1.12,
+              fontWeight: FontWeight.w800,
+              letterSpacing: -.45,
+              color: Colors.white,
+            ),
+          ),
+          const SizedBox(height: 22),
 
+          // --- DAILY CHALLENGE ---
+          _homeChallengeCard(),
+          const SizedBox(height: 16),
+
+          // --- PLAY ONLINE - main blue button ---
+          SizedBox(
+            width: double.infinity,
+            height: 52,
+            child: FilledButton(
+              onPressed: () => Navigator.of(
+                context,
+              ).push(MaterialPageRoute(builder: (_) => const MatchesScreen())),
+              style: FilledButton.styleFrom(
+                backgroundColor: const Color(0xFF2D8DFF),
+                foregroundColor: Colors.white,
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(14),
+                ),
+              ),
+              child: const Text(
+                'Play online    →',
+                style: TextStyle(fontWeight: FontWeight.w800, fontSize: 15),
+              ),
+            ),
+          ),
+          const SizedBox(height: 8),
+          Row(
+            children: [
+              const Text(
+                '124,802 players online',
+                style: TextStyle(fontSize: 11, color: Color(0xFF8A9BB0)),
+              ),
+              const Spacer(),
+              Container(
+                padding: const EdgeInsets.symmetric(
+                  horizontal: 11,
+                  vertical: 6,
+                ),
+                decoration: BoxDecoration(
+                  color: const Color(0xFF13233F),
+                  borderRadius: BorderRadius.circular(99),
+                ),
+                child: const Text(
+                  'RAPID   10 + 5',
+                  style: TextStyle(
+                    fontSize: 10,
+                    letterSpacing: .45,
+                    fontWeight: FontWeight.w800,
+                    color: Color(0xFFB8C6D9),
+                  ),
+                ),
+              ),
+            ],
+          ),
+          const SizedBox(height: 18),
+
+          // --- 4 ACTIONS ---
+          Row(
+            children: [
+              _homeAction(
+                width: tileWidth,
+                icon: Icons.computer_rounded,
+                label: 'Computer',
+                onTap: () => Navigator.of(context).push(
+                  MaterialPageRoute(builder: (_) => const PracticeScreen()),
+                ),
+              ),
+              const SizedBox(width: 8),
+              _homeAction(
+                width: tileWidth,
+                icon: Icons.people_alt_rounded,
+                label: 'Play a friend',
+                onTap: () => Navigator.of(context).push(
+                  MaterialPageRoute(builder: (_) => const MatchesScreen()),
+                ),
+              ),
+              const SizedBox(width: 8),
+              _homeAction(
+                width: tileWidth,
+                icon: Icons.extension_rounded,
+                label: 'Puzzles',
+                onTap: () => Navigator.of(
+                  context,
+                ).push(MaterialPageRoute(builder: (_) => const LearnScreen())),
+              ),
+              const SizedBox(width: 8),
+              _homeAction(
+                width: tileWidth,
+                icon: Icons.emoji_events_rounded,
+                label: 'Tournaments',
+                onTap: () => Navigator.of(context).push(
+                  MaterialPageRoute(builder: (_) => const CompetitionsScreen()),
+                ),
+              ),
+            ],
+          ),
+          const SizedBox(height: 24),
+
+          // --- CONTINUE LEARNING ---
+          Row(
+            children: [
+              const Expanded(
+                child: Text(
+                  'Continue learning',
+                  style: TextStyle(
+                    fontSize: 18,
+                    fontWeight: FontWeight.w800,
+                    color: Colors.white,
+                  ),
+                ),
+              ),
+              TextButton(
+                onPressed: () => Navigator.of(
+                  context,
+                ).push(MaterialPageRoute(builder: (_) => const LearnScreen())),
+                child: const Text(
+                  'See all  →',
+                  style: TextStyle(
+                    fontSize: 12,
+                    fontWeight: FontWeight.w700,
+                    color: Color(0xFF8A9BB0),
+                  ),
+                ),
+              ),
+            ],
+          ),
+          const SizedBox(height: 6),
+          _homeLearningCard(lesson),
+          const SizedBox(height: 16),
+          _homeProgressCard(profile),
+        ],
+      ),
+    );
+  }
+
+  Widget _homeChallengeCard() => Container(
+    height: 146,
+    width: double.infinity,
+    decoration: BoxDecoration(
+      color: const Color(0xFF13233F),
+      borderRadius: BorderRadius.circular(17),
+    ),
+    child: Stack(
+      children: [
+        Padding(
+          padding: const EdgeInsets.fromLTRB(16, 15, 0, 12),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              const Text(
+                'DAILY CHALLENGE',
+                style: TextStyle(
+                  fontSize: 10,
+                  letterSpacing: 1.1,
+                  fontWeight: FontWeight.w900,
+                  color: Color(0xFF2D8DFF),
+                ),
+              ),
+              const SizedBox(height: 9),
+              const Text(
+                'One move.\nOne sharper mind.',
+                style: TextStyle(
+                  fontSize: 19,
+                  height: 1.13,
+                  fontWeight: FontWeight.w800,
+                  color: Colors.white,
+                ),
+              ),
+              const Spacer(),
+              const Text(
+                'Solve today’s puzzle →',
+                style: TextStyle(
+                  fontSize: 11,
+                  color: Color(0xFFB8C6D9),
+                  fontWeight: FontWeight.w700,
+                ),
+              ),
+            ],
+          ),
+        ),
+        Positioned(right: 15, top: 12, bottom: 12, child: _miniChessboard()),
+      ],
+    ),
+  );
+
+  Widget _miniChessboard() {
+    const rows = [
+      'rnbqkbnr',
+      'pppppppp',
+      '........',
+      '........',
+      '........',
+      '........',
+      'PPPPPPPP',
+      'RNBQKBNR',
+    ];
+    const pieces = {
+      'r': '♜',
+      'n': '♞',
+      'b': '♝',
+      'q': '♛',
+      'k': '♚',
+      'p': '♟',
+      'R': '♖',
+      'N': '♘',
+      'B': '♗',
+      'Q': '♕',
+      'K': '♔',
+      'P': '♙',
+    };
+
+    return ClipRRect(
+      borderRadius: BorderRadius.circular(7),
+      child: SizedBox(
+        width: 122,
+        height: 122,
+        child: Column(
+          children: List.generate(8, (row) {
+            return Expanded(
+              child: Row(
+                children: List.generate(8, (column) {
+                  final piece = rows[row][column];
+                  // NEW BLUE BOARD - this is the change
+                  final squareColor = (row + column).isOdd
+                      ? const Color(0xFF5A86B8) // dark blue
+                      : const Color(0xFFD7E6F5); // light blue
+                  return Expanded(
+                    child: Container(
+                      color: squareColor,
+                      alignment: Alignment.center,
+                      child: piece == '.'
+                          ? null
+                          : FittedBox(
+                              child: Text(
+                                pieces[piece]!,
+                                style: TextStyle(
+                                  color: piece.toUpperCase() == piece
+                                      ? const Color(0xFFF5F1E7)
+                                      : const Color(0xFF1A2B4A),
+                                  fontSize: 18,
+                                  height: 1,
+                                ),
+                              ),
+                            ),
+                    ),
+                  );
+                }),
+              ),
+            );
+          }),
+        ),
+      ),
+    );
+  }
+
+  Widget _homeAction({
+    required double width,
+    required IconData icon,
+    required String label,
+    required VoidCallback onTap,
+  }) => SizedBox(
+    width: width,
+    height: 83,
+    child: Material(
+      color: const Color(0xFF13233F),
+      borderRadius: BorderRadius.circular(14),
+      child: InkWell(
+        onTap: onTap,
+        borderRadius: BorderRadius.circular(14),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Icon(icon, size: 22, color: const Color(0xFF2D8DFF)),
+            const SizedBox(height: 8),
+            Text(
+              label,
+              textAlign: TextAlign.center,
+              style: const TextStyle(
+                fontSize: 11,
+                fontWeight: FontWeight.w700,
+                color: Colors.white,
+              ),
+            ),
+          ],
+        ),
+      ),
+    ),
+  );
+  Widget _homeLearningCard(LessonModel? lesson) => Container(
+    height: 89,
+    padding: const EdgeInsets.all(12),
+    decoration: BoxDecoration(
+      color: AppTheme.surface,
+      borderRadius: BorderRadius.circular(15),
+      border: Border.all(color: AppTheme.divider),
+    ),
+    child: Row(
+      children: [
+        Container(
+          width: 65,
+          height: 65,
+          decoration: BoxDecoration(
+            color: AppTheme.elevated,
+            borderRadius: BorderRadius.circular(12),
+          ),
+          alignment: Alignment.center,
+          child: const Text(
+            '♘',
+            style: TextStyle(fontSize: 40, color: Color(0xFFE9E6D7)),
+          ),
+        ),
+        const SizedBox(width: 14),
+        Expanded(
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Text(
+                lesson?.category.toUpperCase() ?? 'OPENING THEORY',
+                style: const TextStyle(
+                  fontSize: 9,
+                  letterSpacing: .9,
+                  color: AppTheme.blue,
+                  fontWeight: FontWeight.w800,
+                ),
+              ),
+              const SizedBox(height: 3),
+              Text(
+                lesson?.title ?? 'The Italian Game',
+                maxLines: 1,
+                overflow: TextOverflow.ellipsis,
+                style: const TextStyle(
+                  fontSize: 15,
+                  fontWeight: FontWeight.w800,
+                ),
+              ),
+              const SizedBox(height: 3),
+              Text(
+                lesson == null
+                    ? 'Lesson 04  ·  8 min left'
+                    : 'Lesson ${lesson.sortOrder.toString().padLeft(2, '0')}  ·  ${lesson.durationMinutes} min',
+                style: const TextStyle(fontSize: 10, color: AppTheme.textMuted),
+              ),
+              const SizedBox(height: 7),
+              ClipRRect(
+                borderRadius: BorderRadius.circular(5),
+                child: LinearProgressIndicator(
+                  value: (lesson?.progress ?? 60) / 100,
+                  minHeight: 3,
+                  backgroundColor: AppTheme.divider,
+                  color: AppTheme.blue,
+                ),
+              ),
+            ],
+          ),
+        ),
+      ],
+    ),
+  );
+
+  Widget _homeProgressCard(ProfileModel? profile) => Container(
+    height: 67,
+    padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 9),
+    decoration: BoxDecoration(
+      color: AppTheme.surface,
+      borderRadius: BorderRadius.circular(15),
+      border: Border.all(color: AppTheme.divider),
+    ),
+    child: Row(
+      children: [
+        Text(
+          '${profile?.currentStreak ?? 7}',
+          style: const TextStyle(
+            fontSize: 27,
+            fontWeight: FontWeight.w900,
+            color: AppTheme.blue,
+          ),
+        ),
+        const SizedBox(width: 9),
+        const Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Text(
+              'day streak',
+              style: TextStyle(fontSize: 11, color: AppTheme.textSecondary),
+            ),
+            SizedBox(height: 3),
+            Text(
+              'M  T  W  T  F  S  S',
+              style: TextStyle(fontSize: 9, color: AppTheme.textMuted),
+            ),
+          ],
+        ),
+        const Spacer(),
+        const Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          crossAxisAlignment: CrossAxisAlignment.end,
+          children: [
+            Text(
+              '1,240',
+              style: TextStyle(fontSize: 21, fontWeight: FontWeight.w900),
+            ),
+            Text(
+              'XP earned',
+              style: TextStyle(fontSize: 9, color: AppTheme.textMuted),
+            ),
+          ],
+        ),
+      ],
+    ),
+  );
+
+  Widget _buildTopBar() {
+    return Padding(
+      padding: const EdgeInsets.fromLTRB(20, 18, 20, 10),
+      child: Row(
+        children: [
+          PlayerAvatar(
+            name: _profile?.fullName,
+            imageUrl: _profile?.avatarUrl,
+            radius: 22,
+            accent: AppTheme.gold,
+          ),
+          const SizedBox(width: 12),
+          Expanded(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  'Welcome back,',
+                  style: Theme.of(context).textTheme.bodySmall,
+                ),
+                Text(
+                  _playerName,
+                  maxLines: 1,
+                  overflow: TextOverflow.ellipsis,
+                  style: Theme.of(
+                    context,
+                  ).textTheme.titleLarge?.copyWith(fontWeight: FontWeight.w800),
+                ),
+              ],
+            ),
+          ),
           _topIconButton(icon: Icons.search_rounded, onTap: _showSearch),
           const SizedBox(width: 8),
-
           Stack(
             clipBehavior: Clip.none,
             children: [
@@ -474,41 +921,13 @@ class _HomeTabState extends State<_HomeTab> {
                   child: Container(
                     width: 9,
                     height: 9,
-                    decoration: BoxDecoration(
-                      color: _Colors.danger,
+                    decoration: const BoxDecoration(
+                      color: AppTheme.errorColor,
                       shape: BoxShape.circle,
-                      border: Border.all(color: _Colors.background, width: 2),
                     ),
                   ),
                 ),
             ],
-          ),
-
-          const SizedBox(width: 10),
-
-          GestureDetector(
-            onTap: () {
-              Navigator.of(
-                context,
-              ).push(MaterialPageRoute(builder: (_) => const ProfileScreen()));
-            },
-            child: Container(
-              width: 40,
-              height: 40,
-              decoration: BoxDecoration(
-                color: Color(0xFF4A9FE0),
-                shape: BoxShape.circle,
-              ),
-              alignment: Alignment.center,
-              child: Text(
-                _playerInitial,
-                style: const TextStyle(
-                  fontSize: 20,
-                  color: Colors.white,
-                  fontWeight: FontWeight.w800,
-                ),
-              ),
-            ),
           ),
         ],
       ),
@@ -516,129 +935,198 @@ class _HomeTabState extends State<_HomeTab> {
   }
 
   Widget _buildHero() {
-    return Container(
-      height: 248,
-      margin: const EdgeInsets.fromLTRB(20, 12, 20, 8),
-      decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(18),
-        image: DecorationImage(
-          image: AssetImage("assets/images/herobg3.jpg"),
-          opacity: 0.7,
-          fit: BoxFit.cover,
-        ),
-      ),
-      clipBehavior: Clip.antiAlias,
-      child: Stack(
-        children: [
-          // Subtle board-inspired background detail.
-          /* Positioned(
-            right: -30,
-            top: -35,
-            bottom: -35,
-            width: 225,
-            child: CustomPaint(painter: _ChessHeroBoardPainter()),
-          ),
- */
-          // Content stays above the chessboard visual.
-          Padding(
-            padding: const EdgeInsets.fromLTRB(20, 22, 16, 18),
-            child: SizedBox(
-              width: 225,
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Row(
+    final rating = _profile?.chessRating ?? 1000;
+    return Padding(
+      padding: const EdgeInsets.fromLTRB(20, 8, 20, 0),
+      child: PremiumCard(
+        padding: EdgeInsets.zero,
+        child: ClipRRect(
+          borderRadius: BorderRadius.circular(20),
+          child: Container(
+            padding: const EdgeInsets.all(20),
+            decoration: const BoxDecoration(
+              gradient: LinearGradient(
+                colors: [Color(0xFF1D3D84), AppTheme.surface],
+                begin: Alignment.topLeft,
+                end: Alignment.bottomRight,
+              ),
+            ),
+            child: Row(
+              children: [
+                Expanded(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Container(
-                        width: 5,
-                        height: 5,
-                        decoration: BoxDecoration(
-                          color: _Colors.blue,
-                          shape: BoxShape.circle,
-                          border: Border.all(
-                            color: Colors.white,
-                            width: 2,
-                          ), // Gives it a clean separation
-                          boxShadow: [
-                            BoxShadow(
-                              color: _Colors.blue.withAlpha(100),
-                              blurRadius: 4,
-                              spreadRadius: 1,
-                            ),
-                          ],
+                      Text(
+                        'YOUR RATING',
+                        style: Theme.of(context).textTheme.labelSmall?.copyWith(
+                          color: AppTheme.textSecondary,
+                          letterSpacing: 1.4,
+                          fontWeight: FontWeight.w700,
                         ),
                       ),
-                      const SizedBox(width: 6),
-                      const Text(
-                        'SQI CHECKMATE ARENA',
-                        style: TextStyle(
-                          fontSize: 17,
-                          fontWeight: FontWeight.w700,
-                          letterSpacing: 1.6,
-                          color: _Colors.bluedeep,
+                      const SizedBox(height: 4),
+                      Row(
+                        crossAxisAlignment: CrossAxisAlignment.end,
+                        children: [
+                          Text(
+                            '$rating',
+                            style: Theme.of(context).textTheme.displaySmall
+                                ?.copyWith(
+                                  fontWeight: FontWeight.w900,
+                                  color: AppTheme.textPrimary,
+                                ),
+                          ),
+                          const Padding(
+                            padding: EdgeInsets.only(bottom: 7, left: 6),
+                            child: Text(
+                              'ELO',
+                              style: TextStyle(
+                                color: AppTheme.gold,
+                                fontWeight: FontWeight.w800,
+                              ),
+                            ),
+                          ),
+                        ],
+                      ),
+                      const SizedBox(height: 5),
+                      Text(
+                        _profile == null
+                            ? 'Your arena profile is loading'
+                            : '${_profile!.gamesPlayed} games played',
+                        style: Theme.of(context).textTheme.bodySmall?.copyWith(
+                          color: AppTheme.textSecondary,
+                        ),
+                      ),
+                      const SizedBox(height: 16),
+                      SizedBox(
+                        height: 44,
+                        child: FilledButton.icon(
+                          onPressed: () => Navigator.of(context).push(
+                            MaterialPageRoute(
+                              builder: (_) => const MatchesScreen(),
+                            ),
+                          ),
+                          icon: const Icon(Icons.bolt_rounded, size: 19),
+                          label: const Text('Play a match'),
                         ),
                       ),
                     ],
                   ),
-                  const SizedBox(height: 12),
-                  const Text(
-                    'Better at Chess.\nTogether.',
-                    style: TextStyle(
-                      fontSize: 34,
-                      fontFamily: 'Roboto',
-                      height: 1.4,
-                      fontWeight: FontWeight.w900,
-                      letterSpacing: -0.5,
-                      color: Colors.black,
-                    ),
-                  ),
-                  const SizedBox(height: 9),
-                  const Text(
-                    'Learn. Play. Compete.',
-                    style: TextStyle(
-                      fontSize: 20,
-                      height: 1.4,
-                      color: _Colors.blue,
-                    ),
-                  ),
-                  const Spacer(),
-                  SizedBox(
-                    height: 40,
-                    width: 160,
-                    child: ElevatedButton(
-                      onPressed: () {
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(builder: (_) => MatchesScreen()),
-                        );
-                      },
-                      style: ElevatedButton.styleFrom(
-                        backgroundColor: _Colors.bluedeep,
-                        foregroundColor: _Colors.foreground,
-                        elevation: 0,
-                        padding: const EdgeInsets.symmetric(horizontal: 16),
-                        shape: const StadiumBorder(),
+                ),
+                const SizedBox(width: 12),
+                SizedBox(
+                  width: 98,
+                  height: 82,
+                  child: CustomPaint(
+                    painter: _RatingSparklinePainter(),
+                    child: Align(
+                      alignment: Alignment.topRight,
+                      child: Text(
+                        _profile == null ? '—' : 'LIVE',
+                        style: Theme.of(context).textTheme.labelSmall?.copyWith(
+                          color: AppTheme.success,
+                          fontWeight: FontWeight.w800,
+                          letterSpacing: 1.1,
+                        ),
                       ),
-                      child: const Row(
-                        mainAxisSize: MainAxisSize.min,
-                        children: [
-                          Text(
-                            'Start Playing',
-                            style: TextStyle(
-                              fontSize: 20,
-                              fontWeight: FontWeight.w700,
-                            ),
-                          ),
-                          SizedBox(width: 8),
-                          Icon(Icons.arrow_forward, size: 16),
-                        ],
+                    ),
+                  ),
+                ),
+              ],
+            ),
+          ),
+        ),
+      ),
+    );
+  }
+
+  Widget _buildRecentActivity() {
+    return Padding(
+      padding: const EdgeInsets.fromLTRB(20, 24, 20, 0),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          SectionHeader(
+            'Recent activity',
+            action: 'See all',
+            onAction: _showNotifications,
+          ),
+          const SizedBox(height: 10),
+          if (_notifications.isEmpty)
+            PremiumCard(
+              padding: const EdgeInsets.all(16),
+              child: Row(
+                children: [
+                  const Icon(Icons.auto_awesome_rounded, color: AppTheme.gold),
+                  const SizedBox(width: 12),
+                  Expanded(
+                    child: Text(
+                      'Your match and community updates will appear here.',
+                      style: Theme.of(context).textTheme.bodyMedium?.copyWith(
+                        color: AppTheme.textSecondary,
                       ),
                     ),
                   ),
                 ],
               ),
-            ),
-          ),
+            )
+          else
+            ..._notifications
+                .take(2)
+                .map(
+                  (notification) => Padding(
+                    padding: const EdgeInsets.only(bottom: 8),
+                    child: PremiumCard(
+                      padding: const EdgeInsets.symmetric(
+                        horizontal: 14,
+                        vertical: 12,
+                      ),
+                      onTap: () => _showNotifications(),
+                      child: Row(
+                        children: [
+                          Container(
+                            width: 34,
+                            height: 34,
+                            decoration: BoxDecoration(
+                              color: AppTheme.blue.withValues(alpha: .13),
+                              borderRadius: BorderRadius.circular(11),
+                            ),
+                            child: const Icon(
+                              Icons.notifications_rounded,
+                              color: AppTheme.blue,
+                              size: 18,
+                            ),
+                          ),
+                          const SizedBox(width: 10),
+                          Expanded(
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Text(
+                                  notification.title,
+                                  maxLines: 1,
+                                  overflow: TextOverflow.ellipsis,
+                                  style: Theme.of(context).textTheme.titleSmall
+                                      ?.copyWith(fontWeight: FontWeight.w700),
+                                ),
+                                const SizedBox(height: 2),
+                                Text(
+                                  notification.timeLabel,
+                                  style: Theme.of(context).textTheme.bodySmall,
+                                ),
+                              ],
+                            ),
+                          ),
+                          const Icon(
+                            Icons.chevron_right_rounded,
+                            color: AppTheme.textMuted,
+                          ),
+                        ],
+                      ),
+                    ),
+                  ),
+                ),
         ],
       ),
     );
@@ -681,23 +1169,29 @@ class _HomeTabState extends State<_HomeTab> {
     ];
 
     return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 20),
+      padding: const EdgeInsets.fromLTRB(20, 24, 20, 0),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          const _SectionTitle(title: 'Quick Actions'),
+          SectionHeader(
+            'Quick actions',
+            action: 'See all',
+            onAction: () => Navigator.of(
+              context,
+            ).push(MaterialPageRoute(builder: (_) => const MatchesScreen())),
+          ),
           const SizedBox(height: 12),
-          GridView.builder(
-            shrinkWrap: true,
-            physics: const NeverScrollableScrollPhysics(),
-            itemCount: actions.length,
-            gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-              crossAxisCount: 4,
-              crossAxisSpacing: 10,
-              mainAxisSpacing: 10,
-              childAspectRatio: 0.85,
+          SizedBox(
+            height: 104,
+            child: ListView.separated(
+              scrollDirection: Axis.horizontal,
+              itemCount: actions.length,
+              separatorBuilder: (_, _) => const SizedBox(width: 10),
+              itemBuilder: (context, index) => SizedBox(
+                width: 108,
+                child: _QuickAction(data: actions[index]),
+              ),
             ),
-            itemBuilder: (context, index) => _QuickAction(data: actions[index]),
           ),
         ],
       ),
@@ -722,17 +1216,12 @@ class _HomeTabState extends State<_HomeTab> {
             },
           ),
           const SizedBox(height: 12),
-          Container(
-            padding: const EdgeInsets.all(20),
-            decoration: BoxDecoration(
-              color: _Colors.surface,
-              borderRadius: BorderRadius.circular(20),
-              border: Border.all(color: Colors.white.withValues(alpha: 0.05)),
-            ),
+          PremiumCard(
+            padding: const EdgeInsets.all(16),
             child: _learningLoading
                 ? const SizedBox(
                     height: 110,
-                    child: Center(child: CircularProgressIndicator()),
+                    child: LoadingState(message: 'Loading lessons...'),
                   )
                 : lesson == null
                 ? const _EmptyState(
@@ -763,7 +1252,7 @@ class _HomeTabState extends State<_HomeTab> {
                             Text(
                               lesson.category.toUpperCase(),
                               style: const TextStyle(
-                                fontSize: 20,
+                                fontSize: 11,
                                 color: _Colors.blue,
                                 fontWeight: FontWeight.w900,
                                 letterSpacing: 1.2,
@@ -775,7 +1264,7 @@ class _HomeTabState extends State<_HomeTab> {
                               maxLines: 1,
                               overflow: TextOverflow.ellipsis,
                               style: const TextStyle(
-                                fontSize: 20,
+                                fontSize: 16,
                                 color: _Colors.textPrimary,
                                 fontWeight: FontWeight.w800,
                               ),
@@ -784,7 +1273,7 @@ class _HomeTabState extends State<_HomeTab> {
                             Text(
                               '${lesson.progress}% complete • ${lesson.durationMinutes} min',
                               style: const TextStyle(
-                                fontSize: 20,
+                                fontSize: 12,
                                 color: _Colors.textMuted,
                               ),
                             ),
@@ -1083,7 +1572,7 @@ class _HomeTabState extends State<_HomeTab> {
           width: 42,
           height: 42,
           decoration: BoxDecoration(
-            border: Border.all(color: const Color(0xFFCCDEF0)),
+            border: Border.all(color: AppTheme.divider),
             borderRadius: BorderRadius.circular(12),
           ),
           child: Icon(icon, color: _Colors.textSecondary, size: 20),
@@ -1349,7 +1838,7 @@ class _QuickAction extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Material(
-      color: _Colors.surface,
+      color: AppTheme.surface,
       borderRadius: BorderRadius.circular(16),
       child: InkWell(
         onTap: data.onTap,
@@ -1359,37 +1848,29 @@ class _QuickAction extends StatelessWidget {
           padding: const EdgeInsets.all(12),
           decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(16),
-            border: Border.all(color: const Color(0xFFCCDEF0)),
+            border: Border.all(color: AppTheme.divider),
           ),
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               Container(
-                width: 48,
-                height: 48,
+                width: 42,
+                height: 42,
                 decoration: BoxDecoration(
-                  color: _Colors.blue.withValues(alpha: 0.10),
-                  borderRadius: BorderRadius.circular(50),
+                  color: AppTheme.blue.withValues(alpha: 0.12),
+                  borderRadius: BorderRadius.circular(14),
                 ),
-                child: Icon(data.icon, color: _Colors.blue, size: 24),
+                child: Icon(data.icon, color: AppTheme.blue, size: 21),
               ),
-              const SizedBox(height: 8),
+              const SizedBox(height: 7),
               Text(
                 data.title,
                 textAlign: TextAlign.center,
                 style: const TextStyle(
-                  fontSize: 20,
+                  fontSize: 13,
                   color: _Colors.textPrimary,
-                  fontWeight: FontWeight.w800,
+                  fontWeight: FontWeight.w700,
                 ),
-              ),
-              const SizedBox(height: 2),
-              Text(
-                data.subtitle,
-                textAlign: TextAlign.center,
-                maxLines: 1,
-                overflow: TextOverflow.ellipsis,
-                style: const TextStyle(fontSize: 20, color: _Colors.textMuted),
               ),
             ],
           ),
@@ -1414,9 +1895,9 @@ class _SectionTitle extends StatelessWidget {
           child: Text(
             title,
             style: const TextStyle(
-              fontSize: 20,
+              fontSize: 17,
               color: _Colors.textPrimary,
-              fontWeight: FontWeight.w800,
+              fontWeight: FontWeight.w700,
             ),
           ),
         ),
@@ -1426,7 +1907,7 @@ class _SectionTitle extends StatelessWidget {
             child: Text(
               actionLabel!,
               style: const TextStyle(
-                fontSize: 20,
+                fontSize: 13,
                 color: _Colors.blue,
                 fontWeight: FontWeight.w700,
               ),
@@ -1571,6 +2052,59 @@ class _DashboardSearchDelegate extends SearchDelegate<String> {
       message: 'Search players, games, competitions and community posts.',
     );
   }
+}
+
+class _RatingSparklinePainter extends CustomPainter {
+  @override
+  void paint(Canvas canvas, Size size) {
+    final gridPaint = Paint()
+      ..color = AppTheme.textSecondary.withValues(alpha: .12)
+      ..strokeWidth = 1;
+    for (var index = 1; index < 4; index++) {
+      final y = size.height * index / 4;
+      canvas.drawLine(Offset(0, y), Offset(size.width, y), gridPaint);
+    }
+
+    final linePaint = Paint()
+      ..color = AppTheme.blue
+      ..strokeWidth = 3
+      ..style = PaintingStyle.stroke
+      ..strokeCap = StrokeCap.round
+      ..strokeJoin = StrokeJoin.round;
+    final fillPaint = Paint()
+      ..shader = LinearGradient(
+        colors: [
+          AppTheme.blue.withValues(alpha: .28),
+          AppTheme.blue.withValues(alpha: 0),
+        ],
+        begin: Alignment.topCenter,
+        end: Alignment.bottomCenter,
+      ).createShader(Offset.zero & size)
+      ..style = PaintingStyle.fill;
+    final points = [
+      Offset(0, size.height * .72),
+      Offset(size.width * .15, size.height * .58),
+      Offset(size.width * .3, size.height * .64),
+      Offset(size.width * .45, size.height * .42),
+      Offset(size.width * .62, size.height * .5),
+      Offset(size.width * .78, size.height * .25),
+      Offset(size.width, size.height * .12),
+    ];
+    final line = Path()..moveTo(points.first.dx, points.first.dy);
+    for (final point in points.skip(1)) {
+      line.lineTo(point.dx, point.dy);
+    }
+    final fill = Path.from(line)
+      ..lineTo(size.width, size.height)
+      ..lineTo(0, size.height)
+      ..close();
+    canvas.drawPath(fill, fillPaint);
+    canvas.drawPath(line, linePaint);
+    canvas.drawCircle(points.last, 4, Paint()..color = AppTheme.gold);
+  }
+
+  @override
+  bool shouldRepaint(covariant _RatingSparklinePainter oldDelegate) => false;
 }
 
 class _ChessHeroBoardPainter extends CustomPainter {
@@ -1803,20 +2337,17 @@ class _ChessHeroBoardPainter extends CustomPainter {
 }
 
 class _Colors {
-  // Sky / Steel-Blue palette
-  static const background = Color(0xFFAABBD2);
-  static const foreground = Colors.white;
-  static const surface = Color(0xFFFFFFFF);
-  static const surface2 = Color(0xFFE3EEF9);
-  static const surface3 = Color(0xFFD0E5F7);
-
-  static const blue = Color(0xFF1A6BB5); // brand primary
-  static const bluedeep = Color(0xFF1B4463); // hover / accent
-  static const green = Color(0xFF2E9E6E); // success / live
-  static const danger = Color(0xFFFF5C70);
-
-  static const textPrimary = Color(0xFF0D1B2E);
-  static const textSecondary = Color(0xFF2E4A66);
-  static const textMuted = Color(0xFF5E7A99);
-  static const profile = Colors.blue;
+  static const background = AppTheme.canvas;
+  static const foreground = AppTheme.textPrimary;
+  static const surface = AppTheme.surface;
+  static const surface2 = AppTheme.elevated;
+  static const surface3 = AppTheme.divider;
+  static const blue = AppTheme.blue;
+  static const bluedeep = AppTheme.blueDeep;
+  static const green = AppTheme.success;
+  static const danger = AppTheme.errorColor;
+  static const textPrimary = AppTheme.textPrimary;
+  static const textSecondary = AppTheme.textSecondary;
+  static const textMuted = AppTheme.textMuted;
+  static const profile = AppTheme.blue;
 }

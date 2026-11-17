@@ -571,13 +571,22 @@ class _LanLobbyScreenState extends State<LanLobbyScreen> {
     } catch (_) {}
   }
 
+  bool _isValidLanHost(String value) {
+    final address = InternetAddress.tryParse(value);
+    return address != null &&
+        address.type == InternetAddressType.IPv4 &&
+        !address.isLoopback;
+  }
+
   void _openManualJoin() {
     final ip = _manualIpController.text.trim();
 
-    if (ip.isEmpty) {
+    if (ip.isEmpty || !_isValidLanHost(ip)) {
       ScaffoldMessenger.of(context).showSnackBar(
         const SnackBar(
-          content: Text('Enter the host IP address first.'),
+          content: Text(
+            'Enter a valid IPv4 address, for example 192.168.1.10.',
+          ),
           behavior: SnackBarBehavior.floating,
         ),
       );
@@ -1179,15 +1188,39 @@ class _LanHostScreenState extends State<LanHostScreen> {
       for (final interface in interfaces) {
         for (final address in interface.addresses) {
           if (!address.isLoopback && address.type == InternetAddressType.IPv4) {
-            if (!result.contains(address.address)) {
+            final value = address.address;
+            final bytes = address.rawAddress;
+            final isLinkLocal =
+                bytes.length == 4 && bytes[0] == 169 && bytes[1] == 254;
+
+            if (!isLinkLocal && !result.contains(value)) {
               result.add(address.address);
             }
           }
         }
       }
+
+      result.sort((first, second) {
+        final firstPrivate = _isPrivateIpv4(first);
+        final secondPrivate = _isPrivateIpv4(second);
+        return (secondPrivate ? 1 : 0).compareTo(firstPrivate ? 1 : 0);
+      });
     } catch (_) {}
 
     return result;
+  }
+
+  bool _isPrivateIpv4(String value) {
+    final address = InternetAddress.tryParse(value);
+    if (address == null || address.type != InternetAddressType.IPv4) {
+      return false;
+    }
+
+    final bytes = address.rawAddress;
+    return bytes.length == 4 &&
+        (bytes[0] == 10 ||
+            (bytes[0] == 172 && bytes[1] >= 16 && bytes[1] <= 31) ||
+            (bytes[0] == 192 && bytes[1] == 168));
   }
 
   void _advertise() {
@@ -2191,10 +2224,15 @@ class _LanJoinScreenState extends State<LanJoinScreen> {
   void _manualConnect() {
     final host = _ipController.text.trim();
 
-    if (host.isEmpty) {
+    final address = InternetAddress.tryParse(host);
+    if (address == null ||
+        address.type != InternetAddressType.IPv4 ||
+        address.isLoopback) {
       ScaffoldMessenger.of(context).showSnackBar(
         const SnackBar(
-          content: Text('Enter the host IP address first.'),
+          content: Text(
+            'Enter a valid IPv4 address, for example 192.168.1.10.',
+          ),
           behavior: SnackBarBehavior.floating,
         ),
       );

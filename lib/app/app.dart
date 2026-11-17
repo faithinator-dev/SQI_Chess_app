@@ -23,7 +23,7 @@ class CheckmateArenaApp extends StatefulWidget {
 class _CheckmateArenaAppState extends State<CheckmateArenaApp> {
   bool _initializing = true;
   String? _guestName;
-  String _appearance = 'Light';
+  String _appearance = 'Dark';
   String? _appearanceUserId;
   String? _startupError;
   int _attempt = 0;
@@ -247,9 +247,7 @@ class _StartupScreen extends StatelessWidget {
     final hasError = error != null;
 
     return Scaffold(
-      backgroundColor: const Color(
-        0xFF0A0F1D,
-      ), // Deep obsidian / navy background
+      backgroundColor: AppTheme.canvas,
       body: SafeArea(
         child: Center(
           child: Padding(
@@ -265,17 +263,12 @@ class _StartupScreen extends StatelessWidget {
                     height: 90,
                     padding: const EdgeInsets.all(16),
                     decoration: BoxDecoration(
-                      color: const Color(0xFF131B2E),
+                      color: AppTheme.surface,
                       borderRadius: BorderRadius.circular(26),
-                      border: Border.all(
-                        color: const Color(0xFF243048),
-                        width: 1.5,
-                      ),
+                      border: Border.all(color: AppTheme.divider, width: 1.5),
                       boxShadow: [
                         BoxShadow(
-                          color: const Color(
-                            0xFF38BDF8,
-                          ).withValues(alpha: 0.18),
+                          color: AppTheme.blue.withValues(alpha: 0.18),
                           blurRadius: 28,
                           offset: const Offset(0, 8),
                         ),
@@ -286,7 +279,7 @@ class _StartupScreen extends StatelessWidget {
                       fit: BoxFit.contain,
                       errorBuilder: (_, _, _) => const Icon(
                         Icons.sports_esports_rounded,
-                        color: Color(0xFF38BDF8),
+                        color: AppTheme.blue,
                         size: 44,
                       ),
                     ),
@@ -300,7 +293,7 @@ class _StartupScreen extends StatelessWidget {
                     textAlign: TextAlign.center,
                     style: TextStyle(
                       fontSize: 18,
-                      color: Color(0xFFF1F5F9),
+                      color: AppTheme.textPrimary,
                       fontWeight: FontWeight.w900,
                       letterSpacing: 1.4,
                     ),
@@ -314,8 +307,8 @@ class _StartupScreen extends StatelessWidget {
                     style: TextStyle(
                       fontSize: 13.5,
                       color: hasError
-                          ? const Color(0xFFEF4444)
-                          : const Color(0xFF94A3B8),
+                          ? AppTheme.errorColor
+                          : AppTheme.textSecondary,
                       fontWeight: FontWeight.w500,
                       letterSpacing: 0.3,
                     ),
@@ -331,9 +324,9 @@ class _StartupScreen extends StatelessWidget {
                         width: 160,
                         height: 6,
                         child: LinearProgressIndicator(
-                          backgroundColor: Color(0xFF1B243B),
+                          backgroundColor: AppTheme.elevated,
                           valueColor: AlwaysStoppedAnimation<Color>(
-                            Color(0xFF38BDF8),
+                            AppTheme.blue,
                           ),
                         ),
                       ),
@@ -342,10 +335,10 @@ class _StartupScreen extends StatelessWidget {
                     Container(
                       padding: const EdgeInsets.all(14),
                       decoration: BoxDecoration(
-                        color: const Color(0xFFEF4444).withValues(alpha: 0.1),
+                        color: AppTheme.errorColor.withValues(alpha: 0.1),
                         borderRadius: BorderRadius.circular(14),
                         border: Border.all(
-                          color: const Color(0xFFEF4444).withValues(alpha: 0.3),
+                          color: AppTheme.errorColor.withValues(alpha: 0.3),
                         ),
                       ),
                       child: Text(
@@ -353,7 +346,7 @@ class _StartupScreen extends StatelessWidget {
                         textAlign: TextAlign.center,
                         style: const TextStyle(
                           fontSize: 13,
-                          color: Color(0xFFEF4444),
+                          color: AppTheme.errorColor,
                           height: 1.4,
                         ),
                       ),
@@ -363,8 +356,8 @@ class _StartupScreen extends StatelessWidget {
                       ElevatedButton(
                         onPressed: onRetry,
                         style: ElevatedButton.styleFrom(
-                          backgroundColor: const Color(0xFF38BDF8),
-                          foregroundColor: const Color(0xFF0A0F1D),
+                          backgroundColor: AppTheme.blue,
+                          foregroundColor: AppTheme.canvas,
                           shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(14),
                           ),

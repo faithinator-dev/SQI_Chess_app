@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+import '../../app/theme.dart';
+import '../../app/widgets/arena_components.dart';
 import '../../core/models/profile_model.dart';
 import '../../core/repositories/chess_game_repository.dart';
 import '../../core/repositories/profile_repository.dart';
@@ -91,119 +93,45 @@ class _MatchesScreenState extends State<MatchesScreen> {
 
   @override
   Widget build(BuildContext context) {
-    final theme = Theme.of(context);
-    final colors = theme.colorScheme;
     return Scaffold(
-      appBar: AppBar(
-        title: const Text(
-          'The Arena',
-          style: TextStyle(fontSize: 20, fontWeight: FontWeight.w700),
-        ),
-      ),
+      appBar: const AppTopBar(title: 'Play', subtitle: 'Choose a game mode'),
       body: RefreshIndicator(
         onRefresh: _load,
         child: ListView(
-          padding: const EdgeInsets.fromLTRB(18, 10, 18, 30),
+          padding: const EdgeInsets.fromLTRB(20, 4, 20, 32),
           children: [
-            Row(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Expanded(
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text(
-                        'PLAY & CHALLENGE',
-                        style: theme.textTheme.labelSmall?.copyWith(
-                          color: colors.primary,
-                          fontWeight: FontWeight.w800,
-                          letterSpacing: 1.7,
-                        ),
+            if (_profile != null)
+              Padding(
+                padding: const EdgeInsets.only(bottom: 14),
+                child: Row(
+                  children: [
+                    const Icon(
+                      Icons.workspace_premium_rounded,
+                      color: AppTheme.gold,
+                      size: 18,
+                    ),
+                    const SizedBox(width: 7),
+                    Text(
+                      '${_profile!.chessRating} rating',
+                      style: Theme.of(context).textTheme.bodySmall?.copyWith(
+                        color: AppTheme.textSecondary,
+                        fontWeight: FontWeight.w700,
                       ),
-                      const SizedBox(height: 5),
-                      Text(
-                        'Choose your game',
-                        style: theme.textTheme.headlineMedium?.copyWith(
-                          fontFamily: 'Georgia',
-                          fontWeight: FontWeight.w700,
-                        ),
-                      ),
-                    ],
-                  ),
+                    ),
+                  ],
                 ),
-                if (_profile != null)
-                  Chip(
-                    avatar: Icon(Icons.circle, size: 9, color: colors.primary),
-                    label: Text('${_profile!.chessRating} ELO'),
-                    visualDensity: VisualDensity.compact,
-                  ),
-              ],
-            ),
-            const SizedBox(height: 8),
-            Text(
-              'Pick a format, find an opponent, or continue a game.',
-              style: theme.textTheme.bodyMedium,
-            ),
-            const SizedBox(height: 18),
-            SizedBox(
-              height: 44,
-              child: ListView.separated(
-                scrollDirection: Axis.horizontal,
-                itemCount: _modes.length,
-                separatorBuilder: (_, _) => const SizedBox(width: 8),
-                itemBuilder: (context, index) {
-                  final mode = _modes[index];
-                  final selected = _selectedMode == mode.$1;
-                  return ChoiceChip(
-                    avatar: Icon(
-                      mode.$2,
-                      size: 17,
-                      color: selected ? colors.onPrimary : colors.onSurface,
-                    ),
-                    label: Text(mode.$1),
-                    selected: selected,
-                    onSelected: (_) => setState(() => _selectedMode = mode.$1),
-                    selectedColor: colors.primary,
-                    labelStyle: TextStyle(
-                      fontSize: 20,
-                      color: selected ? colors.onPrimary : colors.onSurface,
-                      fontWeight: FontWeight.w600,
-                    ),
-                  );
-                },
               ),
-            ),
-            const SizedBox(height: 14),
-            _quickStartCard(context),
-            const SizedBox(height: 24),
-            _sectionHeader(context, 'Active matches', '${_activeGames.length}'),
+            ..._modes.map((mode) => _modeCard(context, mode)),
+            const SizedBox(height: 26),
+            _sectionHeader(context, 'Active games', '${_activeGames.length}'),
             const SizedBox(height: 10),
             if (_loading && _activeGames.isEmpty)
-              const Padding(
-                padding: EdgeInsets.all(20),
-                child: Center(child: CircularProgressIndicator()),
+              const PremiumCard(
+                padding: EdgeInsets.symmetric(vertical: 22),
+                child: LoadingState(message: 'Loading active games...'),
               )
             else if (_error != null)
-              Card(
-                color: colors.errorContainer,
-                child: ListTile(
-                  leading: Icon(
-                    Icons.cloud_off_outlined,
-                    color: colors.onErrorContainer,
-                  ),
-                  title: Text(
-                    _error!,
-                    style: TextStyle(
-                      fontSize: 20,
-                      color: colors.onErrorContainer,
-                    ),
-                  ),
-                  trailing: TextButton(
-                    onPressed: _load,
-                    child: const Text('Retry'),
-                  ),
-                ),
-              )
+              ErrorState(message: _error!, onRetry: _load)
             else if (_error == null && _activeGames.isEmpty)
               _emptyPanel(
                 context,
@@ -215,7 +143,7 @@ class _MatchesScreenState extends State<MatchesScreen> {
               for (final active in _activeGames.take(5))
                 _activeGameCard(context, active),
             const SizedBox(height: 24),
-            _sectionHeader(context, 'Match archive', 'Last 10 duels'),
+            _sectionHeader(context, 'Recent games', 'Last 10'),
             const SizedBox(height: 10),
             if (!_loading && _error == null && _history.isEmpty)
               _emptyPanel(
@@ -239,22 +167,70 @@ class _MatchesScreenState extends State<MatchesScreen> {
                   child: const Text('View full archive'),
                 ),
               ),
-            const SizedBox(height: 8),
-            Card(
-              color: colors.surfaceContainerHighest.withValues(alpha: .55),
-              child: const ListTile(
-                leading: Icon(Icons.lightbulb_outline_rounded),
-                title: Text('Play your way'),
-                subtitle: Text(
-                  'Quick Match is online. Play Computer, Local PvP and Wi-Fi games are also available.',
-                ),
-              ),
-            ),
           ],
         ),
       ),
     );
   }
+
+  Widget _modeCard(BuildContext context, (String, IconData) mode) {
+    final selected = _selectedMode == mode.$1;
+    return Padding(
+      padding: const EdgeInsets.only(bottom: 10),
+      child: PremiumCard(
+        padding: EdgeInsets.zero,
+        onTap: () {
+          setState(() => _selectedMode = mode.$1);
+          _startMode();
+        },
+        child: ListTile(
+          minVerticalPadding: 14,
+          contentPadding: const EdgeInsets.symmetric(
+            horizontal: 14,
+            vertical: 3,
+          ),
+          leading: Container(
+            width: 44,
+            height: 44,
+            decoration: BoxDecoration(
+              color: (selected ? AppTheme.gold : AppTheme.blue).withValues(
+                alpha: .13,
+              ),
+              borderRadius: BorderRadius.circular(14),
+            ),
+            child: Icon(
+              mode.$2,
+              color: selected ? AppTheme.gold : AppTheme.blue,
+              size: 22,
+            ),
+          ),
+          title: Text(
+            mode.$1,
+            style: Theme.of(
+              context,
+            ).textTheme.titleSmall?.copyWith(fontWeight: FontWeight.w800),
+          ),
+          subtitle: Text(
+            _modeDescription(mode.$1),
+            style: Theme.of(context).textTheme.bodySmall,
+          ),
+          trailing: const Icon(
+            Icons.chevron_right_rounded,
+            color: AppTheme.textMuted,
+          ),
+        ),
+      ),
+    );
+  }
+
+  String _modeDescription(String mode) => switch (mode) {
+    'Quick Match' => 'Find an opponent instantly',
+    'Play with Friend' => 'Invite a friend to a game',
+    'Play Computer' => 'Challenge the AI',
+    'Local PvP' => 'Play on this device',
+    'Wi-Fi' => 'Play with nearby devices',
+    _ => 'Choose this game mode',
+  };
 
   Widget _quickStartCard(BuildContext context) {
     final theme = Theme.of(context);
@@ -294,7 +270,6 @@ class _MatchesScreenState extends State<MatchesScreen> {
             Text(
               quick ? 'Quick Match' : _selectedMode,
               style: theme.textTheme.titleLarge?.copyWith(
-                fontFamily: 'Georgia',
                 fontWeight: FontWeight.w700,
               ),
             ),
@@ -378,7 +353,7 @@ class _MatchesScreenState extends State<MatchesScreen> {
               Text(
                 value,
                 style: const TextStyle(
-                  fontSize: 20,
+                  fontSize: 16,
                   fontWeight: FontWeight.w700,
                 ),
               ),
@@ -397,8 +372,8 @@ class _MatchesScreenState extends State<MatchesScreen> {
             child: Text(
               title,
               style: Theme.of(context).textTheme.titleLarge?.copyWith(
-                fontFamily: 'Georgia',
                 fontWeight: FontWeight.w700,
+                fontSize: 17,
               ),
             ),
           ),
@@ -435,12 +410,12 @@ class _MatchesScreenState extends State<MatchesScreen> {
                         maxLines: 1,
                         overflow: TextOverflow.ellipsis,
                         style: const TextStyle(
-                          fontSize: 20,
+                          fontSize: 15,
                           fontWeight: FontWeight.w700,
                         ),
                       ),
                       Text(
-                        '${entry.opponent?.chessRating ?? 1000} ELO  �  ${entry.isWhite ? 'White' : 'Black'}',
+                        '${entry.opponent?.chessRating ?? 1000} ELO  •  ${entry.isWhite ? 'White' : 'Black'}',
                         style: Theme.of(context).textTheme.bodySmall,
                       ),
                     ],
@@ -457,7 +432,7 @@ class _MatchesScreenState extends State<MatchesScreen> {
               children: [
                 Expanded(
                   child: Text(
-                    '${entry.game.timeControl}  �  ${isMyTurn ? 'Make your move' : 'Waiting for opponent'}',
+                    '${entry.game.timeControl}  •  ${isMyTurn ? 'Make your move' : 'Waiting for opponent'}',
                     style: Theme.of(context).textTheme.bodySmall,
                   ),
                 ),
@@ -502,11 +477,11 @@ class _MatchesScreenState extends State<MatchesScreen> {
           overflow: TextOverflow.ellipsis,
           style: const TextStyle(fontSize: 20, fontWeight: FontWeight.w700),
         ),
-        subtitle: Text('${entry.result}  �  ${entry.game.timeControl}'),
+        subtitle: Text('${entry.result}  •  ${entry.game.timeControl}'),
         trailing: Text(
           entry.result,
           style: TextStyle(
-            fontSize: 20,
+            fontSize: 13,
             color: color,
             fontWeight: FontWeight.w700,
           ),
@@ -534,7 +509,7 @@ class _MatchesScreenState extends State<MatchesScreen> {
                 Text(
                   title,
                   style: const TextStyle(
-                    fontSize: 20,
+                    fontSize: 14,
                     fontWeight: FontWeight.w700,
                   ),
                 ),
