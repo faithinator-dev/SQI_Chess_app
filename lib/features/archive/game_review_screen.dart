@@ -1,6 +1,9 @@
 import 'package:chessground/chessground.dart';
 import 'package:dartchess/dartchess.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
+
+import '../../app/theme.dart';
 
 class GameReviewScreen extends StatefulWidget {
   const GameReviewScreen({
@@ -33,12 +36,12 @@ class GameReviewScreen extends StatefulWidget {
 }
 
 class _GameReviewScreenState extends State<GameReviewScreen> {
-  static const Color background = Color(0xFFF9F8F6);
-  static const Color surface = Color(0xFFFFFFFF);
-  static const Color surfaceLight = Color(0xFFEDE9E2);
-  static const Color blue = Color(0xFF2D4A3E);
-  static const Color muted = Color(0xFF737A74);
-  static const Color green = Color(0xFF2D8DFF);
+  static const Color background = AppTheme.background;
+  static const Color surface = AppTheme.surface;
+  static const Color surfaceLight = AppTheme.elevated;
+  static const Color blue = AppTheme.blueLight;
+  static const Color muted = AppTheme.textMuted;
+  static const Color green = AppTheme.blue;
   // static const Color gold = Color(0xFFF5C451);
   static const Color danger = Color(0xFFFF5C70);
 
@@ -181,9 +184,7 @@ class _GameReviewScreenState extends State<GameReviewScreen> {
       actions: [
         _iconButton(
           icon: Icons.share_rounded,
-          onTap: () {
-            _showMessage('Share coming soon');
-          },
+          onTap: _shareReview,
         ),
         const SizedBox(width: 12),
       ],
@@ -824,5 +825,18 @@ class _GameReviewScreenState extends State<GameReviewScreen> {
         behavior: SnackBarBehavior.floating,
       ),
     );
+  }
+
+  Future<void> _shareReview() async {
+    final moves = _moves.isEmpty ? 'Move history unavailable' : _moves.join(' ');
+    final text = 'SQI Checkmate Arena · ${widget.result}\n'
+        '${widget.whitePlayerName} vs ${widget.blackPlayerName}\n'
+        'Time control: ${widget.timeControl}\nMoves: $moves';
+    try {
+      await Clipboard.setData(ClipboardData(text: text));
+      if (mounted) _showMessage('Game review copied to clipboard.');
+    } catch (_) {
+      if (mounted) _showMessage('Could not copy the game review.');
+    }
   }
 }

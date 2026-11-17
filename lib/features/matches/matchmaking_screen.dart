@@ -3,6 +3,7 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
+import '../../app/theme.dart';
 import 'match_found_screen.dart';
 import 'matchmaking_repository.dart';
 
@@ -14,14 +15,14 @@ class MatchmakingScreen extends StatefulWidget {
 }
 
 class _MatchmakingScreenState extends State<MatchmakingScreen> {
-  static const Color background = Color(0xFFF9F8F6);
-  static const Color surface = Color(0xFFFFFFFF);
-  static const Color surface2 = Color(0xFFEDE9E2);
-  static const Color blue = Color(0xFF2D4A3E);
-  static const Color primaryText = Color(0xFF1A1A1A);
-  static const Color green = Color(0xFF2D8DFF);
-  static const Color danger = Color(0xFFFF5C70);
-  static const Color muted = Color(0xFF737A74);
+  static const Color background = AppTheme.background;
+  static const Color surface = AppTheme.surface;
+  static const Color surface2 = AppTheme.elevated;
+  static const Color blue = AppTheme.blueLight;
+  static const Color primaryText = AppTheme.textPrimary;
+  static const Color green = AppTheme.blue;
+  static const Color danger = Color(0xFFFF647C);
+  static const Color muted = AppTheme.textMuted;
 
   final MatchmakingRepository _repository = MatchmakingRepository();
 
@@ -33,7 +34,10 @@ class _MatchmakingScreenState extends State<MatchmakingScreen> {
   bool _searching = true;
   bool _loading = true;
   bool _navigating = false;
+  bool _checkingMatch = false;
+  bool _canceling = false;
   String? _errorMessage;
+  String? _connectionMessage;
 
   @override
   void initState() {
@@ -42,8 +46,11 @@ class _MatchmakingScreenState extends State<MatchmakingScreen> {
   }
 
   Future<void> _startMatchmaking() async {
+    if (_loading && !_searching) return;
     try {
       final existingGameId = await _repository.getMatchedGameId();
+
+      if (!mounted || !_searching) return;
 
       if (existingGameId != null && existingGameId.isNotEmpty) {
         await _handleMatchedGame(existingGameId);
@@ -52,6 +59,11 @@ class _MatchmakingScreenState extends State<MatchmakingScreen> {
 
       final entry = await _repository.joinQuickMatch();
 
+      if (!_searching) {
+        // The join request may finish after the player cancels.
+        await _repository.leaveQueue();
+        return;
+      }
       if (!mounted || !_searching) {
         return;
       }
@@ -122,15 +134,20 @@ class _MatchmakingScreenState extends State<MatchmakingScreen> {
   }
 
   Future<void> _checkForMatch() async {
-    if (!_searching || _navigating) {
+    if (!_searching || _navigating || _checkingMatch) {
       return;
     }
 
+    _checkingMatch = true;
     try {
       final gameId = await _repository.getMatchedGameId();
 
       if (!mounted || !_searching || _navigating) {
         return;
+      }
+
+      if (_connectionMessage != null) {
+        setState(() => _connectionMessage = null);
       }
 
       if (gameId == null || gameId.isEmpty) {
@@ -139,8 +156,23 @@ class _MatchmakingScreenState extends State<MatchmakingScreen> {
 
       await _handleMatchedGame(gameId);
     } catch (_) {
-      // Polling and realtime will retry.
+      if (mounted && _searching && _connectionMessage == null) {
+        setState(() => _connectionMessage = 'Connection interrupted. Reconnecting…');
+      }
+    } finally {
+      _checkingMatch = false;
     }
+  }
+
+  Future<void> _retrySearch() async {
+    if (_loading || _canceling || _navigating) return;
+    setState(() {
+      _searching = true;
+      _loading = true;
+      _errorMessage = null;
+      _connectionMessage = null;
+    });
+    await _startMatchmaking();
   }
 
   Future<void> _handleMatchedGame(String gameId) async {
@@ -179,12 +211,8 @@ class _MatchmakingScreenState extends State<MatchmakingScreen> {
   }
 
   Future<void> _cancelSearch() async {
-    if (!_searching) {
-      if (mounted) {
-        Navigator.of(context).pop();
-      }
-      return;
-    }
+    if (_canceling) return;
+    _canceling = true;
 
     _searching = false;
 
@@ -374,6 +402,7 @@ class _MatchmakingScreenState extends State<MatchmakingScreen> {
           const SizedBox(height: 9),
           Text(
             _errorMessage ??
+              _connectionMessage ??
                 'SQI is searching for a player with a suitable rating.',
             textAlign: TextAlign.center,
             style: const TextStyle(fontSize: 20, color: muted, height: 1.5),
@@ -384,7 +413,7 @@ class _MatchmakingScreenState extends State<MatchmakingScreen> {
             const SizedBox(height: 25),
             _buildProgress(),
           ] else
-            _buildErrorState(),
+          _buildErrorState(),
         ],
       ),
     );
@@ -488,20 +517,16 @@ class _MatchmakingScreenState extends State<MatchmakingScreen> {
         borderRadius: BorderRadius.circular(15),
         border: Border.all(color: danger.withValues(alpha: 0.15)),
       ),
-      child: Row(
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          const Icon(Icons.error_outline_rounded, color: danger, size: 21),
-          const SizedBox(width: 11),
-          Expanded(
-            child: Text(
-              _errorMessage!,
-              style: const TextStyle(
-                fontSize: 20,
-                color: primaryText,
-                height: 1.4,
-              ),
-            ),
-          ),
+          Row(children: [
+            const Icon(Icons.error_outline_rounded, color: danger, size: 21),
+            const SizedBox(width: 11),
+            Expanded(child: Text(_errorMessage!, style: const TextStyle(fontSize: 14, color: primaryText, height: 1.4))),
+          ]),
+          const SizedBox(height: 10),
+          Align(alignment: Alignment.centerRight, child: TextButton.icon(onPressed: _retrySearch, icon: const Icon(Icons.refresh_rounded), label: const Text('Try again'))),
         ],
       ),
     );
@@ -560,7 +585,7 @@ class _MatchmakingScreenState extends State<MatchmakingScreen> {
     return SizedBox(
       height: 50,
       child: OutlinedButton(
-        onPressed: _loading && _errorMessage == null ? null : _cancelSearch,
+        onPressed: _canceling ? null : _cancelSearch,
         style: OutlinedButton.styleFrom(
           foregroundColor: primaryText,
           side: const BorderSide(color: surface2),
@@ -569,7 +594,7 @@ class _MatchmakingScreenState extends State<MatchmakingScreen> {
           ),
         ),
         child: Text(
-          _errorMessage == null ? 'Cancel Search' : 'Go Back',
+          _errorMessage == null ? (_canceling ? 'Leaving queue…' : 'Cancel Search') : 'Go Back',
           style: const TextStyle(fontSize: 20, fontWeight: FontWeight.w700),
         ),
       ),

@@ -4,6 +4,8 @@ import 'package:supabase_flutter/supabase_flutter.dart';
 import '../../core/models/community_post_model.dart';
 import '../../core/repositories/community_repository.dart';
 import '../../app/theme.dart';
+import '../competitions/competitions_screen.dart';
+import '../profile/friends_screen.dart';
 import 'widgets/community_loading_skeleton.dart';
 
 class CommunityScreen extends StatefulWidget {
@@ -18,6 +20,8 @@ class _CommunityScreenState extends State<CommunityScreen> {
   final TextEditingController _postController = TextEditingController();
   RealtimeChannel? _channel;
   List<CommunityPostModel> _posts = [];
+  List<CommunityPage> _pages = [];
+  int _selectedCommunityTab = 0;
   bool _isAdmin = false;
   bool _loading = true;
   bool _submitting = false;
@@ -53,11 +57,18 @@ class _CommunityScreenState extends State<CommunityScreen> {
         _repository.getCurrentUserIsAdmin(),
         _repository.getPosts(limit: 50),
       ]);
+      List<CommunityPage> pages = const [];
+      try {
+        pages = await _repository.getPages();
+      } catch (_) {
+        // Feed and friend access remain available if club pages are not set up.
+      }
       await _keepLoadingVisible(startedAt);
       if (!mounted || generation != _generation) return;
       setState(() {
         _isAdmin = results[0] as bool;
         _posts = results[1] as List<CommunityPostModel>;
+        _pages = pages;
         _loading = false;
       });
     } catch (error, stackTrace) {
@@ -556,23 +567,135 @@ class _CommunityScreenState extends State<CommunityScreen> {
             padding: const EdgeInsets.fromLTRB(16, 8, 16, 28),
             children: [
               Text(
-                'Official updates and news from the SQI chess community.',
+                'Meet players. Share ideas. Grow together.',
                 style: theme.textTheme.bodyMedium?.copyWith(color: textMuted),
               ),
               const SizedBox(height: 16),
-              if (_isAdmin) _adminComposer(context),
-              if (!_isAdmin && !_loading && _error == null)
-                _officialFeedNote(context),
-              if (_loading && _posts.isEmpty) const CommunityLoadingSkeleton(),
-              if (_error != null) _feedError(context),
-              if (!_loading && _error == null && _posts.isEmpty)
-                _emptyFeed(context),
-              for (final post in _posts) _postCard(context, post),
+              _communityTabs(context),
+              const SizedBox(height: 14),
+              if (_selectedCommunityTab == 0) ...[
+                if (_isAdmin) _adminComposer(context),
+                if (!_isAdmin && !_loading && _error == null)
+                  _officialFeedNote(context),
+                if (_loading && _posts.isEmpty) const CommunityLoadingSkeleton(),
+                if (_error != null) _feedError(context),
+                if (!_loading && _error == null && _posts.isEmpty)
+                  _emptyFeed(context),
+                for (final post in _posts) _postCard(context, post),
+              ] else if (_selectedCommunityTab == 1) ...[
+                _featuredTournament(context),
+                const SizedBox(height: 16),
+                Row(children: [
+                  const Expanded(child: Text('Chess clubs', style: TextStyle(fontSize: 18, fontWeight: FontWeight.w800))),
+                  if (_isAdmin) TextButton.icon(onPressed: _showCreatePage, icon: const Icon(Icons.add_rounded, size: 18), label: const Text('Create')),
+                ]),
+                if (_pages.isEmpty)
+                  _communityEmptyCard(context, Icons.groups_2_outlined, 'Club spaces are getting ready', 'Published SQI chess club spaces will appear here.')
+                else
+                  for (final page in _pages) _clubCard(context, page),
+              ] else
+                _friendsPanel(context),
             ],
           ),
         ),
       ),
     );
+  }
+
+  Widget _communityTabs(BuildContext context) {
+    const labels = ['Feed', 'Clubs', 'Friends'];
+    return Container(
+      padding: const EdgeInsets.all(4),
+      decoration: BoxDecoration(color: AppTheme.surface, borderRadius: BorderRadius.circular(13)),
+      child: Row(children: [
+        for (var i = 0; i < labels.length; i++)
+          Expanded(child: GestureDetector(
+            onTap: () => setState(() => _selectedCommunityTab = i),
+            child: AnimatedContainer(
+              duration: const Duration(milliseconds: 160),
+              alignment: Alignment.center,
+              padding: const EdgeInsets.symmetric(vertical: 10),
+              decoration: BoxDecoration(color: _selectedCommunityTab == i ? const Color(0xFF244777) : Colors.transparent, borderRadius: BorderRadius.circular(10)),
+              child: Text(labels[i], style: TextStyle(color: _selectedCommunityTab == i ? Colors.white : AppTheme.textSecondary, fontWeight: FontWeight.w700, fontSize: 12)),
+            ),
+          )),
+      ]),
+    );
+  }
+
+  Widget _featuredTournament(BuildContext context) => InkWell(
+    borderRadius: BorderRadius.circular(17),
+    onTap: () => Navigator.of(context).push(MaterialPageRoute(builder: (_) => const CompetitionsScreen())),
+    child: Container(
+      padding: const EdgeInsets.all(16),
+      decoration: BoxDecoration(color: const Color(0xFF1C385F), borderRadius: BorderRadius.circular(17)),
+      child: Row(children: [
+        const Expanded(child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
+          Text('SQI CHESS EVENTS', style: TextStyle(color: AppTheme.gold, fontSize: 9, fontWeight: FontWeight.w800, letterSpacing: .5)),
+          SizedBox(height: 6),
+          Text('Find your next tournament', style: TextStyle(fontWeight: FontWeight.w800, fontSize: 16)),
+          SizedBox(height: 4),
+          Text('Join a club event and meet players across SQI.', style: TextStyle(color: AppTheme.textSecondary, fontSize: 11)),
+          SizedBox(height: 9),
+          Text('Explore competitions  →', style: TextStyle(color: AppTheme.gold, fontWeight: FontWeight.w700, fontSize: 11)),
+        ])),
+        const Icon(Icons.emoji_events_outlined, color: AppTheme.blueLight, size: 31),
+      ]),
+    ),
+  );
+
+  Widget _clubCard(BuildContext context, CommunityPage page) => Card(
+    margin: const EdgeInsets.only(bottom: 9),
+    child: ListTile(
+      leading: const CircleAvatar(backgroundColor: Color(0xFF244777), child: Icon(Icons.groups_rounded, color: AppTheme.blueLight)),
+      title: Text(page.title, maxLines: 1, overflow: TextOverflow.ellipsis, style: const TextStyle(fontWeight: FontWeight.w800)),
+      subtitle: Text(page.description.isEmpty ? 'SQI chess club space' : page.description, maxLines: 2, overflow: TextOverflow.ellipsis),
+      trailing: const Icon(Icons.chevron_right_rounded, color: AppTheme.textMuted),
+    ),
+  );
+
+  Widget _friendsPanel(BuildContext context) => _communityEmptyCard(
+    context,
+    Icons.people_alt_outlined,
+    'Your chess circle',
+    'Find SQI players, send friend requests and challenge friends to a game.',
+    action: FilledButton.icon(onPressed: () => Navigator.of(context).push(MaterialPageRoute(builder: (_) => const FriendsScreen())), icon: const Icon(Icons.person_add_alt_1_rounded), label: const Text('Find friends')),
+  );
+
+  Widget _communityEmptyCard(BuildContext context, IconData icon, String title, String body, {Widget? action}) => Card(
+    child: Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 22, vertical: 27),
+      child: Column(children: [
+        Icon(icon, color: AppTheme.blueLight, size: 31),
+        const SizedBox(height: 9),
+        Text(title, textAlign: TextAlign.center, style: const TextStyle(fontWeight: FontWeight.w800, fontSize: 15)),
+        const SizedBox(height: 5),
+        Text(body, textAlign: TextAlign.center, style: const TextStyle(color: AppTheme.textMuted, fontSize: 12, height: 1.4)),
+        if (action != null) ...[const SizedBox(height: 15), action],
+      ]),
+    ),
+  );
+
+  Future<void> _showCreatePage() async {
+    final title = TextEditingController();
+    final description = TextEditingController();
+    try {
+      final create = await showDialog<bool>(context: context, builder: (dialogContext) => AlertDialog(
+        title: const Text('Create a club space'),
+        content: Column(mainAxisSize: MainAxisSize.min, children: [
+          TextField(controller: title, decoration: const InputDecoration(labelText: 'Club name')),
+          const SizedBox(height: 8),
+          TextField(controller: description, minLines: 2, maxLines: 3, decoration: const InputDecoration(labelText: 'Description')),
+        ]),
+        actions: [TextButton(onPressed: () => Navigator.pop(dialogContext, false), child: const Text('Cancel')), FilledButton(onPressed: () => Navigator.pop(dialogContext, true), child: const Text('Create'))],
+      ));
+      if (create != true || title.text.trim().isEmpty) return;
+      await _repository.createPage(title: title.text, description: description.text);
+      await _load();
+    } finally {
+      title.dispose();
+      description.dispose();
+    }
   }
 
   Widget _adminComposer(BuildContext context) {

@@ -748,7 +748,7 @@ class _HomeTabState extends State<_HomeTab> {
     ),
   );
   Widget _homeLearningCard(LessonModel? lesson) => Container(
-    height: 89,
+    height: 94,
     padding: const EdgeInsets.all(12),
     decoration: BoxDecoration(
       color: AppTheme.surface,
@@ -1978,15 +1978,10 @@ class _HeroChessVisual extends StatelessWidget {
             AppTheme.blueLight.withValues(alpha: 0.08),
           ],
         ),
-        border: Border.all(
-          color: AppTheme.blue.withValues(alpha: 0.20),
-        ),
+        border: Border.all(color: AppTheme.blue.withValues(alpha: 0.20)),
       ),
       child: const Center(
-        child: Text(
-          '♞',
-          style: TextStyle(fontSize: 20, color: AppTheme.blue),
-        ),
+        child: Text('♞', style: TextStyle(fontSize: 20, color: AppTheme.blue)),
       ),
     );
   }

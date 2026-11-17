@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
+import '../../app/theme.dart';
 import '../../core/models/profile_model.dart';
 import '../../core/repositories/profile_repository.dart';
 
@@ -1346,19 +1347,19 @@ class _ProfilePill extends StatelessWidget {
 }
 
 class _ProfileColors {
-  static const Color background = Color(0xFFF4F8FD);
-  static const Color surface = Color(0xFFFFFFFF);
-  static const Color surface2 = Color(0xFFEDE9E2);
-  static const Color surface3 = Color(0xFFE8F0EC);
+  static const Color background = AppTheme.background;
+  static const Color surface = AppTheme.surface;
+  static const Color surface2 = AppTheme.elevated;
+  static const Color surface3 = AppTheme.elevated;
 
-  static const Color blue = Color(0xFF2D4A3E);
-  static const Color green = Color(0xFF2D8DFF);
-  static const Color gold = Color(0xFFF5C451);
+  static const Color blue = AppTheme.blueLight;
+  static const Color green = AppTheme.blue;
+  static const Color gold = AppTheme.gold;
   static const Color purple = Color(0xFF9B7BFF);
   static const Color red = Color(0xFFFF5C70);
 
-  static const Color muted = Color(0xFF737A74);
-  static const Color textPrimary = Color(0xFF1A1A1A);
-  static const Color textSecondary = Color(0xFF454B46);
-  static const Color border = Color(0xFFCCDEF0);
+  static const Color muted = AppTheme.textMuted;
+  static const Color textPrimary = AppTheme.textPrimary;
+  static const Color textSecondary = AppTheme.textSecondary;
+  static const Color border = AppTheme.divider;
 }

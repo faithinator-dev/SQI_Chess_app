@@ -6,6 +6,7 @@ import 'package:dartchess/dartchess.dart';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
+import '../app/theme.dart';
 import '../features/archive/game_review_screen.dart';
 import '../core/chess/bot_difficulty.dart';
 import '../core/chess/bot_player.dart';
@@ -17,11 +18,15 @@ class PracticeGameScreen extends StatefulWidget {
   const PracticeGameScreen({
     super.key,
     required this.level,
+    this.botId,
+    this.botName,
     this.playerName,
     this.sideChoice = PlayerSideChoice.white,
   });
 
   final String level;
+  final String? botId;
+  final String? botName;
   final String? playerName;
   final PlayerSideChoice sideChoice;
 
@@ -30,22 +35,22 @@ class PracticeGameScreen extends StatefulWidget {
 }
 
 class _PracticeGameScreenState extends State<PracticeGameScreen> {
-  static const Color background = Color(0xFFF9F8F6);
+  static const Color background = AppTheme.background;
 
-  static const Color surface = Color(0xFFFFFFFF);
+  static const Color surface = AppTheme.surface;
 
-  static const Color surfaceLight = Color(0xFFEDE9E2);
+  static const Color surfaceLight = AppTheme.elevated;
 
-  static const Color blue = Color(0xFF2D4A3E);
+  static const Color blue = AppTheme.blueLight;
 
-  static const Color green = Color(0xFF2D8DFF);
+  static const Color green = AppTheme.blue;
 
   static const Color red = Color(0xFFFF5C70);
 
   static const Color gold = Color(0xFFF5C451);
 
-  static const Color muted = Color(0xFF737A74);
-  static const Color primaryText = Color(0xFF1A1A1A);
+  static const Color muted = AppTheme.textMuted;
+  static const Color primaryText = AppTheme.textPrimary;
 
   late Position _position;
   late ChessboardController _controller;
@@ -254,6 +259,7 @@ class _PracticeGameScreenState extends State<PracticeGameScreen> {
     await prefs.setInt('practice_wins_v1', _wins);
     _unlock('first_game');
     if (won) {
+      await _unlockNextBot(prefs);
       _unlock('first_win');
       if (_wins >= 3) _unlock('three_wins');
       if (_wins >= 5) _unlock('five_wins');
@@ -267,6 +273,46 @@ class _PracticeGameScreenState extends State<PracticeGameScreen> {
     if (_completedGames >= 5) _unlock('five_games');
     if (_completedGames >= 10) _unlock('ten_games');
   }
+
+  Future<void> _unlockNextBot(SharedPreferences prefs) async {
+    final currentId = widget.botId;
+    if (currentId == null) return;
+    const progression = [
+      'timi_tactician', 'zain_opening', 'amara_quickstep', 'kola_endgame',
+      'ayo_steadyhand', 'nneka_nimble', 'femi_forkmaster', 'sade_strategist',
+      'adaking', 'knightrider', 'endgamepro', 'boardking',
+      'campus_ayo', 'kemimoves', 'campus_kings', 'sqi_sharp',
+      'creator_openfile', 'creator_queen', 'creator_check', 'creator_pixel',
+      'coach_ada', 'coach_bello', 'coach_chika', 'coach_daniel', 'faith_tolu',
+    ];
+    final index = progression.indexOf(currentId);
+    if (index < 0 || index + 1 >= progression.length) return;
+    final unlocked = prefs.getStringList('bot_roster_unlocked_v1') ?? ['timi_tactician'];
+    final nextId = progression[index + 1];
+    if (unlocked.contains(nextId)) return;
+    unlocked.add(nextId);
+    await prefs.setStringList('bot_roster_unlocked_v1', unlocked);
+    if (mounted) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(content: Text('New bot unlocked: ${_botNameFor(nextId)}')),
+      );
+    }
+  }
+
+  String _botNameFor(String id) => switch (id) {
+    'zain_opening' => 'Zain Opening Ace', 'amara_quickstep' => 'Amara Quickstep',
+    'kola_endgame' => 'Kola Endgame', 'ayo_steadyhand' => 'Ayo Steadyhand',
+    'nneka_nimble' => 'Nneka Nimble', 'femi_forkmaster' => 'Femi Forkmaster',
+    'sade_strategist' => 'Sade Strategist', 'adaking' => 'AdaKing',
+    'knightrider' => 'KnightRider', 'endgamepro' => 'EndgamePro',
+    'boardking' => 'BoardKing', 'campus_ayo' => 'Ayo O', 'kemimoves' => 'Kemi Moves',
+    'campus_kings' => 'Campus Kings', 'sqi_sharp' => 'SQI Sharp',
+    'creator_openfile' => 'OpenFile', 'creator_queen' => 'QueenSide',
+    'creator_check' => 'Checkmate Muse', 'creator_pixel' => 'Pixel Gambit',
+    'coach_ada' => 'Coach Ada', 'coach_bello' => 'Coach Bello',
+    'coach_chika' => 'Coach Chika', 'coach_daniel' => 'Coach Daniel',
+    'faith_tolu' => 'Faith Tolu', _ => 'Next rival',
+  };
 
   GameData _buildGame() {
     return GameData(
@@ -337,7 +383,7 @@ class _PracticeGameScreenState extends State<PracticeGameScreen> {
 
     setState(() {
       _botThinking = true;
-      _status = '${_difficulty.title} computer is thinking...';
+      _status = '${widget.botName ?? _difficulty.title} is thinking...';
     });
 
     // Human-friendly thinking delay.
@@ -730,7 +776,7 @@ class _PracticeGameScreenState extends State<PracticeGameScreen> {
                   borderRadius: BorderRadius.circular(999),
                 ),
                 child: Text(
-                  _difficulty.title,
+                  widget.botName ?? _difficulty.title,
                   style: const TextStyle(
                     fontSize: 20,
                     color: blue,
@@ -790,7 +836,7 @@ class _PracticeGameScreenState extends State<PracticeGameScreen> {
     return Column(
       children: [
         _buildPlayerRow(
-          name: _difficulty.title == "Creator" ? 'Faith Tolu' : 'SQI Computer',
+          name: widget.botName ?? (_difficulty == BotDifficulty.creator ? 'Faith Tolu' : 'SQI Computer'),
           subtitle: '${_difficulty.title} • ${_difficulty.elo}',
           avatar: 'BOT',
           active: _botThinking,
@@ -932,7 +978,7 @@ class _PracticeGameScreenState extends State<PracticeGameScreen> {
 
   Widget _buildOpponentCard() {
     return _buildPlayerRow(
-      name: _difficulty.title == "Creator" ? 'Faith Tolu' : "SQI Computer",
+      name: widget.botName ?? (_difficulty == BotDifficulty.creator ? 'Faith Tolu' : 'SQI Computer'),
       subtitle: '${_difficulty.title} • ${_difficulty.elo}',
       avatar: 'BOT',
       active: _botThinking,
