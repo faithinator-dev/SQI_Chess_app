@@ -244,9 +244,7 @@ class _HomeTabState extends State<_HomeTab> {
     await showModalBottomSheet<void>(
       context: context,
       backgroundColor: const Color(0xFF13233F),
-
       isScrollControlled: true,
-      color: const Color(0xFF2D8DFF), // for Mark all read
       shape: const RoundedRectangleBorder(
         borderRadius: BorderRadius.vertical(top: Radius.circular(28)),
       ),
@@ -921,7 +919,7 @@ class _HomeTabState extends State<_HomeTab> {
                   child: Container(
                     width: 9,
                     height: 9,
-                    decoration: const BoxDecoration(
+                    decoration: BoxDecoration(
                       color: AppTheme.errorColor,
                       shape: BoxShape.circle,
                     ),
@@ -1025,7 +1023,7 @@ class _HomeTabState extends State<_HomeTab> {
                       child: Text(
                         _profile == null ? '—' : 'LIVE',
                         style: Theme.of(context).textTheme.labelSmall?.copyWith(
-                          color: AppTheme.success,
+                          color: AppTheme.blueLight,
                           fontWeight: FontWeight.w800,
                           letterSpacing: 1.1,
                         ),
@@ -2337,15 +2335,15 @@ class _ChessHeroBoardPainter extends CustomPainter {
 }
 
 class _Colors {
-  static const background = AppTheme.canvas;
+  static const background = AppTheme.background;
   static const foreground = AppTheme.textPrimary;
   static const surface = AppTheme.surface;
   static const surface2 = AppTheme.elevated;
   static const surface3 = AppTheme.divider;
   static const blue = AppTheme.blue;
-  static const bluedeep = AppTheme.blueDeep;
-  static const green = AppTheme.success;
-  static const danger = AppTheme.errorColor;
+  static const bluedeep = AppTheme.blueLight;
+  static const green = AppTheme.blueLight;
+  static const danger = AppTheme.blueLight;
   static const textPrimary = AppTheme.textPrimary;
   static const textSecondary = AppTheme.textSecondary;
   static const textMuted = AppTheme.textMuted;
