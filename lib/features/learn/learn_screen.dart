@@ -9,8 +9,9 @@ import '../../core/models/lesson_model.dart';
 import '../../core/models/puzzle_model.dart';
 import '../../core/services/puzzle_service.dart';
 import '../../core/repositories/lesson_repository.dart';
+import '../../app/theme.dart';
 
-const Color _learnText = Color(0xFF0D1B2E);
+const Color _learnText = AppTheme.textPrimary;
 
 class LearnScreen extends StatefulWidget {
   const LearnScreen({super.key});
@@ -20,15 +21,15 @@ class LearnScreen extends StatefulWidget {
 }
 
 class _LearnScreenState extends State<LearnScreen> {
-  static const Color background = Color(0xFFF4F8FD);
-  static const Color surface = Color(0xFFFFFFFF);
-  static const Color surfaceLight = Color(0xFFE3EEF9);
-  static const Color blue = Color(0xFF1A6BB5);
-  static const Color green = Color(0xFF2E9E6E);
-  static const Color gold = Color(0xFFF5A623);
-  static const Color purple = Color(0xFF7B6FF0);
-  static const Color orange = Color(0xFFF5A623);
-  static const Color muted = Color(0xFF5E7A99);
+  static const Color background = AppTheme.background;
+  static const Color surface = AppTheme.surface;
+  static const Color surfaceLight = AppTheme.elevated;
+  static const Color blue = AppTheme.blue;
+  static const Color green = AppTheme.blueLight;
+  static const Color gold = AppTheme.gold;
+  static const Color purple = AppTheme.blueLight;
+  static const Color orange = AppTheme.gold;
+  static const Color muted = AppTheme.textMuted;
 
   final TextEditingController _searchController = TextEditingController();
   final LessonRepository _repository = LessonRepository();

@@ -32,7 +32,11 @@ class AppBottomNavigation extends StatelessWidget {
         onDestinationSelected: onDestinationSelected,
         backgroundColor: Colors.transparent,
         elevation: 0,
-        height: 74,
+        height: 70,
+        indicatorColor: AppTheme.blue.withValues(alpha: .18),
+        indicatorShape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(12),
+        ),
         labelBehavior: NavigationDestinationLabelBehavior.alwaysShow,
         destinations: const [
           NavigationDestination(

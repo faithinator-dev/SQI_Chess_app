@@ -3,6 +3,7 @@ import 'package:supabase_flutter/supabase_flutter.dart';
 
 import '../../core/models/community_post_model.dart';
 import '../../core/repositories/community_repository.dart';
+import '../../app/theme.dart';
 import 'widgets/community_loading_skeleton.dart';
 
 class CommunityScreen extends StatefulWidget {
@@ -487,10 +488,10 @@ class _CommunityScreenState extends State<CommunityScreen> {
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
-    const background = Color(0xFFF4F8FD);
-    const blue = Color(0xFF1A6BB5);
-    const textPrimary = Color(0xFF0D1B2E);
-    const textMuted = Color(0xFF5E7A99);
+    const background = AppTheme.background;
+    const blue = AppTheme.blue;
+    const textPrimary = AppTheme.textPrimary;
+    const textMuted = AppTheme.textMuted;
 
     return Scaffold(
       backgroundColor: background,

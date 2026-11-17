@@ -4,6 +4,7 @@ import 'dart:io';
 import 'dart:math';
 
 import 'package:flutter/material.dart';
+import '../../app/theme.dart';
 import 'package:flutter/services.dart';
 import 'package:mobile_scanner/mobile_scanner.dart';
 import 'package:qr_flutter/qr_flutter.dart';
@@ -19,22 +20,22 @@ import '../match/match_mode.dart';
 class MatchesScreen extends StatelessWidget {
   const MatchesScreen({super.key});
 
-  static const Color _background = Color(0xFFF4F8FD);
-  static const Color _surface = Color(0xFFFFFFFF);
-  static const Color _blue = Color(0xFF1A6BB5);
-  static const Color _green = Color(0xFF2E9E6E);
-  static const Color _gold = Color(0xFFF5A623);
-  static const Color _purple = Color(0xFF7B6FF0);
-  static const Color _primary = Color(0xFF0D1B2E);
-  static const Color _muted = Color(0xFF5E7A99);
+  static const Color _background = AppTheme.background;
+  static const Color _surface = AppTheme.surface;
+  static const Color _blue = AppTheme.blue;
+  static const Color _green = AppTheme.blueLight;
+  static const Color _gold = AppTheme.gold;
+  static const Color _purple = AppTheme.blueLight;
+  static const Color _primary = AppTheme.textPrimary;
+  static const Color _muted = AppTheme.textMuted;
 
   @override
   Widget build(BuildContext context) {
     final colors = Theme.of(context).colorScheme;
     return Scaffold(
-      backgroundColor: colors.surface,
+      backgroundColor: AppTheme.background,
       appBar: AppBar(
-        backgroundColor: colors.surface,
+        backgroundColor: AppTheme.background,
         elevation: 0,
         titleSpacing: 20,
         title: Column(
@@ -242,10 +243,10 @@ class _HeroCard extends StatelessWidget {
 
   final VoidCallback onTap;
 
-  static const Color _blue = Color(0xFF1A6BB5);
-  static const Color _surface = Color(0xFFFFFFFF);
-  static const Color _primary = Color(0xFF0D1B2E);
-  static const Color _secondary = Color(0xFF2E4A66);
+  static const Color _blue = AppTheme.blue;
+  static const Color _surface = AppTheme.surface;
+  static const Color _primary = AppTheme.textPrimary;
+  static const Color _secondary = AppTheme.textSecondary;
 
   @override
   Widget build(BuildContext context) {
@@ -317,8 +318,8 @@ class _SectionTitle extends StatelessWidget {
   final String title;
   final String subtitle;
 
-  static const Color _primary = Color(0xFF0D1B2E);
-  static const Color _muted = Color(0xFF5E7A99);
+  static const Color _primary = AppTheme.textPrimary;
+  static const Color _muted = AppTheme.textMuted;
 
   @override
   Widget build(BuildContext context) {
@@ -357,9 +358,9 @@ class _PlayModeCard extends StatelessWidget {
   final String trailing;
   final VoidCallback onTap;
 
-  static const Color _surface = Color(0xFFFFFFFF);
-  static const Color _primary = Color(0xFF0D1B2E);
-  static const Color _muted = Color(0xFF5E7A99);
+  static const Color _surface = AppTheme.surface;
+  static const Color _primary = AppTheme.textPrimary;
+  static const Color _muted = AppTheme.textMuted;
 
   @override
   Widget build(BuildContext context) {
