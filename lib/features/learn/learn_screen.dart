@@ -1540,8 +1540,8 @@ class _LessonPlayerScreenState extends State<_LessonPlayerScreen> {
   static const Color background = Color(0xFFF4F8FD);
   static const Color surface = Color(0xFFFFFFFF);
   static const Color surfaceLight = Color(0xFFE3EEF9);
-  static const Color blue = Color(0xFF1A6BB5);
-  static const Color green = Color(0xFF2E9E6E);
+  static const Color blue = Color(0xFF2D8DFF);
+  static const Color green = Color(0xFF2D8DFF);
   static const Color gold = Color(0xFFF5A623);
   static const Color muted = Color(0xFF5E7A99);
 
@@ -2046,7 +2046,7 @@ class _PuzzlePracticeScreen extends StatefulWidget {
 class _PuzzlePracticeScreenState extends State<_PuzzlePracticeScreen> {
   static const _background = Color(0xFFF4F8FD);
   static const _surface = Color(0xFFFFFFFF);
-  static const _green = Color(0xFF1A6BB5);
+  static const _green = Color(0xFF2D8DFF);
   static const _muted = Color(0xFF5E7A99);
 
   late final PuzzleService _service;

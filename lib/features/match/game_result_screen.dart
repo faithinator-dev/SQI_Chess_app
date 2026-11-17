@@ -26,7 +26,7 @@ class GameResultScreen extends StatelessWidget {
 
   static const Color muted = Color(0xFF737A74);
 
-  static const Color green = Color(0xFF557B63);
+  static const Color green = Color(0xFF2D8DFF);
 
   static const Color gold = Color(0xFFF5C451);
 

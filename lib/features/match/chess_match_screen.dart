@@ -25,7 +25,7 @@ class _ChessMatchScreenState extends State<ChessMatchScreen>
   static const _surface = Color(0xFFFFFFFF);
   static const _surface3 = Color(0xFFE8F0EC);
   static const _blue = Color(0xFF2D4A3E);
-  static const _green = Color(0xFF557B63);
+  static const _green = Color(0xFF2D8DFF);
   static const _danger = Color(0xFFFF5C70);
   static const _primary = Color(0xFF1A1A1A);
   static const _secondary = Color(0xFF454B46);

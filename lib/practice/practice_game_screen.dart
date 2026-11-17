@@ -38,7 +38,7 @@ class _PracticeGameScreenState extends State<PracticeGameScreen> {
 
   static const Color blue = Color(0xFF2D4A3E);
 
-  static const Color green = Color(0xFF557B63);
+  static const Color green = Color(0xFF2D8DFF);
 
   static const Color red = Color(0xFFFF5C70);
 

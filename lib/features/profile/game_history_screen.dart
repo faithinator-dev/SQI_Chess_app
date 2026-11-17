@@ -154,7 +154,7 @@ class _GameHistoryScreenState extends State<GameHistoryScreen> {
 
   Widget _gameCard(GameHistoryEntry entry) {
     final color = switch (entry.result) {
-      'Victory' => const Color(0xFF557B63),
+      'Victory' => const Color(0xFF2D8DFF),
       'Defeat' => const Color(0xFFFF5C70),
       _ => const Color(0xFFF5C451),
     };

@@ -155,11 +155,7 @@ class _CheckmateArenaAppState extends State<CheckmateArenaApp> {
       debugShowCheckedModeBanner: false,
       theme: AppTheme.lightTheme,
       darkTheme: AppTheme.darkTheme,
-      themeMode: switch (_appearance) {
-        'Light' => ThemeMode.light,
-        'Dark' => ThemeMode.dark,
-        _ => ThemeMode.system,
-      },
+      themeMode: ThemeMode.dark,
       // UserSettingsModel defaults to Dark; start there and let the persisted
       // preference replace it as soon as the preferences page loads.
       builder: (context, child) => _AppearanceBridge(

@@ -375,7 +375,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
       return const Color(0xFFF5C451);
     }
 
-    return const Color(0xFF557B63);
+    return const Color(0xFF2D8DFF);
   }
 
   InputDecoration _inputDecoration({

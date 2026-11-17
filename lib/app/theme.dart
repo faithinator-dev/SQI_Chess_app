@@ -31,7 +31,6 @@ class AppTheme {
   static const divider = Color(0xFF1E3352);
   static const blue = Color(0xFF2D8DFF); // main button
   static const blueLight = Color(0xFF4DA6FF);
-  static const blueDark = Color(0xFF1A6FD1);
   static const textPrimary = Color(0xFFFFFFFF);
   static const textSecondary = Color(0xFFB8C6D9);
   static const textMuted = Color(0xFF8A9BB0);
@@ -41,12 +40,12 @@ class AppTheme {
   // ===== CHESS BOARD - NEW BLUE BOARD =====
   static const boardLight = Color(0xFFD7E6F5);
   static const boardDark = Color(0xFF5A86B8);
-  static const boardWhitePiece = Color(0xFFF5F1E7);
-  static const boardBlackPiece = Color(0xFF1A2B4A);
+  static const boardWhitePiece = textPrimary;
+  static const boardBlackPiece = background;
 
   // ===== STATUS =====
   static const success = Color(0xFF2D8DFF);
-  static const error = Color(0xFFFF5A5A);
+  static const error = blueLight;
   static const warning = Color(0xFFD9A441);
 
   static const errorColor = error;
@@ -83,7 +82,7 @@ class AppTheme {
         foregroundColor: Colors.white,
         minimumSize: const Size(double.infinity, 52),
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(14)),
-        textStyle: const TextStyle(fontSize: 15, fontWeight: FontWeight.w800),
+        textStyle: const TextStyle(        fontSize: 16, fontWeight: FontWeight.w800),
       ),
     ),
     elevatedButtonTheme: ElevatedButtonThemeData(
@@ -96,7 +95,7 @@ class AppTheme {
     textButtonTheme: TextButtonThemeData(
       style: TextButton.styleFrom(
         foregroundColor: textMuted,
-        textStyle: const TextStyle(fontSize: 12, fontWeight: FontWeight.w700),
+        textStyle: const TextStyle(fontSize: 14, fontWeight: FontWeight.w700),
       ),
     ),
     // --- Cards ---

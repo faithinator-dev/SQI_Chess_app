@@ -17,7 +17,7 @@ class _GuestEntryScreenState extends State<GuestEntryScreen> {
   static const Color surface = Color(0xFFFFFFFF);
   static const Color surfaceLight = Color(0xFFEDE9E2);
   static const Color blue = Color(0xFF2D4A3E);
-  static const Color green = Color(0xFF557B63);
+  static const Color green = Color(0xFF2D8DFF);
   static const Color danger = Color(0xFFFF5C70);
   static const Color muted = Color(0xFF737A74);
   static const Color textPrimary = Color(0xFF1A1A1A);

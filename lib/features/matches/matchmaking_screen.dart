@@ -19,7 +19,7 @@ class _MatchmakingScreenState extends State<MatchmakingScreen> {
   static const Color surface2 = Color(0xFFEDE9E2);
   static const Color blue = Color(0xFF2D4A3E);
   static const Color primaryText = Color(0xFF1A1A1A);
-  static const Color green = Color(0xFF557B63);
+  static const Color green = Color(0xFF2D8DFF);
   static const Color danger = Color(0xFFFF5C70);
   static const Color muted = Color(0xFF737A74);
 

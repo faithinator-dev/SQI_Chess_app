@@ -31,13 +31,13 @@ class MatchFoundScreen extends StatelessWidget {
                     width: 76,
                     height: 76,
                     decoration: BoxDecoration(
-                      color: const Color(0xFF557B63).withAlpha(25),
+                      color: const Color(0xFF2D8DFF).withAlpha(25),
                       shape: BoxShape.circle,
                     ),
                     child: const Icon(
                       Icons.check_rounded,
                       size: 42,
-                      color: Color(0xFF557B63),
+                      color: Color(0xFF2D8DFF),
                     ),
                   ),
                   const SizedBox(height: 22),

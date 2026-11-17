@@ -1452,7 +1452,7 @@ class _LanHostScreenState extends State<LanHostScreen> {
     const secondary = Color(0xFF454B46);
     const muted = Color(0xFF737A74);
     const gold = Color(0xFFF5C451);
-    const green = Color(0xFF557B63);
+    const green = Color(0xFF2D8DFF);
 
     return Scaffold(
       backgroundColor: background,
@@ -2265,7 +2265,7 @@ class _LanJoinScreenState extends State<LanJoinScreen> {
     const secondary = Color(0xFF454B46);
     const muted = Color(0xFF737A74);
     const blue = Color(0xFF2D4A3E);
-    const green = Color(0xFF557B63);
+    const green = Color(0xFF2D8DFF);
 
     return Scaffold(
       backgroundColor: background,

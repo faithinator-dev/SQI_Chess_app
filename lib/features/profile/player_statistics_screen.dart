@@ -166,7 +166,7 @@ class _PlayerStatisticsScreenState extends State<PlayerStatisticsScreen> {
                   'Wins',
                   profile.wins,
                   total,
-                  const Color(0xFF557B63),
+                  const Color(0xFF2D8DFF),
                 ),
                 _resultBar(
                   'Losses',

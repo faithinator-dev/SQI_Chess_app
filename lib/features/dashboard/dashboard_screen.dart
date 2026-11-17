@@ -394,7 +394,7 @@ class _HomeTabState extends State<_HomeTab> {
                 child: const Text(
                   'SQI',
                   style: TextStyle(
-                    fontSize: 10,
+                    fontSize: 14,
                     letterSpacing: 1.1,
                     fontWeight: FontWeight.w800,
                     color: Color(0xFF8A9BB0),
@@ -489,7 +489,7 @@ class _HomeTabState extends State<_HomeTab> {
             children: [
               const Text(
                 '124,802 players online',
-                style: TextStyle(fontSize: 11, color: Color(0xFF8A9BB0)),
+                style: TextStyle(fontSize: 14, color: Color(0xFF8A9BB0)),
               ),
               const Spacer(),
               Container(
@@ -504,7 +504,7 @@ class _HomeTabState extends State<_HomeTab> {
                 child: const Text(
                   'RAPID   10 + 5',
                   style: TextStyle(
-                    fontSize: 10,
+                    fontSize: 14,
                     letterSpacing: .45,
                     fontWeight: FontWeight.w800,
                     color: Color(0xFFB8C6D9),
@@ -577,7 +577,7 @@ class _HomeTabState extends State<_HomeTab> {
                 child: const Text(
                   'See all  →',
                   style: TextStyle(
-                    fontSize: 12,
+                    fontSize: 14,
                     fontWeight: FontWeight.w700,
                     color: Color(0xFF8A9BB0),
                   ),
@@ -611,7 +611,7 @@ class _HomeTabState extends State<_HomeTab> {
               const Text(
                 'DAILY CHALLENGE',
                 style: TextStyle(
-                  fontSize: 10,
+                  fontSize: 14,
                   letterSpacing: 1.1,
                   fontWeight: FontWeight.w900,
                   color: Color(0xFF2D8DFF),
@@ -631,7 +631,7 @@ class _HomeTabState extends State<_HomeTab> {
               const Text(
                 'Solve today’s puzzle →',
                 style: TextStyle(
-                  fontSize: 11,
+                  fontSize: 14,
                   color: Color(0xFFB8C6D9),
                   fontWeight: FontWeight.w700,
                 ),
@@ -697,7 +697,7 @@ class _HomeTabState extends State<_HomeTab> {
                                 style: TextStyle(
                                   color: piece.toUpperCase() == piece
                                       ? const Color(0xFFF5F1E7)
-                                      : const Color(0xFF1A2B4A),
+                                      : AppTheme.background,
                                   fontSize: 18,
                                   height: 1,
                                 ),
@@ -737,7 +737,7 @@ class _HomeTabState extends State<_HomeTab> {
               label,
               textAlign: TextAlign.center,
               style: const TextStyle(
-                fontSize: 11,
+                fontSize: 14,
                 fontWeight: FontWeight.w700,
                 color: Colors.white,
               ),
@@ -767,7 +767,7 @@ class _HomeTabState extends State<_HomeTab> {
           alignment: Alignment.center,
           child: const Text(
             '♘',
-            style: TextStyle(fontSize: 40, color: Color(0xFFE9E6D7)),
+            style: TextStyle(fontSize: 40, color: AppTheme.textPrimary),
           ),
         ),
         const SizedBox(width: 14),
@@ -779,7 +779,7 @@ class _HomeTabState extends State<_HomeTab> {
               Text(
                 lesson?.category.toUpperCase() ?? 'OPENING THEORY',
                 style: const TextStyle(
-                  fontSize: 9,
+                  fontSize: 14,
                   letterSpacing: .9,
                   color: AppTheme.blue,
                   fontWeight: FontWeight.w800,
@@ -800,7 +800,7 @@ class _HomeTabState extends State<_HomeTab> {
                 lesson == null
                     ? 'Lesson 04  ·  8 min left'
                     : 'Lesson ${lesson.sortOrder.toString().padLeft(2, '0')}  ·  ${lesson.durationMinutes} min',
-                style: const TextStyle(fontSize: 10, color: AppTheme.textMuted),
+                style: const TextStyle(fontSize: 14, color: AppTheme.textMuted),
               ),
               const SizedBox(height: 7),
               ClipRRect(
@@ -844,12 +844,12 @@ class _HomeTabState extends State<_HomeTab> {
           children: [
             Text(
               'day streak',
-              style: TextStyle(fontSize: 11, color: AppTheme.textSecondary),
+              style: TextStyle(fontSize: 14, color: AppTheme.textSecondary),
             ),
             SizedBox(height: 3),
             Text(
               'M  T  W  T  F  S  S',
-              style: TextStyle(fontSize: 9, color: AppTheme.textMuted),
+              style: TextStyle(fontSize: 14, color: AppTheme.textMuted),
             ),
           ],
         ),
@@ -864,7 +864,7 @@ class _HomeTabState extends State<_HomeTab> {
             ),
             Text(
               'XP earned',
-              style: TextStyle(fontSize: 9, color: AppTheme.textMuted),
+              style: TextStyle(fontSize: 14, color: AppTheme.textMuted),
             ),
           ],
         ),
@@ -1250,7 +1250,7 @@ class _HomeTabState extends State<_HomeTab> {
                             Text(
                               lesson.category.toUpperCase(),
                               style: const TextStyle(
-                                fontSize: 11,
+                                fontSize: 14,
                                 color: _Colors.blue,
                                 fontWeight: FontWeight.w900,
                                 letterSpacing: 1.2,
@@ -1271,7 +1271,7 @@ class _HomeTabState extends State<_HomeTab> {
                             Text(
                               '${lesson.progress}% complete • ${lesson.durationMinutes} min',
                               style: const TextStyle(
-                                fontSize: 12,
+                                fontSize: 14,
                                 color: _Colors.textMuted,
                               ),
                             ),
@@ -1865,7 +1865,7 @@ class _QuickAction extends StatelessWidget {
                 data.title,
                 textAlign: TextAlign.center,
                 style: const TextStyle(
-                  fontSize: 13,
+                  fontSize: 14,
                   color: _Colors.textPrimary,
                   fontWeight: FontWeight.w700,
                 ),
@@ -1905,7 +1905,7 @@ class _SectionTitle extends StatelessWidget {
             child: Text(
               actionLabel!,
               style: const TextStyle(
-                fontSize: 13,
+                fontSize: 14,
                 color: _Colors.blue,
                 fontWeight: FontWeight.w700,
               ),
@@ -1974,18 +1974,18 @@ class _HeroChessVisual extends StatelessWidget {
           begin: Alignment.topLeft,
           end: Alignment.bottomRight,
           colors: [
-            const Color(0xFF1A6BB5).withValues(alpha: 0.18),
-            const Color(0xFF4A9FE0).withValues(alpha: 0.08),
+            AppTheme.blue.withValues(alpha: 0.18),
+            AppTheme.blueLight.withValues(alpha: 0.08),
           ],
         ),
         border: Border.all(
-          color: const Color(0xFF1A6BB5).withValues(alpha: 0.20),
+          color: AppTheme.blue.withValues(alpha: 0.20),
         ),
       ),
       child: const Center(
         child: Text(
           '♞',
-          style: TextStyle(fontSize: 20, color: Color(0xFF1A6BB5)),
+          style: TextStyle(fontSize: 20, color: AppTheme.blue),
         ),
       ),
     );

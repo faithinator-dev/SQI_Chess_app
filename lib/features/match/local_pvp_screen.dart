@@ -22,7 +22,7 @@ class _LocalPvpScreenState extends State<LocalPvpScreen> {
   static const Color surface2 = Color(0xFFEDE9E2);
 
   static const Color blue = Color(0xFF2D4A3E);
-  static const Color green = Color(0xFF557B63);
+  static const Color green = Color(0xFF2D8DFF);
   static const Color gold = Color(0xFFF5C451);
   static const Color danger = Color(0xFFFF5C70);
 

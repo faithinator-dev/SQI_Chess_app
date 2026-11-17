@@ -1352,7 +1352,7 @@ class _ProfileColors {
   static const Color surface3 = Color(0xFFE8F0EC);
 
   static const Color blue = Color(0xFF2D4A3E);
-  static const Color green = Color(0xFF557B63);
+  static const Color green = Color(0xFF2D8DFF);
   static const Color gold = Color(0xFFF5C451);
   static const Color purple = Color(0xFF9B7BFF);
   static const Color red = Color(0xFFFF5C70);
